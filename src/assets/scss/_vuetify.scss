@@ -1,0 +1,13 @@
+.v-btn {
+	:deep(.v-btn__content) {
+		text-transform: none !important;
+	}
+	:deep(.v-icon) {
+		font-size: 1.25rem; // 20px
+	}
+	&.center-icon {
+		:deep(.v-icon) {
+			margin: auto;
+		}
+	}
+}

@@ -1,0 +1,31 @@
+// @import './animation';
+$scrollbar-width: 10px;
+.custom-scrollbar {
+	&::-webkit-scrollbar {
+		width: $scrollbar-width;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.2);
+		background-clip: padding-box;
+		border-radius: 16px;
+		border: 3px solid transparent;
+		visibility: hidden;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.4);
+			cursor: pointer !important;
+			visibility: visible !important;
+		}
+	}
+
+	&.mouse-moving {
+		&::-webkit-scrollbar-thumb {
+			visibility: visible;
+		}
+	}
+}
