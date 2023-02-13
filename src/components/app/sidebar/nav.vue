@@ -11,7 +11,7 @@ import { NavProps } from '~/types';
 							isCorrectRoute(props.url)
 								? 'font-weight-bold'
 								: 'font-weight-medium',
-							...(isSubnavActive ? ['subnav-active'] : []),
+							...(isSubnavActive ? ['subnav-active'] : [])
 						]"
 						variant="text"
 						:color="
@@ -26,40 +26,44 @@ import { NavProps } from '~/types';
 						v-bind="hoverProps"
 						@click="showSubNav = !showSubNav"
 					>
-						{{ props.isExpand ? props.text : '' }}
+						{{ props.isExpand ? props.name : '' }}
 						<v-icon
 							v-if="hasSubnav && props.isExpand"
 							:icon="mdiChevronUp"
 							:class="{ rotate: showSubNav }"
 							class="nav-caret"
-						/> </v-btn
-				></nuxt-link>
+						/>
+					</v-btn>
+				</nuxt-link>
 				<div
 					v-if="hasSubnav"
 					:class="{ 'subnav-show': showSubNav }"
 					class="subnav my-1 rounded-lg"
 					v-bind="hoverProps"
 				>
-					<v-btn
+					<nuxt-link
 						v-for="n in props.subnav"
 						:key="n.url"
-						:prepend-icon="n.icon"
-						variant="text"
-						color="text-black-blur"
-						rounded="lg"
-						class="subnav-item font-weight-medium"
-						:class="{
-							'pl-8': props.isExpand,
-							'font-weight-bold': isCorrectRoute(n.url),
-							...(isCorrectRoute(n.url)
-								? { 'font-weight-bold': true, 'current-route': true }
-								: {}),
-						}"
+						:to="n.url"
+						class="subnav-link"
 					>
-						<nuxt-link :to="n.url">{{
-							props.isExpand ? n.text : ''
-						}}</nuxt-link></v-btn
-					>
+						<v-btn
+							:prepend-icon="n.icon"
+							variant="text"
+							color="text-black-blur"
+							rounded="lg"
+							class="subnav-item font-weight-medium"
+							:class="{
+								'pl-8': props.isExpand,
+								'font-weight-bold': isCorrectRoute(n.url),
+								...(isCorrectRoute(n.url)
+									? { 'font-weight-bold': true, 'current-route': true }
+									: {})
+							}"
+						>
+							{{ props.isExpand ? n.name : '' }}
+						</v-btn>
+					</nuxt-link>
 				</div>
 			</template>
 		</v-hover>
@@ -69,11 +73,11 @@ import { NavProps } from '~/types';
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { Nav } from '~/types'
 import { mdiChevronUp } from '@mdi/js'
+import { Nav } from '~/types'
 
 interface NavProps extends Nav {
-	text: string
+	name: string
 	icon?: string
 	url?: string
 	subnav?: Nav[]
@@ -82,6 +86,7 @@ interface NavProps extends Nav {
 
 const route = useRoute()
 const props = defineProps<NavProps>()
+
 const showSubNav = ref(!!props.subnav?.some(nav => nav.url === route.path))
 const isSubnavActive = computed(() => {
 	return !!props.subnav?.some(nav => nav.url === route.path)
@@ -111,6 +116,10 @@ const isCorrectRoute = (path?: string) => {
 	height: 3rem;
 	border-radius: 0.75rem !important;
 	z-index: 9999;
+	padding: 0 18px;
+	:deep(.v-btn__content) {
+		font-weight: 500;
+	}
 	&.subnav-active {
 		background-color: $primary-color-lighten-3;
 	}
@@ -139,9 +148,13 @@ const isCorrectRoute = (path?: string) => {
 		justify-content: flex-start;
 		width: 100%;
 		transition: padding-left 100ms;
-		opacity: 0.7 !important;
 		&.current-route {
-			opacity: 1 !important;
+			:deep(.v-icon) {
+				color: $primary-color;
+			}
+			:deep(.v-btn__content) {
+				color: $primary-color;
+			}
 		}
 
 		:deep(.v-icon) {
@@ -159,15 +172,18 @@ const isCorrectRoute = (path?: string) => {
 
 	&.subnav-show {
 		max-height: 200px;
-		.subnav-item {
-			padding-left: 18px;
+		.subnav-link {
+			display: block;
 			animation: float-to-left 200ms ease-out forwards;
-			transform: translateX(60px);
 			visibility: hidden;
+			transform: translateX(40px);
 			@for $var from 1 through 10 {
 				&:nth-of-type(#{$var}) {
-					animation-delay: #{($var - 1) * 200}ms;
+					animation-delay: #{($var - 1) * 150}ms;
 				}
+			}
+			.subnav-item {
+				padding-left: 18px;
 			}
 		}
 	}

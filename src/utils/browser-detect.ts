@@ -2,19 +2,19 @@ export const getBrowserName = (
 	agent = window.navigator.userAgent.toLowerCase()
 ) => {
 	switch (true) {
-		case agent.indexOf('edge') > -1:
+		case agent.includes('edge'):
 			return 'MS Edge'
-		case agent.indexOf('edg/') > -1:
+		case agent.includes('edg/'):
 			return 'Edge (chromium based)'
-		case agent.indexOf('opr') > -1:
+		case agent.includes('opr'):
 			return 'Opera'
-		case agent.indexOf('chrome') > -1:
+		case agent.includes('chrome'):
 			return 'Chrome'
-		case agent.indexOf('trident') > -1:
+		case agent.includes('trident'):
 			return 'MS IE'
-		case agent.indexOf('firefox') > -1:
+		case agent.includes('firefox'):
 			return 'Mozilla Firefox'
-		case agent.indexOf('safari') > -1:
+		case agent.includes('safari'):
 			return 'Safari'
 		default:
 			return 'other'

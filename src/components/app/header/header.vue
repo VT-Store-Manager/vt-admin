@@ -1,5 +1,5 @@
 <template>
-	<header class="header">
+	<header class="header bg-secondary">
 		<div class="header-left">
 			<app-header-breadcrumbs />
 		</div>

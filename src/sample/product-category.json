@@ -1,0 +1,101 @@
+[
+	{
+		"code": "PC0",
+		"image": "/category.jpg",
+		"name": "Cầu Toàn Kèo Thơm",
+		"amount": 10,
+		"sold": 100,
+		"status": "active",
+		"order": 1
+	},
+	{
+		"code": "PC1",
+		"image": "/category.jpg",
+		"name": "Cà phê",
+		"amount": 10,
+		"sold": 100,
+		"status": "active",
+		"order": 2
+	},
+	{
+		"code": "PC2",
+		"image": "/category.jpg",
+		"name": "CloudFee",
+		"amount": 5,
+		"sold": 100,
+		"status": "inactive",
+		"order": 3
+	},
+	{
+		"code": "PC3",
+		"image": "/category.jpg",
+		"name": "CloudTea",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 4
+	},
+	{
+		"code": "PC4",
+		"image": "/category.jpg",
+		"name": "Hi-Tea Healthy",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 5
+	},
+	{
+		"code": "PC5",
+		"image": "/category.jpg",
+		"name": "Trà Trái Cây - Trà Sữa",
+		"amount": 2,
+		"sold": 2456,
+		"status": "removed",
+		"order": 6
+	},
+	{
+		"code": "PC6",
+		"image": "/category.jpg",
+		"name": "Thưởng thức tại nhà",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 7
+	},
+	{
+		"code": "PC7",
+		"image": "/category.jpg",
+		"name": "Bánh - Snack",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 8
+	},
+	{
+		"code": "PC8",
+		"image": "/category.jpg",
+		"name": "Thức uống khác",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 9
+	},
+	{
+		"code": "PC9",
+		"image": "/category.jpg",
+		"name": "Thức uống khác",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 9
+	},
+	{
+		"code": "PC10",
+		"image": "/category.jpg",
+		"name": "Thức uống khác",
+		"amount": 2,
+		"sold": 100,
+		"status": "removed",
+		"order": 9
+	}
+]

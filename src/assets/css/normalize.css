@@ -2,14 +2,19 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	user-select: none;
 }
 
 body {
 	height: 100vh;
 }
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 html {
-	font-family: 'Noto Sans', sans-serif;
+	font-family: 'Noto Sans', sans-serif !important;
 	font-size: 100%;
 	overflow-y: overlay;
 	scroll-behavior: smooth;

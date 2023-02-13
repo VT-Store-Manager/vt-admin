@@ -1,5 +1,5 @@
 export type Nav = {
-	text: string
+	name: string
 	icon?: string
 	url?: string
 }
