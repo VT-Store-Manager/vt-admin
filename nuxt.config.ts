@@ -3,16 +3,13 @@ import vuetify from 'vite-plugin-vuetify'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	srcDir: './src',
-	css: [
-		'vuetify/styles',
-		'@mdi/font/css/materialdesignicons.css',
-		'~/assets/css/tailwind.css',
-		'~/assets/css/normalize.css',
-		'~/assets/scss/main.scss',
-	],
+	css: ['~/assets/css/normalize.css', '~/assets/scss/main.scss'],
+	imports: {
+		dirs: ['composables/**']
+	},
 	vite: {
 		ssr: {
-			noExternal: ['vuetify'],
+			noExternal: ['vuetify']
 		},
 		css: {
 			preprocessorOptions: {
@@ -20,50 +17,55 @@ export default defineNuxtConfig({
 					additionalData: `
 					@import "~/assets/scss/variable";
 					@import "~/assets/scss/animation";
-					@import "~/assets/scss/vuetify";
+					@import "~/assets/scss/components";
 					@import "~/assets/scss/scrollbar";
-					`,
-				},
-			},
-		},
+					`
+				}
+			}
+		}
 	},
 	components: [
 		{
-			path: '~/components',
+			path: '~/components'
 		},
 		{
-			path: '~/components/base',
-			pathPrefix: false,
-		},
+			path: '~/components/base/button',
+			pathPrefix: false
+		}
 	],
 	modules: [
-		async (options, nuxt) => {
+		(options, nuxt) => {
 			nuxt.hooks.hook('vite:extendConfig', config => {
-				config.plugins?.push(vuetify())
+				config.plugins?.push(
+					// vuetify({
+					// 	styles: { configFile: 'assets/scss/_settings.scss' },
+					// })
+					vuetify()
+				)
 			})
 		},
 		'@nuxt/image-edge',
 		'@nuxtjs/google-fonts',
-		'@pinia/nuxt',
+		'@pinia/nuxt'
 	],
 	image: {},
 	googleFonts: {
 		families: {
-			'Noto+Sans': {
-				wght: [300, 400, 500, 600, 700, 900],
-			},
-		},
-		display: 'fallback',
+			'Noto Sans': {
+				wght: [300, 400, 500, 600, 700, 900]
+			}
+		}
+		// display: 'fallback',
 	},
 	pinia: {
-		autoImports: ['defineStore', ['defineStore', 'definePiniaStore']],
+		autoImports: ['defineStore', ['defineStore', 'definePiniaStore']]
 	},
 	postcss: {
 		plugins: {
 			autoprefixer: {},
 			'postcss-import': {},
 			'postcss-url': {},
-			...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
-		},
-	},
+			...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
+		}
+	}
 })

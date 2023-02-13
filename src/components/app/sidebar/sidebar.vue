@@ -1,9 +1,7 @@
 <template>
 	<aside
-		ref="sidebar"
 		class="sidebar"
 		:class="{ 'sidebar-collapse': isCollapse }"
-		@mousemove="showScrollbar()"
 	>
 		<v-hover v-slot="{ isHovering, props }">
 			<div
@@ -23,8 +21,9 @@
 						<span
 							v-if="!isCollapse || isHovering"
 							class="text-primary text-uppercase font-weight-black"
-							><strong>Vuetify</strong></span
 						>
+							<strong>Vuetify</strong>
+						</span>
 					</div>
 					<v-hover v-slot="{ isHovering: isHovering2, props: props2 }">
 						<v-btn
@@ -40,14 +39,15 @@
 							<v-icon
 								:icon="mdiArrowLeft"
 								size="large"
-							/> </v-btn
-					></v-hover>
+							/>
+						</v-btn>
+					</v-hover>
 				</div>
 				<nav
-					ref="nav"
+					ref="navRef"
 					class="sidebar-nav custom-scrollbar pb-3"
 					:class="{ 'is-expand': isHovering || !isCollapse }"
-					@scroll="showScrollbar()"
+					@scroll="throttleShowScrollbar()"
 				>
 					<p
 						v-if="isHovering || !isCollapse"
@@ -62,9 +62,9 @@
 						...
 					</p>
 					<app-sidebar-nav
-						v-for="nav in navigations"
-						:key="nav.url"
-						v-bind="nav"
+						v-for="route in navigations"
+						:key="route.url"
+						v-bind="route"
 						class="sidebar-nav__item"
 						:is-expand="isHovering || !isCollapse"
 					/>
@@ -75,161 +75,21 @@
 </template>
 
 <script lang="ts" setup>
-import {
-	mdiVuetify,
-	mdiArrowLeft,
-	mdiHome,
-	mdiAccountGroup,
-	mdiShieldAccountOutline,
-	mdiPointOfSale,
-	mdiAccountStar,
-	mdiCoffee,
-	mdiCupOutline,
-	mdiListBoxOutline,
-	mdiStore,
-	mdiTicketPercent,
-	mdiSale,
-	mdiAccountOutline,
-	mdiStarOutline,
-	mdiTrophyVariant,
-	mdiCartArrowRight,
-	mdiTextBox,
-	mdiApplicationCog,
-	mdiApplicationSettingsOutline,
-	mdiStoreSettingsOutline,
-	mdiTimerSettingsOutline,
-	mdiAccountSettingsOutline,
-} from '@mdi/js'
-import { Nav } from '~/types'
+import { mdiVuetify, mdiArrowLeft } from '@mdi/js'
 import { ref } from 'vue'
 import _ from 'lodash'
-
-type NavProp = Nav & {
-	subnav?: Nav[]
-}
+import { navigations } from '~/routes/sidebar-navigation'
 
 const isCollapse = ref(false)
-const sidebar = ref<null | HTMLElement>(null)
-const nav = ref<null | HTMLElement>(null)
-const navigations: NavProp[] = [
-	{
-		text: 'Dashboard',
-		url: '/',
-		icon: mdiHome,
-	},
-	{
-		text: 'Account',
-		icon: mdiAccountGroup,
-		subnav: [
-			{
-				text: 'Admin',
-				url: '/account/admin',
-				icon: mdiShieldAccountOutline,
-			},
-			{
-				text: 'Sale',
-				url: '/account/sale',
-				icon: mdiPointOfSale,
-			},
-		],
-	},
-	{
-		text: 'Member',
-		icon: mdiAccountStar,
-		subnav: [
-			{
-				text: 'Member list',
-				url: '/account/member',
-				icon: mdiAccountOutline,
-			},
-			{
-				text: 'Ranking setting',
-				url: '/account/member',
-				icon: mdiStarOutline,
-			},
-		],
-	},
-	{
-		text: 'Product',
-		icon: mdiCoffee,
-		subnav: [
-			{
-				text: 'List',
-				url: '/product',
-				icon: mdiListBoxOutline,
-			},
-			{
-				text: 'Options',
-				url: '/product/option',
-				icon: mdiCupOutline,
-			},
-		],
-	},
-	{
-		text: 'Store',
-		url: '/store',
-		icon: mdiStore,
-	},
-	{
-		text: 'Voucher',
-		url: '/voucher',
-		icon: mdiTicketPercent,
-	},
-	{
-		text: 'Promotion',
-		url: '/promotion',
-		icon: mdiSale,
-	},
-	{
-		text: 'Achievement',
-		url: '/achievement',
-		icon: mdiTrophyVariant,
-	},
-	{
-		text: 'Order history',
-		url: '/order',
-		icon: mdiCartArrowRight,
-	},
-	{
-		text: 'Template',
-		url: '/template',
-		icon: mdiTextBox,
-	},
-	{
-		text: 'App setting',
-		icon: mdiApplicationCog,
-		subnav: [
-			{
-				text: 'General',
-				url: '/setting-general',
-				icon: mdiApplicationSettingsOutline,
-			},
-			{
-				text: 'Sale app',
-				url: '/setting-sale',
-				icon: mdiStoreSettingsOutline,
-			},
-			{
-				text: 'OP app',
-				url: '/setting-order-processor',
-				icon: mdiTimerSettingsOutline,
-			},
-			{
-				text: 'Member app',
-				url: '/setting-member',
-				icon: mdiAccountSettingsOutline,
-			},
-		],
-	},
-]
-const deleteScrollbar = _.debounce(() => {
-	nav.value?.classList.remove('mouse-moving')
+const navRef = ref<null | HTMLElement>(null)
+const deleteThrottleScrollbar = _.debounce(() => {
+	navRef.value?.classList.remove('show-scrollbar')
 }, 500)
 
-const showScrollbar = _.throttle(() => {
-	if (!nav.value?.classList.contains('mouse-moving'))
-		nav.value?.classList.add('mouse-moving')
-	deleteScrollbar()
+const throttleShowScrollbar = _.throttle(() => {
+	if (!navRef.value?.classList.contains('show-scrollbar'))
+		navRef.value?.classList.add('show-scrollbar')
+	deleteThrottleScrollbar()
 }, 50)
 </script>
 
@@ -260,6 +120,9 @@ const showScrollbar = _.throttle(() => {
 		&::-webkit-scrollbar-button:vertical:decrement {
 			height: $padding-top-nav + 10px;
 		}
+		&::-webkit-scrollbar-thumb {
+			visibility: hidden;
+		}
 
 		.nav-title {
 			padding-left: 24px;
@@ -276,11 +139,11 @@ const showScrollbar = _.throttle(() => {
 
 		&__item {
 			opacity: 0;
-			animation: float-to-left 150ms ease-out forwards;
+			animation: float-to-left 400ms ease-out forwards;
 
 			@for $var from 1 through 14 {
 				&:nth-of-type(#{$var}) {
-					animation-delay: #{($var - 1) * 100}ms;
+					animation-delay: #{($var - 1) * 50}ms;
 				}
 			}
 		}

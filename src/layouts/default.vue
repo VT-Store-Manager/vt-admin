@@ -1,12 +1,10 @@
 <template>
 	<div class="wrapper">
 		<app-sidebar />
-		<div class="main">
+		<main class="main custom-scrollbar">
 			<app-header />
-			<app-container>
-				<slot></slot>
-			</app-container>
-		</div>
+			<slot></slot>
+		</main>
 	</div>
 </template>
 
@@ -19,6 +17,10 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
+		overflow-y: scroll;
+		&::-webkit-scrollbar {
+			width: 16px;
+		}
 	}
 }
 </style>

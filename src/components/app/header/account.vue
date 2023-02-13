@@ -1,6 +1,6 @@
 <template>
 	<div class="account d-flex">
-		<v-avatar image="avatar-sample.webp" />
+		<v-avatar image="/avatar-sample.webp" />
 		<div class="account-info">
 			<p class="account-info__name"><b>Vinh NQ</b></p>
 			<p class="account-info__role">Software engineer</p>
