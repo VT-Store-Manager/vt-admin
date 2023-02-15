@@ -2,7 +2,9 @@
 	<div class="page bg-screen">
 		<div class="page-title d-flex justify-space-between align-center">
 			<div class="page-title__left d-flex align-center">
-				<h2 class="page-title__name">{{ pageName }}</h2>
+				<h2 class="page-title__name">
+					{{ pageName }}
+				</h2>
 				<template v-if="$slots.subtitle">
 					<v-divider
 						class="mx-4"
@@ -63,10 +65,10 @@ defineProps<Props>()
 
 	:deep(.v-progress-circular) {
 		svg {
-			animation-duration: 600ms;
+			animation-duration: 800ms;
 		}
 		&.done {
-			animation: fade 900ms forwards reverse;
+			animation: fade 400ms linear 500ms forwards reverse;
 			display: inline-flex !important;
 		}
 	}

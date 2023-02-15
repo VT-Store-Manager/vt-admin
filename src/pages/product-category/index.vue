@@ -3,7 +3,6 @@
 		<template #subtitle>
 			<p>
 				{{ productCategoryData ? productCategoryData.length : 0 }} categories
-				{{ error }}
 			</p>
 		</template>
 		<template #title-right>
@@ -32,12 +31,12 @@
 		<base-table v-show="!loading || !firstLoad">
 			<template #head>
 				<base-table-th
-					v-for="fieldName in fieldNameList"
+					v-for="fieldName in fieldNameList ?? []"
 					:key="fieldName"
 					:title="variableCaseToText(fieldName)"
 					:field-name="fieldName"
 					:sorting-field-name="sortingFieldName"
-					@sort="onSort"
+					@sort="onDataSort"
 				/>
 				<base-table-th
 					title="Actions"
@@ -48,29 +47,52 @@
 			</template>
 			<template #data>
 				<tr
-					v-for="row in productCategoryData"
-					:key="row.code"
+					v-for="(row, index) in productCategoryData || []"
+					:key="row.id"
+					:class="{ 'bg-screen': index % 2 == 1 }"
 				>
 					<td>
-						<nuxt-link :to="'/product-category/' + row.code">
-							{{ row.code }}
-						</nuxt-link>
+						<v-hover>
+							<template #default="{ isHovering: hoveringId, props: idProps }">
+								<nuxt-link
+									:to="`/product-category/${row.id}`"
+									v-bind="idProps"
+									:class="{ 'text-primary-darken': hoveringId }"
+								>
+									{{ row.id }}
+								</nuxt-link>
+							</template>
+						</v-hover>
 					</td>
 					<td class="d-flex align-center">
-						<nuxt-link
-							:to="'/product/category/' + row.code"
-							class="d-flex align-center"
-						>
-							<nuxt-img
-								class="d-block mr-2 rounded"
-								:src="row.image || faker.image.food(40, 40, true)"
-								:width="40"
-							/>
-							<span class="ellipsis-2">{{ row.name }}</span>
-						</nuxt-link>
+						<v-hover>
+							<template
+								#default="{ isHovering: hoveringName, props: nameProps }"
+							>
+								<nuxt-link
+									:to="'/product-category/' + row.id"
+									class="d-flex align-center"
+									v-bind="nameProps"
+								>
+									<nuxt-img
+										class="d-block mr-2 rounded"
+										:src="row.image || faker.image.food(40, 40, true)"
+										:width="40"
+										:class="{ 'hover-blur': hoveringName }"
+									/>
+									<span
+										class="ellipsis-2"
+										:class="{ 'text-primary-darken': hoveringName }"
+									>
+										{{ row.name }}
+									</span>
+								</nuxt-link>
+							</template>
+						</v-hover>
 					</td>
-					<td>{{ row.amount }}</td>
-					<td>{{ row.sold }}</td>
+					<td>{{ row.amountOfProduct }}</td>
+					<td>{{ row.totalSold }}</td>
+					<td>{{ row.soldOfWeek }}</td>
 					<td>
 						<v-chip
 							size="small"
@@ -91,16 +113,30 @@
 							edit
 							delete
 							show-text
-							@click:edit="onEditItem(row.code)"
-							@click:delete="rowCodeConfirmed = row.code"
+							@click:edit="onEditItem(row.id)"
+							@click:delete="rowCodeConfirmed = row.id"
 						/>
 					</td>
 					<base-table-confirm-delete
-						:show="rowCodeConfirmed === row.code"
+						:show="rowCodeConfirmed === row.id"
 						@click:cancel="rowCodeConfirmed = null"
-						@click:confirm-delete="onDeleteItem(row.code)"
+						@click:confirm-delete="onDeleteItem(row.id)"
 					/>
 				</tr>
+			</template>
+			<template #alternative-row>
+				<td
+					v-if="error || !productCategoryData"
+					colspan="7"
+				>
+					Get product category data error
+				</td>
+				<td
+					v-else-if="productCategoryData?.length === 0"
+					colspan="7"
+				>
+					No data
+				</td>
 			</template>
 		</base-table>
 	</template-page-container>
@@ -122,10 +158,11 @@ const {
 } = useProductCategoryList()
 
 const fieldNameList: Array<keyof ProductCategoryModel> = [
-	'code',
+	'id',
 	'name',
-	'amount',
-	'sold',
+	'amountOfProduct',
+	'totalSold',
+	'soldOfWeek',
 	'status'
 ]
 const sortingFieldName = ref<undefined | keyof ProductCategoryModel>(undefined)
@@ -134,24 +171,17 @@ const firstLoad = ref(true)
 const rowCodeConfirmed = ref<null | string>(null)
 const router = useRouter()
 
-const refreshData = () => {
+const refreshData = async () => {
 	sortingFieldName.value = undefined
-	fetchGet()
+	const controller = getAbortController()
+	await fetchGet({ signal: controller.signal })
+	clearTimeout(controller.timeoutId)
 }
 
-const onSort = (fieldName: keyof ProductCategoryModel, ascOrder: boolean) => {
-	sortingFieldName.value = fieldName
+const onDataSort = (fieldName: string, ascOrder: boolean) => {
+	sortingFieldName.value = fieldName as keyof ProductCategoryModel
 	productCategoryData.value?.sort(
-		(a: ProductCategoryModel, b: ProductCategoryModel) => {
-			const val1 = a[fieldName]
-			const val2 = b[fieldName]
-			if (!val1 && !val2) return 0
-			if (!val1) return ascOrder ? -1 : 1
-			if (!val2) return ascOrder ? 1 : -1
-			if (val1 < val2) return ascOrder ? -1 : 1
-			if (val1 > val2) return ascOrder ? 1 : -1
-			return 0
-		}
+		dataCompareFunc<ProductCategoryModel>(sortingFieldName.value, ascOrder)
 	)
 }
 
@@ -161,11 +191,11 @@ watch(loading, () => {
 	if (!loading.value && firstLoad.value) firstLoad.value = false
 })
 
-const onEditItem = (code: string) => {
-	router.push({ path: `/product-category/${code}/edit` })
+const onEditItem = (id: string) => {
+	router.push({ path: `/product-category/${id}/edit` })
 }
-const onDeleteItem = (code: string) => {
+const onDeleteItem = (id: string) => {
 	rowCodeConfirmed.value = null
-	console.log('Delete:', code)
+	console.log('Delete:', id)
 }
 </script>

@@ -24,24 +24,23 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue'
 import { mdiMenuDown, mdiMenuUp } from '@mdi/js'
-import { ProductCategoryModel } from '~/types/models/product-category'
 
 interface Props {
 	title: string
-	fieldName?: keyof ProductCategoryModel
+	fieldName?: string
 	sortable?: boolean
-	sortingFieldName?: keyof ProductCategoryModel
+	sortingFieldName?: string
 	textAlign?: 'left' | 'right' | 'center'
 	showSortIcon?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
-	fieldName: 'code',
+	fieldName: 'id',
 	sortable: true,
 	textAlign: 'left',
 	showSortIcon: true
 })
 const emit = defineEmits<{
-	(e: 'sort', fieldName: keyof ProductCategoryModel, isAsc: boolean): void
+	(e: 'sort', fieldName: string, isAsc: boolean): void
 }>()
 
 const ascOrder = ref(true)
@@ -74,6 +73,9 @@ th.table-head {
 		:deep(.v-btn__content) {
 			text-transform: uppercase !important;
 			letter-spacing: normal;
+			white-space: break-spaces;
+			text-align: left;
+			position: relative;
 		}
 		&.text-right {
 			* {
@@ -89,6 +91,10 @@ th.table-head {
 			background-color: transparent;
 		}
 		.v-icon {
+			position: absolute;
+			left: calc(100% - 6px);
+			top: 50%;
+			transform: translateY(-50%);
 			&.hide {
 				visibility: hidden;
 			}
