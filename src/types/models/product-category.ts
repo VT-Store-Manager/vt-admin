@@ -1,9 +1,10 @@
 export interface ProductCategoryModel {
-	code: string
+	id: string
 	image: string
 	name: string
 	status: 'active' | 'inactive' | 'removed'
-	amount?: number
-	sold?: number
+	amountOfProduct?: number
+	totalSold?: number
+	soldOfWeek?: number
 	order: number
 }

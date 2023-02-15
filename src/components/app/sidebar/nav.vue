@@ -93,7 +93,8 @@ const isSubnavActive = computed(() => {
 })
 const hasSubnav = computed(() => props.subnav && props.subnav.length > 0)
 const isCorrectRoute = (path?: string) => {
-	return route.path === path
+	if (!path) return false
+	return new RegExp(`(^${path}\$)|(^${path}[/?])`).test(route.path)
 }
 </script>
 
