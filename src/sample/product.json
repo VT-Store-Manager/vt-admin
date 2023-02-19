@@ -6,7 +6,8 @@
 		"originalPrice": 69000,
 		"saleOfMonth": 109,
 		"category": "Trà trái cây",
-		"updatedAt": "2023-02-14 12:00:01"
+		"updatedAt": "2023-02-14 12:00:01",
+		"status": "active"
 	},
 	{
 		"id": "P01",
@@ -15,7 +16,8 @@
 		"originalPrice": 75000,
 		"saleOfMonth": 62,
 		"category": "CloudTea",
-		"updatedAt": "2023-02-14 12:00:01"
+		"updatedAt": "2023-02-14 12:00:01",
+		"status": "inactive"
 	},
 	{
 		"id": "P02",
@@ -24,6 +26,7 @@
 		"originalPrice": 72000,
 		"saleOfMonth": 109,
 		"category": "Hi Tea Healthy",
-		"updatedAt": "2023-02-14 12:00:01"
+		"updatedAt": "2023-02-14 12:00:01",
+		"status": "removed"
 	}
 ]

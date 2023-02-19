@@ -1,3 +1,8 @@
+/**
+ * It returns the name of the browser based on the user agent string
+ * @param agent - The user agent string.
+ * @returns A function that returns a string.
+ */
 export const getBrowserName = (
 	agent = window.navigator.userAgent.toLowerCase()
 ) => {

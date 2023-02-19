@@ -7,8 +7,8 @@
 		</template>
 		<template #title-right>
 			<v-progress-circular
-				v-show="loading"
-				:class="{ done: !loading }"
+				v-show="productCategory.loading"
+				:class="{ done: !productCategory.loading }"
 				class="mr-3"
 				indeterminate
 				color="primary"
@@ -28,7 +28,7 @@
 				@close-modal="showCreateModal = false"
 			/>
 		</template>
-		<base-table v-show="!loading || !firstLoad">
+		<base-table v-show="!productCategory.loading || !firstLoad">
 			<template #head>
 				<base-table-th
 					v-for="fieldName in fieldNameList ?? []"
@@ -126,10 +126,10 @@
 			</template>
 			<template #alternative-row>
 				<td
-					v-if="error || !productCategoryData"
+					v-if="productCategory.error || !productCategoryData"
 					colspan="7"
 				>
-					Get product category data error
+					Get product category data error: {{ productCategory.error }}
 				</td>
 				<td
 					v-else-if="productCategoryData?.length === 0"
@@ -150,12 +150,8 @@ useSeoMeta({
 	title: 'Product categories'
 })
 
-const {
-	response: productCategoryData,
-	loading,
-	error,
-	fetchGet
-} = useProductCategoryList()
+const productCategory = useProductCategory()
+const productCategoryData = ref<ProductCategoryModel[]>([])
 
 const fieldNameList: Array<keyof ProductCategoryModel> = [
 	'id',
@@ -173,23 +169,27 @@ const router = useRouter()
 
 const refreshData = async () => {
 	sortingFieldName.value = undefined
-	const controller = getAbortController()
-	await fetchGet({ signal: controller.signal })
-	clearTimeout(controller.timeoutId)
+	await productCategory.fetch()
+	productCategoryData.value = productCategory.data
+		? [...productCategory.data]
+		: []
 }
 
 const onDataSort = (fieldName: string, ascOrder: boolean) => {
 	sortingFieldName.value = fieldName as keyof ProductCategoryModel
-	productCategoryData.value?.sort(
+	productCategoryData.value.sort(
 		dataCompareFunc<ProductCategoryModel>(sortingFieldName.value, ascOrder)
 	)
 }
 
 refreshData()
 
-watch(loading, () => {
-	if (!loading.value && firstLoad.value) firstLoad.value = false
-})
+watch(
+	() => productCategory.loading,
+	() => {
+		if (!productCategory.loading && firstLoad.value) firstLoad.value = false
+	}
+)
 
 const onEditItem = (id: string) => {
 	router.push({ path: `/product-category/${id}/edit` })

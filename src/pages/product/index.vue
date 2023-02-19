@@ -5,8 +5,8 @@
 		</template>
 		<template #title-right>
 			<v-progress-circular
-				v-show="loading"
-				:class="{ done: !loading }"
+				v-show="product.loading"
+				:class="{ done: !product.loading }"
 				class="mr-3"
 				indeterminate
 				color="primary"
@@ -22,7 +22,7 @@
 				New product
 			</button-create>
 		</template>
-		<base-table v-show="!loading || !firstLoad">
+		<base-table v-show="!product.loading || !firstLoad">
 			<template #head>
 				<base-table-th
 					v-for="fieldName in fieldNameList ?? []"
@@ -84,9 +84,24 @@
 							</template>
 						</v-hover>
 					</td>
+					<td>{{ row.category }}</td>
 					<td>{{ row.originalPrice }}</td>
 					<td>{{ row.saleOfMonth }}</td>
-					<td>{{ row.category }}</td>
+					<td>
+						<v-chip
+							size="small"
+							variant="elevated"
+							:color="
+								row.status === 'active'
+									? 'green-lighten-1'
+									: row.status === 'inactive'
+									? 'purple-lighten-3'
+									: 'red-lighten-2'
+							"
+						>
+							{{ row.status }}
+						</v-chip>
+					</td>
 					<td>{{ row.updatedAt }}</td>
 					<td>
 						<button-action-group
@@ -105,10 +120,10 @@
 			</template>
 			<template #alternative-row>
 				<td
-					v-if="error || !productData"
+					v-if="product.error || !productData"
 					colspan="7"
 				>
-					Get product data error
+					Get product data error: {{ product.error }}
 				</td>
 				<td
 					v-else-if="productData?.length === 0"
@@ -129,14 +144,16 @@ useSeoMeta({
 	title: 'Product list'
 })
 
-const { response: productData, loading, error, fetchGet } = useProductList()
+const product = useProduct()
+const productData = ref<ProductModel[]>([])
 
 const fieldNameList: Array<keyof ProductModel> = [
 	'id',
 	'name',
+	'category',
 	'originalPrice',
 	'saleOfMonth',
-	'category',
+	'status',
 	'updatedAt'
 ]
 const sortingFieldName = ref<undefined | keyof ProductModel>(undefined)
@@ -146,23 +163,25 @@ const router = useRouter()
 
 const refreshData = async () => {
 	sortingFieldName.value = undefined
-	const controller = getAbortController()
-	await fetchGet({ signal: controller.signal })
-	clearTimeout(controller.timeoutId)
+	await product.fetch()
+	productData.value = product.data ? [...product.data] : []
 }
 
 refreshData()
 
 const onDataSort = (fieldName: string, ascOrder: boolean) => {
 	sortingFieldName.value = fieldName as keyof ProductModel
-	productData.value?.sort(
+	productData.value.sort(
 		dataCompareFunc<ProductModel>(sortingFieldName.value, ascOrder)
 	)
 }
 
-watch(loading, () => {
-	if (!loading.value && firstLoad.value) firstLoad.value = false
-})
+watch(
+	() => product.loading,
+	() => {
+		if (!product.loading && firstLoad.value) firstLoad.value = false
+	}
+)
 
 const onEditItem = (id: string) => {
 	router.push({ path: `/product/${id}/edit` })

@@ -11,3 +11,14 @@
 		}
 	}
 }
+.v-dialog {
+	.v-row {
+		animation: expand-verticle 400ms ease-out;
+	}
+	.v-card {
+		.v-card-item {
+			overflow-y: scroll;
+			max-height: calc(100vh - 200px);
+		}
+	}
+}

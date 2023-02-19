@@ -6,4 +6,5 @@ export interface ProductModel {
 	saleOfMonth?: number
 	category: string
 	updatedAt: string
+	status: 'active' | 'inactive' | 'removed'
 }

@@ -1,3 +1,10 @@
+/**
+ * It returns a function that compares two objects based on a field name and an ascending/descending
+ * order.
+ * @param fieldName - keyof T
+ * @param {boolean} ascOrder - boolean - true for ascending order, false for descending order
+ * @returns A function that takes two arguments and returns a number.
+ */
 export const dataCompareFunc = <T>(
 	fieldName: keyof T,
 	ascOrder: boolean
