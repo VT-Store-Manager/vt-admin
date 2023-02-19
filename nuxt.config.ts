@@ -7,6 +7,9 @@ export default defineNuxtConfig({
 	imports: {
 		dirs: ['composables/**']
 	},
+	build: {
+		transpile: ['vuetify']
+	},
 	vite: {
 		ssr: {
 			noExternal: ['vuetify']
@@ -33,21 +36,12 @@ export default defineNuxtConfig({
 			pathPrefix: false
 		}
 	],
-	modules: [
-		(options, nuxt) => {
-			nuxt.hooks.hook('vite:extendConfig', config => {
-				config.plugins?.push(
-					// vuetify({
-					// 	styles: { configFile: 'assets/scss/_settings.scss' },
-					// })
-					vuetify()
-				)
-			})
-		},
-		'@nuxt/image-edge',
-		'@nuxtjs/google-fonts',
-		'@pinia/nuxt'
-	],
+	hooks: {
+		'vite:extendConfig': config => {
+			config.plugins?.push(vuetify())
+		}
+	},
+	modules: ['@nuxt/image-edge', '@nuxtjs/google-fonts', '@pinia/nuxt'],
 	image: {},
 	googleFonts: {
 		families: {
@@ -66,6 +60,11 @@ export default defineNuxtConfig({
 			'postcss-import': {},
 			'postcss-url': {},
 			...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
+		}
+	},
+	runtimeConfig: {
+		public: {
+			apiBase: process.env.API_BASE
 		}
 	}
 })

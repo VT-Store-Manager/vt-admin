@@ -13,6 +13,7 @@ export default function <R, I = Record<string, any>>(
 	url: string,
 	options?: any
 ) {
+	const runtimeConfig = useRuntimeConfig()
 	const state = reactive<{ response: R | null; error: any; loading: boolean }>({
 		response: null,
 		error: null,
@@ -37,11 +38,16 @@ export default function <R, I = Record<string, any>>(
 				}
 			}
 
+			const controller = customOptions?.signal
+				? getAbortController(10000)
+				: null
 			state.loading = true
 			const res = await $fetch(_url, {
-				signal: customOptions?.signal,
+				baseURL: runtimeConfig.public.apiBase,
+				signal: customOptions?.signal || controller?.signal,
 				...options
 			})
+			clearTimeout(controller?.timeoutId)
 
 			state.response = res as any
 			state.loading = false
