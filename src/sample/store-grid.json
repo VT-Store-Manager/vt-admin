@@ -1,0 +1,241 @@
+[
+	{
+		"id": "4ea1d7",
+		"name": "HCM Huynh Tan Phat",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg",
+			"https://file.hstatic.net/1000075078/file/_kh_9431__1__e19a7a49963245b39b280271da3cd9fb.jpg"
+		],
+		"address": {
+			"street": "400A Huynh Tan Phat",
+			"ward": "Binh Thuan",
+			"district": "District 7",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1667406219805"
+	},
+	{
+		"id": "38e776",
+		"name": "HCM The Hub - Dien Bien Phu",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/_kh_9431__1__e19a7a49963245b39b280271da3cd9fb.jpg"
+		],
+		"address": {
+			"street": "195/10 Dien Bien Phu",
+			"ward": "Ward 15",
+			"district": "Binh Thanh District",
+			"city": "Ho Chi Minh City",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1668434333010"
+	},
+	{
+		"id": "14a2ea",
+		"name": "HCM Hoang Dieu 2",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/hcm-lu-gia1__1__e0a622da07ab48b8bb7a542f088b7233.jpg"
+		],
+		"address": {
+			"street": "66E Hoang Dieu 2",
+			"ward": "Linh Trung",
+			"district": "Thu Duc",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669554827253"
+	},
+	{
+		"id": "ccda7c",
+		"name": "HCM Nguyen Thai Binh",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/hcm_tinh_lo_10_1_0426474b62eb4fa98785c0161ab3a08e.jpg"
+		],
+		"address": {
+			"street": "141 Nguyen Thai Binh",
+			"ward": "",
+			"district": "District 1",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669557690984"
+	},
+	{
+		"id": "7c66a6",
+		"name": "HCM Zhongshan",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/_dsc7394_756ced0f2a8d4e189d4b3b7f3b15dc68.jpeg"
+		],
+		"address": {
+			"street": "114 Street 9A",
+			"ward": "Binh Hung",
+			"district": "Binh Hung",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669558840000"
+	},
+	{
+		"id": "7c66b5",
+		"name": "HCM Street No. 22",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/hcm-nguyen-xi1_b8bb3a5f3381470e90405508724a7a16.jpg"
+		],
+		"address": {
+			"street": "9-11 Street No. 22",
+			"ward": "",
+			"district": "Binh Tan",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669559058764"
+	},
+	{
+		"id": "7c66c4",
+		"name": "HCM Phan Huy Ich",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "403 Phan Huy Ich",
+			"ward": "Ward 14",
+			"district": "Go Vap",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669559279012"
+	},
+	{
+		"id": "7c66cd",
+		"name": "HCM Hoa Hong",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "43 Hoa Rose",
+			"ward": "Ward 7",
+			"district": "Phu Nhuan",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669559594639"
+	},
+	{
+		"id": "7c66e3",
+		"name": "HCM Cao Thang 2",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "175B Cao Thang",
+			"ward": "Ward 12",
+			"district": "District 10",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669559822765"
+	},
+	{
+		"id": "7c66f9",
+		"name": "HCM Binh Thoi Residence",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "45 Street No. 5 - Binh Thoi Residence",
+			"ward": "Ward 8",
+			"district": "District 11",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1672127385297"
+	},
+	{
+		"id": "7c6710",
+		"name": "HCM Cao Thang",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "86-88 Cao Thang Street",
+			"ward": "",
+			"district": "District 3",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1669560618159"
+	},
+	{
+		"id": "7c671b",
+		"name": "HCM Street 41",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "35-37 Street 41",
+			"ward": "",
+			"district": "District 4",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": false,
+		"updatedAt": "1671042889488"
+	},
+	{
+		"id": "3f7014",
+		"name": "Test name",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "35-37 Street 41",
+			"ward": "",
+			"district": "District 4",
+			"city": "Ho Chi Minh",
+			"country": "Vietnam"
+		},
+		"openedStatus": true,
+		"deleted": true,
+		"updatedAt": "1671153883505"
+	},
+	{
+		"id": "9ca658",
+		"name": "The Coffee House - Trung Tin",
+		"images": [
+			"https://file.hstatic.net/1000075078/file/grandview5_35ccc48004574095b53e1de3b86a9eb5.jpg"
+		],
+		"address": {
+			"street": "114 Đường 9A",
+			"ward": "Khu Dân cư Trung Sơn",
+			"district": "Huyện Hóc Môn",
+			"city": "TP. HCM",
+			"country": "Việt Nam"
+		},
+		"openedStatus": false,
+		"deleted": false,
+		"updatedAt": "1671975823905"
+	}
+]

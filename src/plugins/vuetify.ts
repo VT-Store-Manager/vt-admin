@@ -8,14 +8,29 @@ import { fa } from 'vuetify/iconsets/fa-svg'
 import { library } from '@fortawesome/fontawesome-svg-core'
 // eslint-disable-next-line import/named
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import {
+	faPlus,
+	faCaretLeft,
+	faCaretRight
+} from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
 	faPenToSquare,
-	faTrashCan
+	faTrashCan,
+	faMoon,
+	faSun
 } from '@fortawesome/free-regular-svg-icons'
 
-library.add(faPlus, faPenToSquare, faEye, faTrashCan)
+library.add(
+	faPlus,
+	faPenToSquare,
+	faEye,
+	faTrashCan,
+	faMoon,
+	faSun,
+	faCaretLeft,
+	faCaretRight
+)
 const lightTheme: ThemeDefinition = {
 	dark: false,
 	colors: {

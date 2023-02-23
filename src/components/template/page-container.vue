@@ -34,7 +34,7 @@ defineProps<Props>()
 <style lang="scss" scoped>
 .page {
 	flex: 1;
-	padding: 0 1.5rem;
+	padding: 0 1.5rem 1rem;
 	border-top-left-radius: 20px;
 	&-title {
 		padding: 1.5rem 0 1rem;

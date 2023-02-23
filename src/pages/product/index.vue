@@ -138,7 +138,7 @@
 
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
-import { ProductModel } from '~/types/models/product'
+import { ProductModel } from '~~/src/models/product'
 
 useSeoMeta({
 	title: 'Product list'

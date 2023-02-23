@@ -184,7 +184,7 @@ import { mdiPlus } from '@mdi/js'
 import {
 	CreateNewProductOptionModel,
 	CreateProductSubOptionModel
-} from '~/types/models/create-product-option'
+} from '~/models/product/create-product-option'
 
 interface Props {
 	show?: boolean

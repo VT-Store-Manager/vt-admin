@@ -1,4 +1,4 @@
-import { ProductModel } from '~/types/models/product'
+import { ProductModel } from '~~/src/models/product'
 
 export const useProduct = definePiniaStore('product', () => {
 	const {

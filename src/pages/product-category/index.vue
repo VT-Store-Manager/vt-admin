@@ -144,7 +144,7 @@
 
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
-import { ProductCategoryModel } from '~/types/models/product-category'
+import { ProductCategoryModel } from '~~/src/models/product-category'
 
 useSeoMeta({
 	title: 'Product categories'
