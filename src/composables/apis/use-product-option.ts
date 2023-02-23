@@ -2,7 +2,7 @@ import useRequest from './use-request'
 import {
 	ProductOptionModel,
 	ProductOptionItem
-} from '~/types/models/product-option'
+} from '~~/src/models/product-option'
 import { VSelectModel } from '~/types'
 
 export const useProductOption = definePiniaStore('product-option', () => {

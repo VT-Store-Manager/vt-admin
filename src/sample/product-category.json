@@ -108,5 +108,115 @@
 		"soldOfWeek": 100,
 		"status": "removed",
 		"order": 9
+	},
+	{
+		"id": "PC0",
+		"image": "/category.jpg",
+		"name": "Cầu Toàn Kèo Thơm",
+		"amountOfProduct": 10,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "active",
+		"order": 1
+	},
+	{
+		"id": "PC1",
+		"image": "/category.jpg",
+		"name": "Cà phê",
+		"amountOfProduct": 10,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "active",
+		"order": 2
+	},
+	{
+		"id": "PC2",
+		"image": "/category.jpg",
+		"name": "CloudFee",
+		"amountOfProduct": 5,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "inactive",
+		"order": 3
+	},
+	{
+		"id": "PC3",
+		"image": "/category.jpg",
+		"name": "CloudTea",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 4
+	},
+	{
+		"id": "PC4",
+		"image": "/category.jpg",
+		"name": "Hi-Tea Healthy",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 5
+	},
+	{
+		"id": "PC5",
+		"image": "/category.jpg",
+		"name": "Trà Trái Cây - Trà Sữa",
+		"amountOfProduct": 2,
+		"totalSold": 2456,
+		"soldOfWeek": 2456,
+		"status": "removed",
+		"order": 6
+	},
+	{
+		"id": "PC6",
+		"image": "/category.jpg",
+		"name": "Thưởng thức tại nhà",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 7
+	},
+	{
+		"id": "PC7",
+		"image": "/category.jpg",
+		"name": "Bánh - Snack",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 8
+	},
+	{
+		"id": "PC8",
+		"image": "/category.jpg",
+		"name": "Thức uống khác",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 9
+	},
+	{
+		"id": "PC9",
+		"image": "/category.jpg",
+		"name": "Thức uống khác",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 9
+	},
+	{
+		"id": "PC10",
+		"image": "/category.jpg",
+		"name": "Thức uống khác",
+		"amountOfProduct": 2,
+		"totalSold": 100,
+		"soldOfWeek": 100,
+		"status": "removed",
+		"order": 9
 	}
 ]

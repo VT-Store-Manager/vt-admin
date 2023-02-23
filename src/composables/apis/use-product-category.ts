@@ -1,4 +1,4 @@
-import { ProductCategoryModel } from '~/types/models/product-category'
+import { ProductCategoryModel } from '~~/src/models/product-category'
 
 export const useProductCategory = definePiniaStore('product-category', () => {
 	const {
