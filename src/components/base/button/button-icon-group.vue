@@ -12,7 +12,7 @@
 			:value="props.values[index]"
 			:icon="icon"
 			variant="text"
-			color="text-black-blur"
+			color="grey"
 			size="small"
 			rounded="lg"
 			:class="{ 'ml-1': index > 0 }"

@@ -184,7 +184,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ProductOptionModel } from '~~/src/models/product-option'
+import { ProductOptionModel } from '~/models/product/product-option'
 
 useSeoMeta({
 	title: 'Product options'

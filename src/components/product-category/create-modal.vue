@@ -8,7 +8,7 @@
 			<v-card-title class="font-weight-bold py-4 px-6">
 				Add new category
 			</v-card-title>
-			<v-card-item class="pt-0">
+			<v-card-item>
 				<div class="d-flex align-start">
 					<nuxt-img
 						v-if="image && image.length > 0"
@@ -18,19 +18,16 @@
 						width="200"
 					/>
 					<div class="flex-grow-1 d-flex flex-column justify-center">
-						<v-text-field
+						<base-form-input
 							v-model="categoryName"
-							variant="solo"
 							label="Name"
 						/>
-						<v-file-input
+						<base-form-file-input
 							v-model="image"
 							label="Category image"
-							variant="solo"
 							accept="image/*"
 							show-size
 							:prepend-inner-icon="mdiImage"
-							:prepend-icon="null"
 							:rules="categoryImageRule"
 							:loading="fileInputLoading"
 							@click="fileInputLoading = true"
@@ -106,14 +103,13 @@ const categoryImageRule = [
 		)
 	}
 ]
-
-const test = () => {
-	alert(123)
-}
 </script>
 
 <style lang="scss" scoped>
 .v-card {
 	border-radius: 12px !important;
+	:deep(.v-card-item__content) {
+		overflow: visible;
+	}
 }
 </style>

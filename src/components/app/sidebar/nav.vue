@@ -19,7 +19,7 @@ import { NavProps } from '~/types';
 								? 'primary-darken'
 								: isHovering
 								? 'primary'
-								: 'text-black'
+								: 'dark-grey'
 						"
 						outlined
 						rounded="lg"
@@ -50,7 +50,7 @@ import { NavProps } from '~/types';
 						<v-btn
 							:prepend-icon="n.icon"
 							variant="text"
-							color="text-black-blur"
+							color="grey"
 							rounded="lg"
 							class="subnav-item font-weight-medium"
 							:class="{

@@ -11,7 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
 	faPlus,
 	faCaretLeft,
-	faCaretRight
+	faCaretRight,
+	faCirclePlus,
+	faCircleMinus
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -29,7 +31,9 @@ library.add(
 	faMoon,
 	faSun,
 	faCaretLeft,
-	faCaretRight
+	faCaretRight,
+	faCirclePlus,
+	faCircleMinus
 )
 const lightTheme: ThemeDefinition = {
 	dark: false,
@@ -41,8 +45,8 @@ const lightTheme: ThemeDefinition = {
 		'primary-color-lighten-3': '#fdf4e5',
 		secondary: '#FFFFFF',
 		screen: '#F4F4F4',
-		'text-black': '#212121',
-		'text-black-blur': '#363636'
+		'dark-grey': '#212121',
+		grey: '#363636'
 	}
 }
 const darkTheme: ThemeDefinition = {
@@ -55,8 +59,8 @@ const darkTheme: ThemeDefinition = {
 		screen: '#010413',
 		'primary-color-lighten-2': '#ffe0b2',
 		'primary-color-lighten-3': '#fdf4e5',
-		'text-black': '#212121',
-		'text-black-blur': '#363636'
+		'dark-grey': '#212121',
+		grey: '#363636'
 	}
 }
 
