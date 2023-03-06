@@ -2,7 +2,7 @@ import useRequest from './use-request'
 import {
 	ProductOptionModel,
 	ProductOptionItem
-} from '~~/src/models/product-option'
+} from '~/models/product/product-option'
 import { VSelectModel } from '~/types'
 
 export const useProductOption = definePiniaStore('product-option', () => {
@@ -51,6 +51,10 @@ export const useProductOption = definePiniaStore('product-option', () => {
 		selectedItem.value = []
 	}
 
+	const getOptionsById = (ids: string[]): ProductOptionModel[] | undefined => {
+		return data.value?.filter(option => ids.includes(option.id))
+	}
+
 	return {
 		data,
 		error,
@@ -62,6 +66,7 @@ export const useProductOption = definePiniaStore('product-option', () => {
 		getAllNameForSelect,
 		getItemsOfMarkedForSelect,
 		getSelectedItem,
-		clearSelected
+		clearSelected,
+		getOptionsById
 	}
 })

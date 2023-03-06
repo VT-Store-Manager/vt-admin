@@ -7,7 +7,7 @@
 			variant="text"
 			:ripple="false"
 			class="font-weight-bold"
-			color="text-black"
+			color="dark-grey"
 			:class="[...[props.showSortIcon ? [] : ['unuse']]]"
 			@click="onClick"
 		>

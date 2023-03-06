@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
 import { mdiTrashCan } from '@mdi/js'
-import { ProductOptionItem } from '~/models/product-option'
+import { ProductOptionItem } from '~/models/product/product-option'
 
 interface Props {
 	item: ProductOptionItem

@@ -36,6 +36,8 @@ defineProps<Props>()
 	flex: 1;
 	padding: 0 1.5rem 1rem;
 	border-top-left-radius: 20px;
+	display: flex;
+	flex-direction: column;
 	&-title {
 		padding: 1.5rem 0 1rem;
 		// display: flex;
@@ -54,13 +56,15 @@ defineProps<Props>()
 			> :deep(*:not([class*='__name'])) {
 				font-size: 0.875rem;
 				font-weight: 600;
-				color: $text-black-blur;
+				color: $grey;
 			}
 		}
 		&__right {
 		}
 	}
 	&-content {
+		// height: 100%;
+		flex: 1;
 	}
 
 	:deep(.v-progress-circular) {

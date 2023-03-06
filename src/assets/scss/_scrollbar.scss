@@ -1,5 +1,5 @@
 $scrollbar-width: 12px;
-.custom-scrollbar {
+* {
 	&::-webkit-scrollbar {
 		width: $scrollbar-width;
 		background-color: transparent;
