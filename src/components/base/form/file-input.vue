@@ -25,5 +25,8 @@ const props = defineProps<Props>()
 			border-radius: 0 12px 12px 0;
 		}
 	}
+	:deep(.v-field__prepend-inner) {
+		margin-right: 4px;
+	}
 }
 </style>

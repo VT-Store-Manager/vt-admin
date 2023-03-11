@@ -7,13 +7,13 @@
 		</template>
 		<template #title-right>
 			<v-progress-circular
-				v-show="productCategory.loading"
-				:class="{ done: !productCategory.loading }"
-				class="mr-3"
+				v-show="loading"
+				:class="{ done: !loading }"
+				class="mr-4"
 				indeterminate
 				color="primary"
-				:size="24"
-				:width="5"
+				:size="22"
+				:width="3"
 			/>
 			<button-refresh
 				class="mr-3"
@@ -26,6 +26,7 @@
 			<product-category-create-modal
 				:show="showCreateModal"
 				@close-modal="showCreateModal = false"
+				@created="refreshData"
 			/>
 		</template>
 		<base-table v-show="!productCategory.loading || !firstLoad">
@@ -33,9 +34,9 @@
 				<base-table-th
 					v-for="fieldName in fieldNameList ?? []"
 					:key="fieldName"
-					:title="variableCaseToText(fieldName)"
-					:field-name="fieldName"
-					:sorting-field-name="sortingFieldName"
+					:title="variableCaseToText(fieldName.toString())"
+					:field-name="fieldName.toString()"
+					:sorting-field-name="sortingFieldName?.toString()"
 					@sort="onDataSort"
 				/>
 				<base-table-th
@@ -59,7 +60,14 @@
 									v-bind="idProps"
 									:class="{ 'text-primary-darken': hoveringId }"
 								>
-									{{ row.id }}
+									{{ row.id.slice(-6) }}
+									<v-tooltip
+										activator="parent"
+										location="start"
+										open-delay="500"
+									>
+										{{ row.id }}
+									</v-tooltip>
 								</nuxt-link>
 							</template>
 						</v-hover>
@@ -75,8 +83,12 @@
 									v-bind="nameProps"
 								>
 									<nuxt-img
-										class="d-block mr-2 rounded"
-										:src="row.image || faker.image.food(40, 40, true)"
+										class="d-block mr-2 rounded small-img-shadow"
+										:src="
+											row.image
+												? $config.imgResourceUrl + row.image
+												: faker.image.food(40, 40, true)
+										"
 										:width="40"
 										:class="{ 'hover-blur': hoveringName }"
 									/>
@@ -144,13 +156,14 @@
 
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
-import { ProductCategoryModel } from '~~/src/models/product-category'
+import { ProductCategoryModel } from '~/models/product/product-category'
 
 useSeoMeta({
 	title: 'Product categories'
 })
 
 const productCategory = useProductCategory()
+const disableProductCategory = useDisableProductCategory()
 const productCategoryData = ref<ProductCategoryModel[]>([])
 
 const fieldNameList: Array<keyof ProductCategoryModel> = [
@@ -167,12 +180,18 @@ const firstLoad = ref(true)
 const rowCodeConfirmed = ref<null | string>(null)
 const router = useRouter()
 
+const loading = computed(() => {
+	return productCategory.loading || disableProductCategory.loading
+})
+
 const refreshData = async () => {
 	sortingFieldName.value = undefined
 	await productCategory.fetch()
-	productCategoryData.value = productCategory.data
-		? [...productCategory.data]
-		: []
+	productCategoryData.value =
+		productCategory.response?.data &&
+		Array.isArray(productCategory.response.data)
+			? [...productCategory.response.data]
+			: []
 }
 
 const onDataSort = (fieldName: string, ascOrder: boolean) => {
@@ -194,8 +213,11 @@ watch(
 const onEditItem = (id: string) => {
 	router.push({ path: `/product-category/${id}/edit` })
 }
-const onDeleteItem = (id: string) => {
+
+const onDeleteItem = async (id: string) => {
 	rowCodeConfirmed.value = null
 	console.log('Delete:', id)
+	await disableProductCategory.fetch({ params: { id } })
+	refreshData()
 }
 </script>

@@ -41,7 +41,12 @@ export default defineNuxtConfig({
 			config.plugins?.push(vuetify())
 		}
 	},
-	modules: ['@nuxt/image-edge', '@nuxtjs/google-fonts', '@pinia/nuxt'],
+	modules: [
+		'@nuxt/image-edge',
+		'@nuxtjs/google-fonts',
+		'@pinia/nuxt',
+		'@vueuse/nuxt'
+	],
 	image: {},
 	googleFonts: {
 		families: {
@@ -64,7 +69,8 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		public: {
-			apiBase: process.env.API_BASE
+			apiBase: process.env.API_BASE,
+			imgResourceUrl: `${process.env.API_BASE}/file/render?key=`
 		}
 	}
 })

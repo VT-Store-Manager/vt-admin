@@ -50,7 +50,7 @@ import { NavProps } from '~/types';
 						<v-btn
 							:prepend-icon="n.icon"
 							variant="text"
-							color="grey"
+							color="dark-grey"
 							rounded="lg"
 							class="subnav-item font-weight-medium"
 							:class="{
