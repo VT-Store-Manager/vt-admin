@@ -26,6 +26,8 @@
 		"@nuxtjs/google-fonts": "3.0.0-1",
 		"@types/lodash": "^4.14.191",
 		"@types/node": "^18.11.18",
+		"@vueuse/core": "^9.13.0",
+		"@vueuse/nuxt": "^9.13.0",
 		"autoprefixer": "^10.4.13",
 		"eslint": "^8.34.0",
 		"eslint-config-prettier": "^8.6.0",

@@ -1,12 +1,21 @@
 <template>
 	<v-dialog
 		v-model="show"
-		width="900"
+		max-width="900"
 		@update:model-value="$emit('closeModal')"
 	>
 		<v-card>
 			<v-card-title class="font-weight-bold py-4 px-6">
 				Add new category
+				<v-progress-circular
+					v-show="createProductCategory.loading"
+					:class="{ done: !createProductCategory.loading }"
+					class="mr-3"
+					indeterminate
+					color="primary"
+					:size="22"
+					:width="3"
+				/>
 			</v-card-title>
 			<v-card-item>
 				<div class="d-flex align-start">
@@ -28,9 +37,8 @@
 							accept="image/*"
 							show-size
 							:prepend-inner-icon="mdiImage"
+							:prepend-icon="false"
 							:rules="categoryImageRule"
-							:loading="fileInputLoading"
-							@click="fileInputLoading = true"
 							@update:model-value="previewImage"
 						/>
 					</div>
@@ -46,7 +54,7 @@
 				<v-btn
 					color="green"
 					variant="tonal"
-					@click="$emit('closeModal')"
+					@click="onCreateProductCategory"
 				>
 					Create
 				</v-btn>
@@ -57,20 +65,22 @@
 
 <script lang="ts" setup>
 import { mdiImage } from '@mdi/js'
+import { useCreateProductCategory } from '~/composables/apis/use-create-product-category'
 
 interface Props {
 	show?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), { show: false })
-defineEmits<{
+const emits = defineEmits<{
 	(e: 'closeModal'): void
+	(e: 'created'): void
 }>()
 
 const categoryName = ref('')
 const url = ref('')
 const image = ref<File[] | undefined>()
-const fileInputLoading = ref(false)
+const createProductCategory = useCreateProductCategory()
 
 onBeforeUpdate(() => {
 	categoryName.value = ''
@@ -87,7 +97,6 @@ watch(
 )
 
 const previewImage = () => {
-	fileInputLoading.value = false
 	if (image.value!.length > 0) url.value = URL.createObjectURL(image.value![0])
 	else url.value = ''
 }
@@ -103,11 +112,31 @@ const categoryImageRule = [
 		)
 	}
 ]
+
+const onCreateProductCategory = async () => {
+	const formData = new FormData()
+	formData.append('image', image.value![0])
+	formData.append('name', categoryName.value)
+
+	await createProductCategory.fetch({ body: formData })
+
+	emits('created')
+	emits('closeModal')
+}
 </script>
 
 <style lang="scss" scoped>
 .v-card {
 	border-radius: 12px !important;
+	.v-card-title {
+		position: relative;
+		.v-progress-circular {
+			position: absolute;
+			top: 50%;
+			right: 32px;
+			transform: translate(50%, -50%);
+		}
+	}
 	:deep(.v-card-item__content) {
 		overflow: visible;
 	}

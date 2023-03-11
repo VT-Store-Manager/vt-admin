@@ -46,3 +46,7 @@ $grey: #363636;
 .rounded-16 {
 	border-radius: 1rem !important;
 }
+.small-img-shadow {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	border: 0.5px solid rgba(0, 0, 0, 0.08);
+}

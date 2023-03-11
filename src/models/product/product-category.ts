@@ -1,7 +1,7 @@
-export interface ProductCategoryModel {
+export interface ProductCategoryModel extends Record<string, unknown> {
 	id: string
-	image: string
 	name: string
+	image: string
 	status: 'active' | 'inactive' | 'removed'
 	amountOfProduct?: number
 	totalSold?: number
