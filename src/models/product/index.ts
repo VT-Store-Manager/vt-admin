@@ -1,6 +1,8 @@
+import { Status } from '~/constants'
+
 export interface ProductModel {
 	id: string
-	image?: Array<File>
+	image?: string[]
 	name: string
 	originalPrice: number
 	saleOfMonth?: number
@@ -8,5 +10,5 @@ export interface ProductModel {
 	options: string[]
 	category: string
 	updatedAt: string
-	status: 'active' | 'inactive' | 'removed'
+	status: Status
 }

@@ -70,7 +70,7 @@
 								>
 									<nuxt-img
 										class="d-block mr-2 rounded"
-										:src="row.image || faker.image.food(40, 40, true)"
+										:src="row.image![0] || faker.image.food(40, 40, true)"
 										:width="40"
 										:class="{ 'hover-blur': hoveringName }"
 									/>
@@ -92,9 +92,9 @@
 							size="small"
 							variant="elevated"
 							:color="
-								row.status === 'active'
+								row.status === Status.ACTIVE
 									? 'green-lighten-1'
-									: row.status === 'inactive'
+									: row.status === Status.DISABLED
 									? 'purple-lighten-3'
 									: 'red-lighten-2'
 							"
@@ -138,7 +138,8 @@
 
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
-import { ProductModel } from '~~/src/models/product'
+import { ProductModel } from '~/models/product'
+import { Status } from '~/constants'
 
 useSeoMeta({
 	title: 'Product list'

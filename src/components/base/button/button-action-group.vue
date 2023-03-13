@@ -65,13 +65,6 @@
 				Remove
 			</v-btn>
 		</template>
-		<!-- <v-card class="confirm-delete">
-			<v-card-text> Are you sure to delete item ? </v-card-text>
-			<v-card-actions>
-				<v-btn variant="text"> No </v-btn>
-				<v-btn variant="text"> Delete </v-btn>
-			</v-card-actions>
-		</v-card> -->
 	</v-btn-group>
 </template>
 

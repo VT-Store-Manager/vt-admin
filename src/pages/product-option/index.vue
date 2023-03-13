@@ -5,8 +5,8 @@
 		</template>
 		<template #title-right>
 			<v-progress-circular
-				v-show="productOption.loading"
-				:class="{ done: !productOption.loading }"
+				v-show="productOptionList.loading"
+				:class="{ done: !productOptionList.loading }"
 				class="mr-3"
 				indeterminate
 				color="primary"
@@ -26,7 +26,7 @@
 				@close-modal="showCreateModal = false"
 			/>
 		</template>
-		<base-table v-show="!productOption.loading || !firstLoad">
+		<base-table v-show="!productOptionList.loading || !firstLoad">
 			<template #head>
 				<base-table-th
 					v-for="fieldName in fieldNameList ?? []"
@@ -37,7 +37,12 @@
 					@sort="onDataSort"
 				/>
 				<base-table-th
-					title="Options"
+					title="Option items"
+					:sortable="false"
+					:show-sort-icon="false"
+				/>
+				<base-table-th
+					title="Range select"
 					:sortable="false"
 					:show-sort-icon="false"
 				/>
@@ -60,94 +65,99 @@
 					:class="{ 'bg-screen': index % 2 == 1 }"
 				>
 					<td>
-						<v-hover>
-							<template #default="{ isHovering: hoveringId, props: idProps }">
-								<nuxt-link
-									:to="`/product-option/${row.id}`"
-									v-bind="idProps"
-									:class="{ 'text-primary-darken': hoveringId }"
+						<v-hover v-slot="{ isHovering: hoveringId, props: idProps }">
+							<nuxt-link
+								:to="`/product-option/${row.id}`"
+								v-bind="idProps"
+								:class="{ 'text-primary-darken': hoveringId }"
+							>
+								{{ row.id.slice(-6) }}
+								<v-tooltip
+									activator="parent"
+									location="right"
 								>
 									{{ row.id }}
-								</nuxt-link>
-							</template>
+								</v-tooltip>
+							</nuxt-link>
+						</v-hover>
+					</td>
+					<td>
+						<v-hover v-slot="{ isHovering: hoveringId, props: idProps }">
+							<nuxt-link
+								:to="`/product-option/${row.id}`"
+								v-bind="idProps"
+								:class="{ 'text-primary-darken': hoveringId }"
+							>
+								{{ row.code }}
+							</nuxt-link>
 						</v-hover>
 					</td>
 					<td class="d-flex align-center">
-						<v-hover>
-							<template
-								#default="{ isHovering: hoveringName, props: nameProps }"
+						<v-hover v-slot="{ isHovering: hoveringName, props: nameProps }">
+							<nuxt-link
+								:to="'/product-option/' + row.id"
+								class="d-flex align-center"
+								v-bind="nameProps"
 							>
-								<nuxt-link
-									:to="'/product-option/' + row.id"
-									class="d-flex align-center"
-									v-bind="nameProps"
-								>
-									<span
-										class="ellipsis-2"
-										:class="{ 'text-primary-darken': hoveringName }"
-									>
-										{{ row.name }}
-									</span>
-								</nuxt-link>
-							</template>
-						</v-hover>
-					</td>
-					<td>
-						<v-hover v-if="row.parent">
-							<template
-								#default="{
-									isHovering: hoveringParentId,
-									props: parentIdProps
-								}"
-							>
-								<nuxt-link
-									:to="`/product-option/${row.parent}`"
-									v-bind="parentIdProps"
-									:class="{ 'text-primary-darken': hoveringParentId }"
-								>
-									{{ row.parent }}
-								</nuxt-link>
-							</template>
-						</v-hover>
-						<template v-else> - </template>
-					</td>
-					<td>
-						<v-tooltip
-							:text="
-								row.items
-									.map(item => `${item.name} (${item.cost}đ)`)
-									.join(' | ')
-							"
-							:max-width="300"
-						>
-							<template #activator="{ props }">
 								<span
-									v-bind="props"
 									class="ellipsis-2"
+									:class="{ 'text-primary-darken': hoveringName }"
 								>
-									{{
-										row.items
-											.map(item => `${item.name} (${item.cost}đ)`)
-											.join(' | ')
-									}}
+									{{ row.name }}
 								</span>
-							</template>
-						</v-tooltip>
+							</nuxt-link>
+						</v-hover>
 					</td>
-
 					<td>
-						<v-tooltip
-							v-if="row.applying && row.applying.length > 0"
-							:text="row.applying?.join(' | ')"
-							:disabled="!row.applying?.length"
+						<v-hover
+							v-if="row.parent"
+							v-slot="{ isHovering: hoveringParentId, props: parentIdProps }"
 						>
-							<template #activator="{ props }">
-								<span v-bind="props">
-									{{ row.applying?.join(' | ') }}
-								</span>
-							</template>
-						</v-tooltip>
-						<template v-else> - </template>
+							<nuxt-link
+								:to="`/product-option/${row.parent}`"
+								v-bind="parentIdProps"
+								:class="{ 'text-primary-darken': hoveringParentId }"
+							>
+								{{ productOptionList.optionMap.get(row.parent)?.name }}
+							</nuxt-link>
+						</v-hover>
+						<template v-else>
+							{{ '-' }}
+						</template>
+					</td>
+					<td>
+						<span class="ellipsis-2">
+							{{ row.items.map(item => `${item.name}`).join(' | ') }}
+							<v-tooltip
+								activator="parent"
+								:max-width="300"
+								location="bottom start"
+							>
+								<template
+									v-for="item in row.items"
+									:key="item.key"
+								>
+									{{ `${item.name} - ${item.cost}đ` }}
+									<br />
+								</template>
+							</v-tooltip>
+						</span>
+					</td>
+					<td>
+						<span>
+							Min: {{ row.range[0] || 0 }}, Max: {{ row.range[1] || '_' }}
+						</span>
+					</td>
+					<td>
+						<span>
+							{{ row.applying || 0 }}
+							<v-tooltip
+								activator="parent"
+								:disabled="!row.applying"
+							>
+								{{ row.applying }}
+							</v-tooltip>
+						</span>
 					</td>
 					<td>
 						<button-action-group
@@ -167,10 +177,10 @@
 			</template>
 			<template #alternative-row>
 				<td
-					v-if="productOption.error || !productOptionData"
+					v-if="productOptionList.error || !productOptionData"
 					colspan="7"
 				>
-					Get product option data error: {{ productOption.error }}
+					Get product option data error: {{ productOptionList.error }}
 				</td>
 				<td
 					v-else-if="productOptionData?.length === 0"
@@ -184,17 +194,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ProductOptionModel } from '~/models/product/product-option'
+import { ProductOptionListItemModel } from '~/models/product/product-option'
 
 useSeoMeta({
 	title: 'Product options'
 })
 
-const productOption = useProductOption()
-const productOptionData = ref<ProductOptionModel[]>([])
+const productOptionList = useProductOptionList()
+const productOptionData = ref<ProductOptionListItemModel[]>([])
 
-const fieldNameList: Array<keyof ProductOptionModel> = ['id', 'name', 'parent']
-const sortingFieldName = ref<undefined | keyof ProductOptionModel>(undefined)
+const fieldNameList: Array<keyof ProductOptionListItemModel> = [
+	'id',
+	'code',
+	'name',
+	'parent'
+]
+const sortingFieldName = ref<undefined | keyof ProductOptionListItemModel>(
+	undefined
+)
 const showCreateModal = ref(false)
 const firstLoad = ref(true)
 const rowCodeConfirmed = ref<null | string>(null)
@@ -202,23 +219,29 @@ const router = useRouter()
 
 const refreshData = async () => {
 	sortingFieldName.value = undefined
-	await productOption.fetch()
-	productOptionData.value = productOption.data ? [...productOption.data] : []
+	await productOptionList.fetch()
+
+	productOptionData.value = productOptionList.response?.data
+		? [...productOptionList.response.data]
+		: []
 }
 
 const onDataSort = (fieldName: string, ascOrder: boolean) => {
-	sortingFieldName.value = fieldName as keyof ProductOptionModel
+	sortingFieldName.value = fieldName as keyof ProductOptionListItemModel
 	productOptionData.value?.sort(
-		dataCompareFunc<ProductOptionModel>(sortingFieldName.value, ascOrder)
+		dataCompareFunc<ProductOptionListItemModel>(
+			sortingFieldName.value,
+			ascOrder
+		)
 	)
 }
 
 refreshData()
 
 watch(
-	() => productOption.loading,
+	() => productOptionList.loading,
 	() => {
-		if (!productOption.loading && firstLoad.value) firstLoad.value = false
+		if (!productOptionList.loading && firstLoad.value) firstLoad.value = false
 	}
 )
 

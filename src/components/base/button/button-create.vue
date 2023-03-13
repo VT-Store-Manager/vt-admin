@@ -5,7 +5,6 @@
 		color="primary"
 		@click="$emit('click')"
 	>
-		<!-- <v-icon icon="fa:fas fa-plus" /> -->
 		<v-icon :icon="mdiPlusThick" />
 		<slot></slot>
 	</v-btn>

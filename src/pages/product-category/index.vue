@@ -110,9 +110,9 @@
 							size="small"
 							variant="elevated"
 							:color="
-								row.status === 'active'
+								row.status === Status.ACTIVE
 									? 'green-lighten-1'
-									: row.status === 'inactive'
+									: row.status === Status.DISABLED
 									? 'purple-lighten-3'
 									: 'red-lighten-2'
 							"
@@ -157,6 +157,7 @@
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
 import { ProductCategoryModel } from '~/models/product/product-category'
+import { Status } from '~/constants'
 
 useSeoMeta({
 	title: 'Product categories'

@@ -40,7 +40,6 @@ defineProps<Props>()
 	flex-direction: column;
 	&-title {
 		padding: 1.5rem 0 1rem;
-		// display: flex;
 		&__left {
 			:deep(*) {
 				line-height: 32px;
@@ -63,7 +62,6 @@ defineProps<Props>()
 		}
 	}
 	&-content {
-		// height: 100%;
 		flex: 1;
 	}
 

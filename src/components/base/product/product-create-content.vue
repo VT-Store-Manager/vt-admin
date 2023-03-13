@@ -66,7 +66,7 @@
 import { CreateProductModel } from '~/models/product/create-product'
 
 const productCategory = useProductCategory()
-const productOption = useProductOption()
+const productOptionList = useProductOptionList()
 
 Promise.all([productCategory.fetch(), productOption.fetch()])
 

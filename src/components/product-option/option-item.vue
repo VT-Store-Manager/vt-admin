@@ -32,7 +32,7 @@ import { mdiTrashCan } from '@mdi/js'
 import { ProductOptionItem } from '~/models/product/product-option'
 
 interface Props {
-	item: ProductOptionItem
+	item: Pick<ProductOptionItem, 'name' | 'cost'>
 	disableName?: boolean
 	disableDelete?: boolean
 }
