@@ -25,15 +25,16 @@
 						</v-col>
 					</v-row>
 					<v-row>
-						<v-col>
-							<v-checkbox
-								v-model="newOption.required"
-								label="Required"
+						<v-col cols="4">
+							<v-text-field
+								v-model="newOption.range[0]"
+								type="number"
+								label="Min selected amount"
 							/>
 						</v-col>
-						<v-col cols="9">
+						<v-col cols="4">
 							<v-text-field
-								v-model="newOption.maxSelect"
+								v-model="newOption.range[1]"
 								type="number"
 								label="Max selected amount"
 							/>
@@ -110,20 +111,21 @@
 							<v-select
 								v-model="newSubOption.parent"
 								label="Select parent"
-								:items="productOption.getAllNameForSelect"
+								:items="productOptionList.getAllNameForSelect"
 							/>
 						</v-col>
 					</v-row>
 					<v-row>
-						<v-col>
-							<v-checkbox
-								v-model="newSubOption.required"
-								label="Required"
+						<v-col cols="4">
+							<v-text-field
+								v-model="newSubOption.range[0]"
+								type="number"
+								label="Min selected amount"
 							/>
 						</v-col>
-						<v-col cols="9">
+						<v-col cols="4">
 							<v-text-field
-								v-model="newSubOption.maxSelect"
+								v-model="newSubOption.range[1]"
 								type="number"
 								label="Max selected amount"
 							/>
@@ -131,12 +133,12 @@
 					</v-row>
 					<v-row>
 						<v-select
-							v-model="productOption.selectedItem"
+							v-model="productOptionList.selectedItem"
 							clearable
 							chips
 							closable-chips
 							label="Select option items"
-							:items="productOption.getItemsOfMarkedForSelect"
+							:items="productOptionList.getItemsOfMarkedForSelect"
 							multiple
 						/>
 					</v-row>
@@ -194,7 +196,7 @@ const props = defineProps<Props>()
 const emits = defineEmits<{
 	(e: 'closeModal'): void
 }>()
-const productOption = useProductOption()
+const productOptionList = useProductOptionList()
 
 const show = ref(props.show)
 watch(
@@ -207,19 +209,16 @@ watch(
 const isSubOption = ref(false)
 const newOption = reactive<CreateNewProductOptionModel>({
 	name: '',
-	maxSelect: 1,
-	required: false,
+	range: [0, 1],
 	items: [{ name: '', cost: 0, key: temporaryUniqueKey() }]
 })
 const newSubOption = reactive<CreateProductSubOptionModel>({
 	parent: undefined,
-	maxSelect: 1,
-	required: false,
+	range: [0, 1],
 	items: []
 })
 
 const clearData = (arg: 'subOption' | 'option' | 'all' = 'all') => {
-	console.log(arg)
 	if (arg === 'subOption' || arg === 'all') {
 		Object.assign(newSubOption, {
 			parent: undefined,
@@ -227,7 +226,7 @@ const clearData = (arg: 'subOption' | 'option' | 'all' = 'all') => {
 			required: false,
 			items: []
 		})
-		productOption.clearSelected()
+		productOptionList.clearSelected()
 	}
 	if (arg === 'option' || arg === 'all') {
 		Object.assign(newOption, {
@@ -253,20 +252,20 @@ watch(
 	() => newSubOption.parent,
 	() => {
 		if (!newSubOption.parent) return
-		productOption.markId = newSubOption.parent
-		productOption.selectedItem = []
+		productOptionList.markId = newSubOption.parent
+		productOptionList.selectedItem = []
 	}
 )
 
 watch(
-	() => productOption.selectedItem,
+	() => productOptionList.selectedItem,
 	() => {
-		newSubOption.items = productOption.getSelectedItem
+		newSubOption.items = productOptionList.getSelectedItem
 	}
 )
 
 const deleteSubOptionItem = (index: number) => {
-	productOption.selectedItem.splice(index, 1)
+	productOptionList.selectedItem.splice(index, 1)
 	newSubOption.items.splice(index, 1)
 }
 </script>

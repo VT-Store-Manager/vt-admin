@@ -1,11 +1,15 @@
-import { ProductOptionModel } from './product-option'
+import { ProductOptionModel, ProductOptionItem } from './product-option'
 
 export type CreateNewProductOptionModel = Pick<
 	ProductOptionModel,
-	'name' | 'maxSelect' | 'required' | 'items'
->
+	'name' | 'range'
+> & {
+	items: Pick<ProductOptionItem, 'name' | 'cost' | 'key'>[]
+}
 
 export type CreateProductSubOptionModel = Pick<
 	ProductOptionModel,
-	'parent' | 'maxSelect' | 'required' | 'items'
->
+	'parent' | 'range'
+> & {
+	items: Pick<ProductOptionItem, 'name' | 'cost' | 'key'>[]
+}
