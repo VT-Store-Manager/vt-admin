@@ -102,9 +102,6 @@
 								{{ productOptionList.optionMap.get(row.parent)?.name }}
 							</nuxt-link>
 						</v-hover>
-						<template v-else>
-							{{ '-' }}
-						</template>
 					</td>
 					<td class="d-flex align-center">
 						<v-hover v-slot="{ isHovering: hoveringName, props: nameProps }">

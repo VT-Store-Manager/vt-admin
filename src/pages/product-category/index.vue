@@ -37,6 +37,7 @@
 					:title="variableCaseToText(fieldName.toString())"
 					:field-name="fieldName.toString()"
 					:sorting-field-name="sortingFieldName?.toString()"
+					:style="fieldName === 'name' ? { width: '400px' } : {}"
 					@sort="onDataSort"
 				/>
 				<base-table-th
@@ -83,7 +84,7 @@
 									v-bind="nameProps"
 								>
 									<nuxt-img
-										class="d-block mr-2 rounded small-img-shadow"
+										class="d-block mr-4 rounded small-img-shadow"
 										:src="
 											row.image
 												? $config.imgResourceUrl + row.image
