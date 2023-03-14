@@ -12,7 +12,6 @@ export interface ProductOptionModel {
 	parent?: string
 	range: number[]
 	items: ProductOptionItem[]
-	applying?: string[]
 	deleted?: boolean
 }
 
@@ -23,6 +22,6 @@ export interface ProductOptionListItemModel {
 	parent: string
 	items: ProductOptionItem[]
 	range: number[]
-	applying: number
+	used: number
 	status: 'active' | 'disabled' | 'removed'
 }

@@ -1,15 +1,24 @@
 <template>
 	<v-row>
-		<v-col cols="8">
-			<v-text-field
+		<v-col
+			v-if="props.index || props.index === 0"
+			cols="2"
+		>
+			<v-label
+				class="pa-4"
+				:text="'Item #' + (props.index + 1)"
+			/>
+		</v-col>
+		<v-col cols="5">
+			<base-form-input
 				v-model="item.name"
 				:disabled="props.disableName"
 				label="Option item name"
 				class="mr-4"
 			/>
 		</v-col>
-		<v-col>
-			<v-text-field
+		<v-col cols="3">
+			<base-form-input
 				v-model="item.cost"
 				label="Option item cost"
 				type="number"
@@ -35,6 +44,7 @@ interface Props {
 	item: Pick<ProductOptionItem, 'name' | 'cost'>
 	disableName?: boolean
 	disableDelete?: boolean
+	index?: number
 }
 const props = withDefaults(defineProps<Props>(), {
 	disableName: false,
