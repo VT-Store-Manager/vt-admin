@@ -10,7 +10,7 @@
 					Add new option
 				</v-card-title>
 				<v-card-item class="mx-6 custom-scrollbar">
-					<v-row>
+					<v-row class="pt-1">
 						<v-col>
 							<v-checkbox
 								v-model="isSubOption"
@@ -18,35 +18,43 @@
 							/>
 						</v-col>
 						<v-col cols="9">
-							<v-text-field
+							<base-form-input
 								v-model="newOption.name"
 								label="Name"
 							/>
 						</v-col>
 					</v-row>
 					<v-row>
-						<v-col cols="4">
-							<v-text-field
-								v-model="newOption.range[0]"
-								type="number"
-								label="Min selected amount"
+						<v-col cols="3">
+							<v-label
+								text="Selectable range:"
+								class="py-4 px-2"
 							/>
 						</v-col>
-						<v-col cols="4">
-							<v-text-field
+						<v-col cols="2">
+							<base-form-input
+								v-model="newOption.range[0]"
+								type="number"
+								label="Min"
+								a
+							/>
+						</v-col>
+						<v-col cols="2">
+							<base-form-input
 								v-model="newOption.range[1]"
 								type="number"
-								label="Max selected amount"
+								label="Max"
+								a
 							/>
 						</v-col>
 					</v-row>
 					<product-option-item
-						v-for="(item, index) in newOption.items"
+						v-for="(item, index) in newOption.newItems"
 						:key="item.key"
 						:item="item"
 						@update-name="name => (item.name = name)"
 						@update-cost="cost => (item.cost = cost)"
-						@delete-item="newOption.items.splice(index, 1)"
+						@delete-item="newOption.newItems.splice(index, 1)"
 					/>
 					<v-row>
 						<v-col class="pt-0">
@@ -54,7 +62,7 @@
 								:prepend-icon="mdiPlus"
 								variant="text"
 								@click="
-									newOption.items.push({
+									newOption.newItems.push({
 										name: '',
 										cost: 0,
 										key: temporaryUniqueKey()
@@ -100,7 +108,7 @@
 					Add new option
 				</v-card-title>
 				<v-card-item class="mx-6 custom-scrollbar">
-					<v-row>
+					<v-row class="pt-1">
 						<v-col>
 							<v-checkbox
 								v-model="isSubOption"
@@ -108,7 +116,7 @@
 							/>
 						</v-col>
 						<v-col cols="9">
-							<v-select
+							<base-form-select
 								v-model="newSubOption.parent"
 								label="Select parent"
 								:items="productOptionList.getAllNameForSelect"
@@ -116,36 +124,47 @@
 						</v-col>
 					</v-row>
 					<v-row>
-						<v-col cols="4">
-							<v-text-field
-								v-model="newSubOption.range[0]"
-								type="number"
-								label="Min selected amount"
+						<v-col cols="3">
+							<v-label
+								text="Selectable range:"
+								class="py-4 px-2"
 							/>
 						</v-col>
-						<v-col cols="4">
-							<v-text-field
+						<v-col cols="2">
+							<base-form-input
+								v-model="newSubOption.range[0]"
+								type="number"
+								label="Min"
+								a
+							/>
+						</v-col>
+						<v-col cols="2">
+							<base-form-input
 								v-model="newSubOption.range[1]"
 								type="number"
-								label="Max selected amount"
+								label="Max"
+								a
 							/>
 						</v-col>
 					</v-row>
 					<v-row>
-						<v-select
-							v-model="productOptionList.selectedItem"
-							clearable
-							chips
-							closable-chips
-							label="Select option items"
-							:items="productOptionList.getItemsOfMarkedForSelect"
-							multiple
-						/>
+						<v-col>
+							<base-form-select
+								v-model="productOptionList.selectedItem"
+								clearable
+								chips
+								closable-chips
+								label="Select option items"
+								:items="productOptionList.getItemsOfMarkedForSelect"
+								multiple
+							/>
+						</v-col>
 					</v-row>
 					<product-option-item
-						v-for="(item, index) in newSubOption.items"
+						v-for="(item, index) in newSubOption.childItems"
 						:key="item.key"
 						:item="item"
+						:index="index"
 						disable-name
 						@update-cost="cost => (item.cost = cost)"
 						@delete-item="deleteSubOptionItem(index)"
@@ -195,8 +214,10 @@ interface Props {
 const props = defineProps<Props>()
 const emits = defineEmits<{
 	(e: 'closeModal'): void
+	(e: 'created'): void
 }>()
 const productOptionList = useProductOptionList()
+const createProductOption = useCreateProductOption()
 
 const show = ref(props.show)
 watch(
@@ -210,40 +231,49 @@ const isSubOption = ref(false)
 const newOption = reactive<CreateNewProductOptionModel>({
 	name: '',
 	range: [0, 1],
-	items: [{ name: '', cost: 0, key: temporaryUniqueKey() }]
+	newItems: [{ name: '', cost: 0, key: temporaryUniqueKey() }]
 })
 const newSubOption = reactive<CreateProductSubOptionModel>({
 	parent: undefined,
 	range: [0, 1],
-	items: []
+	childItems: []
 })
 
 const clearData = (arg: 'subOption' | 'option' | 'all' = 'all') => {
-	if (arg === 'subOption' || arg === 'all') {
-		Object.assign(newSubOption, {
-			parent: undefined,
-			maxSelect: 1,
-			required: false,
-			items: []
-		})
-		productOptionList.clearSelected()
-	}
 	if (arg === 'option' || arg === 'all') {
-		Object.assign(newOption, {
-			name: '',
-			maxSelect: 1,
-			required: false,
-			items: [{ name: '', cost: 0, key: temporaryUniqueKey() }]
-		})
+		newOption.name = ''
+		newOption.range = [0, 1]
+		newOption.newItems = [{ name: '', cost: 0, key: temporaryUniqueKey() }]
+	}
+	if (arg === 'subOption' || arg === 'all') {
+		newSubOption.parent = undefined
+		newSubOption.range = [0, 1]
+		newSubOption.childItems = []
+
+		productOptionList.clearSelected()
 	}
 }
 
-const saveNewOption = () => {
-	if (isSubOption.value) {
-		console.log(newSubOption)
-	} else {
-		console.log(newOption)
-	}
+const saveNewOption = async () => {
+	const body = isSubOption.value
+		? {
+				parent: newSubOption.parent!,
+				range: newSubOption.range.map(v => +v),
+				childItems: newSubOption.childItems.map(item => {
+					item.cost = +item.cost
+					return item
+				})
+		  }
+		: {
+				name: newOption.name,
+				range: newOption.range.map(v => +v),
+				newItems: newOption.newItems.map(item => {
+					item.cost = +item.cost
+					return item
+				})
+		  }
+	await createProductOption.fetch({ body })
+	emits('created')
 	emits('closeModal')
 	clearData('all')
 }
@@ -260,12 +290,12 @@ watch(
 watch(
 	() => productOptionList.selectedItem,
 	() => {
-		newSubOption.items = productOptionList.getSelectedItem
+		newSubOption.childItems = productOptionList.getSelectedItem
 	}
 )
 
 const deleteSubOptionItem = (index: number) => {
 	productOptionList.selectedItem.splice(index, 1)
-	newSubOption.items.splice(index, 1)
+	newSubOption.childItems.splice(index, 1)
 }
 </script>

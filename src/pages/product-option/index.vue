@@ -23,6 +23,7 @@
 			</button-create>
 			<product-option-create-modal
 				:show="showCreateModal"
+				@created="refreshData"
 				@close-modal="showCreateModal = false"
 			/>
 		</template>
@@ -37,6 +38,13 @@
 					@sort="onDataSort"
 				/>
 				<base-table-th
+					title="Name"
+					:sorting-field-name="sortingFieldName"
+					field-name="name"
+					:style="{ width: '300px' }"
+					@sort="onDataSort"
+				/>
+				<base-table-th
 					title="Option items"
 					:sortable="false"
 					:show-sort-icon="false"
@@ -47,7 +55,7 @@
 					:show-sort-icon="false"
 				/>
 				<base-table-th
-					title="Applying"
+					title="Used"
 					:sortable="false"
 					:show-sort-icon="false"
 				/>
@@ -71,40 +79,13 @@
 								v-bind="idProps"
 								:class="{ 'text-primary-darken': hoveringId }"
 							>
-								{{ row.id.slice(-6) }}
+								{{ row.code }}
 								<v-tooltip
 									activator="parent"
 									location="right"
 								>
 									{{ row.id }}
 								</v-tooltip>
-							</nuxt-link>
-						</v-hover>
-					</td>
-					<td>
-						<v-hover v-slot="{ isHovering: hoveringId, props: idProps }">
-							<nuxt-link
-								:to="`/product-option/${row.id}`"
-								v-bind="idProps"
-								:class="{ 'text-primary-darken': hoveringId }"
-							>
-								{{ row.code }}
-							</nuxt-link>
-						</v-hover>
-					</td>
-					<td class="d-flex align-center">
-						<v-hover v-slot="{ isHovering: hoveringName, props: nameProps }">
-							<nuxt-link
-								:to="'/product-option/' + row.id"
-								class="d-flex align-center"
-								v-bind="nameProps"
-							>
-								<span
-									class="ellipsis-2"
-									:class="{ 'text-primary-darken': hoveringName }"
-								>
-									{{ row.name }}
-								</span>
 							</nuxt-link>
 						</v-hover>
 					</td>
@@ -124,6 +105,22 @@
 						<template v-else>
 							{{ '-' }}
 						</template>
+					</td>
+					<td class="d-flex align-center">
+						<v-hover v-slot="{ isHovering: hoveringName, props: nameProps }">
+							<nuxt-link
+								:to="'/product-option/' + row.id"
+								class="d-flex align-center"
+								v-bind="nameProps"
+							>
+								<span
+									class="ellipsis-2"
+									:class="{ 'text-primary-darken': hoveringName }"
+								>
+									{{ row.name }}
+								</span>
+							</nuxt-link>
+						</v-hover>
 					</td>
 					<td>
 						<span class="ellipsis-2">
@@ -150,12 +147,12 @@
 					</td>
 					<td>
 						<span>
-							{{ row.applying || 0 }}
+							{{ row.used || 0 }}
 							<v-tooltip
 								activator="parent"
-								:disabled="!row.applying"
+								:disabled="!row.used"
 							>
-								{{ row.applying }}
+								{{ row.used }}
 							</v-tooltip>
 						</span>
 					</td>
@@ -163,7 +160,6 @@
 						<button-action-group
 							edit
 							delete
-							show-text
 							@click:edit="onEditItem(row.id)"
 							@click:delete="rowCodeConfirmed = row.id"
 						/>
@@ -203,12 +199,7 @@ useSeoMeta({
 const productOptionList = useProductOptionList()
 const productOptionData = ref<ProductOptionListItemModel[]>([])
 
-const fieldNameList: Array<keyof ProductOptionListItemModel> = [
-	'id',
-	'code',
-	'name',
-	'parent'
-]
+const fieldNameList: Array<keyof ProductOptionListItemModel> = ['id', 'parent']
 const sortingFieldName = ref<undefined | keyof ProductOptionListItemModel>(
 	undefined
 )

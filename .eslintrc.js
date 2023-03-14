@@ -75,6 +75,7 @@ module.exports = {
 		'space-before-function-paren': 'off',
 		'no-useless-return': 'off',
 		'func-call-spacing': 'off',
+		'no-mixed-spaces-and-tabs': ['warn', 'smart-tabs'],
 
 		// Typescript eslint
 		'@typescript-eslint/no-unused-vars': [

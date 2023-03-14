@@ -4,12 +4,12 @@ export type CreateNewProductOptionModel = Pick<
 	ProductOptionModel,
 	'name' | 'range'
 > & {
-	items: Pick<ProductOptionItem, 'name' | 'cost' | 'key'>[]
+	newItems: Pick<ProductOptionItem, 'name' | 'cost' | 'key'>[]
 }
 
 export type CreateProductSubOptionModel = Pick<
 	ProductOptionModel,
 	'parent' | 'range'
 > & {
-	items: Pick<ProductOptionItem, 'name' | 'cost' | 'key'>[]
+	childItems: Pick<ProductOptionItem, 'name' | 'cost' | 'key'>[]
 }
