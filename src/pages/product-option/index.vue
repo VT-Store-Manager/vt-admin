@@ -4,14 +4,9 @@
 			<p>{{ productOptionData ? productOptionData.length : 0 }} options</p>
 		</template>
 		<template #title-right>
-			<v-progress-circular
+			<base-progress-circular
 				v-show="productOptionList.loading"
 				:class="{ done: !productOptionList.loading }"
-				class="mr-3"
-				indeterminate
-				color="primary"
-				:size="24"
-				:width="5"
 			/>
 			<button-refresh
 				class="mr-3"
@@ -30,11 +25,9 @@
 		<base-table v-show="!productOptionList.loading || !firstLoad">
 			<template #head>
 				<base-table-th
-					v-for="fieldName in fieldNameList ?? []"
-					:key="fieldName"
-					:title="variableCaseToText(fieldName)"
-					:field-name="fieldName"
+					title="ID"
 					:sorting-field-name="sortingFieldName"
+					field-name="id"
 					@sort="onDataSort"
 				/>
 				<base-table-th
@@ -82,24 +75,10 @@
 								{{ row.code }}
 								<v-tooltip
 									activator="parent"
-									location="right"
+									location="start"
 								>
 									{{ row.id }}
 								</v-tooltip>
-							</nuxt-link>
-						</v-hover>
-					</td>
-					<td>
-						<v-hover
-							v-if="row.parent"
-							v-slot="{ isHovering: hoveringParentId, props: parentIdProps }"
-						>
-							<nuxt-link
-								:to="`/product-option/${row.parent}`"
-								v-bind="parentIdProps"
-								:class="{ 'text-primary-darken': hoveringParentId }"
-							>
-								{{ productOptionList.optionMap.get(row.parent)?.name }}
 							</nuxt-link>
 						</v-hover>
 					</td>
@@ -118,6 +97,34 @@
 								</span>
 							</nuxt-link>
 						</v-hover>
+						<v-hover
+							v-if="row.parent"
+							v-slot="{ isHovering: hoveringName, props: nameProps }"
+						>
+							<nuxt-link
+								:to="'/product-option/' + row.parent"
+								class="d-flex align-center"
+								v-bind="nameProps"
+							>
+								<v-btn
+									variant="plain"
+									size="x-small"
+									:ripple="false"
+									:color="hoveringName ? 'primary' : 'grey'"
+								>
+									<v-icon
+										:icon="mdiLinkVariantPlus"
+										size="18"
+									/>
+									<v-tooltip
+										activator="parent"
+										open-delay="500"
+									>
+										Go to Parent
+									</v-tooltip>
+								</v-btn>
+							</nuxt-link>
+						</v-hover>
 					</td>
 					<td>
 						<span class="ellipsis-2">
@@ -126,6 +133,7 @@
 								activator="parent"
 								:max-width="300"
 								location="bottom start"
+								open-delay="500"
 							>
 								<template
 									v-for="item in row.items"
@@ -187,6 +195,7 @@
 </template>
 
 <script lang="ts" setup>
+import { mdiLinkVariantPlus } from '@mdi/js'
 import { ProductOptionListItemModel } from '~/models/product/product-option'
 
 useSeoMeta({
@@ -196,7 +205,6 @@ useSeoMeta({
 const productOptionList = useProductOptionList()
 const productOptionData = ref<ProductOptionListItemModel[]>([])
 
-const fieldNameList: Array<keyof ProductOptionListItemModel> = ['id', 'parent']
 const sortingFieldName = ref<undefined | keyof ProductOptionListItemModel>(
 	undefined
 )

@@ -4,14 +4,9 @@
 			<p>{{ productData ? productData.length : 0 }} products</p>
 		</template>
 		<template #title-right>
-			<v-progress-circular
+			<base-progress-circular
 				v-show="product.loading"
 				:class="{ done: !product.loading }"
-				class="mr-3"
-				indeterminate
-				color="primary"
-				:size="24"
-				:width="5"
 			/>
 			<button-refresh
 				class="mr-3"

@@ -1,4 +1,4 @@
-import { ProductModel } from '~~/src/models/product'
+import { ProductModel } from '~/models/product'
 
 export const useProduct = definePiniaStore('product', () => {
 	const {
@@ -6,7 +6,7 @@ export const useProduct = definePiniaStore('product', () => {
 		error,
 		loading,
 		fetchGet: fetch
-	} = useRequest<ProductModel[]>('/product.json')
+	} = useRequest<ProductModel[]>('/public/product.json')
 
 	return { data, error, loading, fetch }
 })

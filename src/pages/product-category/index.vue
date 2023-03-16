@@ -6,14 +6,9 @@
 			</p>
 		</template>
 		<template #title-right>
-			<v-progress-circular
+			<base-progress-circular
 				v-show="loading"
 				:class="{ done: !loading }"
-				class="mr-4"
-				indeterminate
-				color="primary"
-				:size="22"
-				:width="3"
 			/>
 			<button-refresh
 				class="mr-3"
@@ -61,7 +56,7 @@
 									v-bind="idProps"
 									:class="{ 'text-primary-darken': hoveringId }"
 								>
-									{{ row.id.slice(-6) }}
+									{{ row.code }}
 									<v-tooltip
 										activator="parent"
 										location="start"
