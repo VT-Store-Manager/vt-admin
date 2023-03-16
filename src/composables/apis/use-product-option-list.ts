@@ -29,7 +29,7 @@ export const useProductOptionList = definePiniaStore(
 		})
 
 		const getAllNameForSelect = computed((): VSelectModel[] => {
-			if (!response.value!.data) return []
+			if (!response.value?.data) return []
 			return response
 				.value!.data.filter(option => !option.parent)
 				.map(option => ({
@@ -61,7 +61,7 @@ export const useProductOptionList = definePiniaStore(
 		const getOptionsById = (
 			ids: string[]
 		): ProductOptionListItemModel[] | undefined => {
-			return response.value!.data?.filter(option => ids.includes(option.id))
+			return response.value?.data.filter(option => ids.includes(option.id))
 		}
 
 		return {

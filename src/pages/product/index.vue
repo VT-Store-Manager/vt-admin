@@ -160,7 +160,7 @@ const router = useRouter()
 const refreshData = async () => {
 	sortingFieldName.value = undefined
 	await product.fetch()
-	productData.value = product.data ? [...product.data] : []
+	productData.value = product.response?.data ?? []
 }
 
 refreshData()

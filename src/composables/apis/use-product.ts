@@ -1,12 +1,14 @@
 import { ProductModel } from '~/models/product'
 
+import { BaseResponse } from '~/types'
+
 export const useProduct = definePiniaStore('product', () => {
 	const {
-		response: data,
+		response,
 		error,
 		loading,
 		fetchGet: fetch
-	} = useRequest<ProductModel[]>('/public/product.json')
+	} = useRequest<BaseResponse<ProductModel[]>>('/public/product.json')
 
-	return { data, error, loading, fetch }
+	return { response, error, loading, fetch }
 })

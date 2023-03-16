@@ -46,6 +46,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const productOptionList = useProductOptionList()
 const temp = computed(() => {
-	return productOption.getOptionsById(props.optionIds)
+	return productOptionList.getOptionsById(props.optionIds)
 })
 </script>

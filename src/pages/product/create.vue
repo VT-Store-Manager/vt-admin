@@ -64,7 +64,7 @@ const productContent = ref<
 
 const onSave = () => {
 	const createProductData = {
-		...productContent.value?.data,
+		...(productContent.value?.data || []),
 		image: productImage.value?.imageFiles
 	} as CreateProductModel
 	console.log(createProductData)
