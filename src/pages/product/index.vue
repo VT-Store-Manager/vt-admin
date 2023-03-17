@@ -4,14 +4,9 @@
 			<p>{{ productData ? productData.length : 0 }} products</p>
 		</template>
 		<template #title-right>
-			<v-progress-circular
+			<base-progress-circular
 				v-show="product.loading"
 				:class="{ done: !product.loading }"
-				class="mr-3"
-				indeterminate
-				color="primary"
-				:size="24"
-				:width="5"
 			/>
 			<button-refresh
 				class="mr-3"
@@ -70,7 +65,7 @@
 								>
 									<nuxt-img
 										class="d-block mr-2 rounded"
-										:src="row.image![0] || faker.image.food(40, 40, true)"
+										:src="row.images![0] || faker.image.food(40, 40, true)"
 										:width="40"
 										:class="{ 'hover-blur': hoveringName }"
 									/>
@@ -121,13 +116,13 @@
 			<template #alternative-row>
 				<td
 					v-if="product.error || !productData"
-					colspan="7"
+					colspan="8"
 				>
 					Get product data error: {{ product.error }}
 				</td>
 				<td
 					v-else-if="productData?.length === 0"
-					colspan="7"
+					colspan="8"
 				>
 					No data
 				</td>
@@ -164,8 +159,8 @@ const router = useRouter()
 
 const refreshData = async () => {
 	sortingFieldName.value = undefined
-	await product.fetch()
-	productData.value = product.data ? [...product.data] : []
+	await product.fetch({})
+	productData.value = product.response?.data ?? []
 }
 
 refreshData()
