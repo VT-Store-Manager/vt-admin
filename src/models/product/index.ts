@@ -2,7 +2,7 @@ import { Status } from '~/constants'
 
 export interface ProductModel {
 	id: string
-	image?: string[]
+	images?: string[]
 	name: string
 	originalPrice: number
 	saleOfMonth?: number

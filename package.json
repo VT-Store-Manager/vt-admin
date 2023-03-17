@@ -47,6 +47,7 @@
 	"dependencies": {
 		"@pinia/nuxt": "^0.4.6",
 		"lodash": "^4.17.21",
+		"object-to-formdata": "4.2.0",
 		"pinia": "^2.0.29",
 		"query-string": "^8.1.0"
 	}

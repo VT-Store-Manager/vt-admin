@@ -1,10 +1,15 @@
 <template>
 	<v-card>
 		<v-card-title class="d-flex align-center pb-0">
-			<p>{{ props.title }}</p>
+			<p>
+				{{ props.title }}
+				<span class="text-red">*</span>
+			</p>
 		</v-card-title>
 		<v-card-subtitle>
-			<p>{{ `${imageFiles.length}/${maxImages} images` }}</p>
+			<p>
+				{{ `${images.length}/${maxImages} images` }}
+			</p>
 		</v-card-subtitle>
 		<v-card-item class="pa-0">
 			<v-file-input
@@ -19,7 +24,7 @@
 			<v-container fluid>
 				<v-row dense>
 					<v-col
-						v-for="(file, index) in imageFiles"
+						v-for="(file, index) in images"
 						:key="file.size"
 						xl="3"
 						lg="4"
@@ -45,17 +50,19 @@
 									</template>
 								</v-img>
 							</KeepAlive>
-							<v-icon
-								icon="fa:fas fa-circle-minus"
-								color="red-lighten-2"
-								size="small"
-								class="image-input__delete"
-								@click="deleteImage"
-							/>
+							<v-hover v-slot="{ isHovering, props: hoverProps }">
+								<v-icon
+									v-bind="hoverProps"
+									icon="fa:fas fa-circle-minus"
+									:color="isHovering ? 'red-accent-4' : 'grey-darken-1'"
+									class="image-input__delete"
+									@click="deleteImage(index)"
+								/>
+							</v-hover>
 						</div>
 					</v-col>
 					<v-col
-						v-if="imageFiles.length < props.maxImages"
+						v-if="images.length < props.maxImages"
 						xl="3"
 						lg="4"
 						md="6"
@@ -64,7 +71,10 @@
 						class="pa-2"
 					>
 						<div
-							class="image-input input-add bg-green-lighten-4"
+							class="image-input input-add"
+							:class="[
+								props.errorFlag ? 'bg-red-lighten-4' : 'bg-green-lighten-4'
+							]"
 							@click="addImage"
 						>
 							<v-icon
@@ -74,9 +84,9 @@
 							/>
 						</div>
 					</v-col>
-					<template v-if="imageFiles.length + 1 < props.maxImages">
+					<template v-if="images.length + 1 < props.maxImages">
 						<v-col
-							v-for="i in props.maxImages - 1 - imageFiles.length"
+							v-for="i in props.maxImages - 1 - images.length"
 							:key="i"
 							xl="3"
 							lg="4"
@@ -99,21 +109,25 @@ interface Props {
 	maxImages: number
 	maxSize?: number // MB
 	title?: string
+	required?: boolean
+	errorFlag?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	maxSize: 2,
-	title: 'Images'
+	title: 'Images',
+	required: true,
+	errorFlag: false
 })
 
-const imageFiles = ref<File[]>([])
+const images = ref<File[]>([])
 const imageFileTempo = ref<File[]>([])
 const inputFile = ref<null | HTMLDivElement>(null)
 
 defineEmits<{
 	(e: 'save', files: File[]): void
 }>()
-defineExpose({ imageFiles })
+defineExpose({ images })
 
 const rule = [
 	(value: any[]) => {
@@ -127,11 +141,11 @@ const rule = [
 ]
 
 const imagesUrl = computed(() => {
-	return imageFiles.value.map(file => URL.createObjectURL(file))
+	return images.value.map(file => URL.createObjectURL(file))
 })
 
 const deleteImage = (index: number) => {
-	imageFiles.value.splice(index, 1)
+	images.value.splice(index, 1)
 }
 
 const addImage = () => {
@@ -139,10 +153,10 @@ const addImage = () => {
 }
 
 const onUpdatedFile = () => {
-	imageFiles.value.splice(
-		imageFiles.value.length,
+	images.value.splice(
+		images.value.length,
 		0,
-		...imageFileTempo.value.slice(0, props.maxImages - imageFiles.value.length)
+		...imageFileTempo.value.slice(0, props.maxImages - images.value.length)
 	)
 	imageFileTempo.value = []
 }
@@ -170,6 +184,10 @@ const onUpdatedFile = () => {
 	}
 	&.input-add {
 		border: 2px solid #66bb6a;
+		transition: all 500ms;
+		&.bg-red-lighten-4 {
+			border-color: #c62828;
+		}
 		> * {
 			top: 50%;
 			left: 50%;
@@ -189,6 +207,15 @@ const onUpdatedFile = () => {
 	}
 	&__delete {
 		z-index: 10;
+		overflow: hidden;
+		border-radius: 50%;
+		opacity: 0.5;
+		transition: all 200ms;
+		&:hover {
+			opacity: 1;
+			overflow: hidden;
+			box-shadow: 0 0 5px #f009;
+		}
 	}
 }
 </style>

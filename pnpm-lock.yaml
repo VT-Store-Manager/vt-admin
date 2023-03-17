@@ -26,6 +26,7 @@ specifiers:
   lodash: ^4.17.21
   node-sass: ^8.0.0
   nuxt: ^3.1.2
+  object-to-formdata: 4.2.0
   pinia: ^2.0.29
   postcss: ^8.4.21
   prettier: ^2.8.3
@@ -39,6 +40,7 @@ specifiers:
 dependencies:
   '@pinia/nuxt': 0.4.6_typescript@4.9.5
   lodash: 4.17.21
+  object-to-formdata: 4.2.0
   pinia: 2.0.30_typescript@4.9.5
   query-string: 8.1.0
 
@@ -5502,6 +5504,10 @@ packages:
     resolution: {integrity: sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /object-to-formdata/4.2.0:
+    resolution: {integrity: sha512-qUUAl8RSurv9XppU1XBrACpmLVcJCn0yg2gZ/10tMKTPXgwkJouvGi9yUvQsTAEZvVvAUyrFqGt0MVuNzKFt1A==}
+    dev: false
 
   /object.assign/4.1.4:
     resolution: {integrity: sha512-1mxKf0e58bvyjSCtKYY4sRe9itRk3PJpquJOjeIkz885CczcI4IvJJDLPS72oowuSh+pBxUFROpX+TU++hxhZQ==}

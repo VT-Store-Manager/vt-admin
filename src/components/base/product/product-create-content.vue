@@ -13,6 +13,8 @@
 						<base-form-input
 							v-model="data.name"
 							label="Product name"
+							:rules="rules.name"
+							:error="nameError"
 						/>
 					</v-col>
 					<v-col
@@ -23,8 +25,9 @@
 							v-model="data.category"
 							label="Category"
 							:loading="productCategory.loading"
-							:error="productCategory.error"
+							:error="productCategory.error || categoryError"
 							:items="productCategory.categorySelect"
+							:rules="rules.category"
 						/>
 					</v-col>
 					<v-col cols="12">
@@ -38,6 +41,8 @@
 							v-model="data.originalPrice"
 							label="Original price"
 							type="number"
+							:rules="rules.originalPrice"
+							:error="priceError"
 						/>
 					</v-col>
 					<v-col cols="8">
@@ -65,13 +70,24 @@
 <script lang="ts" setup>
 import { CreateProductModel } from '~/models/product/create-product'
 
+interface Props {
+	nameError?: boolean
+	categoryError?: boolean
+	priceError?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+	nameError: false,
+	categoryError: false,
+	priceError: false
+})
 const productCategory = useProductCategory()
 const productOptionList = useProductOptionList()
 
 Promise.all([productCategory.fetch(), productOptionList.fetch()])
 
 const data = reactive<
-	Omit<CreateProductModel, 'category'> & { category?: string }
+	Omit<CreateProductModel, 'category' | 'images'> & { category?: string }
 >({
 	name: '',
 	originalPrice: 0,
@@ -79,6 +95,14 @@ const data = reactive<
 	description: '',
 	options: []
 })
+
+const rules = {
+	name: [(value: string) => !!value || 'Required'],
+	originalPrice: [
+		(value: string | number) => +value >= 0 || 'Must be greater than 0'
+	],
+	category: [(value: string) => !!value || 'Required']
+}
 
 defineExpose({ data })
 </script>

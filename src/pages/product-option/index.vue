@@ -179,13 +179,13 @@
 			<template #alternative-row>
 				<td
 					v-if="productOptionList.error || !productOptionData"
-					colspan="7"
+					colspan="6"
 				>
 					Get product option data error: {{ productOptionList.error }}
 				</td>
 				<td
 					v-else-if="productOptionData?.length === 0"
-					colspan="7"
+					colspan="6"
 				>
 					No data
 				</td>
