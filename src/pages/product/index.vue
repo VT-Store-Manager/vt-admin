@@ -25,6 +25,11 @@
 					:title="variableCaseToText(fieldName)"
 					:field-name="fieldName"
 					:sorting-field-name="sortingFieldName"
+					:style="
+						['name', 'category'].includes(fieldName)
+							? `width: ${fieldName === 'name' ? 250 : 150}px`
+							: {}
+					"
 					@sort="onDataSort"
 				/>
 				<base-table-th
@@ -48,40 +53,47 @@
 									v-bind="idProps"
 									:class="{ 'text-primary-darken': hoveringId }"
 								>
-									{{ row.id }}
+									{{ row.code }}
+									<v-tooltip
+										activator="parent"
+										location="start"
+										:open-delay="500"
+									>
+										{{ row.id }}
+									</v-tooltip>
 								</nuxt-link>
 							</template>
 						</v-hover>
 					</td>
 					<td class="d-flex align-center">
-						<v-hover>
-							<template
-								#default="{ isHovering: hoveringName, props: nameProps }"
+						<v-hover v-slot="{ isHovering: hoveringName, props: nameProps }">
+							<nuxt-link
+								:to="'/product/' + row.id"
+								class="d-flex align-center"
+								v-bind="nameProps"
 							>
-								<nuxt-link
-									:to="'/product/' + row.id"
-									class="d-flex align-center"
-									v-bind="nameProps"
+								<nuxt-img
+									class="d-block mr-4 rounded small-img-shadow"
+									:src="
+										row.images && row.images[0]
+											? $config.imgResourceUrl + row.images[0]
+											: faker.image.food(40, 40, true)
+									"
+									:width="40"
+									:class="{ 'hover-blur': hoveringName }"
+								/>
+								<span
+									class="ellipsis-2"
+									:class="{ 'text-primary-darken': hoveringName }"
 								>
-									<nuxt-img
-										class="d-block mr-2 rounded"
-										:src="row.images![0] || faker.image.food(40, 40, true)"
-										:width="40"
-										:class="{ 'hover-blur': hoveringName }"
-									/>
-									<span
-										class="ellipsis-2"
-										:class="{ 'text-primary-darken': hoveringName }"
-									>
-										{{ row.name }}
-									</span>
-								</nuxt-link>
-							</template>
+									{{ row.name }}
+								</span>
+							</nuxt-link>
 						</v-hover>
 					</td>
-					<td>{{ row.category }}</td>
-					<td>{{ row.originalPrice }}</td>
-					<td>{{ row.saleOfMonth }}</td>
+					<td>{{ row.category.name }}</td>
+					<td>{{ row.originalPrice + ' VND' }}</td>
+					<td>{{ row.salesVolumn.month }}</td>
 					<td>
 						<v-chip
 							size="small"
@@ -97,7 +109,16 @@
 							{{ row.status }}
 						</v-chip>
 					</td>
-					<td>{{ row.updatedAt }}</td>
+					<td>
+						{{ timeDiffToString(row.updatedAt) }}
+						<v-tooltip
+							activator="parent"
+							location="start"
+							:open-delay="500"
+						>
+							{{ moment(row.updatedAt).format('YYYY-MM-DD hh:mm:ss') }}
+						</v-tooltip>
+					</td>
 					<td>
 						<button-action-group
 							edit
@@ -133,6 +154,7 @@
 
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
+import moment from 'moment'
 import { ProductModel } from '~/models/product'
 import { Status } from '~/constants'
 
@@ -148,7 +170,7 @@ const fieldNameList: Array<keyof ProductModel> = [
 	'name',
 	'category',
 	'originalPrice',
-	'saleOfMonth',
+	'salesVolumn',
 	'status',
 	'updatedAt'
 ]
@@ -168,7 +190,11 @@ refreshData()
 const onDataSort = (fieldName: string, ascOrder: boolean) => {
 	sortingFieldName.value = fieldName as keyof ProductModel
 	productData.value.sort(
-		dataCompareFunc<ProductModel>(sortingFieldName.value, ascOrder)
+		sortingFieldName.value === 'category'
+			? dataCompareFunc<ProductModel>('category', ascOrder, 'name')
+			: sortingFieldName.value === 'salesVolumn'
+			? dataCompareFunc<ProductModel>('salesVolumn', ascOrder, 'month')
+			: dataCompareFunc<ProductModel>(sortingFieldName.value, ascOrder)
 	)
 }
 
