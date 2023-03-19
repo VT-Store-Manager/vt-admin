@@ -8,7 +8,7 @@ export const useProduct = definePiniaStore('product', () => {
 		error,
 		loading,
 		fetchGet: fetch
-	} = useRequest<BaseResponse<ProductModel[]>>('/public/product.json')
+	} = useRequest<BaseResponse<ProductModel[]>>('/product')
 
 	return { response, error, loading, fetch }
 })

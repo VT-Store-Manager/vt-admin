@@ -24,6 +24,7 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   husky: ^8.0.3
   lodash: ^4.17.21
+  moment: ^2.29.4
   node-sass: ^8.0.0
   nuxt: ^3.1.2
   object-to-formdata: 4.2.0
@@ -40,6 +41,7 @@ specifiers:
 dependencies:
   '@pinia/nuxt': 0.4.6_typescript@4.9.5
   lodash: 4.17.21
+  moment: 2.29.4
   object-to-formdata: 4.2.0
   pinia: 2.0.30_typescript@4.9.5
   query-string: 8.1.0
@@ -5104,6 +5106,10 @@ packages:
       pathe: 1.1.0
       pkg-types: 1.0.1
       ufo: 1.0.1
+
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
 
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
