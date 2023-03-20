@@ -59,7 +59,7 @@
 						/>
 					</v-col>
 					<v-col cols="12">
-						<base-product-option-expansion-panel :option-ids="data.options" />
+						<product-option-expansion-panel :option-ids="data.options" />
 					</v-col>
 				</v-row>
 			</v-container>

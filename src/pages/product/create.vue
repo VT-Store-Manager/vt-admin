@@ -40,7 +40,7 @@
 				sm="8"
 				class="pb-0"
 			>
-				<base-product-create-content
+				<product-create-content
 					ref="productContent"
 					class="rounded-12 h-100"
 					:name-error="isError.name"
