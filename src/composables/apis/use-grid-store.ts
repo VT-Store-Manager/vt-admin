@@ -1,4 +1,4 @@
-import { StoreGridItemModel } from '~/models/store/grid-item'
+import { StoreGridItemModel } from '~/models/store'
 
 export const useStore = definePiniaStore('store', () => {
 	const pagination = 6
@@ -8,7 +8,7 @@ export const useStore = definePiniaStore('store', () => {
 		error,
 		loading,
 		fetchGet: fetch
-	} = useRequest<StoreGridItemModel[]>('/store-grid.json')
+	} = useRequest<StoreGridItemModel[]>('/public/store-grid.json')
 
 	return { data, error, loading, fetch, pagination }
 })

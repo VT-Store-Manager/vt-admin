@@ -11,6 +11,12 @@
 				{{ `${images.length}/${maxImages} images` }}
 			</p>
 		</v-card-subtitle>
+		<p
+			v-if="isError"
+			class="image-error text-error px-4"
+		>
+			Require 1 image at least
+		</p>
 		<v-card-item class="pa-0">
 			<v-file-input
 				ref="inputFile"
@@ -72,9 +78,7 @@
 					>
 						<div
 							class="image-input input-add"
-							:class="[
-								props.errorFlag ? 'bg-red-lighten-4' : 'bg-green-lighten-4'
-							]"
+							:class="[isError ? 'bg-red-lighten-4' : 'bg-green-lighten-4']"
 							@click="addImage"
 						>
 							<v-icon
@@ -110,24 +114,22 @@ interface Props {
 	maxSize?: number // MB
 	title?: string
 	required?: boolean
-	errorFlag?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	maxSize: 2,
 	title: 'Images',
-	required: true,
-	errorFlag: false
+	required: true
 })
 
 const images = ref<File[]>([])
 const imageFileTempo = ref<File[]>([])
 const inputFile = ref<null | HTMLDivElement>(null)
+const isError = ref(false)
 
 defineEmits<{
 	(e: 'save', files: File[]): void
 }>()
-defineExpose({ images })
 
 const rule = [
 	(value: any[]) => {
@@ -159,7 +161,23 @@ const onUpdatedFile = () => {
 		...imageFileTempo.value.slice(0, props.maxImages - images.value.length)
 	)
 	imageFileTempo.value = []
+	if (isError.value && images.value.length) {
+		isError.value = false
+	}
 }
+
+const validate = () => {
+	if (!props.required) {
+		return true
+	}
+	if (!images.value.length) {
+		isError.value = true
+		return false
+	}
+	return true
+}
+
+defineExpose({ images, validate })
 </script>
 
 <style lang="scss" scoped>
@@ -217,5 +235,9 @@ const onUpdatedFile = () => {
 			box-shadow: 0 0 5px #f009;
 		}
 	}
+}
+.image-error {
+	font-size: 0.75rem;
+	letter-spacing: 0.4px;
 }
 </style>

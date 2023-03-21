@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-import { StoreGridItemModel } from '~/models/store/grid-item'
+import { StoreGridItemModel } from '~/models/store'
 
 const store = useStore()
 const storeData = ref<StoreGridItemModel[]>([])

@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { StoreGridItemModel } from '~/models/store/grid-item'
+import { StoreGridItemModel } from '~/models/store'
 
 interface Props {
 	data: StoreGridItemModel
