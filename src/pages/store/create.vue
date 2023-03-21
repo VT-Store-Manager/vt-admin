@@ -1,9 +1,10 @@
 <template>
 	<template-page-container page-name="Create store">
 		<template #title-right>
-			<base-progress-circular />
-			<!-- v-show="createProduct.loading"
-			:class="{ done: !createProduct.loading }" -->
+			<base-progress-circular
+				v-show="createStoreStore.loading"
+				:class="{ done: !createStoreStore.loading }"
+			/>
 			<v-hover>
 				<template #default="{ isHovering, props }">
 					<button-secondary
@@ -31,7 +32,6 @@
 					ref="storeImage"
 					class="rounded-12 h-100"
 					:max-images="6"
-					:error-flag="isError.image"
 				/>
 			</v-col>
 			<v-col
@@ -50,6 +50,7 @@
 
 <script lang="ts" setup>
 import { mdiRefresh, mdiContentSave } from '@mdi/js'
+import { serialize } from 'object-to-formdata'
 import { CreateStoreModel } from '~/models/store'
 
 const storeImage = ref<
@@ -64,14 +65,23 @@ const storeContent = ref<
 		validate: () => Promise<boolean>
 	}
 >()
-const isError = reactive({
-	image: false
-})
+const createStoreStore = useCreateStore()
 
 const onSave = async () => {
-	const isValidData = await storeContent.value!.validate()
-	const isValidImage = storeImage.value?.validate()
+	if (!storeImage.value || !storeContent.value) return
+
+	const isValidImage = storeImage.value.validate()
+	const isValidData = await storeContent.value.validate()
 	if (!isValidData || !isValidImage) return
-	console.log(storeContent.value?.data)
+
+	const dto = {
+		images: storeImage.value.images || [],
+		...storeContent.value.data
+	}
+	const body = serialize(dto, { noFilesWithArrayNotation: true })
+	await createStoreStore.fetch({ body })
+	if (createStoreStore.error) {
+		alert(createStoreStore.error)
+	}
 }
 </script>
