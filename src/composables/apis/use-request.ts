@@ -97,6 +97,7 @@ export default function <R, I = Record<string, any>>(
 				params: postOptions?.params
 			})
 
+			state.error = null
 			state.loading = true
 			const res = await $fetch(_url, {
 				baseURL: runtimeConfig.public.apiBase,
