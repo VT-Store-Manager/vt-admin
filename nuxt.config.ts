@@ -34,10 +34,6 @@ export default defineNuxtConfig({
 		{
 			path: '~/components/base/button',
 			pathPrefix: false
-		},
-		{
-			path: '~/components/base/product',
-			pathPrefix: false
 		}
 	],
 	hooks: {

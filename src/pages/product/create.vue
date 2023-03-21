@@ -32,7 +32,6 @@
 					ref="productImage"
 					class="rounded-12 h-100"
 					:max-images="6"
-					:error-flag="isError.image"
 				/>
 			</v-col>
 			<v-col
@@ -61,7 +60,9 @@ import { useCreateProduct } from '~/composables/apis/use-create-product'
 
 type CreateWithoutImageModel = Omit<CreateProductModel, 'images'>
 
-const productImage = ref<HTMLElement & { images: File[] }>()
+const productImage = ref<
+	HTMLElement & { images: File[]; validate: () => boolean }
+>()
 const productContent = ref<HTMLElement & { data: CreateWithoutImageModel }>()
 const isError = reactive({
 	image: false,
@@ -72,6 +73,8 @@ const isError = reactive({
 const createProduct = useCreateProduct()
 
 const onSave = () => {
+	if (!productImage.value || !productContent.value) return
+	if (!productImage.value.validate()) return
 	const productDtoData: CreateProductModel = {
 		images:
 			productImage.value?.images && !_.isEmpty(productImage.value?.images)

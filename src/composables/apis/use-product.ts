@@ -1,6 +1,6 @@
 import { ProductModel } from '~/models/product'
 
-import { BaseResponse } from '~/types'
+import { BaseResponse, VSelectModel } from '~/types'
 
 export const useProduct = definePiniaStore('product', () => {
 	const {
@@ -10,5 +10,16 @@ export const useProduct = definePiniaStore('product', () => {
 		fetchGet: fetch
 	} = useRequest<BaseResponse<ProductModel[]>>('/product')
 
-	return { response, error, loading, fetch }
+	const productSelect = computed((): VSelectModel[] => {
+		return (
+			response.value?.data.map(
+				(product): VSelectModel => ({
+					title: product.name,
+					value: product.id
+				})
+			) || []
+		)
+	})
+
+	return { response, error, loading, fetch, productSelect }
 })
