@@ -2,7 +2,7 @@
 	<v-container fluid>
 		<v-row>
 			<v-col
-				v-for="item in data"
+				v-for="item in data.items"
 				:key="item.id"
 				cols="12"
 				sm="6"
@@ -10,37 +10,37 @@
 				lg="3"
 				xl="2"
 			>
-				<slot :data="item"></slot>
+				<store-grid-item :data="item" />
 			</v-col>
 		</v-row>
 	</v-container>
 	<base-pagination
 		v-if="loaded"
-		:current-page="1"
-		:max-per-page="6"
+		:current-page="storeGridStore.pagination.page"
+		:max-per-page="storeGridStore.pagination.limit"
 		:total-visible="5"
-		:data-amount="data.length"
+		:data-amount="data.maxCount"
 		@change-page="changePage"
 	/>
 </template>
 
 <script lang="ts" setup>
-import { StoreGridItemModel } from '~/models/store'
+import { StoreGridModel } from '~/models/store'
 
 interface Props {
-	col: number
-	data: StoreGridItemModel[]
-	itemPerPage: number
+	data: StoreGridModel
 }
 
 defineProps<Props>()
 
 const loaded = ref(false)
+const storeGridStore = useStoreGrid()
 
 onBeforeMount(() => (loaded.value = false))
 onMounted(() => (loaded.value = true))
 
 const changePage = (currentPage: number, maxPerPage: number) => {
-	console.log(`Page: ${currentPage}, max: ${maxPerPage}`)
+	storeGridStore.pagination.page = currentPage
+	storeGridStore.pagination.limit = maxPerPage
 }
 </script>
