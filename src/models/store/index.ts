@@ -29,7 +29,7 @@ export interface StoreModel {
 	}
 }
 
-export interface StoreGridItemModel
+export interface StoreGridItem
 	extends Pick<
 		StoreModel,
 		| 'id'
@@ -40,6 +40,10 @@ export interface StoreGridItemModel
 		| 'openedStatus'
 		| 'deleted'
 	> {}
+export interface StoreGridModel {
+	items: StoreGridItem[]
+	maxCount: number
+}
 
 export interface CreateStoreModel
 	extends Pick<

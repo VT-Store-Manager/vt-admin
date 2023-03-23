@@ -2,14 +2,14 @@
 	<v-card class="store-item rounded-lg">
 		<v-carousel
 			:show-arrows="!data.images || data.images.length < 2 ? false : 'hover'"
-			height="200"
+			height="180"
 			hide-delimiter-background
 			:hide-delimiters="!data.images || data.images.length < 2"
 		>
 			<v-carousel-item
 				v-for="(img, index) in data.images"
 				:key="index"
-				:src="img"
+				:src="$config.imgResourceUrl + img"
 				cover
 			>
 				<template #placeholder>
@@ -32,22 +32,22 @@
 			{{ fullAddress }}
 		</v-card-subtitle>
 		<v-card-actions
-			class="px-4 pt-4"
+			class="px-4 pt-2"
 			@click="onCardClick"
 		>
 			<v-spacer />
 			<p class="small-info text-grey">
-				<i> Updated at {{ new Date(+data.updatedAt).toLocaleString() }} </i>
+				<i> Updated {{ displayUpdateTime }} </i>
 			</p>
 		</v-card-actions>
 	</v-card>
 </template>
 
 <script lang="ts" setup>
-import { StoreGridItemModel } from '~/models/store'
+import { StoreGridItem } from '~/models/store'
 
 interface Props {
-	data: StoreGridItemModel
+	data: StoreGridItem
 }
 
 const props = defineProps<Props>()
@@ -55,6 +55,13 @@ const props = defineProps<Props>()
 const fullAddress = computed(() => {
 	const { street, ward, district, country } = props.data.address
 	return [street, ward, district, country].filter(s => !!s).join(', ')
+})
+
+const displayUpdateTime = computed(() => {
+	const timeDiff = calculateTimeDiff(props.data.updatedAt)
+	if (isLongerMonth(timeDiff))
+		return 'at ' + new Date(props.data.updatedAt).toDateString()
+	return timeDiffToString(props.data.updatedAt)
 })
 
 const onCardClick = () => {

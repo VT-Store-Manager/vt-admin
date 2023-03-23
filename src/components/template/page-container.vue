@@ -63,6 +63,7 @@ defineProps<Props>()
 	}
 	&-content {
 		flex: 1;
+		position: relative;
 	}
 
 	:deep(.v-progress-circular) {

@@ -1,17 +1,12 @@
 <template>
 	<template-page-container page-name="Store">
 		<template #subtitle>
-			<p>{{ store.data?.length || 0 }} stores</p>
+			<p>{{ storeGridStore.response?.data.maxCount || 0 }} stores</p>
 		</template>
 		<template #title-right>
-			<v-progress-circular
-				v-show="store.loading"
-				:class="{ done: !store.loading }"
-				class="mr-3"
-				indeterminate
-				color="primary"
-				:size="24"
-				:width="5"
+			<base-progress-circular
+				v-show="storeGridStore.loading"
+				:class="{ done: !storeGridStore.loading }"
 			/>
 			<button-refresh
 				class="mr-3"
@@ -22,35 +17,42 @@
 				New store
 			</button-create>
 		</template>
-		<base-grid
-			v-if="!store.error && store.data?.length"
-			:col="4"
+		<store-grid
+			v-if="!storeGridStore.error"
 			:data="storeData"
-			:item-per-page="store.pagination"
-		>
-			<template #default="{ data }">
-				<store-grid-item :data="data" />
-			</template>
-		</base-grid>
+		/>
 		<p
-			v-if="store.error || store.data?.length === 0"
+			v-if="
+				!storeGridStore.loading &&
+				(storeGridStore.error || storeData.items.length === 0)
+			"
 			class="alternative-text"
 		>
-			{{ store.error ? store.error : 'No data' }}
+			{{ storeGridStore.error ? storeGridStore.error : 'No data' }}
 		</p>
 	</template-page-container>
 </template>
 
 <script lang="ts" setup>
-import { StoreGridItemModel } from '~/models/store'
+import { StoreGridModel } from '~/models/store'
 
-const store = useStore()
-const storeData = ref<StoreGridItemModel[]>([])
+const storeGridStore = useStoreGrid()
+const storeData = ref<StoreGridModel>(storeGridStore.defaultResponse)
+const route = useRoute()
 
 const refreshData = async () => {
-	await store.fetch()
-	storeData.value = store.data ? [...store.data] : []
+	await storeGridStore.fetch()
+	storeData.value = storeGridStore.response?.data
+		? storeGridStore.response?.data
+		: storeGridStore.defaultResponse
 }
 
-refreshData()
+watch(storeGridStore.pagination, () => refreshData())
+
+onBeforeMount(() => {
+	const { page, limit } = route.query
+	if (page && !isNaN(+page)) storeGridStore.pagination.page = +page
+	if (limit && !isNaN(+limit)) storeGridStore.pagination.limit = +limit
+	refreshData()
+})
 </script>

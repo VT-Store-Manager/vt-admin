@@ -5,12 +5,15 @@ export const calculateTimeDiff = (t: string) => {
 	return now - past
 }
 
+export const isLongerMonth = (diff: number) =>
+	diff >= 1000 * 60 * 60 * 24 * 30 * 12
+
 export const timeDiffToString = (t: string) => {
 	const timeDiff = calculateTimeDiff(t)
 
-	if (timeDiff < 1000) return 'Just now'
+	if (timeDiff < 1000) return 'just now'
 	const milestones = {
-		'Just now': 1000,
+		'just now': 1000,
 		second: 1000 * 60,
 		minute: 1000 * 60 * 60,
 		hour: 1000 * 60 * 60 * 24,
