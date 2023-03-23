@@ -10,14 +10,11 @@ $scrollbar-width: 12px;
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: rgba(0, 0, 0, 0.15);
+		background-color: rgba(0, 0, 0, 0.1);
 		background-clip: padding-box;
 		border-radius: 16px;
 		border: 4px solid transparent;
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.2);
-			visibility: visible !important;
-		}
+		transition: all 2000ms;
 	}
 
 	&.show-scrollbar {
