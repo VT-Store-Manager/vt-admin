@@ -1,19 +1,12 @@
 <template>
 	<v-text-field
 		class="custom-input"
-		v-bind="props"
 		variant="outlined"
 		color="primary"
 	/>
 </template>
 
-<script lang="ts" setup>
-interface Props {
-	label: string
-}
-
-const props = defineProps<Props>()
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .custom-input {

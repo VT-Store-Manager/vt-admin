@@ -5,11 +5,13 @@
 	>
 		<v-hover v-slot="{ isHovering, props }">
 			<div
-				class="sidebar-mask bg-secondary"
 				v-bind="props"
+				class="sidebar-mask bg-secondary"
+				:class="{ hovering: isHovering }"
 			>
 				<div class="sidebar-head">
-					<div
+					<nuxt-link
+						to="/"
 						class="logo"
 						:class="{ 'only-icon': isCollapse && !isHovering }"
 					>
@@ -24,7 +26,7 @@
 						>
 							<strong>Vuetify</strong>
 						</span>
-					</div>
+					</nuxt-link>
 					<v-hover v-slot="{ isHovering: isHovering2, props: props2 }">
 						<v-btn
 							v-bind="props2"
@@ -107,8 +109,6 @@ const throttleShowScrollbar = _.throttle(() => {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		// border-right: 1px solid #eee;
-		// box-shadow: 3px 0 10px #0002;
 	}
 	&-nav {
 		height: 100%;
@@ -171,7 +171,7 @@ const throttleShowScrollbar = _.throttle(() => {
 				text-align: center;
 				margin-left: 14px;
 			}
-			> .v-icon {
+			.v-icon {
 				font-size: 32px;
 				margin-right: 10px;
 				:deep(svg) {
@@ -181,7 +181,7 @@ const throttleShowScrollbar = _.throttle(() => {
 					}
 				}
 			}
-			> span {
+			span {
 				font-size: 1.25rem;
 				&:hover {
 					text-shadow: 0 0 20px $primary-color-lighten;
@@ -221,6 +221,10 @@ const throttleShowScrollbar = _.throttle(() => {
 	width: $sidebar-collapse-width;
 	.sidebar-mask {
 		width: $sidebar-collapse-width;
+		&.hovering {
+			border-right: 1px solid #eee;
+			box-shadow: 3px 0 10px #0001;
+		}
 	}
 
 	.sidebar-head {

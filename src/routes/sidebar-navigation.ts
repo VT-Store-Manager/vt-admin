@@ -56,12 +56,12 @@ export const navigations: NavProp[] = [
 		subnav: [
 			{
 				name: 'Member list',
-				url: '/account/member',
+				url: '/member',
 				icon: mdiAccountOutline
 			},
 			{
 				name: 'Ranking setting',
-				url: '/account/member',
+				url: '/member/rank',
 				icon: mdiStarOutline
 			}
 		]

@@ -34,7 +34,7 @@
 					title="Name"
 					:sorting-field-name="sortingFieldName"
 					field-name="name"
-					:style="{ width: '300px' }"
+					:style="{ width: '270px' }"
 					@sort="onDataSort"
 				/>
 				<base-table-th

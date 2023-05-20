@@ -4,7 +4,7 @@ export const useDisableProductCategory = definePiniaStore(
 	'disable-product-category',
 	() => {
 		const { response, loading, error, fetch } = useRequest<NoContentResponse>(
-			'/product-category/delete/{id}',
+			'/v1/admin/product-category/delete/{id}',
 			{
 				method: 'PATCH'
 			}

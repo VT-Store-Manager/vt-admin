@@ -70,7 +70,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			apiBase: process.env.API_BASE,
-			imgResourceUrl: `${process.env.API_BASE}/file/render?key=`
+			imgResourceUrl: `${process.env.API_BASE}/v1/file/`
 		}
 	}
 })

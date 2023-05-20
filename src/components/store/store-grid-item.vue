@@ -82,7 +82,7 @@ const onCardClick = () => {
 		}
 	}
 	.v-carousel {
-		opacity: 0.9;
+		opacity: 0.95;
 		filter: grayscale(20%);
 		:deep(.v-window__controls) {
 			padding-left: 0.75rem;
