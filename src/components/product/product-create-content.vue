@@ -41,6 +41,7 @@
 							v-model="data.originalPrice"
 							label="Original price"
 							type="number"
+							step="1000"
 							:rules="rules.originalPrice"
 							:error="priceError"
 						/>

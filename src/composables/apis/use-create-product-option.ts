@@ -11,7 +11,7 @@ export const useCreateProductOption = definePiniaStore(
 		const { response, error, loading, fetch } = useRequest<
 			BaseResponse<ProductOptionModel>,
 			CreateNewProductOptionModel | CreateProductSubOptionModel
-		>('/product-option/create', {
+		>('/v1/admin/product-option/create', {
 			method: 'POST'
 		})
 

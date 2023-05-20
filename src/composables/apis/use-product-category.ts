@@ -7,7 +7,9 @@ export const useProductCategory = definePiniaStore('product-category', () => {
 		error,
 		loading,
 		fetchGet: fetch
-	} = useRequest<BaseResponse<ProductCategoryModel[]>>('/product-category/list')
+	} = useRequest<BaseResponse<ProductCategoryModel[]>>(
+		'/v1/admin/product-category/list'
+	)
 
 	const categorySelect = computed((): VSelectModel[] => {
 		return (

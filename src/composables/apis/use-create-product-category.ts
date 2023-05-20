@@ -16,7 +16,7 @@ export const useCreateProductCategory = definePiniaStore(
 		} = useRequest<
 			BaseResponse<ProductCategoryModel>,
 			CreateProductCategoryDto
-		>('/product-category/create', {
+		>('/v1/admin/product-category/create', {
 			method: 'POST'
 		})
 

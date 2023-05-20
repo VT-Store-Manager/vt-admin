@@ -14,7 +14,7 @@ export const useProductOptionList = definePiniaStore(
 			loading,
 			fetchGet: fetch
 		} = useRequest<BaseResponse<ProductOptionListItemModel[]>>(
-			'/product-option/list'
+			'/v1/admin/product-option/list'
 		)
 		const markId = ref('')
 		const selectedItem = ref<string[]>([])
@@ -30,12 +30,10 @@ export const useProductOptionList = definePiniaStore(
 
 		const getAllNameForSelect = computed((): VSelectModel[] => {
 			if (!response.value?.data) return []
-			return response
-				.value!.data.filter(option => !option.parent)
-				.map(option => ({
-					title: option.name,
-					value: option.id
-				}))
+			return response.value!.data.map(option => ({
+				title: option.name,
+				value: option.id
+			}))
 		})
 
 		const getItemsOfMarkedForSelect = computed((): VSelectModel[] => {

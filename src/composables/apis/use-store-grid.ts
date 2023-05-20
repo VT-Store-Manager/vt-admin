@@ -11,7 +11,7 @@ export const useStoreGrid = definePiniaStore('grid-store', () => {
 	const { response, error, loading, fetchGet } = useRequest<
 		BaseResponse<StoreGridModel>,
 		Pagination
-	>('/store/list')
+	>('/v1/admin/store/list')
 
 	const pagination = reactive({
 		page: 1,
