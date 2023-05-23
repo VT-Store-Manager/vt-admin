@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"build": "nuxt build",
-		"dev": "nuxt dev",
+		"dev": "nuxt dev --https --port=443 --ssl-cert ./cert/localhost.pem --ssl-key ./cert/localhost-key.pem",
 		"prod": "node .output/server/index.mjs",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
