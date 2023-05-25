@@ -72,13 +72,9 @@
 								class="d-flex align-center"
 								v-bind="nameProps"
 							>
-								<nuxt-img
-									class="d-block mr-4 rounded small-img-shadow"
-									:src="
-										row.images && row.images[0]
-											? $config.imgResourceUrl + row.images[0]
-											: faker.image.food(40, 40, true)
-									"
+								<v-img
+									class="mr-4 rounded small-img-shadow"
+									:src="serverUrlImage(row.images)"
 									:width="40"
 									:class="{ 'hover-blur': hoveringName }"
 								/>
@@ -155,6 +151,7 @@
 <script lang="ts" setup>
 import { faker } from '@faker-js/faker'
 import moment from 'moment'
+import { serverUrlImage } from '../../composables/use-image'
 import { ProductModel } from '~/models/product'
 import { Status } from '~/constants'
 

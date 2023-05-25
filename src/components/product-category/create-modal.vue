@@ -19,11 +19,10 @@
 			</v-card-title>
 			<v-card-item>
 				<div class="d-flex align-start">
-					<nuxt-img
+					<v-img
 						v-if="image && image.length > 0"
 						class="mr-4 rounded-lg"
 						:src="url"
-						fit="outside"
 						width="200"
 					/>
 					<div class="flex-grow-1 d-flex flex-column justify-center">

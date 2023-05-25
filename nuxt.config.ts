@@ -41,13 +41,7 @@ export default defineNuxtConfig({
 			config.plugins?.push(vuetify())
 		}
 	},
-	modules: [
-		'@nuxt/image-edge',
-		'@nuxtjs/google-fonts',
-		'@pinia/nuxt',
-		'@vueuse/nuxt'
-	],
-	image: {},
+	modules: ['@nuxtjs/google-fonts', '@pinia/nuxt', '@vueuse/nuxt'],
 	googleFonts: {
 		families: {
 			'Noto Sans': {

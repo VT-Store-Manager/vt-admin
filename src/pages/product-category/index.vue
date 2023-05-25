@@ -78,15 +78,13 @@
 									class="d-flex align-center"
 									v-bind="nameProps"
 								>
-									<nuxt-img
-										class="d-block mr-4 rounded small-img-shadow"
-										:src="
-											row.image
-												? $config.imgResourceUrl + row.image
-												: faker.image.food(40, 40, true)
-										"
-										:width="40"
+									<v-img
+										class="mr-4 rounded small-img-shadow"
+										:src="serverUrlImage(row.image)"
+										width="40"
+										aspect-ratio="1/1"
 										:class="{ 'hover-blur': hoveringName }"
+										cover
 									/>
 									<span
 										class="ellipsis-2"
