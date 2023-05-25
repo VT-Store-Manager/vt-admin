@@ -3,3 +3,9 @@ export enum Status {
 	DISABLED = 'disabled',
 	REMOVED = 'removed'
 }
+
+export enum PublishStatus {
+	NOT_YET,
+	OPENING,
+	CLOSED
+}

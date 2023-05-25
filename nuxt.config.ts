@@ -10,6 +10,9 @@ export default defineNuxtConfig({
 	build: {
 		transpile: ['vuetify']
 	},
+	experimental: {
+		payloadExtraction: false
+	},
 	vite: {
 		ssr: {
 			noExternal: ['vuetify']
@@ -28,9 +31,7 @@ export default defineNuxtConfig({
 		}
 	},
 	components: [
-		{
-			path: '~/components'
-		},
+		'~/components',
 		{
 			path: '~/components/base/button',
 			pathPrefix: false

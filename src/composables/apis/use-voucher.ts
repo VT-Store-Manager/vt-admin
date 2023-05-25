@@ -1,16 +1,16 @@
-import { StoreGridModel } from '~/models/store'
 import { BaseResponse, Pagination } from '~/types'
+import { VoucherListModel } from '~/models/voucher-model'
 
-export const useStoreGrid = definePiniaStore('grid-store', () => {
+export const useVoucher = definePiniaStore('voucher', () => {
 	const router = useRouter()
-	const { response, error, loading, fetchGet } = useRequest<
-		BaseResponse<StoreGridModel>,
+	const { response, loading, error, fetchGet } = useRequest<
+		BaseResponse<VoucherListModel>,
 		Pagination
-	>('/v1/admin/store/list')
+	>('/v1/admin/voucher')
 
 	const pagination = reactive({
 		page: 1,
-		limit: 6
+		limit: 20
 	})
 
 	const fetch = () =>
@@ -18,9 +18,9 @@ export const useStoreGrid = definePiniaStore('grid-store', () => {
 			query: { page: pagination.page, limit: pagination.limit }
 		})
 
-	const defaultResponse: StoreGridModel = {
-		items: [],
-		maxCount: 0
+	const defaultResponse: VoucherListModel = {
+		maxCount: 0,
+		items: []
 	}
 
 	watch(pagination, () => {

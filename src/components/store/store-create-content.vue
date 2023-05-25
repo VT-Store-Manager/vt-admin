@@ -164,7 +164,7 @@ import { CreateStoreModel } from '~/models/store'
 
 const productStore = useProduct()
 const productCategoryStore = useProductCategory()
-const productOptionStore = useProductOptionList()
+const productOptionStore = useProductOption()
 
 const refreshData = () => {
 	Promise.all([

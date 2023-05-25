@@ -28,7 +28,11 @@ interface Props {
 	pageName: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+useSeoMeta({
+	title: props.pageName
+})
 </script>
 
 <style lang="scss" scoped>

@@ -52,8 +52,8 @@
 						v-for="(item, index) in newOption.newItems"
 						:key="item.key"
 						:item="item"
-						@update-name="name => (item.name = name)"
-						@update-cost="cost => (item.cost = cost)"
+						@update-name="(name: string) => (item.name = name)"
+						@update-cost="(cost: number) => (item.cost = cost)"
 						@delete-item="newOption.newItems.splice(index, 1)"
 					/>
 					<v-row>
@@ -119,7 +119,7 @@
 							<base-form-select
 								v-model="newSubOption.parent"
 								label="Select parent"
-								:items="productOptionList.getAllNameForSelect"
+								:items="productOption.getAllNameForSelect"
 							/>
 						</v-col>
 					</v-row>
@@ -150,12 +150,12 @@
 					<v-row>
 						<v-col>
 							<base-form-select
-								v-model="productOptionList.selectedItem"
+								v-model="productOption.selectedItem"
 								clearable
 								chips
 								closable-chips
 								label="Select option items"
-								:items="productOptionList.getItemsOfMarkedForSelect"
+								:items="productOption.getItemsOfMarkedForSelect"
 								multiple
 							/>
 						</v-col>
@@ -166,7 +166,7 @@
 						:item="item"
 						:index="index"
 						disable-name
-						@update-cost="cost => (item.cost = cost)"
+						@update-cost="(cost: number) => (item.cost = cost)"
 						@delete-item="deleteSubOptionItem(index)"
 					/>
 				</v-card-item>
@@ -216,7 +216,7 @@ const emits = defineEmits<{
 	(e: 'closeModal'): void
 	(e: 'created'): void
 }>()
-const productOptionList = useProductOptionList()
+const productOption = useProductOption()
 const createProductOption = useCreateProductOption()
 
 const show = ref(props.show)
@@ -250,7 +250,7 @@ const clearData = (arg: 'subOption' | 'option' | 'all' = 'all') => {
 		newSubOption.range = [0, 1]
 		newSubOption.childItems = []
 
-		productOptionList.clearSelected()
+		productOption.clearSelected()
 	}
 }
 
@@ -282,20 +282,20 @@ watch(
 	() => newSubOption.parent,
 	() => {
 		if (!newSubOption.parent) return
-		productOptionList.markId = newSubOption.parent
-		productOptionList.selectedItem = []
+		productOption.markId = newSubOption.parent
+		productOption.selectedItem = []
 	}
 )
 
 watch(
-	() => productOptionList.selectedItem,
+	() => productOption.selectedItem,
 	() => {
-		newSubOption.childItems = productOptionList.getSelectedItem
+		newSubOption.childItems = productOption.getSelectedItem
 	}
 )
 
 const deleteSubOptionItem = (index: number) => {
-	productOptionList.selectedItem.splice(index, 1)
+	productOption.selectedItem.splice(index, 1)
 	newSubOption.childItems.splice(index, 1)
 }
 </script>

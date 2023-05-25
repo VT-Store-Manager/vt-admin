@@ -22,5 +22,7 @@ export const useProductCategory = definePiniaStore('product-category', () => {
 		)
 	})
 
-	return { response, error, loading, fetch, categorySelect }
+	const dataLen = computed(() => response.value?.data.length || 0)
+
+	return { response, error, loading, fetch, categorySelect, dataLen }
 })

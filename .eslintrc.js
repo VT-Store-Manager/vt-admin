@@ -62,6 +62,7 @@ module.exports = {
 		],
 		'vue/no-dupe-keys': 'warn',
 		'vue/html-indent': 'off',
+		'vue/singleline-html-element-content-newline': 'off',
 
 		// Common
 		// 'no-undef': 'off',

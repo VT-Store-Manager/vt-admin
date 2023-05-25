@@ -1,14 +1,12 @@
 <template>
 	<template-page-container page-name="Product category">
 		<template #subtitle>
-			<p>
-				{{ productCategoryData ? productCategoryData.length : 0 }} categories
-			</p>
+			<p>{{ productCategory.dataLen }} categories</p>
 		</template>
 		<template #title-right>
 			<base-progress-circular
-				v-show="loading"
-				:class="{ done: !loading }"
+				v-show="productCategory.loading"
+				:class="{ done: !productCategory.loading }"
 			/>
 			<button-refresh
 				class="mr-3"
@@ -24,177 +22,17 @@
 				@created="refreshData"
 			/>
 		</template>
-		<base-table v-show="!productCategory.loading || !firstLoad">
-			<template #head>
-				<base-table-th
-					v-for="fieldName in fieldNameList ?? []"
-					:key="fieldName"
-					:title="variableCaseToText(fieldName.toString())"
-					:field-name="fieldName.toString()"
-					:sorting-field-name="sortingFieldName?.toString()"
-					:style="fieldName === 'name' ? { width: '400px' } : {}"
-					@sort="onDataSort"
-				/>
-				<base-table-th
-					title="Actions"
-					:sortable="false"
-					text-align="right"
-					:show-sort-icon="false"
-				/>
-			</template>
-			<template #data>
-				<tr
-					v-for="(row, index) in productCategoryData || []"
-					:key="row.id"
-					:class="{ 'bg-screen': index % 2 == 1 }"
-				>
-					<td>
-						<v-hover>
-							<template #default="{ isHovering: hoveringId, props: idProps }">
-								<nuxt-link
-									:to="`/product-category/${row.id}`"
-									v-bind="idProps"
-									:class="{ 'text-primary-darken': hoveringId }"
-								>
-									{{ row.code }}
-									<v-tooltip
-										activator="parent"
-										location="start"
-										open-delay="500"
-									>
-										{{ row.id }}
-									</v-tooltip>
-								</nuxt-link>
-							</template>
-						</v-hover>
-					</td>
-					<td class="d-flex align-center">
-						<v-hover>
-							<template
-								#default="{ isHovering: hoveringName, props: nameProps }"
-							>
-								<nuxt-link
-									:to="'/product-category/' + row.id"
-									class="d-flex align-center"
-									v-bind="nameProps"
-								>
-									<v-img
-										class="mr-4 rounded small-img-shadow"
-										:src="serverUrlImage(row.image)"
-										width="40"
-										aspect-ratio="1/1"
-										:class="{ 'hover-blur': hoveringName }"
-										cover
-									/>
-									<span
-										class="ellipsis-2"
-										:class="{ 'text-primary-darken': hoveringName }"
-									>
-										{{ row.name }}
-									</span>
-								</nuxt-link>
-							</template>
-						</v-hover>
-					</td>
-					<td>{{ row.amountOfProduct }}</td>
-					<td>{{ row.totalSold }}</td>
-					<td>{{ row.soldOfWeek }}</td>
-					<td>
-						<v-chip
-							size="small"
-							variant="elevated"
-							:color="
-								row.status === Status.ACTIVE
-									? 'green-lighten-1'
-									: row.status === Status.DISABLED
-									? 'purple-lighten-3'
-									: 'red-lighten-2'
-							"
-						>
-							{{ row.status }}
-						</v-chip>
-					</td>
-					<td>
-						<button-action-group
-							edit
-							delete
-							show-text
-							@click:edit="onEditItem(row.id)"
-							@click:delete="rowCodeConfirmed = row.id"
-						/>
-					</td>
-					<base-table-confirm-delete
-						:show="rowCodeConfirmed === row.id"
-						@click:cancel="rowCodeConfirmed = null"
-						@click:confirm-delete="onDeleteItem(row.id)"
-					/>
-				</tr>
-			</template>
-			<template #alternative-row>
-				<td
-					v-if="productCategory.error || !productCategoryData"
-					colspan="7"
-				>
-					Get product category data error: {{ productCategory.error }}
-				</td>
-				<td
-					v-else-if="productCategoryData?.length === 0"
-					colspan="7"
-				>
-					No data
-				</td>
-			</template>
-		</base-table>
+		<product-category-page-container v-show="!firstLoad" />
 	</template-page-container>
 </template>
 
 <script lang="ts" setup>
-import { faker } from '@faker-js/faker'
-import { ProductCategoryModel } from '~/models/product/product-category'
-import { Status } from '~/constants'
-
-useSeoMeta({
-	title: 'Product categories'
-})
-
 const productCategory = useProductCategory()
-const disableProductCategory = useDisableProductCategory()
-const productCategoryData = ref<ProductCategoryModel[]>([])
 
-const fieldNameList: Array<keyof ProductCategoryModel> = [
-	'id',
-	'name',
-	'amountOfProduct',
-	'totalSold',
-	'soldOfWeek',
-	'status'
-]
-const sortingFieldName = ref<undefined | keyof ProductCategoryModel>(undefined)
 const showCreateModal = ref(false)
 const firstLoad = ref(true)
-const rowCodeConfirmed = ref<null | string>(null)
-const router = useRouter()
 
-const loading = computed(() => {
-	return productCategory.loading || disableProductCategory.loading
-})
-
-const refreshData = async () => {
-	sortingFieldName.value = undefined
-	await productCategory.fetch()
-	productCategoryData.value =
-		productCategory.response?.data &&
-		Array.isArray(productCategory.response.data)
-			? [...productCategory.response.data]
-			: []
-}
-
-const onDataSort = (fieldName: string, ascOrder: boolean) => {
-	sortingFieldName.value = fieldName as keyof ProductCategoryModel
-	productCategoryData.value.sort(
-		dataCompareFunc<ProductCategoryModel>(sortingFieldName.value, ascOrder)
-	)
-}
+const refreshData = () => productCategory.fetch()
 
 refreshData()
 
@@ -204,15 +42,4 @@ watch(
 		if (!productCategory.loading && firstLoad.value) firstLoad.value = false
 	}
 )
-
-const onEditItem = (id: string) => {
-	router.push({ path: `/product-category/${id}/edit` })
-}
-
-const onDeleteItem = async (id: string) => {
-	rowCodeConfirmed.value = null
-	console.log('Delete:', id)
-	await disableProductCategory.fetch({ params: { id } })
-	refreshData()
-}
 </script>

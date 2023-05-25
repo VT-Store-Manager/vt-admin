@@ -4,10 +4,4 @@
 	</template-page-container>
 </template>
 
-<script lang="ts" setup>
-import { useSeoMeta } from '~~/.nuxt/imports'
-
-useSeoMeta({
-	title: 'News post'
-})
-</script>
+<script lang="ts" setup></script>

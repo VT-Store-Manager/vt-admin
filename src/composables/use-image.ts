@@ -1,9 +1,16 @@
-export const serverUrlImage = (image: string[] | string, index = 0) => {
+export const serverUrlImage = (
+	image: string | null | undefined,
+	altImage?: string,
+	fromServer = false
+) => {
 	const serverImagePrefix = useRuntimeConfig().public.imgResourceUrl
-	console.log(serverImagePrefix)
 
-	if (Array.isArray(image)) {
-		return serverImagePrefix + image[index]
+	if (!image) {
+		if (!altImage) return ''
+		if (fromServer) {
+			return serverImagePrefix + altImage
+		}
+		return altImage
 	}
 	return serverImagePrefix + image
 }

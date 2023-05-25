@@ -21,5 +21,7 @@ export const useProduct = definePiniaStore('product', () => {
 		)
 	})
 
-	return { response, error, loading, fetch, productSelect }
+	const dataLen = computed(() => response.value?.data.length || 0)
+
+	return { response, error, loading, fetch, productSelect, dataLen }
 })

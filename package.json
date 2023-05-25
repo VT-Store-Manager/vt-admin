@@ -3,6 +3,7 @@
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
+		"dev:cert": "nuxt dev --https --ssl-cert ./cert/localhost.pem --ssl-key ./cert/localhost-key.pem --port=443",
 		"prod": "node .output/server/index.mjs",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",

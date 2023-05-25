@@ -9,7 +9,7 @@
 			<v-carousel-item
 				v-for="(img, index) in data.images"
 				:key="index"
-				:src="$config.imgResourceUrl + img"
+				:src="serverUrlImage(img)"
 				cover
 			>
 				<template #placeholder>

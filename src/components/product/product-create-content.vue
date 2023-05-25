@@ -50,9 +50,9 @@
 						<base-form-select
 							v-model="data.options"
 							label="Options"
-							:loading="productOptionList.loading"
-							:error="productOptionList.error"
-							:items="productOptionList.getAllNameForSelect"
+							:loading="productOption.loading"
+							:error="productOption.error"
+							:items="productOption.getAllNameForSelect"
 							multiple
 							chips
 							clearable
@@ -83,9 +83,9 @@ withDefaults(defineProps<Props>(), {
 	priceError: false
 })
 const productCategory = useProductCategory()
-const productOptionList = useProductOptionList()
+const productOption = useProductOption()
 
-Promise.all([productCategory.fetch(), productOptionList.fetch()])
+Promise.all([productCategory.fetch(), productOption.fetch()])
 
 const data = reactive<
 	Omit<CreateProductModel, 'category' | 'images'> & { category?: string }

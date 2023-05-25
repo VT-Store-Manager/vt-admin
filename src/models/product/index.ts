@@ -6,7 +6,7 @@ export interface ProductModel {
 	images?: string[]
 	name: string
 	originalPrice: number
-	salesVolumn: {
+	salesVolume: {
 		month: number
 	}
 	description: string
