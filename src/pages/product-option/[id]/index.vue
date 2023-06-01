@@ -43,8 +43,4 @@ const refreshData = async () => {
 }
 
 onBeforeMount(() => refreshData())
-
-// const onEdit = () => {
-// 	console.log('onEdit')
-// }
 </script>

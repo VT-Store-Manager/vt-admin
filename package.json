@@ -21,6 +21,7 @@
 		"@fortawesome/vue-fontawesome": "^3.0.3",
 		"@mdi/font": "^7.1.96",
 		"@mdi/js": "^7.1.96",
+		"@nuxt/devtools": "npm:@nuxt/devtools-edge@0.5.5-28092324.8333e19",
 		"@nuxt/eslint-config": "^0.1.1",
 		"@nuxtjs/eslint-config-typescript": "^12.0.0",
 		"@nuxtjs/google-fonts": "3.0.0-1",

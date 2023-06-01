@@ -14,9 +14,9 @@ export default defineNuxtConfig({
 		payloadExtraction: false
 	},
 	vite: {
-		ssr: {
-			noExternal: ['vuetify']
-		},
+		// ssr: {
+		// 	noExternal: ['vuetify']
+		// },
 		css: {
 			preprocessorOptions: {
 				scss: {
@@ -33,6 +33,22 @@ export default defineNuxtConfig({
 	components: [
 		'~/components',
 		{
+			path: '~/components/atoms',
+			prefix: 'atom'
+		},
+		{
+			path: '~/components/molecules',
+			prefix: 'molecule'
+		},
+		{
+			path: '~/components/organisms',
+			prefix: 'organism'
+		},
+		{
+			path: '~/components/templates',
+			prefix: 'template'
+		},
+		{
 			path: '~/components/base/button',
 			pathPrefix: false
 		}
@@ -42,7 +58,12 @@ export default defineNuxtConfig({
 			config.plugins?.push(vuetify())
 		}
 	},
-	modules: ['@nuxtjs/google-fonts', '@pinia/nuxt', '@vueuse/nuxt'],
+	modules: [
+		'@nuxtjs/google-fonts',
+		'@pinia/nuxt',
+		'@vueuse/nuxt',
+		'@nuxt/devtools'
+	],
 	googleFonts: {
 		families: {
 			'Noto Sans': {

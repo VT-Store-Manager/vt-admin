@@ -13,7 +13,8 @@ import {
 	faCaretLeft,
 	faCaretRight,
 	faCirclePlus,
-	faCircleMinus
+	faCircleMinus,
+	faRotateRight
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -33,7 +34,8 @@ library.add(
 	faCaretLeft,
 	faCaretRight,
 	faCirclePlus,
-	faCircleMinus
+	faCircleMinus,
+	faRotateRight
 )
 const lightTheme: ThemeDefinition = {
 	dark: false,

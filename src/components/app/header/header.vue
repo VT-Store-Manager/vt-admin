@@ -1,7 +1,7 @@
 <template>
 	<header class="header bg-secondary">
 		<div class="header-left">
-			<app-header-breadcrumbs />
+			<molecule-breadcrumbs />
 		</div>
 		<div class="header-center">
 			<app-header-search-bar />

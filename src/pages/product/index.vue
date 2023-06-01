@@ -8,14 +8,22 @@
 				v-show="product.loading"
 				:class="{ done: !product.loading }"
 			/>
-			<button-refresh
+			<molecule-refresh-btn
 				class="mr-3"
 				title="Refresh data"
 				@click="refreshData"
 			/>
-			<button-create @click="$router.push('/product/create')">
+			<!-- <button-refresh
+				class="mr-3"
+				title="Refresh data"
+				@click="refreshData"
+			/> -->
+			<!-- <button-create @click="$router.push('/product/create')">
 				New product
-			</button-create>
+			</button-create> -->
+			<molecule-create-btn @click="$router.push('/product/create')">
+				New product
+			</molecule-create-btn>
 		</template>
 		<product-page-container v-show="!firstLoad" />
 	</template-page-container>

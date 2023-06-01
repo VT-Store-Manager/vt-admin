@@ -1,7 +1,7 @@
 <template>
 	<base-table v-show="!product.loading">
 		<template #head>
-			<base-table-th
+			<atom-thead
 				v-for="fieldName in fieldNameList ?? []"
 				:key="fieldName"
 				:title="variableCaseToText(fieldName)"
@@ -54,7 +54,7 @@
 							class="d-flex align-center"
 							v-bind="nameProps"
 						>
-							<v-img
+							<atom-image
 								class="mr-4 rounded small-img-shadow"
 								:src="serverUrlImage(row.images?.[0])"
 								width="40"

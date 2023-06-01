@@ -1,37 +1,37 @@
 <template>
 	<base-table v-show="!voucher.loading">
 		<template #head>
-			<base-table-th
+			<atom-thead
 				title="Name"
 				field-name="code"
 				:sorting-field-name="sortingFieldName"
 				@sort="onDataSort"
 			/>
-			<base-table-th
+			<atom-thead
 				title="Partner"
 				field-name="partner"
 				:sorting-field-name="sortingFieldName"
 				@sort="onDataSort"
 			/>
-			<base-table-th
+			<atom-thead
 				title="Publish"
 				field-name="startTime"
 				:sorting-field-name="sortingFieldName"
 				@sort="onDataSort"
 			/>
-			<base-table-th
+			<atom-thead
 				title="Last update"
 				field-name="updatedAt"
 				:sorting-field-name="sortingFieldName"
 				@sort="onDataSort"
 			/>
-			<base-table-th
+			<atom-thead
 				title="Status"
 				field-name="disabled"
 				:sorting-field-name="sortingFieldName"
 				@sort="onDataSort"
 			/>
-			<base-table-th
+			<atom-thead
 				title="Actions"
 				:sortable="false"
 				text-align="right"
@@ -168,9 +168,9 @@
 </template>
 
 <script lang="ts" setup>
+import moment from 'moment'
 import { VoucherItemModel } from '~/models/voucher-model'
 import { Status, PublishStatus } from '~/constants'
-import moment from 'moment'
 
 const voucher = useVoucher()
 const voucherData = ref<VoucherItemModel[]>([])

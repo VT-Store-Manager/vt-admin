@@ -1,6 +1,6 @@
 Link
 Image
-Button
+Button: primary, secondary, flat, icon
 Hover
 Input
 TextArea

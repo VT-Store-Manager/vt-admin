@@ -24,13 +24,14 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue'
 import { mdiMenuDown, mdiMenuUp } from '@mdi/js'
+import { useTheme } from 'vuetify/lib/framework.mjs'
 
 interface Props {
 	title: string
-	fieldName?: string
-	sortable?: boolean
-	sortingFieldName?: string
 	textAlign?: 'left' | 'right' | 'center'
+	sortable?: boolean
+	fieldName?: string
+	sortingFieldName?: string
 	showSortIcon?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
