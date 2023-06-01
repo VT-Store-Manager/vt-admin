@@ -8,6 +8,6 @@
 import { useSeoMeta } from '~~/.nuxt/imports'
 
 useSeoMeta({
-	title: 'Promotion'
+	title: 'Promotion',
 })
 </script>

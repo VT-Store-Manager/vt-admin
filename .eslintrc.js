@@ -7,7 +7,7 @@ module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
-		node: true
+		node: true,
 	},
 	extends: [
 		'eslint:recommended',
@@ -17,18 +17,18 @@ module.exports = {
 		'plugin:vue/vue3-strongly-recommended',
 		'plugin:prettier/recommended',
 		'plugin:nuxt/recommended',
-		'@nuxtjs/eslint-config-typescript'
+		'@nuxtjs/eslint-config-typescript',
 	],
 	overrides: [
 		{
-			files: ['resources/**/*.{js,ts,vue}']
-		}
+			files: ['resources/**/*.{js,ts,vue}'],
+		},
 	],
 	parser: 'vue-eslint-parser',
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
-		parser: '@typescript-eslint/parser'
+		parser: '@typescript-eslint/parser',
 	},
 	plugins: ['vue'],
 	rules: {
@@ -40,14 +40,14 @@ module.exports = {
 		'vue/no-unused-vars': [
 			'warn',
 			{
-				ignorePattern: '^_'
-			}
+				ignorePattern: '^_',
+			},
 		],
 		'vue/no-use-v-if-with-v-for': [
 			'warn',
 			{
-				allowUsingIterationVar: true
-			}
+				allowUsingIterationVar: true,
+			},
 		],
 		'vue/require-default-prop': 'off',
 		'vue/no-unused-components': 'warn',
@@ -56,16 +56,26 @@ module.exports = {
 			{
 				html: {
 					void: 'always',
-					normal: 'never'
-				}
-			}
+					normal: 'never',
+				},
+			},
 		],
 		'vue/no-dupe-keys': 'warn',
 		'vue/html-indent': 'off',
 		'vue/singleline-html-element-content-newline': 'off',
 
 		// Common
-		// 'no-undef': 'off',
+		'import/named': 'off',
+		'comma-dangle': [
+			'error',
+			{
+				arrays: 'always-multiline',
+				objects: 'always-multiline',
+				imports: 'always-multiline',
+				exports: 'never',
+				functions: 'never',
+			},
+		],
 		'no-tabs': 'off',
 		indent: 'off',
 		'no-unused-vars': 'off',
@@ -83,13 +93,13 @@ module.exports = {
 			'warn',
 			{
 				argsIgnorePattern: '^[_a-zA-z]',
-				varsIgnorePattern: '^(_|props)'
-			}
+				varsIgnorePattern: '^(_|props)',
+			},
 		],
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-empty-function': 'off',
 		'@typescript-eslint/no-this-alias': 'off',
-		'@typescript-eslint/no-var-requires': 'off'
+		'@typescript-eslint/no-var-requires': 'off',
 	},
-	globals: {}
+	globals: {},
 }

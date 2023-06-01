@@ -7,7 +7,7 @@ export const useProduct = definePiniaStore('product', () => {
 		response,
 		error,
 		loading,
-		fetchGet: fetch
+		fetchGet: fetch,
 	} = useRequest<BaseResponse<ProductModel[]>>('/v1/admin/product')
 
 	const productSelect = computed((): VSelectModel[] => {
@@ -15,7 +15,7 @@ export const useProduct = definePiniaStore('product', () => {
 			response.value?.data.map(
 				(product): VSelectModel => ({
 					title: product.name,
-					value: product.id
+					value: product.id,
 				})
 			) || []
 		)

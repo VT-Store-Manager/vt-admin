@@ -6,7 +6,7 @@ export const useCreateStore = definePiniaStore('create-store', () => {
 		BaseResponse<StoreModel>,
 		CreateStoreModel
 	>('/v1/admin/store/create', {
-		method: 'POST'
+		method: 'POST',
 	})
 
 	return { response, loading, error, fetch }

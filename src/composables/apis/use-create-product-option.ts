@@ -1,6 +1,6 @@
 import {
 	CreateNewProductOptionModel,
-	CreateProductSubOptionModel
+	CreateProductSubOptionModel,
 } from '~/models/product/create-product-option'
 import { ProductOptionModel } from '~/models/product/product-option'
 import { BaseResponse } from '~/types'
@@ -12,7 +12,7 @@ export const useCreateProductOption = definePiniaStore(
 			BaseResponse<ProductOptionModel>,
 			CreateNewProductOptionModel | CreateProductSubOptionModel
 		>('/v1/admin/product-option/create', {
-			method: 'POST'
+			method: 'POST',
 		})
 
 		return { response, error, loading, fetch }

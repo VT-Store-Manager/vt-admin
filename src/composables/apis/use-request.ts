@@ -21,7 +21,7 @@ const passParamToUrl = (
 	url: string,
 	{
 		params,
-		query
+		query,
 	}: {
 		params?: Record<string, string>
 		query?: Record<string, string>
@@ -30,7 +30,7 @@ const passParamToUrl = (
 	const _url = `${url}?${querystring.stringify(query ?? {}, {
 		arrayFormat: 'bracket',
 		skipNull: true,
-		skipEmptyString: true
+		skipEmptyString: true,
 	})}`.replace(/\?$/, '')
 	return Object.keys(params || {}).reduce((result, paramName) => {
 		return result.replace(`{${paramName}}`, params![paramName])
@@ -45,14 +45,14 @@ export default function <R, I = Record<string, any>>(
 	const state = reactive<{ response: R | null; error: any; loading: boolean }>({
 		response: null,
 		error: null,
-		loading: false
+		loading: false,
 	})
 
 	const fetchGet = async (getOptions?: GetOptions<I>) => {
 		try {
 			const _url = passParamToUrl(url, {
 				query: getOptions?.query as Record<string, string>,
-				params: getOptions?.params
+				params: getOptions?.params,
 			})
 
 			const isCache = getOptions?.localCache
@@ -71,7 +71,7 @@ export default function <R, I = Record<string, any>>(
 			const res = await $fetch(_url, {
 				baseURL: runtimeConfig.public.apiBase,
 				signal: getOptions?.signal || controller?.signal,
-				...options
+				...options,
 			})
 			clearTimeout(controller?.timeoutId)
 
@@ -94,7 +94,7 @@ export default function <R, I = Record<string, any>>(
 		try {
 			const _url = passParamToUrl(url, {
 				query: postOptions?.query as Record<string, string>,
-				params: postOptions?.params
+				params: postOptions?.params,
 			})
 
 			state.error = null
@@ -102,7 +102,7 @@ export default function <R, I = Record<string, any>>(
 			const res = await $fetch(_url, {
 				baseURL: runtimeConfig.public.apiBase,
 				body: postOptions.body as Record<string, any>,
-				...options
+				...options,
 			})
 			state.response = res as any
 		} catch (error) {

@@ -5,11 +5,11 @@
 <script lang="ts" setup>
 import { EditProductOptionModel } from '~/models/product/product-option'
 
-const productOptionData = reactive<EditProductOptionModel>({
+const _productOptionData = reactive<EditProductOptionModel>({
 	parent: undefined,
 	name: '',
 	range: [0, 1],
 	parentItems: [],
-	childrenItems: []
+	childrenItems: [],
 })
 </script>

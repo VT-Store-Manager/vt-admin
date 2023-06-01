@@ -10,25 +10,25 @@ export const useVoucher = definePiniaStore('voucher', () => {
 
 	const pagination = reactive({
 		page: 1,
-		limit: 20
+		limit: 20,
 	})
 
 	const fetch = () =>
 		fetchGet({
-			query: { page: pagination.page, limit: pagination.limit }
+			query: { page: pagination.page, limit: pagination.limit },
 		})
 
 	const defaultResponse: VoucherListModel = {
 		maxCount: 0,
-		items: []
+		items: [],
 	}
 
 	watch(pagination, () => {
 		router.push({
 			query: {
 				page: pagination.page,
-				limit: pagination.limit
-			}
+				limit: pagination.limit,
+			},
 		})
 	})
 

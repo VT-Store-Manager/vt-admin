@@ -1,11 +1,11 @@
 export enum Status {
 	ACTIVE = 'active',
 	DISABLED = 'disabled',
-	REMOVED = 'removed'
+	REMOVED = 'removed',
 }
 
 export enum PublishStatus {
 	NOT_YET,
 	OPENING,
-	CLOSED
+	CLOSED,
 }

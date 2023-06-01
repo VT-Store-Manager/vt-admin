@@ -20,7 +20,7 @@ import {
 	mdiApplicationSettingsOutline,
 	mdiStoreSettingsOutline,
 	mdiTimerSettingsOutline,
-	mdiAccountSettingsOutline
+	mdiAccountSettingsOutline,
 } from '@mdi/js'
 import { Nav } from '../types'
 
@@ -32,7 +32,7 @@ export const navigations: NavProp[] = [
 	{
 		name: 'Dashboard',
 		url: '/',
-		icon: mdiHome
+		icon: mdiHome,
 	},
 	{
 		name: 'Account',
@@ -41,14 +41,14 @@ export const navigations: NavProp[] = [
 			{
 				name: 'Admin',
 				url: '/account/admin',
-				icon: mdiShieldAccountOutline
+				icon: mdiShieldAccountOutline,
 			},
 			{
 				name: 'Sale',
 				url: '/account/sale',
-				icon: mdiPointOfSale
-			}
-		]
+				icon: mdiPointOfSale,
+			},
+		],
 	},
 	{
 		name: 'Member',
@@ -57,14 +57,14 @@ export const navigations: NavProp[] = [
 			{
 				name: 'Member list',
 				url: '/member',
-				icon: mdiAccountOutline
+				icon: mdiAccountOutline,
 			},
 			{
 				name: 'Ranking setting',
 				url: '/member/rank',
-				icon: mdiStarOutline
-			}
-		]
+				icon: mdiStarOutline,
+			},
+		],
 	},
 	{
 		name: 'Product',
@@ -73,49 +73,49 @@ export const navigations: NavProp[] = [
 			{
 				name: 'List',
 				url: '/product',
-				icon: mdiListBoxOutline
+				icon: mdiListBoxOutline,
 			},
 			{
 				name: 'Categories',
 				url: '/product-category',
-				icon: mdiShapeOutline
+				icon: mdiShapeOutline,
 			},
 			{
 				name: 'Options',
 				url: '/product-option',
-				icon: mdiCupOutline
-			}
-		]
+				icon: mdiCupOutline,
+			},
+		],
 	},
 	{
 		name: 'Store',
 		url: '/store',
-		icon: mdiStore
+		icon: mdiStore,
 	},
 	{
 		name: 'Voucher',
 		url: '/voucher',
-		icon: mdiTicketPercent
+		icon: mdiTicketPercent,
 	},
 	{
 		name: 'Promotion',
 		url: '/promotion',
-		icon: mdiSale
+		icon: mdiSale,
 	},
 	{
 		name: 'Achievement',
 		url: '/achievement',
-		icon: mdiTrophyVariant
+		icon: mdiTrophyVariant,
 	},
 	{
 		name: 'Order history',
 		url: '/order',
-		icon: mdiCartArrowRight
+		icon: mdiCartArrowRight,
 	},
 	{
 		name: 'Template',
 		url: '/template',
-		icon: mdiTextBox
+		icon: mdiTextBox,
 	},
 	{
 		name: 'App setting',
@@ -124,23 +124,23 @@ export const navigations: NavProp[] = [
 			{
 				name: 'General',
 				url: '/setting-general',
-				icon: mdiApplicationSettingsOutline
+				icon: mdiApplicationSettingsOutline,
 			},
 			{
 				name: 'Sale app',
 				url: '/setting-sale',
-				icon: mdiStoreSettingsOutline
+				icon: mdiStoreSettingsOutline,
 			},
 			{
 				name: 'OP app',
 				url: '/setting-order-processor',
-				icon: mdiTimerSettingsOutline
+				icon: mdiTimerSettingsOutline,
 			},
 			{
 				name: 'Member app',
 				url: '/setting-member',
-				icon: mdiAccountSettingsOutline
-			}
-		]
-	}
+				icon: mdiAccountSettingsOutline,
+			},
+		],
+	},
 ]

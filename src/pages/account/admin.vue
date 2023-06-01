@@ -8,6 +8,6 @@
 import { useSeoMeta } from '~~/.nuxt/imports'
 
 useSeoMeta({
-	title: 'Admin accounts'
+	title: 'Admin accounts',
 })
 </script>

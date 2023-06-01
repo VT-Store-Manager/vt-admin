@@ -1,9 +1,6 @@
 <template>
-	<nuxt-link :to="url">
-		<template v-if="$slots.default">
-			<slot></slot>
-		</template>
-		<span v-else>{{ text }}}</span>
+	<nuxt-link v-bind="{ ...$attrs, to }">
+		<slot v-if="$slots.default"></slot>
 	</nuxt-link>
 </template>
 
@@ -11,8 +8,7 @@
 import { NuxtLinkProps } from 'nuxt/app'
 
 type Props = {
-	text?: string
-	url: string
+	to: string
 }
 
 const props = defineProps<Props & NuxtLinkProps>()

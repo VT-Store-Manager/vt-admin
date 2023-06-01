@@ -6,7 +6,7 @@ import * as directives from 'vuetify/directives'
 import { aliases as mdiAliases, mdi } from 'vuetify/iconsets/mdi-svg'
 import { fa } from 'vuetify/iconsets/fa-svg'
 import { library } from '@fortawesome/fontawesome-svg-core'
-// eslint-disable-next-line import/named
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
 	faPlus,
@@ -14,14 +14,14 @@ import {
 	faCaretRight,
 	faCirclePlus,
 	faCircleMinus,
-	faRotateRight
+	faRotateRight,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
 	faPenToSquare,
 	faTrashCan,
 	faMoon,
-	faSun
+	faSun,
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -48,8 +48,8 @@ const lightTheme: ThemeDefinition = {
 		secondary: '#FFFFFF',
 		screen: '#F4F4F4',
 		'dark-grey': '#212121',
-		grey: '#363636'
-	}
+		grey: '#363636',
+	},
 }
 const darkTheme: ThemeDefinition = {
 	dark: true,
@@ -62,8 +62,8 @@ const darkTheme: ThemeDefinition = {
 		'primary-color-lighten-2': '#ffe0b2',
 		'primary-color-lighten-3': '#fdf4e5',
 		'dark-grey': '#212121',
-		grey: '#363636'
-	}
+		grey: '#363636',
+	},
 }
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -76,16 +76,16 @@ export default defineNuxtPlugin(nuxtApp => {
 			aliases: mdiAliases,
 			sets: {
 				mdi,
-				fa
-			}
+				fa,
+			},
 		},
 		theme: {
 			defaultTheme: 'light',
 			themes: {
 				light: lightTheme,
-				dark: darkTheme
-			}
-		}
+				dark: darkTheme,
+			},
+		},
 	})
 	nuxtApp.vueApp.use(vuetify)
 	nuxtApp.vueApp.component('font-awesome-icon', FontAwesomeIcon)

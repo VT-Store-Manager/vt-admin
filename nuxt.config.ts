@@ -5,18 +5,18 @@ export default defineNuxtConfig({
 	srcDir: './src',
 	css: ['~/assets/css/normalize.css', '~/assets/scss/main.scss'],
 	imports: {
-		dirs: ['composables/**']
+		dirs: ['composables/**'],
 	},
 	build: {
-		transpile: ['vuetify']
+		transpile: ['vuetify'],
 	},
 	experimental: {
-		payloadExtraction: false
+		payloadExtraction: false,
 	},
 	vite: {
-		// ssr: {
-		// 	noExternal: ['vuetify']
-		// },
+		ssr: {
+			noExternal: ['vuetify'],
+		},
 		css: {
 			preprocessorOptions: {
 				scss: {
@@ -25,68 +25,65 @@ export default defineNuxtConfig({
 					@import "~/assets/scss/animation";
 					@import "~/assets/scss/components";
 					@import "~/assets/scss/scrollbar";
-					`
-				}
-			}
-		}
+					`,
+				},
+			},
+		},
 	},
 	components: [
 		'~/components',
 		{
 			path: '~/components/atoms',
-			prefix: 'atom'
+			prefix: 'atom',
 		},
 		{
 			path: '~/components/molecules',
-			prefix: 'molecule'
+			prefix: 'molecule',
 		},
 		{
 			path: '~/components/organisms',
-			prefix: 'organism'
+			prefix: 'organism',
 		},
 		{
 			path: '~/components/templates',
-			prefix: 'template'
+			prefix: 'template',
 		},
-		{
-			path: '~/components/base/button',
-			pathPrefix: false
-		}
 	],
 	hooks: {
 		'vite:extendConfig': config => {
 			config.plugins?.push(vuetify())
-		}
+		},
 	},
 	modules: [
 		'@nuxtjs/google-fonts',
 		'@pinia/nuxt',
 		'@vueuse/nuxt',
-		'@nuxt/devtools'
+		'@nuxt/devtools',
+		// '@nuxtjs/critters',
 	],
 	googleFonts: {
 		families: {
 			'Noto Sans': {
-				wght: [300, 400, 500, 600, 700, 900]
-			}
-		}
-		// display: 'fallback',
+				wght: [300, 400, 500, 600, 700, 900],
+			},
+		},
+		display: 'fallback',
 	},
 	pinia: {
-		autoImports: ['defineStore', ['defineStore', 'definePiniaStore']]
+		autoImports: ['defineStore', ['defineStore', 'definePiniaStore']],
 	},
 	postcss: {
 		plugins: {
 			autoprefixer: {},
 			'postcss-import': {},
 			'postcss-url': {},
-			...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
-		}
+			...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
+		},
 	},
 	runtimeConfig: {
 		public: {
 			apiBase: process.env.API_BASE,
-			imgResourceUrl: `${process.env.API_BASE}/v1/file/`
-		}
-	}
+			imgResourceUrl: `${process.env.API_BASE}/v1/file/`,
+		},
+	},
 })

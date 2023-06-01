@@ -68,7 +68,7 @@ const isError = reactive({
 	image: false,
 	name: false,
 	category: false,
-	price: false
+	price: false,
 })
 const createProduct = useCreateProduct()
 
@@ -84,7 +84,7 @@ const onSave = () => {
 		category: productContent.value?.data.category || '',
 		description: productContent.value?.data.description || '',
 		originalPrice: productContent.value?.data.originalPrice || 0,
-		options: productContent.value?.data.options || []
+		options: productContent.value?.data.options || [],
 	}
 	if (
 		productDtoData.images.length === 0 ||

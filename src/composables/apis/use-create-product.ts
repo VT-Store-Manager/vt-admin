@@ -5,7 +5,7 @@ export const useCreateProduct = definePiniaStore('create-product', () => {
 	const { response, loading, error, fetch } = useRequest<
 		BaseResponse<ProductModel>
 	>('/v1/admin/product/create', {
-		method: 'POST'
+		method: 'POST',
 	})
 
 	return { response, loading, error, fetch }

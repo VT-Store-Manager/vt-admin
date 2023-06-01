@@ -8,7 +8,7 @@ export const useProductOptionDetail = definePiniaStore(
 			response,
 			loading,
 			error,
-			fetchGet: fetch
+			fetchGet: fetch,
 		} = useRequest<BaseResponse<ProductOptionDetailModel>>(
 			'/public/option-detail.json'
 		)

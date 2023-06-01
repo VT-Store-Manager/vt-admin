@@ -1,7 +1,7 @@
 import useRequest from './use-request'
 import {
 	ProductOptionItem,
-	ProductOptionListItemModel
+	ProductOptionListItemModel,
 } from '~/models/product/product-option'
 import { BaseResponse, VSelectModel } from '~/types'
 
@@ -10,7 +10,7 @@ export const useProductOption = definePiniaStore('product-option-list', () => {
 		response,
 		error,
 		loading,
-		fetchGet: fetch
+		fetchGet: fetch,
 	} = useRequest<BaseResponse<ProductOptionListItemModel[]>>(
 		'/v1/admin/product-option/list'
 	)
@@ -30,7 +30,7 @@ export const useProductOption = definePiniaStore('product-option-list', () => {
 		if (!response.value?.data) return []
 		return response.value!.data.map(option => ({
 			title: option.name,
-			value: option.id
+			value: option.id,
 		}))
 	})
 
@@ -38,7 +38,7 @@ export const useProductOption = definePiniaStore('product-option-list', () => {
 		return (
 			getMarked.value?.items.map(item => ({
 				title: item.name,
-				value: item.key || ''
+				value: item.key || '',
 			})) || []
 		)
 	})
@@ -76,6 +76,6 @@ export const useProductOption = definePiniaStore('product-option-list', () => {
 		getSelectedItem,
 		clearSelected,
 		getOptionsById,
-		dataLen
+		dataLen,
 	}
 })

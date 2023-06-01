@@ -10,25 +10,25 @@ export const useStoreGrid = definePiniaStore('grid-store', () => {
 
 	const pagination = reactive({
 		page: 1,
-		limit: 6
+		limit: 6,
 	})
 
 	const fetch = () =>
 		fetchGet({
-			query: { page: pagination.page, limit: pagination.limit }
+			query: { page: pagination.page, limit: pagination.limit },
 		})
 
 	const defaultResponse: StoreGridModel = {
 		items: [],
-		maxCount: 0
+		maxCount: 0,
 	}
 
 	watch(pagination, () => {
 		router.push({
 			query: {
 				page: pagination.page,
-				limit: pagination.limit
-			}
+				limit: pagination.limit,
+			},
 		})
 	})
 

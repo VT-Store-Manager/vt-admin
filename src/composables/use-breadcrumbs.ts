@@ -21,7 +21,7 @@ export const useBreadcrumbs = definePiniaStore('breadcrumbs', () => {
 		items.value.push({
 			title: itemData.title,
 			href: itemData.href,
-			disabled: !!itemData.disabled
+			disabled: !!itemData.disabled,
 		})
 	}
 
@@ -51,7 +51,7 @@ export const useBreadcrumbs = definePiniaStore('breadcrumbs', () => {
 			push({
 				title: _.capitalize(findRoute.name!.toString().replaceAll('-', ' ')),
 				href: findRoute.path,
-				disabled: false
+				disabled: false,
 			})
 		}
 		if (items.value.length) {
@@ -71,8 +71,8 @@ export const useBreadcrumbs = definePiniaStore('breadcrumbs', () => {
 				{
 					title: _.capitalize(to.name!.toString().replaceAll('-', ' ')),
 					href: to.path,
-					disabled: true
-				}
+					disabled: true,
+				},
 			])
 		}
 	})

@@ -76,7 +76,7 @@ const onSave = async () => {
 
 	const dto = {
 		images: storeImage.value.images || [],
-		...storeContent.value.data
+		...storeContent.value.data,
 	}
 	const body = serialize(dto, { noFilesWithArrayNotation: true })
 	await createStoreStore.fetch({ body })

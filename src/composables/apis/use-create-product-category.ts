@@ -12,12 +12,12 @@ export const useCreateProductCategory = definePiniaStore(
 			response: data,
 			error,
 			loading,
-			fetch
+			fetch,
 		} = useRequest<
 			BaseResponse<ProductCategoryModel>,
 			CreateProductCategoryDto
 		>('/v1/admin/product-category/create', {
-			method: 'POST'
+			method: 'POST',
 		})
 
 		return { data, error, loading, fetch }
