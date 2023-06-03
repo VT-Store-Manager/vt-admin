@@ -6,6 +6,16 @@
 	</v-app>
 </template>
 
+<script lang="ts" setup>
+import { useTheme } from 'vuetify'
+import { AppTheme, GLOBAL_THEME_KEY } from './constants'
+
+const theme = useTheme()
+theme.global.name.value = useCookie(GLOBAL_THEME_KEY, {
+	default: () => AppTheme.LIGHT,
+}).value
+</script>
+
 <style lang="scss" scoped>
 .v-application {
 	min-width: 1250px;

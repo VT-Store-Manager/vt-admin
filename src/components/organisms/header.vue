@@ -1,5 +1,5 @@
 <template>
-	<header class="header bg-secondary">
+	<header class="header">
 		<div class="header-left">
 			<molecule-breadcrumbs />
 		</div>

@@ -68,8 +68,6 @@ useSeoMeta({
 				color: $grey;
 			}
 		}
-		&__right {
-		}
 	}
 	&-content {
 		flex: 1;

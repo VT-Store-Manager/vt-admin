@@ -15,6 +15,7 @@ import {
 	faCirclePlus,
 	faCircleMinus,
 	faRotateRight,
+	faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -35,8 +36,18 @@ library.add(
 	faCaretRight,
 	faCirclePlus,
 	faCircleMinus,
-	faRotateRight
+	faRotateRight,
+	faArrowLeft
 )
+const tempTheme: ThemeDefinition = {
+	dark: true,
+	colors: {
+		primary: '#EF6C00',
+		secondary: '#FFFFFF',
+		screen: '#F4F4f4',
+		box: '',
+	},
+}
 const lightTheme: ThemeDefinition = {
 	dark: false,
 	colors: {
@@ -49,6 +60,7 @@ const lightTheme: ThemeDefinition = {
 		screen: '#F4F4F4',
 		'dark-grey': '#212121',
 		grey: '#363636',
+		'light-grey': '#eee',
 	},
 }
 const darkTheme: ThemeDefinition = {
@@ -63,6 +75,7 @@ const darkTheme: ThemeDefinition = {
 		screen: '#010413',
 		'dark-grey': '#212121',
 		grey: '#363636',
+		'light-grey': '#15171e',
 	},
 }
 

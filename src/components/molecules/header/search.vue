@@ -1,7 +1,7 @@
 <template>
 	<atom-text-field
 		ref="searchInputRef"
-		class="quick-search"
+		class="quick-search rounded-pill"
 		placeholder="Quick search..."
 		bg-color="screen"
 		:append-inner-icon="mdiMagnify"
@@ -19,9 +19,9 @@ const onSearch = () => {}
 
 <style lang="scss" scoped>
 .quick-search {
+	border: 1px solid transparentize($color: $grey, $amount: 0.9);
 	:deep(.v-field) {
 		box-shadow: none;
-		// background-color: $screen-color;
 		border-radius: 9999px;
 		width: 12rem;
 		transition: width 200ms;

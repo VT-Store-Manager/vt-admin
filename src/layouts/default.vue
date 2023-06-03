@@ -1,6 +1,6 @@
 <template>
-	<div class="wrapper">
-		<app-sidebar />
+	<div class="wrapper bg-secondary">
+		<organism-sidebar />
 		<main class="main custom-scrollbar">
 			<organism-header />
 			<slot></slot>

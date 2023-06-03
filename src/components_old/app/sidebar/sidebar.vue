@@ -80,7 +80,6 @@
 import { mdiVuetify, mdiArrowLeft } from '@mdi/js'
 import { ref } from 'vue'
 import _ from 'lodash'
-import { navigations } from '~/routes/sidebar-navigation'
 
 const isCollapse = ref(false)
 const navRef = ref<null | HTMLElement>(null)
@@ -100,6 +99,9 @@ const throttleShowScrollbar = _.throttle(() => {
 	width: $sidebar-expand-width;
 	z-index: 1;
 	transition: width 400ms;
+	* {
+		transition: all 200ms;
+	}
 
 	$sidebar-mask-px: 1rem;
 	&-mask {
