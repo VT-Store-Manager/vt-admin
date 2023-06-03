@@ -1,13 +1,7 @@
 <template>
-	<template-page-container page-name="Dashboard">
+	<molecule-page-container page-name="Dashboard">
 		<div>This is dashboard content</div>
-	</template-page-container>
+	</molecule-page-container>
 </template>
 
-<script lang="ts" setup>
-import { useSeoMeta } from '~~/.nuxt/imports'
-
-useSeoMeta({
-	title: 'Dashboard',
-})
-</script>
+<script lang="ts" setup></script>

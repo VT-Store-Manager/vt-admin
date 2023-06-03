@@ -1,7 +1,8 @@
 <template>
 	<v-btn
-		rounded="lg"
 		v-bind="$attrs"
+		rounded="lg"
+		class="btn"
 	>
 		<slot></slot>
 	</v-btn>

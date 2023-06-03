@@ -1,5 +1,8 @@
 <template>
-	<nuxt-link v-bind="{ ...$attrs, to }">
+	<nuxt-link
+		v-bind="{ ...$attrs, to }"
+		class="link"
+	>
 		<slot v-if="$slots.default"></slot>
 	</nuxt-link>
 </template>

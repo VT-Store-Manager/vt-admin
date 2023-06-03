@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<app-sidebar />
 		<main class="main custom-scrollbar">
-			<app-header />
+			<organism-header />
 			<slot></slot>
 		</main>
 	</div>

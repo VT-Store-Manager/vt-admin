@@ -33,6 +33,10 @@ export default defineNuxtConfig({
 	components: [
 		'~/components',
 		{
+			path: '~/components/app',
+			prefix: 'app',
+		},
+		{
 			path: '~/components/atoms',
 			prefix: 'atom',
 		},
@@ -49,6 +53,7 @@ export default defineNuxtConfig({
 			prefix: 'template',
 		},
 	],
+
 	hooks: {
 		'vite:extendConfig': config => {
 			config.plugins?.push(vuetify())
