@@ -1,5 +1,5 @@
 <template>
-	<div class="page bg-screen">
+	<div class="page bg-background">
 		<div class="page-title d-flex justify-space-between align-center">
 			<div class="page-title__left d-flex align-center">
 				<h2 class="page-title__name">

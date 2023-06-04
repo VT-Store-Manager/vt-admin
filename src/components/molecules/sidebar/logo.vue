@@ -1,5 +1,5 @@
 <template>
-	<nuxt-link
+	<atom-link
 		to="/"
 		class="logo"
 		:class="{ 'only-icon': sidebar.collapse && !sidebarHovering }"
@@ -15,7 +15,7 @@
 		>
 			<strong>Vuetify</strong>
 		</span>
-	</nuxt-link>
+	</atom-link>
 </template>
 
 <script lang="ts" setup>
@@ -46,16 +46,17 @@ const sidebar = useSidebar()
 		font-size: 32px;
 		margin-right: 10px;
 		:deep(svg) {
-			filter: drop-shadow(0 0 10px $primary-color);
+			transition: filter 0.2s;
 			&:hover {
-				filter: drop-shadow(0 0 10px $primary-color-darken);
+				filter: drop-shadow(0 0 10px $primary-color);
 			}
 		}
 	}
 	span {
 		font-size: 1.25rem;
+		transition: text-shadow 0.2s;
 		&:hover {
-			text-shadow: 0 0 20px $primary-color-lighten;
+			text-shadow: 0 0 20px rgba(var(--v-theme-primary), 0.7);
 		}
 	}
 }

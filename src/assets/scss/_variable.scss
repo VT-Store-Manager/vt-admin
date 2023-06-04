@@ -3,40 +3,14 @@ $footer-height: 50px;
 $sidebar-expand-width: 300px;
 $sidebar-collapse-width: 92px;
 
-$primary-color: #ef6c00;
-$primary-color-darken: #e65100;
-$primary-color-lighten: #ffa726;
-$primary-color-lighten-2: #ffe0b2;
-$primary-color-lighten-3: #fdf4e5;
-$secondary-color: #ffffff;
-$screen-color: #f4f4f4;
-$dark-grey: #212121;
+$primary-color: rgb(var(--v-theme-primary));
+$primary-darken-color: rgb(var(--v-theme-primary-darken));
+$primary-lighten-color: rgb(var(--v-theme-primary-lighten));
+$secondary-color: rgb(var(--v-theme-secondary));
+$background-color: rgb(var(--v-theme-background));
+$surface-color: rgb(var(--v-theme-surface));
 $grey: #363636;
 
-// .text-primary {
-// 	color: $primary-color;
-// }
-// .text-primary-darken {
-// 	color: $primary-color-darken;
-// }
-// .text-primary-lighten {
-// 	color: $primary-color-lighten;
-// }
-// .text-primary-lighten-2 {
-// 	color: $primary-color-lighten-2;
-// }
-// .text-primary-lighten {
-// 	color: $primary-color-lighten;
-// }
-// .text-secondary {
-// 	color: $secondary-color;
-// }
-// .text-dark-grey {
-// 	color: $dark-grey;
-// }
-// .text-grey {
-// 	color: $grey;
-// }
 .hover-blur {
 	opacity: 0.7;
 }

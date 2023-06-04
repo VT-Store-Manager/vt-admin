@@ -9,7 +9,7 @@
 		<v-hover v-slot="{ isHovering, props }">
 			<div
 				v-bind="props"
-				class="sidebar-mask bg-secondary"
+				class="sidebar-mask bg-surface"
 				:class="{ hovering: isHovering }"
 			>
 				<div class="sidebar-head">
@@ -135,7 +135,10 @@ const throttleShowScrollbar = throttle(() => {
 		justify-content: space-between;
 		align-items: center;
 		position: absolute;
-		background-image: linear-gradient($secondary-color 0 75%, transparent);
+		background-image: linear-gradient(
+			rgb(var(--v-theme-surface)) 0 75%,
+			transparent
+		);
 		padding: 1.15rem $sidebar-mask-px 2.35rem;
 		z-index: 1;
 		top: 0;
@@ -150,7 +153,10 @@ const throttleShowScrollbar = throttle(() => {
 	}
 	&.dark {
 		.sidebar-head {
-			background-image: linear-gradient(#1b1e2b 0 75%, transparent);
+			background-image: linear-gradient(
+				rgb(var(--v-theme-surface)) 0 75%,
+				transparent
+			);
 		}
 	}
 }

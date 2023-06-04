@@ -33,10 +33,6 @@ export default defineNuxtConfig({
 	components: [
 		'~/components',
 		{
-			path: '~/components/app',
-			prefix: 'app',
-		},
-		{
 			path: '~/components/atoms',
 			prefix: 'atom',
 		},

@@ -1,10 +1,10 @@
 <template>
-	<nuxt-link
+	<atom-link
 		:to="data.url"
 		class="subnav-link subnav-wrapper"
 		:class="{ disabled: data.disabled }"
 	>
-		<v-btn
+		<atom-btn
 			:prepend-icon="data.icon"
 			variant="text"
 			:color="
@@ -18,8 +18,8 @@
 			}"
 		>
 			{{ isExpand ? data.name : '' }}
-		</v-btn>
-	</nuxt-link>
+		</atom-btn>
+	</atom-link>
 </template>
 
 <script lang="ts" setup>
@@ -61,16 +61,17 @@ const theme = useTheme()
 
 		&:hover {
 			background-color: transparent;
-			opacity: 1 !important;
+			:deep(.v-btn__overlay) {
+				background-color: rgb(var(--v-theme-primary));
+			}
 			:deep(*) {
-				color: $primary-color;
+				color: rgb(var(--v-theme-primary));
 			}
 		}
 	}
 
 	&.disabled {
 		pointer-events: none;
-		cursor: default;
 		.subnav-item {
 			opacity: 0.4;
 		}

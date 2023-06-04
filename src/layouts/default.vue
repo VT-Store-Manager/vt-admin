@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper bg-secondary">
+	<div class="wrapper bg-surface">
 		<organism-sidebar />
 		<main class="main custom-scrollbar">
 			<organism-header />

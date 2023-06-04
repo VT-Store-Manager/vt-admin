@@ -5,8 +5,9 @@
 	>
 		<v-hover>
 			<template #default="{ isHovering, props: hoverProps }">
-				<nuxt-link :to="data.url">
-					<v-btn
+				<atom-link :to="data.url">
+					<atom-btn
+						v-ripple
 						:prepend-icon="data.icon"
 						class="nav__item"
 						:class="[
@@ -36,12 +37,12 @@
 							:class="{ rotate: showSubNav }"
 							class="nav-caret"
 						/>
-					</v-btn>
-				</nuxt-link>
+					</atom-btn>
+				</atom-link>
 				<div
 					v-if="hasSubnav"
 					:class="{ 'subnav-show': showSubNav }"
-					class="subnav my-1 rounded-lg bg-light-grey"
+					class="subnav my-1 rounded-lg bg-background"
 					v-bind="hoverProps"
 				>
 					<template
@@ -92,7 +93,7 @@ const isCorrectRoute = (path?: string) => {
 <style lang="scss" scoped>
 .router-link-exact-active {
 	.nav__item {
-		background-color: $primary-color-lighten-3;
+		background-color: rgba(var(--v-theme-primary), 0.3);
 	}
 }
 .nav {
@@ -112,7 +113,8 @@ const isCorrectRoute = (path?: string) => {
 			font-weight: 500;
 		}
 		&.subnav-active {
-			background-color: transparentize($color: $screen-color, $amount: 0.95);
+			background-color: rgba(var(--v-theme-primary-darken), 0.1);
+			pointer-events: none;
 			:deep(.v-btn__content) {
 				font-weight: bold;
 			}
@@ -133,7 +135,6 @@ const isCorrectRoute = (path?: string) => {
 
 	&.disabled {
 		pointer-events: none;
-		cursor: default;
 		.nav__item {
 			opacity: 0.3;
 		}
@@ -144,6 +145,7 @@ const isCorrectRoute = (path?: string) => {
 	max-height: 0;
 	transition: max-height 400ms ease-in-out;
 	overflow: hidden;
+	// background-color: rgba(var(--v-theme-primary-darken), 0.05);
 	&.subnav-show {
 		max-height: 200px;
 		.subnav-link {

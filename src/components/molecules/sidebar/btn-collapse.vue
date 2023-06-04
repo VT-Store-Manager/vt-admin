@@ -1,6 +1,6 @@
 <template>
 	<v-hover v-slot="{ isHovering, props: props }">
-		<v-btn
+		<atom-btn
 			v-bind="props"
 			class="collapse-button"
 			:class="{
@@ -9,15 +9,16 @@
 			}"
 			variant="outlined"
 			size="x-small"
+			rounded="circle"
 			icon
-			:color="isHovering ? 'primary-darken' : 'grey'"
+			:color="isHovering ? 'primary' : 'grey'"
 			@click="onChangeSidebarCollapseInCookie"
 		>
 			<v-icon
 				icon="fa:fas fa-arrow-left"
 				size="large"
 			/>
-		</v-btn>
+		</atom-btn>
 	</v-hover>
 </template>
 

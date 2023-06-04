@@ -39,43 +39,40 @@ library.add(
 	faRotateRight,
 	faArrowLeft
 )
-const tempTheme: ThemeDefinition = {
-	dark: true,
-	colors: {
-		primary: '#EF6C00',
-		secondary: '#FFFFFF',
-		screen: '#F4F4f4',
-		box: '',
-	},
-}
+
+// #F6F1E9
+// #FFD93D
+// #EF6C00
+// #4F200D
+
 const lightTheme: ThemeDefinition = {
 	dark: false,
 	colors: {
 		primary: '#EF6C00',
-		'primary-darken': '#E65100',
-		'primary-lighten': '#FFA726',
-		'primary-color-lighten-2': '#ffe0b2',
-		'primary-color-lighten-3': '#fdf4e5',
-		secondary: '#FFFFFF',
-		screen: '#F4F4F4',
-		'dark-grey': '#212121',
-		grey: '#363636',
-		'light-grey': '#eee',
+		'primary-darken': '#4F200D',
+		'primary-lighten': '#FFD93D',
+		secondary: '#F6F1E9',
+		background: '#F4F4f4',
+		surface: '#FFFFFF',
+		error: '#f44336',
+		warning: '#ffa726',
+		info: '#29b6f6',
+		success: '#66bb6a',
 	},
 }
 const darkTheme: ThemeDefinition = {
 	dark: true,
 	colors: {
 		primary: '#EF6C00',
-		'primary-darken': '#E65100',
-		'primary-lighten': '#FFA726',
-		'primary-color-lighten-2': '#ffe0b2',
-		'primary-color-lighten-3': '#fdf4e5',
-		secondary: '#1b1e2b',
-		screen: '#010413',
-		'dark-grey': '#212121',
-		grey: '#363636',
-		'light-grey': '#15171e',
+		'primary-darken': '#E16428',
+		'primary-lighten': '#FFD93D',
+		secondary: '#F6F1E9',
+		background: '#272121',
+		surface: '#363333',
+		error: '#f44336',
+		warning: '#ffa726',
+		info: '#29b6f6',
+		success: '#66bb6a',
 	},
 }
 
