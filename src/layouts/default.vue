@@ -17,7 +17,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		overflow-y: scroll;
+		overflow: hidden;
 		&::-webkit-scrollbar {
 			width: 16px;
 		}

@@ -80,7 +80,7 @@ const throttleShowScrollbar = throttle(() => {
 <style lang="scss" scoped>
 .sidebar {
 	width: $sidebar-expand-width;
-	z-index: 1;
+	z-index: 9999;
 	transition: width 200ms;
 
 	$sidebar-mask-px: 1rem;

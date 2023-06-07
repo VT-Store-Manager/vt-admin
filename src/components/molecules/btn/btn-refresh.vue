@@ -1,5 +1,5 @@
 <template>
-	<atom-btn
+	<v-btn
 		class="btn-refresh"
 		rounded="lg"
 		:icon="mdiRefresh"

@@ -1,5 +1,6 @@
 body {
 	overflow-x: scroll;
+	overflow-y: hidden;
 }
 
 .alternative-text {
@@ -14,4 +15,8 @@ body {
 
 .hidden {
 	visibility: hidden;
+}
+
+.prevent-event {
+	pointer-events: none;
 }

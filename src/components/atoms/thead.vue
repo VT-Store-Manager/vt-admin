@@ -27,10 +27,10 @@ import { mdiMenuDown, mdiMenuUp } from '@mdi/js'
 
 interface Props {
 	title: string
-	textAlign?: 'left' | 'right' | 'center'
-	sortable?: boolean
 	fieldName?: string
+	sortable?: boolean
 	sortingFieldName?: string
+	textAlign?: 'left' | 'right' | 'center'
 	showSortIcon?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -63,53 +63,3 @@ watchEffect(() => {
 	else hideIcon.value = false
 })
 </script>
-
-<style lang="scss" scoped>
-th.table-head {
-	border: 0 !important;
-	.v-btn {
-		padding: 0;
-		min-width: unset;
-		:deep(.v-btn__content) {
-			text-transform: uppercase !important;
-			letter-spacing: normal;
-			white-space: break-spaces;
-			text-align: left;
-			position: relative;
-		}
-		&.text-right {
-			* {
-				text-align: right;
-			}
-		}
-		&.text-center {
-			* {
-				text-align: center;
-			}
-		}
-		:deep(.v-btn__overlay) {
-			background-color: transparent;
-		}
-		.v-icon {
-			position: absolute;
-			left: calc(100% - 6px);
-			top: 50%;
-			transform: translateY(-50%);
-			&.hide {
-				visibility: hidden;
-			}
-		}
-		&:hover {
-			.v-icon {
-				visibility: visible !important;
-			}
-		}
-		&.unused {
-			cursor: default;
-			:deep(.v-icon) {
-				display: none;
-			}
-		}
-	}
-}
-</style>

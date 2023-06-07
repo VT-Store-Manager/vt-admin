@@ -48,6 +48,7 @@ useSeoMeta({
 	border-top-left-radius: 20px;
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 	&-title {
 		padding: 1.5rem 0 1rem;
 		&__left {
@@ -72,6 +73,7 @@ useSeoMeta({
 	&-content {
 		flex: 1;
 		position: relative;
+		overflow: hidden;
 	}
 
 	:deep(.v-progress-circular) {

@@ -9,7 +9,7 @@
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
 		"lint": "eslint .",
-		"lint-fix": "eslint --fix .",
+		"lint-fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --cache --max-warnings=0",
 		"prepare": "husky install",
 		"add-hook": "husky add .husky/pre-commit \"pnpm lint-fix\""
 	},
@@ -36,6 +36,7 @@
 		"eslint-plugin-nuxt": "^4.0.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"husky": "^8.0.3",
+		"mitt": "^3.0.0",
 		"node-sass": "^8.0.0",
 		"nuxt": "^3.5.1",
 		"postcss": "^8.4.21",

@@ -115,7 +115,7 @@
 								? 'text-grey'
 								: row.publishStatus === PublishStatus.OPENING
 								? 'text-green'
-								: 'text-red'
+								: 'text-red',
 						]"
 					>
 						{{ publishStatus[row.publishStatus] }}

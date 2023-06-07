@@ -2,6 +2,7 @@ import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 import { createVuetify, ThemeDefinition } from 'vuetify'
 import * as components from 'vuetify/components'
+import * as labComponents from 'vuetify/labs/components'
 import * as directives from 'vuetify/directives'
 import { aliases as mdiAliases, mdi } from 'vuetify/iconsets/mdi-svg'
 import { fa } from 'vuetify/iconsets/fa-svg'
@@ -52,7 +53,7 @@ const lightTheme: ThemeDefinition = {
 		'primary-darken': '#4F200D',
 		'primary-lighten': '#FFD93D',
 		secondary: '#F6F1E9',
-		background: '#F4F4f4',
+		background: '#EEEEEE',
 		surface: '#FFFFFF',
 		error: '#f44336',
 		warning: '#ffa726',
@@ -79,7 +80,10 @@ const darkTheme: ThemeDefinition = {
 export default defineNuxtPlugin(nuxtApp => {
 	const vuetify = createVuetify({
 		ssr: true,
-		components,
+		components: {
+			...components,
+			...labComponents,
+		},
 		directives,
 		icons: {
 			defaultSet: 'mdi',

@@ -1,48 +1,48 @@
 <template>
-	<template-page-container page-name="Product list">
+	<molecule-list-page-container page-name="Products">
 		<template #subtitle>
-			<p>{{ product.dataLen }} products</p>
+			<p>{{ data?.length || '--' }} products</p>
 		</template>
 		<template #title-right>
-			<base-progress-circular
-				v-show="product.loading"
-				:class="{ done: !product.loading }"
+			<atom-progress-circular
+				v-show="pending"
+				indeterminate
+				:class="{ done: !pending }"
 			/>
-			<molecule-refresh-btn
+			<molecule-btn-refresh
 				class="mr-3"
 				title="Refresh data"
-				@click="refreshData"
+				@click="refresh"
 			/>
-			<!-- <button-refresh
-				class="mr-3"
-				title="Refresh data"
-				@click="refreshData"
-			/> -->
-			<!-- <button-create @click="$router.push('/product/create')">
-				New product
-			</button-create> -->
-			<molecule-create-btn @click="$router.push('/product/create')">
-				New product
-			</molecule-create-btn>
+			<molecule-btn-create @click="$router.push('/product/create')">
+				New
+			</molecule-btn-create>
 		</template>
-		<product-page-container v-show="!firstLoad" />
-	</template-page-container>
+		<template-product-list />
+		<!-- <product-page-container v-show="!firstLoad" /> -->
+	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
-const product = useProduct()
-const firstLoad = ref(true)
+import { storeToRefs } from 'pinia'
 
-const refreshData = () => product.fetch({})
+// const product = useProduct()
+// const firstLoad = ref(true)
 
-refreshData()
+// const refreshData = () => product.fetch({})
 
-watch(
-	() => product.loading,
-	() => {
-		if (!product.loading && firstLoad.value) {
-			firstLoad.value = false
-		}
-	}
-)
+// refreshData()
+
+// watch(
+// 	() => product.loading,
+// 	() => {
+// 		if (!product.loading && firstLoad.value) {
+// 			firstLoad.value = false
+// 		}
+// 	}
+// )
+const productList = useProductList()
+const { data, pending } = storeToRefs(productList)
+const { refresh } = productList
+// productList.execute()
 </script>

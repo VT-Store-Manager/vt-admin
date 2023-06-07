@@ -1,6 +1,10 @@
 /** COOKIE KEY */
 export const SIDEBAR_COLLAPSE_KEY = 'sidebar-collapse'
 export const GLOBAL_THEME_KEY = 'global-theme'
+export const AUTH_TOKEN_KEY = 'auth-token'
+
+/** CONFIG VALUE */
+export const PROGRESS_LINEAR_CYCLE_TIME = 2200
 
 /** ENUMERATION */
 export enum AppTheme {

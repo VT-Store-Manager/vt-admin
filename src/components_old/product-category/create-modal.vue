@@ -64,7 +64,7 @@
 
 <script lang="ts" setup>
 import { mdiImage } from '@mdi/js'
-import { useCreateProductCategory } from '~/composables/apis/use-create-product-category'
+import { useCreateProductCategory } from '~/composables/apis-old/use-create-product-category'
 
 interface Props {
 	show?: boolean
@@ -109,7 +109,7 @@ const categoryImageRule = [
 			value[0].size < size * 1024 * 1024 ||
 			`Category image size should be less than ${size} MB!`
 		)
-	}
+	},
 ]
 
 const onCreateProductCategory = async () => {

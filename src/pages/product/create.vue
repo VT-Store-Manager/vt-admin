@@ -56,7 +56,7 @@ import _ from 'lodash'
 import { mdiContentSave, mdiRefresh } from '@mdi/js'
 import { serialize } from 'object-to-formdata'
 import { CreateProductModel } from '~/models/product/create-product'
-import { useCreateProduct } from '~/composables/apis/use-create-product'
+import { useCreateProduct } from '~/composables/apis-old/use-create-product'
 
 type CreateWithoutImageModel = Omit<CreateProductModel, 'images'>
 

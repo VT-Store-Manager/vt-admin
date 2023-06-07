@@ -146,7 +146,7 @@ const fieldNameList: Array<keyof ProductModel> = [
 	'originalPrice',
 	'salesVolume',
 	'status',
-	'updatedAt'
+	'updatedAt',
 ]
 const sortingFieldName = ref<undefined | keyof ProductModel>(undefined)
 const rowCodeConfirmed = ref<null | string>(null)
