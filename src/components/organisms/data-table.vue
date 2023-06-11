@@ -2,7 +2,7 @@
 	<div class="data-table">
 		<div
 			class="table-wrapper elevation-3"
-			:class="{ 'pb-12': pagination }"
+			:class="{ 'pb-14': pagination }"
 		>
 			<molecule-interval-progress-linear :loading="loading" />
 			<atom-table
@@ -44,8 +44,8 @@
 							>
 								{{ col.title }}
 								<v-icon
-									class="sort-icon"
 									v-if="col.sortable"
+									class="sort-icon"
 									:icon="mdiMenuDown"
 									:size="26"
 								/>
@@ -107,9 +107,9 @@
 			</atom-table>
 		</div>
 		<molecule-table-pagination
-			v-if="pagination"
-			:current-page="currentPage"
-			:max-per-page="itemsPerPage"
+			v-if="pagination && totalItemAmount"
+			:current-page="pagination.page"
+			:max-per-page="pagination.limit"
 			:data-amount="totalItemAmount"
 		/>
 	</div>
@@ -125,19 +125,15 @@ interface Props {
 	headers: TableHeader<T>[]
 	editable?: boolean
 	items: T[]
-	pagination?: boolean | Pagination
-	itemsPerPage?: number
-	currentPage?: number
-	totalItemAmount: number
+	pagination?: Pagination
+	totalItemAmount?: number
 	loading?: boolean
 	itemKey?: string
+	updatePageFn?: (_pagination: Pagination) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	headers: () => [],
-	pagination: false,
-	itemsPerPage: 10,
-	currentPage: 1,
 	loading: false,
 	itemKey: 'id',
 })
@@ -150,6 +146,15 @@ const startId = computed(() => {
 	}
 	const pagination = props.pagination as Pagination
 	return (pagination.page - 1) * pagination.limit + 1
+})
+
+if (props.updatePageFn) {
+	useListener('update-page', props.updatePageFn)
+}
+onBeforeUnmount(() => {
+	if (props.updatePageFn) {
+		useOmit('update-page', props.updatePageFn)
+	}
 })
 </script>
 
@@ -167,8 +172,8 @@ const startId = computed(() => {
 			max-height: 100%;
 			background-color: rgb(var(--v-theme-surface));
 			padding-left: 12px;
-			&::-webkit-scrollbar-thumb {
-				border-top-width: 56px;
+			&::-webkit-scrollbar-button:vertical:decrement {
+				height: 54px;
 			}
 		}
 	}

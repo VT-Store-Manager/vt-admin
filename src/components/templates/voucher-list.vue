@@ -3,11 +3,10 @@
 		:headers="headers"
 		:items="items"
 		:pagination="query"
-		:items-per-page="10"
 		:total-item-amount="totalCount"
 		:loading="pending"
 		editable
-		@change-page="updatePage"
+		:update-page-fn="updatePage"
 	>
 		<template #name="{ item }">
 			<v-hover>
@@ -49,9 +48,6 @@ import { VoucherListItem } from '~/composables/apis/use-voucher-list'
 const voucherList = useVoucherList()
 const { items, totalCount, pending, query } = storeToRefs(voucherList)
 const { updatePage } = voucherList
-
-useListener('update-page', updatePage)
-onBeforeUnmount(() => useOmit('update-page', updatePage))
 
 const headers: TableHeader<VoucherListItem>[] = [
 	{

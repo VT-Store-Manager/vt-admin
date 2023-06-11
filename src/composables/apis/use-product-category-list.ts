@@ -1,5 +1,4 @@
 import { Status } from '~/constants'
-import { DataResponse } from '~/types/request'
 
 export interface ProductCategoryItem {
 	id: string
@@ -22,37 +21,31 @@ export interface ProductCategoryListPagination {
 export const useProductCategoryList = definePiniaStore(
 	'product-category-list',
 	() => {
-		const query = reactive({
-			page: 1,
-			limit: 10,
-		})
-		const { data, pending, error, refresh, execute } = useRequest<
-			DataResponse<ProductCategoryListPagination>,
-			ProductCategoryListPagination
-		>('/v1/admin/product-category/list', {
-			method: 'GET',
-			query,
-			transform(input) {
-				return input.data
-			},
-			watch: [query],
-		})
+		const { pagination, updatePage } = usePagination()
 
-		const updatePage = (pagination: { page: number; limit: number }) => {
-			Object.assign(query, pagination)
-		}
-
+		const query = computed(() => ({ ...pagination }))
+		const { data, pending, error, refresh } =
+			useRequest<ProductCategoryListPagination>(
+				'/v1/admin/product-category/list',
+				{
+					query,
+					transform: input => input.data,
+					watch: [query],
+				},
+				{
+					pushQuery: true,
+				}
+			)
 		const items = computed(() => data?.value?.items || [])
 		const totalProduct = computed(() => data?.value?.totalCount || 0)
 
 		return {
-			query,
+			pagination,
 			items,
 			totalProduct,
 			pending,
 			error,
 			refresh,
-			execute,
 			updatePage,
 		}
 	}

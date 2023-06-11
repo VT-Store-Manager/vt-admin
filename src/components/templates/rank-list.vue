@@ -3,7 +3,6 @@
 		:headers="headers"
 		:items="items"
 		:loading="pending"
-		:total-item-amount="totalCount"
 		editable
 	>
 		<template #detail="{ item }">
@@ -46,7 +45,7 @@ import { RankItemModel } from '~/composables/apis/use-rank-list'
 import { TableHeader } from '~/types'
 
 const rankList = useRankList()
-const { items, pending, totalCount } = storeToRefs(rankList)
+const { items, pending } = storeToRefs(rankList)
 
 const headers: TableHeader<RankItemModel>[] = [
 	{

@@ -5,7 +5,8 @@
 		mandatory
 		selected-class="selected-type"
 		variant="outlined"
-		class="list-type-btns"
+		class="list-type-btns elevation-2"
+		:class="{ dark: isDark }"
 	>
 		<v-btn
 			:icon="mdiListBoxOutline"
@@ -22,7 +23,8 @@
 
 <script lang="ts" setup>
 import { mdiListBoxOutline, mdiViewGridOutline } from '@mdi/js'
-import { ListDisplay } from '~/types/layout'
+import { storeToRefs } from 'pinia'
+import { ListDisplay } from '~/types'
 
 const displayType = ref<ListDisplay>('list')
 const emits = defineEmits<{
@@ -32,6 +34,7 @@ const emits = defineEmits<{
 watch(displayType, value => {
 	emits('updateType', value)
 })
+const { isDark } = storeToRefs(useThemeUtil())
 </script>
 
 <style lang="scss" scoped>
@@ -40,15 +43,44 @@ watch(displayType, value => {
 	width: 70px;
 	.list-type-item {
 		flex: 1;
+		&:first-child {
+			:deep(.v-btn__overlay) {
+				border-top-left-radius: 7px;
+				border-bottom-left-radius: 7px;
+			}
+		}
+		&:last-child {
+			:deep(.v-btn__overlay) {
+				border-top-right-radius: 7px;
+				border-bottom-right-radius: 7px;
+			}
+		}
 		:deep(.v-btn__content) {
+			opacity: 0.2;
 			svg {
-				color: #0003;
+				color: black;
 			}
 		}
 		&.selected-type {
 			:deep(.v-btn__content) {
+				opacity: 1;
+			}
+		}
+	}
+	&.dark {
+		.list-type-item {
+			:deep(.v-btn__content) {
+				opacity: 0.5;
 				svg {
-					color: black;
+					color: #fff3;
+				}
+			}
+			&.selected-type {
+				:deep(.v-btn__content) {
+					opacity: 1;
+					svg {
+						color: #fff;
+					}
 				}
 			}
 		}

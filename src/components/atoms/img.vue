@@ -14,7 +14,23 @@
 			/>
 		</template>
 		<template
-			v-if="placeholder"
+			v-if="$slots.placeholder"
+			#placeholder
+		>
+			<slot name="placeholder"></slot>
+		</template>
+		<template
+			v-else-if="placeholder === 'logo'"
+			#placeholder
+		>
+			<v-img
+				class="default-image-placeholder"
+				src="/img/logo/gray.png"
+				cover
+			/>
+		</template>
+		<template
+			v-else
 			#placeholder
 		>
 			<div class="d-flex align-center justify-center fill-height">
@@ -31,7 +47,7 @@
 type Props = {
 	src: string
 	altSrc?: string[]
-	placeholder?: boolean
+	placeholder?: 'progress' | 'logo'
 	serverImg?: boolean
 	serverAltImg?: number[] | true
 	imgAttribute?: Record<string, any>
@@ -39,10 +55,12 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
 	altSrc: () => [],
-	placeholder: false,
 	serverImg: false,
 	serverAltImg: () => [],
 })
+defineSlots<{
+	placeholder?: (props: {}) => any
+}>()
 const serverImgUrl = useRuntimeConfig().public.imgResourceUrl
 
 const formattedSrc = computed(() => {
@@ -70,5 +88,9 @@ const rightAltSrc = computed(() => {
 	&:hover {
 		opacity: 0.7;
 	}
+}
+.default-image-placeholder {
+	// filter: grayscale(1);
+	// opacity: 0.7;
 }
 </style>

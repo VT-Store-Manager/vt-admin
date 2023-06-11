@@ -22,7 +22,7 @@ interface Props {
 	role?: string
 }
 
-const defaultAvatar = '/img/default-avatar.jpg'
+const defaultAvatar = '/img/default/avatar.jpg'
 
 withDefaults(defineProps<Props>(), {
 	avatar: defaultAvatar,

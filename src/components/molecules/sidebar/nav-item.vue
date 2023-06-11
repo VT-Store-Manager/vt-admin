@@ -21,7 +21,7 @@
 								? 'primary-darken'
 								: isHovering
 								? 'primary'
-								: theme.name.value === AppTheme.DARK
+								: isDark
 								? 'grey-lighten-4'
 								: 'dark-grey'
 						"
@@ -64,9 +64,8 @@
 
 <script lang="ts" setup>
 import { mdiChevronUp } from '@mdi/js'
-import { useTheme } from 'vuetify'
+import { storeToRefs } from 'pinia'
 import { NavItem } from '~/routes'
-import { AppTheme } from '~/constants'
 
 interface NavProps {
 	data: NavItem
@@ -75,7 +74,7 @@ interface NavProps {
 
 const route = useRoute()
 const props = defineProps<NavProps>()
-const theme = useTheme()
+const { isDark } = storeToRefs(useThemeUtil())
 
 const showSubNav = ref(!!props.data.sub?.some(nav => nav.url === route.path))
 

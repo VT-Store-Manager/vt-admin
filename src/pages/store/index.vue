@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { ListDisplay } from '~/types/layout'
+import { ListDisplay } from '~/types'
 
 const storeList = useStoreList()
 const { totalCount } = storeToRefs(storeList)

@@ -1,5 +1,3 @@
-import { DataResponse } from '~/types'
-
 export interface RankItemModel {
 	id: string
 	name: string
@@ -17,13 +15,11 @@ export interface RankItemModel {
 }
 
 export const useRankList = definePiniaStore('rank-list', () => {
-	const { data, pending, error, refresh } = useRequest<
-		DataResponse<RankItemModel[]>,
-		Array<RankItemModel>
-	>('/v1/admin/rank', {
-		method: 'GET',
-		transform: input => input.data,
-	})
+	const { data, pending, error, refresh } = useRequest<RankItemModel[]>(
+		'/v1/admin/rank',
+		{ transform: input => input.data },
+		{ pushQuery: true }
+	)
 
 	const items = computed(() => data.value || [])
 	const totalCount = computed(() => data.value?.length || 0)

@@ -3,12 +3,10 @@
 		:headers="headers"
 		:items="items"
 		:pagination="pagination"
-		:current-page="pagination.page"
-		:items-per-page="pagination.limit"
 		:total-item-amount="totalCount"
 		:loading="pending"
 		editable
-		@change-page="updatePage"
+		:update-page-fn="updatePage"
 	/>
 </template>
 
@@ -21,9 +19,6 @@ const memberList = useMemberList()
 const { items, totalCount, pending, pagination } = storeToRefs(memberList)
 const { updatePage } = memberList
 
-useListener('update-page', updatePage)
-onBeforeMount(() => useOmit('update-page', updatePage))
-
 const headers: TableHeader<MemberItemModel>[] = [
 	{
 		title: 'Code',
@@ -35,11 +30,6 @@ const headers: TableHeader<MemberItemModel>[] = [
 		key: 'name',
 		sortable: true,
 	},
-	// {
-	// 	title: 'Phone',
-	// 	key: 'phone',
-	// 	sortable: true,
-	// },
 	{
 		title: 'Rank',
 		key: 'rank.info.rank',

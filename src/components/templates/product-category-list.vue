@@ -2,12 +2,11 @@
 	<organism-data-table
 		:headers="headers"
 		:items="items"
-		:pagination="query"
-		:items-per-page="10"
+		:pagination="pagination"
 		:total-item-amount="totalProduct"
 		:loading="pending"
 		editable
-		@change-page="updatePage"
+		:update-page-fn="updatePage"
 	>
 		<template #name="{ item }">
 			<v-hover>
@@ -25,6 +24,7 @@
 							aspect-ratio="1/1"
 							:class="{ 'hover-blur': hoveringName }"
 							server-img
+							lazy-src="/img/default/product-category.png"
 						/>
 						<span
 							class="ellipsis-2"
@@ -62,11 +62,9 @@ import { TableHeader } from '~/types'
 import { Status } from '~/constants'
 
 const productCategoryList = useProductCategoryList()
-const { items, totalProduct, pending, query } = storeToRefs(productCategoryList)
+const { items, totalProduct, pending, pagination } =
+	storeToRefs(productCategoryList)
 const { updatePage } = productCategoryList
-
-useListener('update-page', updatePage)
-onBeforeUnmount(() => useOmit('update-page', updatePage))
 
 const headers: TableHeader<ProductCategoryItem>[] = [
 	{

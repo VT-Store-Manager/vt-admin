@@ -2,7 +2,7 @@
 	<div class="header-action">
 		<atom-switch
 			class="switch-theme"
-			:model-value="theme.global.current.value.dark"
+			:model-value="isDark"
 			inset
 			:true-icon="mdiWeatherNight"
 			:false-icon="mdiWeatherSunny"
@@ -27,19 +27,17 @@
 
 <script lang="ts" setup>
 import { mdiBellOutline, mdiWeatherNight, mdiWeatherSunny } from '@mdi/js'
-import { useTheme } from 'vuetify'
+import { storeToRefs } from 'pinia'
 import { GLOBAL_THEME_KEY, AppTheme } from '~/constants'
 
-const theme = useTheme()
+const theme = useThemeUtil()
+const { isDark } = storeToRefs(theme)
+const { setTheme } = theme
 const themeCookieValue = useCookie(GLOBAL_THEME_KEY)
 
-// const isDarkTheme = computed(() => theme.global.name.value)
-
 const toggleTheme = () => {
-	const newTheme = theme.global.current.value.dark
-		? AppTheme.LIGHT
-		: AppTheme.DARK
-	theme.global.name.value = newTheme
+	const newTheme = isDark.value ? AppTheme.LIGHT : AppTheme.DARK
+	setTheme(newTheme)
 	themeCookieValue.value = newTheme
 }
 </script>

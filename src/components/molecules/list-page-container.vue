@@ -9,8 +9,15 @@
 					<atom-divider
 						class="mx-4"
 						vertical
+						thickness="2"
+						:color="isLight ? 'grey-darken-3' : 'grey-lighten-5'"
 					/>
-					<slot name="subtitle"></slot>
+					<div
+						class="page-subtitle"
+						:class="[isLight ? 'text-grey-darken-2' : 'text-grey-lighten-1']"
+					>
+						<slot name="subtitle"></slot>
+					</div>
 				</template>
 			</div>
 			<div class="page-title__right">
@@ -24,6 +31,8 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
+
 interface Props {
 	pageName: string
 	pageTitle?: string
@@ -39,6 +48,8 @@ defineSlots<{
 useSeoMeta({
 	title: `${props.pageTitle || props.pageName} - VT Admin`,
 })
+
+const { isLight } = storeToRefs(useThemeUtil())
 </script>
 
 <style lang="scss" scoped>
@@ -57,6 +68,7 @@ useSeoMeta({
 			}
 			[class*='__name'] {
 				font-size: 22px;
+				transform: translateY(-3px);
 			}
 			.v-divider {
 				border-right-width: 1px;

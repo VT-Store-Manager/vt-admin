@@ -1,5 +1,3 @@
-import { BaseResponse, Pagination } from '~/types'
-
 export interface StoreItemModel {
 	name: string
 	images: string[]
@@ -23,27 +21,25 @@ export interface StoreListModel {
 }
 
 export const useStoreList = definePiniaStore('store-list', () => {
-	const pagination = reactive<Pagination>({
-		page: 1,
-		limit: 10,
-	})
-	const { data, pending, error, refresh } = useRequest<
-		BaseResponse<StoreListModel>,
-		StoreListModel
-	>('/v1/admin/store/list', {
-		method: 'GET',
-		query: {
-			...pagination,
+	const { pagination, updatePage } = usePagination()
+
+	const query = computed(() => ({ ...pagination }))
+	const { data, pending, error, refresh } = useRequest<StoreListModel>(
+		'/v1/admin/store/list',
+		{
+			query,
+			transform: input => input.data,
+			watch: [query],
 		},
-		transform: input => input.data,
-		watch: [pagination],
-	})
+		{ pushQuery: true }
+	)
 
 	const totalCount = computed(() => data.value?.maxCount || 0)
 	const items = computed(() => data.value?.items || [])
 
 	return {
 		pagination,
+		updatePage,
 		data,
 		pending,
 		error,

@@ -5,6 +5,7 @@
 		:loading="pending"
 		:total-item-amount="totalCount"
 		editable
+		:update-page-fn="updatePage"
 	>
 		<template #status="{ item }">
 			<v-chip
@@ -25,6 +26,7 @@ import { TableHeader } from '~/types'
 
 const storeList = useStoreList()
 const { items, pending, totalCount } = storeToRefs(storeList)
+const { updatePage } = storeList
 
 const headers: TableHeader<StoreItemModel>[] = [
 	{

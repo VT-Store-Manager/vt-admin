@@ -1,5 +1,4 @@
 import { Gender } from '~/constants'
-import { DataResponse, Pagination } from '~/types'
 
 export interface MemberRankItemDTO {
 	name: string
@@ -33,25 +32,21 @@ export interface MemberListPaginationDTO {
 }
 
 export const useMemberList = definePiniaStore('member-list', () => {
-	const pagination = reactive({
-		page: 1,
-		limit: 10,
-	})
-	const { data, pending, error, refresh } = useRequest<
-		DataResponse<MemberListPaginationDTO>,
-		MemberListPaginationDTO
-	>('/v1/admin/member/list', {
-		method: 'GET',
-		query: {
-			...pagination,
-		},
-		transform: input => input.data,
-		watch: [pagination],
-	})
+	const { pagination, updatePage } = usePagination()
 
-	const updatePage = (_pagination: Pagination) => {
-		Object.assign(pagination, _pagination)
-	}
+	const query = computed(() => ({ ...pagination }))
+
+	const { data, pending, error, refresh } = useRequest<MemberListPaginationDTO>(
+		'/v1/admin/member/list',
+		{
+			query,
+			transform: input => input.data,
+			watch: [query],
+		},
+		{
+			pushQuery: true,
+		}
+	)
 
 	const totalCount = computed(() => data.value?.maxCount || 0)
 	const items = computed(() => data.value?.items || [])

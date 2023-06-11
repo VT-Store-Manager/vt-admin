@@ -3,7 +3,7 @@
 		class="sidebar"
 		:class="{
 			'sidebar-collapse': sidebar.collapse,
-			dark: theme.name.value === AppTheme.DARK,
+			dark: isDark,
 		}"
 	>
 		<v-hover v-slot="{ isHovering, props }">
@@ -58,12 +58,11 @@
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import { mdiDotsHorizontal } from '@mdi/js'
-import { useTheme } from 'vuetify'
+import { storeToRefs } from 'pinia'
 import { routes } from '~/routes'
-import { AppTheme } from '~/constants'
 
 const sidebar = useSidebar()
-const theme = useTheme()
+const { isDark } = storeToRefs(useThemeUtil())
 const navRef = ref<null | HTMLElement>(null)
 
 const deleteThrottleScrollbar = debounce(() => {

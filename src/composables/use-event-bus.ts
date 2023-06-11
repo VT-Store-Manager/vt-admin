@@ -1,10 +1,8 @@
 import mitt from 'mitt'
+import { Pagination } from '~/types'
 
 type ApplicationEvent = {
-	'update-page': {
-		page: number
-		limit: number
-	}
+	'update-page': Pagination
 }
 
 const emitter = mitt<ApplicationEvent>()

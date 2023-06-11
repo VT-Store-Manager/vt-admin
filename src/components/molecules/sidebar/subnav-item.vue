@@ -7,9 +7,7 @@
 		<atom-btn
 			:prepend-icon="data.icon"
 			variant="text"
-			:color="
-				theme.name.value === AppTheme.DARK ? 'grey-lighten-4' : 'dark-grey'
-			"
+			:color="isDark ? 'grey-lighten-4' : 'dark-grey'"
 			rounded="lg"
 			class="subnav-item"
 			:class="{
@@ -23,9 +21,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useTheme } from 'vuetify'
+import { storeToRefs } from 'pinia'
 import { SubNavItem } from '~/routes'
-import { AppTheme } from '~/constants'
 
 interface Props {
 	data: SubNavItem
@@ -34,7 +31,7 @@ interface Props {
 }
 
 defineProps<Props>()
-const theme = useTheme()
+const { isDark } = storeToRefs(useThemeUtil())
 </script>
 
 <style lang="scss" scoped>

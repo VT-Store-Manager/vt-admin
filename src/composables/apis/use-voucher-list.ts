@@ -1,5 +1,3 @@
-import { DataResponse } from '~/types'
-
 export interface VoucherListItem {
 	code: string
 	image: string
@@ -19,23 +17,19 @@ export interface VoucherListPaginationModel {
 }
 
 export const useVoucherList = definePiniaStore('voucher-list', () => {
-	const query = reactive({
-		page: 1,
-		limit: 10,
-	})
-	const { data, pending, error, refresh } = useRequest<
-		DataResponse<VoucherListPaginationModel>,
-		VoucherListPaginationModel
-	>('/v1/admin/voucher/list', {
-		method: 'GET',
-		query,
-		transform: input => input.data,
-		watch: [query],
-	})
+	const { pagination, updatePage } = usePagination()
+	const query = computed(() => ({ ...pagination }))
 
-	const updatePage = (pagination: { page: number; limit: number }) => {
-		Object.assign(query, pagination)
-	}
+	const { data, pending, error, refresh } =
+		useRequest<VoucherListPaginationModel>(
+			'/v1/admin/voucher/list',
+			{
+				query,
+				transform: input => input.data,
+				watch: [query],
+			},
+			{ pushQuery: true }
+		)
 
 	const items = computed(() => data?.value?.items || [])
 	const totalCount = computed(() => data?.value?.maxCount || 0)
