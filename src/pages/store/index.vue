@@ -27,6 +27,8 @@ import { ListDisplay } from '~/types'
 
 const storeList = useStoreList()
 const { totalCount } = storeToRefs(storeList)
-const { refresh } = storeList
+const { refresh, pushQuery } = storeList
 const displayType = ref<ListDisplay>('list')
+
+pushQuery()
 </script>

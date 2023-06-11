@@ -42,7 +42,7 @@
 				<div
 					v-if="hasSubnav"
 					:class="{ 'subnav-show': showSubNav }"
-					class="subnav my-1 rounded-lg bg-background"
+					class="subnav my-1 rounded-lg"
 					v-bind="hoverProps"
 				>
 					<template
@@ -144,7 +144,7 @@ const isCorrectRoute = (path?: string) => {
 	max-height: 0;
 	transition: max-height 400ms ease-in-out;
 	overflow: hidden;
-	// background-color: rgba(var(--v-theme-primary-darken), 0.05);
+	background-color: rgba(var(--v-theme-background), 0.5);
 	&.subnav-show {
 		max-height: 200px;
 		.subnav-link {

@@ -32,9 +32,12 @@ export interface MemberListPaginationDTO {
 }
 
 export const useMemberList = definePiniaStore('member-list', () => {
-	const { pagination, updatePage } = usePagination()
-
+	const { pagination, updatePage, pushPaginationQuery } = usePagination()
 	const query = computed(() => ({ ...pagination }))
+	const resetQuery = () => updatePage()
+	const pushQuery = () => {
+		pushPaginationQuery()
+	}
 
 	const { data, pending, error, refresh } = useRequest<MemberListPaginationDTO>(
 		'/v1/admin/member/list',
@@ -42,9 +45,6 @@ export const useMemberList = definePiniaStore('member-list', () => {
 			query,
 			transform: input => input.data,
 			watch: [query],
-		},
-		{
-			pushQuery: true,
 		}
 	)
 
@@ -60,5 +60,7 @@ export const useMemberList = definePiniaStore('member-list', () => {
 		updatePage,
 		totalCount,
 		items,
+		resetQuery,
+		pushQuery,
 	}
 })

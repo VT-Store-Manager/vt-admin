@@ -17,8 +17,7 @@ export interface RankItemModel {
 export const useRankList = definePiniaStore('rank-list', () => {
 	const { data, pending, error, refresh } = useRequest<RankItemModel[]>(
 		'/v1/admin/rank',
-		{ transform: input => input.data },
-		{ pushQuery: true }
+		{ transform: input => input.data }
 	)
 
 	const items = computed(() => data.value || [])

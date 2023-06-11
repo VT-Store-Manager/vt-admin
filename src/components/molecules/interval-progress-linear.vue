@@ -25,6 +25,7 @@ watch(
 	() => props.loading,
 	newValue => {
 		if (newValue) {
+			clearInterval(intervalLoading)
 			isProcessing.value = true
 			intervalLoading = setInterval(() => {
 				if (!props.loading) {

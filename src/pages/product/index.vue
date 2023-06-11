@@ -22,5 +22,7 @@ import { storeToRefs } from 'pinia'
 
 const productList = useProductList()
 const { totalProduct } = storeToRefs(productList)
-const { refresh } = productList
+const { refresh, pushQuery } = productList
+
+pushQuery()
 </script>

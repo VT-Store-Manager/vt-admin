@@ -21,17 +21,20 @@ export interface StoreListModel {
 }
 
 export const useStoreList = definePiniaStore('store-list', () => {
-	const { pagination, updatePage } = usePagination()
-
+	const { pagination, updatePage, pushPaginationQuery } = usePagination()
 	const query = computed(() => ({ ...pagination }))
+	const resetQuery = () => updatePage()
+	const pushQuery = () => {
+		pushPaginationQuery()
+	}
+
 	const { data, pending, error, refresh } = useRequest<StoreListModel>(
 		'/v1/admin/store/list',
 		{
 			query,
 			transform: input => input.data,
 			watch: [query],
-		},
-		{ pushQuery: true }
+		}
 	)
 
 	const totalCount = computed(() => data.value?.maxCount || 0)
@@ -46,5 +49,7 @@ export const useStoreList = definePiniaStore('store-list', () => {
 		refresh,
 		totalCount,
 		items,
+		resetQuery,
+		pushQuery,
 	}
 })

@@ -41,8 +41,20 @@ const props = withDefaults(defineProps<Props>(), {
 	totalVisible: 5,
 })
 const page = ref(props.currentPage)
-const maxPerPageOptions = [5, 10, 25, 50]
 const maxPerPage = ref(props.maxPerPage)
+const maxPerPageOptions = [5, 10, 25, 50]
+watch(
+	() => props.currentPage,
+	() => {
+		page.value = props.currentPage
+	}
+)
+watch(
+	() => props.maxPerPage,
+	() => {
+		maxPerPage.value = props.maxPerPage
+	}
+)
 
 const numberOfPage = computed(() =>
 	Math.ceil(props.dataAmount / maxPerPage.value)

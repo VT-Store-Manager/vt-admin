@@ -22,9 +22,12 @@ export interface ProductListPagination {
 }
 
 export const useProductList = definePiniaStore('product-list', () => {
-	const { pagination, updatePage } = usePagination({ page: 1, limit: 10 })
-
+	const { pagination, updatePage, pushPaginationQuery } = usePagination()
 	const query = computed(() => ({ ...pagination }))
+	const resetQuery = () => updatePage()
+	const pushQuery = () => {
+		pushPaginationQuery()
+	}
 
 	const { data, pending, error, refresh } = useRequest<ProductListPagination>(
 		'/v1/admin/product/list',
@@ -32,9 +35,6 @@ export const useProductList = definePiniaStore('product-list', () => {
 			query,
 			transform: input => input.data,
 			watch: [pagination],
-		},
-		{
-			pushQuery: true,
 		}
 	)
 
@@ -50,5 +50,7 @@ export const useProductList = definePiniaStore('product-list', () => {
 		error,
 		refresh,
 		updatePage,
+		resetQuery,
+		pushQuery,
 	}
 })

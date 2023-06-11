@@ -22,5 +22,7 @@ import { storeToRefs } from 'pinia'
 
 const memberList = useMemberList()
 const { totalCount } = storeToRefs(memberList)
-const { refresh } = memberList
+const { refresh, pushQuery } = memberList
+
+pushQuery()
 </script>

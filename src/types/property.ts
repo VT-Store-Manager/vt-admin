@@ -17,7 +17,7 @@ export type Alignment =
 export type TableHeader<T> = {
 	title: string
 	key: string
-	calculate?: (value: any) => any
+	calculate?: (value: any, item: T) => any
 	sortable?: boolean
 	default?: string | number | Date
 	alignCol?: Alignment

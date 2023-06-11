@@ -2,8 +2,14 @@ import { Pagination } from '~/types'
 
 export const usePagination = (defaultValue?: Partial<Pagination>) => {
 	const route = useRoute()
+	const router = useRouter()
 
-	const pagination = reactive<Pagination>({
+	const defaultPagination = {
+		page: 1,
+		limit: 10,
+		...defaultValue,
+	}
+	const initValue: Pagination = {
 		page:
 			(() => {
 				const page = +(route.query?.page || '')
@@ -20,11 +26,27 @@ export const usePagination = (defaultValue?: Partial<Pagination>) => {
 			})() ||
 			defaultValue?.limit ||
 			10,
-	})
+	}
+	const pushPaginationQuery = () => {
+		const paginationQuery: Partial<Pagination> = {
+			page:
+				pagination.page === defaultPagination.page
+					? undefined
+					: pagination.page,
+			limit:
+				pagination.limit === defaultPagination.limit
+					? undefined
+					: pagination.limit,
+		}
+		router.push({ query: paginationQuery })
+	}
 
-	const updatePage = (_pagination: Pagination) => {
+	const pagination = reactive<Pagination>(initValue)
+	watch(pagination, pushPaginationQuery)
+
+	const updatePage = (_pagination: Pagination = defaultPagination) => {
 		Object.assign(pagination, _pagination)
 	}
 
-	return { pagination, updatePage }
+	return { pagination, updatePage, pushPaginationQuery }
 }

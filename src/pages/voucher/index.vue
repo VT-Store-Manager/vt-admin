@@ -1,7 +1,7 @@
 <template>
 	<molecule-list-page-container page-name="Vouchers">
 		<template #subtitle>
-			<p>{{ totalCount }} vouchers</p>
+			<p>{{ totalCount }} voucher{{ totalCount > 1 ? 's' : '' }}</p>
 		</template>
 		<template #title-right>
 			<molecule-btn-refresh
@@ -22,5 +22,7 @@ import { storeToRefs } from 'pinia'
 
 const voucherList = useVoucherList()
 const { totalCount } = storeToRefs(voucherList)
-const { refresh } = voucherList
+const { refresh, pushQuery } = voucherList
+
+pushQuery()
 </script>

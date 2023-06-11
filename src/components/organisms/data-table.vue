@@ -91,7 +91,7 @@
 							>
 								{{
 									col.calculate
-										? col.calculate(_get(item, col.key) ?? col.default)
+										? col.calculate(_get(item, col.key) ?? col.default, item)
 										: _get(item, col.key) ?? col.default
 								}}
 							</td>

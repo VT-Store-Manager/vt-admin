@@ -2,7 +2,7 @@
 	<organism-data-table
 		:headers="headers"
 		:items="items"
-		:pagination="query"
+		:pagination="pagination"
 		:total-item-amount="totalCount"
 		:loading="pending"
 		editable
@@ -46,7 +46,7 @@ import { TableHeader } from '~/types/index'
 import { VoucherListItem } from '~/composables/apis/use-voucher-list'
 
 const voucherList = useVoucherList()
-const { items, totalCount, pending, query } = storeToRefs(voucherList)
+const { items, totalCount, pending, pagination } = storeToRefs(voucherList)
 const { updatePage } = voucherList
 
 const headers: TableHeader<VoucherListItem>[] = [

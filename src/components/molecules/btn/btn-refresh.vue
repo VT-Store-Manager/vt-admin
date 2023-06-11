@@ -1,6 +1,7 @@
 <template>
 	<v-btn
 		class="btn-refresh"
+		:class="{ 'is-disabled': isDisabled }"
 		rounded="lg"
 		:icon="mdiRefresh"
 		:disabled="isDisabled || loading"
@@ -12,24 +13,28 @@
 
 <script lang="ts" setup>
 import { mdiRefresh } from '@mdi/js'
+import { PROGRESS_LINEAR_CYCLE_TIME } from '~/constants'
 
 interface Props {
 	loading?: boolean
+	throttleDuration?: number
 }
 
-withDefaults(defineProps<Props>(), { loading: false })
+const props = withDefaults(defineProps<Props>(), {
+	loading: false,
+	throttleDuration: PROGRESS_LINEAR_CYCLE_TIME,
+})
 const isDisabled = ref(false)
 const emits = defineEmits<{
 	(e: 'click'): void
 }>()
 
-const throttleDuration = 500
 const onClick = () => {
 	isDisabled.value = true
 
 	setTimeout(() => {
 		isDisabled.value = false
-	}, throttleDuration)
+	}, props.throttleDuration)
 
 	emits('click')
 }
@@ -39,5 +44,8 @@ const onClick = () => {
 .btn-refresh {
 	width: 2.25rem;
 	height: 2.25rem;
+	&.is-disabled {
+		pointer-events: none;
+	}
 }
 </style>

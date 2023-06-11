@@ -21,9 +21,13 @@ export interface ProductCategoryListPagination {
 export const useProductCategoryList = definePiniaStore(
 	'product-category-list',
 	() => {
-		const { pagination, updatePage } = usePagination()
-
+		const { pagination, updatePage, pushPaginationQuery } = usePagination()
 		const query = computed(() => ({ ...pagination }))
+		const resetQuery = () => updatePage()
+		const pushQuery = () => {
+			pushPaginationQuery()
+		}
+
 		const { data, pending, error, refresh } =
 			useRequest<ProductCategoryListPagination>(
 				'/v1/admin/product-category/list',
@@ -31,11 +35,9 @@ export const useProductCategoryList = definePiniaStore(
 					query,
 					transform: input => input.data,
 					watch: [query],
-				},
-				{
-					pushQuery: true,
 				}
 			)
+
 		const items = computed(() => data?.value?.items || [])
 		const totalProduct = computed(() => data?.value?.totalCount || 0)
 
@@ -47,6 +49,8 @@ export const useProductCategoryList = definePiniaStore(
 			error,
 			refresh,
 			updatePage,
+			resetQuery,
+			pushQuery,
 		}
 	}
 )
