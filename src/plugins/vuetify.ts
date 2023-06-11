@@ -17,6 +17,8 @@ import {
 	faCircleMinus,
 	faRotateRight,
 	faArrowLeft,
+	faXmark,
+	faTruckFast,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -38,7 +40,9 @@ library.add(
 	faCirclePlus,
 	faCircleMinus,
 	faRotateRight,
-	faArrowLeft
+	faArrowLeft,
+	faXmark,
+	faTruckFast
 )
 
 // #F6F1E9

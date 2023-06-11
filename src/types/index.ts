@@ -36,7 +36,9 @@ export type TableHeader<T> = {
 	calculate?: (value: any) => any
 	sortable?: boolean
 	default?: string | number | Date
-	align?: Alignment
+	alignCol?: Alignment
+	centerHead?: boolean
+	offset?: number
 	width?: number | string
 	maxWidth?: number | string
 	minWidth?: number | string

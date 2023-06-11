@@ -3,3 +3,5 @@ export type Nav = {
 	icon?: string
 	url?: string
 }
+
+export type ListDisplay = 'list' | 'grid'

@@ -1,58 +1,32 @@
 <template>
-	<template-page-container page-name="Store">
+	<molecule-list-page-container page-name="Stores">
 		<template #subtitle>
-			<p>{{ storeGridStore.response?.data.maxCount || 0 }} stores</p>
+			<p>{{ totalCount }} store{{ totalCount > 1 ? 's' : '' }}</p>
 		</template>
 		<template #title-right>
-			<base-progress-circular
-				v-show="storeGridStore.loading"
-				:class="{ done: !storeGridStore.loading }"
-			/>
-			<button-refresh
+			<molecule-btn-refresh
 				class="mr-3"
 				title="Refresh data"
-				@click="refreshData"
+				@click="refresh"
 			/>
-			<button-create @click="$router.push('/store/create')">
-				New store
-			</button-create>
+			<molecule-btn-create @click="$router.push('/store/create')">
+				New
+			</molecule-btn-create>
+			<molecule-btn-list-type-group
+				class="ml-3"
+				@update-type="type => (displayType = type)"
+			/>
 		</template>
-		<store-grid
-			v-if="!storeGridStore.error"
-			:data="storeData"
-		/>
-		<p
-			v-if="
-				!storeGridStore.loading &&
-				(storeGridStore.error || storeData.items.length === 0)
-			"
-			class="alternative-text"
-		>
-			{{ storeGridStore.error ? storeGridStore.error : 'No data' }}
-		</p>
-	</template-page-container>
+		<template-store-list v-if="displayType === 'list'" />
+	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
-import { StoreGridModel } from '~/models/store'
+import { storeToRefs } from 'pinia'
+import { ListDisplay } from '~/types/layout'
 
-const storeGridStore = useStoreGrid()
-const storeData = ref<StoreGridModel>(storeGridStore.defaultResponse)
-const route = useRoute()
-
-const refreshData = async () => {
-	await storeGridStore.fetch()
-	storeData.value = storeGridStore.response?.data
-		? storeGridStore.response?.data
-		: storeGridStore.defaultResponse
-}
-
-watch(storeGridStore.pagination, () => refreshData())
-
-onBeforeMount(() => {
-	const { page, limit } = route.query
-	if (page && !isNaN(+page)) storeGridStore.pagination.page = +page
-	if (limit && !isNaN(+limit)) storeGridStore.pagination.limit = +limit
-	refreshData()
-})
+const storeList = useStoreList()
+const { totalCount } = storeToRefs(storeList)
+const { refresh } = storeList
+const displayType = ref<ListDisplay>('list')
 </script>

@@ -1,8 +1,7 @@
 <template>
 	<v-img
-		v-bind="$attrs"
-		:src="formattedSrc"
-		class="img"
+		v-bind="{ ...imgAttribute, src: formattedSrc }"
+		class="img overflow-hidden"
 	>
 		<template
 			v-if="rightAltSrc.length"
@@ -34,7 +33,8 @@ type Props = {
 	altSrc?: string[]
 	placeholder?: boolean
 	serverImg?: boolean
-	serverAltImg?: number[]
+	serverAltImg?: number[] | true
+	imgAttribute?: Record<string, any>
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -49,13 +49,17 @@ const formattedSrc = computed(() => {
 	return props.serverImg ? serverImgUrl + props.src : props.src
 })
 const rightAltSrc = computed(() => {
-	const altSrc = props.altSrc
-	props.serverAltImg.forEach(srcIndex => {
-		if (srcIndex < 0 || srcIndex >= altSrc.length) {
-			return
-		}
-		altSrc[srcIndex] = serverImgUrl + altSrc[srcIndex]
-	})
+	let altSrc = props.altSrc
+	if (Array.isArray(props.serverAltImg)) {
+		props.serverAltImg.forEach(srcIndex => {
+			if (srcIndex < 0 || srcIndex >= altSrc.length) {
+				return
+			}
+			altSrc[srcIndex] = serverImgUrl + altSrc[srcIndex]
+		})
+	} else if (props.serverAltImg === true) {
+		altSrc = altSrc.map(src => serverImgUrl + src)
+	}
 	return altSrc
 })
 </script>

@@ -49,7 +49,6 @@ export default defineNuxtConfig({
 			prefix: 'template',
 		},
 	],
-
 	hooks: {
 		'vite:extendConfig': config => {
 			config.plugins?.push(vuetify())

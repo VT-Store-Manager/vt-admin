@@ -1,15 +1,41 @@
 <template>
 	<organism-data-table
 		:headers="headers"
-		:items="list"
-		:items-length="list.length || 0"
-		pagination
+		:items="items"
+		:pagination="query"
 		:items-per-page="10"
 		:total-item-amount="totalProduct"
 		:loading="pending"
 		editable
 		@change-page="updatePage"
 	>
+		<template #name="{ item }">
+			<v-hover>
+				<template #default="{ isHovering: hoveringName, props: nameProps }">
+					<atom-link
+						:to="'/product-category/' + item.id"
+						class="d-flex align-center"
+						v-bind="nameProps"
+					>
+						<atom-img
+							class="mr-4 rounded small-img-shadow"
+							:src="item.image"
+							height="40"
+							max-width="40"
+							aspect-ratio="1/1"
+							:class="{ 'hover-blur': hoveringName }"
+							server-img
+						/>
+						<span
+							class="ellipsis-2"
+							:class="{ 'text-primary-darken': hoveringName }"
+						>
+							{{ item.name }}
+						</span>
+					</atom-link>
+				</template>
+			</v-hover>
+		</template>
 		<template #status="{ item }">
 			<v-chip
 				size="small"
@@ -36,19 +62,18 @@ import { TableHeader } from '~/types'
 import { Status } from '~/constants'
 
 const productCategoryList = useProductCategoryList()
-const { list, totalProduct, pending } = storeToRefs(productCategoryList)
+const { items, totalProduct, pending, query } = storeToRefs(productCategoryList)
 const { updatePage } = productCategoryList
 
+useListener('update-page', updatePage)
+onBeforeUnmount(() => useOmit('update-page', updatePage))
+
 const headers: TableHeader<ProductCategoryItem>[] = [
-	{
-		title: 'ID',
-		key: 'code',
-		sortable: true,
-	},
 	{
 		title: 'Name',
 		key: 'name',
 		sortable: true,
+		width: 300,
 	},
 	{
 		title: 'Amount',
@@ -73,7 +98,4 @@ const headers: TableHeader<ProductCategoryItem>[] = [
 		default: Date.now(),
 	},
 ]
-
-useListener('update-page', updatePage)
-onBeforeUnmount(() => useOmit('update-page', updatePage))
 </script>

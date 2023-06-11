@@ -12,10 +12,8 @@
 				<thead class="table-header">
 					<tr class="table-header-row">
 						<th
-							v-for="col in headers"
-							:key="col.key"
-							class="table-col-header"
-							:class="[`text-${col.align || 'left'}`]"
+							class="table-col-header text-left"
+							:style="{ maxWidth: '50px' }"
 						>
 							<atom-btn
 								variant="text"
@@ -23,18 +21,44 @@
 								class="font-weight-bold"
 								color="dark-grey"
 							>
+								ID
+							</atom-btn>
+						</th>
+						<th
+							v-for="col in headers"
+							:key="col.key"
+							class="table-col-header"
+							:style="{
+								width: col.width ? `${col.width}px` : 'auto',
+							}"
+						>
+							<atom-btn
+								variant="text"
+								:ripple="false"
+								class="font-weight-bold"
+								color="dark-grey"
+								:style="{
+									paddingLeft: `${col.offset || 0}px`,
+									justifyContent: col.centerHead ? 'center' : 'flex-start',
+								}"
+							>
 								{{ col.title }}
-								<temp-icon
+								<v-icon
+									class="sort-icon"
+									v-if="col.sortable"
 									:icon="mdiMenuDown"
 									:size="26"
 								/>
 							</atom-btn>
 						</th>
-						<th v-if="editable">
+						<th
+							v-if="editable"
+							class="table-col-header"
+						>
 							<atom-btn
 								variant="text"
 								:ripple="false"
-								class="font-weight-bold prevent-event text-right"
+								class="font-weight-bold prevent-event justify-end"
 								color="dark-grey"
 							>
 								Actions
@@ -48,6 +72,9 @@
 						:key="item?.id || item?.code || index"
 						class="table-body-row"
 					>
+						<td>
+							{{ (startId || 0) + index }}
+						</td>
 						<template
 							v-for="col in headers"
 							:key="col.key"
@@ -58,7 +85,10 @@
 									:item="item"
 								></slot>
 							</td>
-							<td v-else>
+							<td
+								v-else
+								:class="[`text-${col.alignCol || 'left'}`]"
+							>
 								{{
 									col.calculate
 										? col.calculate(_get(item, col.key) ?? col.default)
@@ -87,15 +117,15 @@
 
 <script lang="ts" setup generic="T extends Record<string, any>">
 import _get from 'lodash/get'
+import isObject from 'lodash/isObject'
 import { mdiMenuDown } from '@mdi/js'
-import { TableHeader } from '~/types'
+import { Pagination, TableHeader } from '~/types'
 
 interface Props {
 	headers: TableHeader<T>[]
 	editable?: boolean
 	items: T[]
-	itemsLength: number
-	pagination?: boolean
+	pagination?: boolean | Pagination
 	itemsPerPage?: number
 	currentPage?: number
 	totalItemAmount: number
@@ -103,7 +133,7 @@ interface Props {
 	itemKey?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
 	headers: () => [],
 	pagination: false,
 	itemsPerPage: 10,
@@ -112,6 +142,15 @@ withDefaults(defineProps<Props>(), {
 	itemKey: 'id',
 })
 defineSlots<Record<string, (props: { item: T }) => any>>()
+
+const startId = computed(() => {
+	const check = isObject(props.pagination)
+	if (!check) {
+		return 1
+	}
+	const pagination = props.pagination as Pagination
+	return (pagination.page - 1) * pagination.limit + 1
+})
 </script>
 
 <style lang="scss" scoped>
@@ -130,6 +169,26 @@ defineSlots<Record<string, (props: { item: T }) => any>>()
 			padding-left: 12px;
 			&::-webkit-scrollbar-thumb {
 				border-top-width: 56px;
+			}
+		}
+	}
+	.table-header {
+		.table-header-row {
+			.table-col-header {
+				.v-btn {
+					width: 100%;
+					padding: 0;
+					justify-content: flex-start;
+					:deep(.v-btn__content) {
+						position: relative;
+						.sort-icon {
+							position: absolute;
+							top: 50%;
+							left: 100%;
+							transform: translate(-2px, -50%);
+						}
+					}
+				}
 			}
 		}
 	}

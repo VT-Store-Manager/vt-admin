@@ -1,31 +1,26 @@
 <template>
-	<template-page-container page-name="Voucher">
+	<molecule-list-page-container page-name="Vouchers">
 		<template #subtitle>
-			<p>{{ dataLength }} vouchers</p>
+			<p>{{ totalCount }} vouchers</p>
 		</template>
 		<template #title-right>
-			<base-progress-circular
-				v-show="voucher.loading"
-				:class="{ done: !voucher.loading }"
-			/>
-			<button-refresh
+			<molecule-btn-refresh
 				class="mr-3"
 				title="Refresh data"
-				@click="refreshData"
+				@click="refresh"
 			/>
-			<button-create @click="$router.push('/voucher/create')">
-				New voucher
-			</button-create>
+			<molecule-btn-create @click="$router.push('/voucher/create')">
+				New
+			</molecule-btn-create>
 		</template>
-		<voucher-page-container />
-	</template-page-container>
+		<template-voucher-list />
+	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
-const voucher = useVoucher()
-const dataLength = computed(() => voucher.response?.data.maxCount || 0)
+import { storeToRefs } from 'pinia'
 
-const refreshData = () => voucher.fetch()
-
-refreshData()
+const voucherList = useVoucherList()
+const { totalCount } = storeToRefs(voucherList)
+const { refresh } = voucherList
 </script>

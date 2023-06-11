@@ -16,7 +16,7 @@ export interface ProductCategoryItem {
 
 export interface ProductCategoryListPagination {
 	totalCount: number
-	list: ProductCategoryItem[]
+	items: ProductCategoryItem[]
 }
 
 export const useProductCategoryList = definePiniaStore(
@@ -42,11 +42,12 @@ export const useProductCategoryList = definePiniaStore(
 			Object.assign(query, pagination)
 		}
 
-		const list = computed(() => data?.value?.list || [])
+		const items = computed(() => data?.value?.items || [])
 		const totalProduct = computed(() => data?.value?.totalCount || 0)
 
 		return {
-			list,
+			query,
+			items,
 			totalProduct,
 			pending,
 			error,

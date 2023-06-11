@@ -3,9 +3,8 @@
 		:headers="headers"
 		:items="items"
 		:pagination="query"
-		:current-page="query.page"
-		:items-per-page="query.limit"
-		:total-item-amount="totalProduct"
+		:items-per-page="10"
+		:total-item-amount="totalCount"
 		:loading="pending"
 		editable
 		@change-page="updatePage"
@@ -20,14 +19,13 @@
 					>
 						<atom-img
 							class="mr-4 rounded small-img-shadow"
-							:src="item.images[0]"
-							:alt-src="item.images.slice(1)"
+							:src="item.image"
 							height="40"
-							max-width="40"
-							aspect-ratio="1/1"
+							:max-width="40"
+							cover
 							:class="{ 'hover-blur': hoveringName }"
 							server-img
-							server-alt-img
+							:style="{ width: '40px' }"
 						/>
 						<span
 							class="ellipsis-2"
@@ -39,49 +37,31 @@
 				</template>
 			</v-hover>
 		</template>
-		<template #status="{ item }">
-			<v-chip
-				size="small"
-				variant="elevated"
-				:color="
-					item.status === Status.ACTIVE
-						? 'green-lighten-1'
-						: item.status === Status.DISABLED
-						? 'purple-lighten-3'
-						: 'red-lighten-2'
-				"
-			>
-				{{ item.status }}
-			</v-chip>
-		</template>
 	</organism-data-table>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import moment from 'moment'
-import { ProductListItem } from '~/composables/apis/use-product-list'
-import { TableHeader } from '~/types'
-import { Status } from '~/constants'
+import { TableHeader } from '~/types/index'
+import { VoucherListItem } from '~/composables/apis/use-voucher-list'
 
-const productList = useProductList()
-const { items, totalProduct, pending, query } = storeToRefs(productList)
-const { updatePage } = productList
+const voucherList = useVoucherList()
+const { items, totalCount, pending, query } = storeToRefs(voucherList)
+const { updatePage } = voucherList
 
 useListener('update-page', updatePage)
 onBeforeUnmount(() => useOmit('update-page', updatePage))
 
-const headers: TableHeader<ProductListItem>[] = [
+const headers: TableHeader<VoucherListItem>[] = [
 	{
 		title: 'Name',
 		key: 'name',
-		sortable: true,
 		width: 400,
 	},
 	{
-		title: 'Price',
-		key: 'originalPrice',
-		sortable: true,
+		title: 'Partner',
+		key: 'partner.code',
 	},
 	{
 		title: 'Status',

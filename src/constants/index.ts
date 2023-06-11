@@ -5,6 +5,7 @@ export const AUTH_TOKEN_KEY = 'auth-token'
 
 /** CONFIG VALUE */
 export const PROGRESS_LINEAR_CYCLE_TIME = 2200
+export const Gender = ['male', 'female', 'other'] as const
 
 /** ENUMERATION */
 export enum AppTheme {

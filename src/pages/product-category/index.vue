@@ -4,11 +4,6 @@
 			<p>{{ totalProduct || '--' }} categories</p>
 		</template>
 		<template #title-right>
-			<!-- <atom-progress-circular
-				v-show="pending"
-				indeterminate
-				:class="{ done: !pending }"
-			/> -->
 			<molecule-btn-refresh
 				class="mr-3"
 				title="Refresh data"
@@ -19,28 +14,12 @@
 			</molecule-btn-create>
 		</template>
 		<template-product-category-list />
-		<!-- <product-page-container v-show="!firstLoad" /> -->
 	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 
-// const product = useProduct()
-// const firstLoad = ref(true)
-
-// const refreshData = () => product.fetch({})
-
-// refreshData()
-
-// watch(
-// 	() => product.loading,
-// 	() => {
-// 		if (!product.loading && firstLoad.value) {
-// 			firstLoad.value = false
-// 		}
-// 	}
-// )
 const productCategoryList = useProductCategoryList()
 const { totalProduct } = storeToRefs(productCategoryList)
 const { refresh } = productCategoryList
