@@ -1,10 +1,10 @@
 <template>
-	<div class="data-table">
+	<div class="data-table bg-white">
+		<molecule-interval-progress-linear :loading="loading" />
 		<div
 			class="table-wrapper elevation-3"
-			:class="{ 'pb-14': pagination }"
+			:class="{ 'pb-15': pagination }"
 		>
-			<molecule-interval-progress-linear :loading="loading" />
 			<atom-table
 				class="table-inner"
 				fixed-header
@@ -32,24 +32,26 @@
 								width: col.width ? `${col.width}px` : 'auto',
 							}"
 						>
-							<atom-btn
-								variant="text"
-								:ripple="false"
-								class="font-weight-bold"
-								color="dark-grey"
-								:style="{
-									paddingLeft: `${col.offset || 0}px`,
-									justifyContent: col.centerHead ? 'center' : 'flex-start',
-								}"
-							>
-								{{ col.title }}
-								<v-icon
-									v-if="col.sortable"
-									class="sort-icon"
-									:icon="mdiMenuDown"
-									:size="26"
-								/>
-							</atom-btn>
+							<div class="d-flex align-center">
+								<atom-btn
+									variant="text"
+									:ripple="false"
+									class="font-weight-bold"
+									color="dark-grey"
+									:style="{
+										paddingLeft: `${col.offset || 0}px`,
+										justifyContent: col.centerHead ? 'center' : 'flex-start',
+									}"
+								>
+									{{ col.title }}
+									<v-icon
+										v-if="col.sortable"
+										class="sort-icon"
+										:icon="mdiMenuDown"
+										:size="26"
+									/>
+								</atom-btn>
+							</div>
 						</th>
 						<th
 							v-if="editable"
@@ -161,8 +163,10 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .data-table {
 	height: 100%;
+	border-radius: $table-border-radius;
 	.table-wrapper {
 		height: 100%;
+		padding: 20px 12px 12px 24px;
 	}
 	:deep(.v-table) {
 		height: 100%;
@@ -170,22 +174,39 @@ onBeforeUnmount(() => {
 		.v-table__wrapper {
 			overflow-y: scroll;
 			max-height: 100%;
-			background-color: rgb(var(--v-theme-surface));
-			padding-left: 12px;
-			&::-webkit-scrollbar-button:vertical:decrement {
-				height: 54px;
+			padding-bottom: 10px;
+			&::-webkit-scrollbar-thumb {
+				visibility: hidden;
 			}
 		}
 	}
 	.table-header {
+		background-color: #f0f0f0;
 		.table-header-row {
 			.table-col-header {
+				border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+				background-color: #f0f0f0;
+				text-transform: uppercase;
+				&:first-child {
+					border-left: 2px solid rgba(0, 0, 0, 0.1) !important;
+					border-top-left-radius: 12px;
+					border-bottom-left-radius: 12px;
+				}
+				&:last-child {
+					border-right: 2px solid rgba(0, 0, 0, 0.1) !important;
+					border-top-right-radius: 12px;
+					border-bottom-right-radius: 12px;
+				}
 				.v-btn {
 					width: 100%;
 					padding: 0;
 					justify-content: flex-start;
 					:deep(.v-btn__content) {
 						position: relative;
+						text-transform: uppercase;
+						color: black;
+						transition: color 0.3s;
 						.sort-icon {
 							position: absolute;
 							top: 50%;
@@ -193,16 +214,45 @@ onBeforeUnmount(() => {
 							transform: translate(-2px, -50%);
 						}
 					}
+					&:hover {
+						:deep(.v-btn__overlay) {
+							opacity: 0;
+						}
+						:deep(.v-btn__content) {
+							color: $primary-color;
+						}
+					}
 				}
 			}
 		}
 	}
 	.table-body {
+		tr {
+			position: relative;
+			@for $i from 1 through 25 {
+				&:nth-child(#{$i * 2}) {
+					background-color: #f0f0f0;
+					td:first-child {
+						border-top-left-radius: 10px;
+						border-bottom-left-radius: 10px;
+					}
+					td:last-child {
+						border-top-right-radius: 10px;
+						border-bottom-right-radius: 10px;
+					}
+				}
+			}
+			td {
+				border-bottom: 0 !important;
+			}
+		}
 		td {
 			font-size: 0.875rem;
+			font-weight: 500;
 			*,
-			:deep(*) {
+			:deep(p, span) {
 				font-size: 0.875rem;
+				font-weight: 500;
 			}
 		}
 	}

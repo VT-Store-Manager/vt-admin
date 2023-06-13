@@ -75,9 +75,12 @@ const changePagination = () => {
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100%;
-	background-color: rgb(var(--v-theme-background));
+	background-color: white;
+	border-radius: $table-border-radius;
 	.pagination-wrapper {
 		position: relative;
+		padding: 5px 10px;
+		box-shadow: 0px 0px 10px #0003;
 		.v-pagination {
 			:deep(.v-pagination__item) {
 				&.v-pagination__item--is-active {
@@ -96,8 +99,8 @@ const changePagination = () => {
 		}
 		.pagination-adjust {
 			position: absolute;
-			bottom: 2px;
-			right: 2px;
+			bottom: 12px;
+			right: 12px;
 			span {
 				margin-right: 8px;
 				font-weight: 500;

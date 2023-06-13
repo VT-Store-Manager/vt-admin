@@ -11,7 +11,7 @@ import { NavProps } from '~/types';
 							isCorrectRoute(props.url)
 								? 'font-weight-bold'
 								: 'font-weight-medium',
-							...(isSubnavActive ? ['subnav-active'] : [])
+							...(isSubnavActive ? ['subnav-active'] : []),
 						]"
 						variant="text"
 						:color="
@@ -58,7 +58,7 @@ import { NavProps } from '~/types';
 								'font-weight-bold': isCorrectRoute(n.url),
 								...(isCorrectRoute(n.url)
 									? { 'font-weight-bold': true, 'current-route': true }
-									: {})
+									: {}),
 							}"
 						>
 							{{ props.isExpand ? n.name : '' }}
