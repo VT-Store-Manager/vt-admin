@@ -20,3 +20,40 @@ body {
 .prevent-event {
 	pointer-events: none;
 }
+
+.cursor {
+	&-pointer {
+		cursor: pointer;
+	}
+}
+
+.opacity {
+	@for $i from 0 through 10 {
+		&-#{$i} {
+			opacity: #{$i / 10};
+		}
+	}
+}
+
+.transition {
+	$transition-properties: (
+		'all',
+		'color',
+		'background-color',
+		'opacity',
+		'transform'
+	);
+	@each $property in $transition-properties {
+		&-#{$property} {
+			transition: #{$property} 0.3s ease;
+		}
+	}
+}
+
+.text {
+	@for $i from 8 through 32 {
+		&-#{$i}px {
+			font-size: #{$i / 16}rem;
+		}
+	}
+}

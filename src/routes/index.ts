@@ -151,25 +151,25 @@ export const routes: NavItem[] = [
 		sub: [
 			{
 				name: 'General',
-				url: '/setting-general',
+				url: '/setting/general',
 				icon: mdiApplicationSettingsOutline,
 				sidebar: true,
 			},
 			{
 				name: 'Sale app',
-				url: '/setting-sale',
+				url: '/setting/sale',
 				icon: mdiStoreSettingsOutline,
 				sidebar: true,
 			},
 			{
 				name: 'OP app',
-				url: '/setting-order-processor',
+				url: '/setting/order-processor',
 				icon: mdiTimerSettingsOutline,
 				sidebar: true,
 			},
 			{
 				name: 'Member app',
-				url: '/setting-member',
+				url: '/setting/member',
 				icon: mdiAccountSettingsOutline,
 				sidebar: true,
 			},

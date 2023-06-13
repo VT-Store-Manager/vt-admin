@@ -30,7 +30,7 @@
 			/>
 		</template>
 		<template
-			v-else
+			v-else-if="placeholder === 'progress'"
 			#placeholder
 		>
 			<div class="d-flex align-center justify-center fill-height">
@@ -40,6 +40,16 @@
 				/>
 			</div>
 		</template>
+		<template
+			v-else
+			#placeholder
+		>
+			<v-img
+				class="default-image-placeholder"
+				:src="placeholder"
+				cover
+			/>
+		</template>
 	</v-img>
 </template>
 
@@ -47,7 +57,7 @@
 type Props = {
 	src: string
 	altSrc?: string[]
-	placeholder?: 'progress' | 'logo'
+	placeholder?: 'progress' | 'logo' | string
 	serverImg?: boolean
 	serverAltImg?: number[] | true
 	imgAttribute?: Record<string, any>
@@ -84,13 +94,9 @@ const rightAltSrc = computed(() => {
 
 <style lang="scss" scoped>
 .img {
-	transition: all 0.2s;
+	transition: all 0.3s;
 	&:hover {
 		opacity: 0.7;
 	}
-}
-.default-image-placeholder {
-	// filter: grayscale(1);
-	// opacity: 0.7;
 }
 </style>

@@ -12,11 +12,13 @@
 			:icon="mdiListBoxOutline"
 			value="list"
 			class="list-type-item"
+			:ripple="false"
 		/>
 		<v-btn
 			:icon="mdiViewGridOutline"
 			value="grid"
 			class="list-type-item"
+			:ripple="false"
 		/>
 	</v-btn-toggle>
 </template>
@@ -55,15 +57,19 @@ const { isDark } = storeToRefs(useThemeUtil())
 				border-bottom-right-radius: 7px;
 			}
 		}
+		:deep(.v-btn__overlay) {
+			opacity: 0.1;
+		}
 		:deep(.v-btn__content) {
-			opacity: 0.2;
-			svg {
-				color: black;
-			}
+			color: #aaa;
 		}
 		&.selected-type {
+			box-shadow: 0 0 10px #0004;
+			:deep(.v-btn__overlay) {
+				opacity: 0;
+			}
 			:deep(.v-btn__content) {
-				opacity: 1;
+				color: black;
 			}
 		}
 	}

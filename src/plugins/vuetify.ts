@@ -19,6 +19,9 @@ import {
 	faArrowLeft,
 	faXmark,
 	faTruckFast,
+	faMars,
+	faVenus,
+	faMarsAndVenus,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -42,7 +45,10 @@ library.add(
 	faRotateRight,
 	faArrowLeft,
 	faXmark,
-	faTruckFast
+	faTruckFast,
+	faMars,
+	faVenus,
+	faMarsAndVenus
 )
 
 // #F6F1E9

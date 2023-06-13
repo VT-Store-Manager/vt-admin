@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const page = ref(props.currentPage)
 const maxPerPage = ref(props.maxPerPage)
-const maxPerPageOptions = [5, 10, 25, 50]
+const maxPerPageOptions = [5, 10, 20, 30, 40, 50]
 watch(
 	() => props.currentPage,
 	() => {

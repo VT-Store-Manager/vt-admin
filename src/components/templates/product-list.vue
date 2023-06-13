@@ -78,6 +78,7 @@ const headers: TableHeader<ProductListItem>[] = [
 		title: 'Price',
 		key: 'originalPrice',
 		sortable: true,
+		calculate: (value: number) => value.toLocaleString() + 'dd',
 	},
 	{
 		title: 'Status',

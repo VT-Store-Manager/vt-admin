@@ -197,5 +197,14 @@ onBeforeUnmount(() => {
 			}
 		}
 	}
+	.table-body {
+		td {
+			font-size: 0.875rem;
+			*,
+			:deep(*) {
+				font-size: 0.875rem;
+			}
+		}
+	}
 }
 </style>

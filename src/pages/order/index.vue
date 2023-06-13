@@ -1,13 +1,5 @@
 <template>
-	<template-page-container page-name="Order history">
-		<div>This is order history content</div>
-	</template-page-container>
+	<molecule-list-page-container page-name="Order history" />
 </template>
 
-<script lang="ts" setup>
-import { useSeoMeta } from '~~/.nuxt/imports'
-
-useSeoMeta({
-	title: 'Order history',
-})
-</script>
+<script lang="ts" setup></script>
