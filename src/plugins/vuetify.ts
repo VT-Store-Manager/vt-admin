@@ -22,6 +22,8 @@ import {
 	faMars,
 	faVenus,
 	faMarsAndVenus,
+	faMoneyCheck,
+	faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -48,7 +50,9 @@ library.add(
 	faTruckFast,
 	faMars,
 	faVenus,
-	faMarsAndVenus
+	faMarsAndVenus,
+	faMoneyCheck,
+	faUser
 )
 
 // #F6F1E9

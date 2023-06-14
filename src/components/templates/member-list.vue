@@ -15,23 +15,24 @@
 						v-bind="nameProps"
 						:to="`/member/${item.rank.code}`"
 						class="d-flex align-center"
+						:style="{ height: '70px' }"
 					>
 						<atom-img
 							class="mr-4 rounded-circle small-img-shadow"
 							:src="getAvatarDefaultUrl(item.gender)"
 							:alt-src="[getAvatarDefaultUrl(item.gender)]"
-							height="40"
-							max-width="40"
+							height="50"
+							max-width="50"
 							aspect-ratio="1/1"
 						/>
 						<div>
-							<p class="text-1px font-weight-medium d-flex align-center">
+							<p class="font-weight-semibold d-flex align-center text-16px">
 								<molecule-icon-gender
 									:gender="item.gender"
 									class="mr-1"
 								/>
 								<span
-									class="transition-color"
+									class="transition-color pb-1"
 									:class="{
 										'text-primary': hoveringName,
 									}"
@@ -39,7 +40,7 @@
 									{{ item.name }}
 								</span>
 							</p>
-							<h5>
+							<h5 class="text-14px">
 								{{ item.rank.code }}
 							</h5>
 						</div>
@@ -70,7 +71,9 @@
 					:data="item.rank.info"
 					show-icon
 				/>
-				<span class="font-weight-bold text-grey-darken-2 d-inline-block">
+				<span
+					class="font-weight-bold text-grey-darken-2 d-inline-block text-16px"
+				>
 					{{ totalPoint(item.rank) }}
 					<v-tooltip
 						activator="parent"
@@ -87,6 +90,7 @@
 			<atom-date-cell
 				:date="item.createdAt"
 				time-format="hh:mm:ss"
+				font-size="16"
 			/>
 		</template>
 	</organism-data-table>

@@ -1,5 +1,5 @@
 <template>
-	<div class="data-table bg-white">
+	<div class="data-table bg-white overflow-hidden">
 		<molecule-interval-progress-linear :loading="loading" />
 		<div
 			class="table-wrapper elevation-3"
@@ -63,7 +63,7 @@
 								class="font-weight-bold prevent-event justify-end"
 								color="dark-grey"
 							>
-								Actions
+								<span>Actions</span>
 							</atom-btn>
 						</th>
 					</tr>
@@ -74,7 +74,7 @@
 						:key="item?.id || item?.code || index"
 						class="table-body-row"
 					>
-						<td>
+						<td class="font-weight-semibold">
 							{{ (startId || 0) + index }}
 						</td>
 						<template
@@ -206,7 +206,10 @@ onBeforeUnmount(() => {
 						position: relative;
 						text-transform: uppercase;
 						color: black;
+						font-weight: bold;
 						transition: color 0.3s;
+						letter-spacing: normal;
+						white-space: break-spaces;
 						.sort-icon {
 							position: absolute;
 							top: 50%;

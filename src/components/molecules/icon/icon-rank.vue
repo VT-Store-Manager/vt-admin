@@ -3,8 +3,8 @@
 		<atom-img
 			v-if="showIcon"
 			:src="data.appearance.icon"
-			height="16"
-			max-width="16"
+			height="20"
+			max-width="20"
 			server-img
 			placeholder="/img/logo/transparent-grey.png"
 			class="mr-1"
@@ -12,7 +12,7 @@
 		<p
 			v-if="showName"
 			:style="{ color: darken(0.1, data.appearance.color) }"
-			class="text-14px font-weight-bold"
+			class="text-16px font-weight-bold"
 		>
 			{{ data.name }}
 		</p>

@@ -1,9 +1,10 @@
 <template>
 	<v-icon
 		:icon="genderDisplay.icon"
-		size="x-small"
+		size="16px"
 		class="icon-gender"
 		:color="genderDisplay.color"
+		v-bind="$attrs"
 	/>
 </template>
 

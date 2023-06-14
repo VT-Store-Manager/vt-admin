@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column justify-center">
 		<template v-if="dateTimeFormat">
-			<span>
+			<span :class="[`text-${fontSize}px}`]">
 				{{ moment(date).format(dateTimeFormat) }}
 			</span>
 		</template>
@@ -9,10 +9,12 @@
 			<p class="d-flex align-center">
 				<v-icon
 					:icon="mdiCalendarMonth"
-					size="16"
-					class="mr-1"
+					:size="16"
+					class="mr-2"
 				/>
-				<span>{{ moment(date).format(dateFormat) }}</span>
+				<span :class="[`text-${fontSize}px`]">{{
+					moment(date).format(dateFormat)
+				}}</span>
 			</p>
 			<p
 				v-if="timeFormat"
@@ -21,9 +23,11 @@
 				<v-icon
 					:icon="mdiClockTimeThreeOutline"
 					size="16"
-					class="mr-1"
+					class="mr-2"
 				/>
-				<span>{{ moment(date).format(timeFormat) }}</span>
+				<span :class="[`text-${fontSize}px`]">{{
+					moment(date).format(timeFormat)
+				}}</span>
 			</p>
 		</template>
 	</div>
@@ -38,9 +42,11 @@ interface Props {
 	dateTimeFormat?: string
 	dateFormat?: string
 	timeFormat?: string
+	fontSize?: number | string
 }
 
 withDefaults(defineProps<Props>(), {
 	dateFormat: 'YYYY-MM-DD',
+	fontSize: 14,
 })
 </script>

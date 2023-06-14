@@ -80,7 +80,7 @@ const changePagination = () => {
 	.pagination-wrapper {
 		position: relative;
 		padding: 5px 10px;
-		box-shadow: 0px 0px 10px #0003;
+		border-top: 2px solid rgb(var(--v-theme-background));
 		.v-pagination {
 			:deep(.v-pagination__item) {
 				&.v-pagination__item--is-active {
