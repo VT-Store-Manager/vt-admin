@@ -111,6 +111,7 @@ const headers: TableHeader<MemberItemModel>[] = [
 		title: 'Name',
 		key: 'name',
 		sortable: true,
+		width: 300,
 	},
 	{
 		title: 'Rank',

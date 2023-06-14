@@ -17,7 +17,7 @@
 						v-bind="nameProps"
 					>
 						<atom-img
-							class="mr-4 rounded small-img-shadow"
+							class="mr-4 rounded-circle small-img-shadow"
 							:src="item.image"
 							height="40"
 							max-width="40"
@@ -36,30 +36,49 @@
 				</template>
 			</v-hover>
 		</template>
-		<template #status="{ item }">
-			<v-chip
-				size="small"
-				variant="elevated"
-				:color="
-					item.status === Status.ACTIVE
-						? 'green-lighten-1'
-						: item.status === Status.DISABLED
-						? 'purple-lighten-3'
-						: 'red-lighten-2'
-				"
+		<template #amountOfProduct="{ item }">
+			<div
+				class="d-flex align-center justify-center"
+				:style="{ width: '70px' }"
 			>
-				{{ item.status }}
-			</v-chip>
+				<p class="text-16px font-weight-semibold text-primary-darken">
+					{{ item.amountOfProduct }}
+				</p>
+				<v-icon
+					:icon="mdiCoffee"
+					size="small"
+					class="ml-1"
+					color="primary-darken"
+				/>
+			</div>
+		</template>
+		<template #featured="{ item }">
+			<p class="text-center">
+				<molecule-icon-check :value="item.featured" />
+			</p>
+		</template>
+		<template #status="{ item }">
+			<div class="text-center">
+				<molecule-status-chip
+					:status="item.status"
+					class="text-14px font-weight-semibold"
+				/>
+			</div>
+		</template>
+		<template #updatedAt="{ item }">
+			<molecule-date-from-now
+				:date="item.updatedAt"
+				class="text-center text-16px"
+			/>
 		</template>
 	</organism-data-table>
 </template>
 
 <script lang="ts" setup>
+import { mdiCoffee } from '@mdi/js'
 import { storeToRefs } from 'pinia'
-import moment from 'moment'
 import { ProductCategoryItem } from '~/composables/apis/use-product-category-list'
 import { TableHeader } from '~/types'
-import { Status } from '~/constants'
 
 const productCategoryList = useProductCategoryList()
 const { items, totalProduct, pending, pagination } =
@@ -71,29 +90,42 @@ const headers: TableHeader<ProductCategoryItem>[] = [
 		title: 'Name',
 		key: 'name',
 		sortable: true,
-		width: 300,
+		width: 250,
 	},
 	{
 		title: 'Amount',
 		key: 'amountOfProduct',
 		sortable: true,
+		alignCol: 'center',
+		centerHead: true,
 	},
+	// {
+	// 	title: 'Sold (week)',
+	// 	key: 'soldOfWeek',
+	// 	sortable: true,
+	// 	alignCol: 'center',
+	// 	centerHead: true,
+	// 	calculate: () => Math.floor(Math.random() * 10000),
+	// },
 	{
-		title: 'Sold (week)',
-		key: 'soldOfWeek',
+		title: 'Featured',
+		key: 'featured',
 		sortable: true,
+		alignCol: 'center',
+		centerHead: true,
 	},
 	{
 		title: 'Status',
 		key: 'status',
 		sortable: true,
+		centerHead: true,
 	},
 	{
 		title: 'Last update',
 		key: 'updatedAt',
 		sortable: true,
-		calculate: (value: number) => moment(new Date(value)).fromNow(),
 		default: Date.now(),
+		centerHead: true,
 	},
 ]
 </script>

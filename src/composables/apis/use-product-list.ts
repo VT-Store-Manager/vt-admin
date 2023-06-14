@@ -1,3 +1,5 @@
+import { Status } from '~/constants'
+
 export interface ProductListItem {
 	code: number
 	name: string
@@ -10,7 +12,7 @@ export interface ProductListItem {
 	}
 	updatedAt: string
 	id: string
-	status: string
+	status: Status
 	salesVolume: {
 		month: number
 	}

@@ -18,7 +18,7 @@
 						variant="text"
 						:color="
 							isCorrectRoute(data.url) || isSubnavActive
-								? 'primary-darken'
+								? 'deep-orange-darken-3'
 								: isHovering
 								? 'primary'
 								: isDark

@@ -12,8 +12,8 @@
 			<v-hover>
 				<template #default="{ isHovering: hoveringName, props: nameProps }">
 					<atom-link
-						:to="'/product-category/' + item.id"
-						class="d-flex align-center"
+						:to="'/product/' + item.id"
+						class="d-flex align-center py-2"
 						v-bind="nameProps"
 					>
 						<atom-img
@@ -29,8 +29,8 @@
 							lazy-src="/img/default/product.png"
 						/>
 						<span
-							class="ellipsis-2"
-							:class="{ 'text-primary-darken': hoveringName }"
+							class="ellipsis-2 text-16px font-weight-medium transition-color"
+							:class="{ 'text-primary': hoveringName }"
 						>
 							{{ item.name }}
 						</span>
@@ -38,20 +38,33 @@
 				</template>
 			</v-hover>
 		</template>
+		<template #category="{ item }">
+			<v-hover>
+				<template
+					#default="{ isHovering: hoveringCategory, props: categoryProps }"
+				>
+					<atom-link
+						:to="'/product-category/' + item.category.id"
+						v-bind="categoryProps"
+						class="ellipsis-2 text-16px font-weight-medium transition-color d-block py-2"
+						:class="{ 'text-primary': hoveringCategory }"
+					>
+						{{ item.category.name }}
+					</atom-link>
+				</template>
+			</v-hover>
+		</template>
 		<template #status="{ item }">
-			<v-chip
-				size="small"
-				variant="elevated"
-				:color="
-					item.status === Status.ACTIVE
-						? 'green-lighten-1'
-						: item.status === Status.DISABLED
-						? 'purple-lighten-3'
-						: 'red-lighten-2'
-				"
-			>
-				{{ item.status }}
-			</v-chip>
+			<molecule-status-chip
+				:status="item.status"
+				class="text-14px font-weight-semibold"
+			/>
+		</template>
+		<template #updatedAt="{ item }">
+			<molecule-date-from-now
+				:date="item.updatedAt"
+				class="text-center text-16px"
+			/>
 		</template>
 	</organism-data-table>
 </template>
@@ -61,7 +74,6 @@ import { storeToRefs } from 'pinia'
 import moment from 'moment'
 import { ProductListItem } from '~/composables/apis/use-product-list'
 import { TableHeader } from '~/types'
-import { Status } from '~/constants'
 
 const productList = useProductList()
 const { items, totalProduct, pending, pagination } = storeToRefs(productList)
@@ -72,13 +84,20 @@ const headers: TableHeader<ProductListItem>[] = [
 		title: 'Name',
 		key: 'name',
 		sortable: true,
-		width: 400,
+		width: 280,
+	},
+	{
+		title: 'Category',
+		key: 'category',
+		sortable: true,
 	},
 	{
 		title: 'Price',
 		key: 'originalPrice',
 		sortable: true,
-		calculate: (value: number) => value.toLocaleString() + 'dd',
+		calculate: (value: number) =>
+			value.toLocaleString().replace(/,/, '.') + ' đ',
+		width: 110,
 	},
 	{
 		title: 'Status',
@@ -86,9 +105,10 @@ const headers: TableHeader<ProductListItem>[] = [
 		sortable: true,
 	},
 	{
-		title: 'Last update',
+		title: 'Last updated',
 		key: 'updatedAt',
 		sortable: true,
+		centerHead: true,
 		calculate: (value: number) => moment(new Date(value)).fromNow(),
 		default: Date.now(),
 	},

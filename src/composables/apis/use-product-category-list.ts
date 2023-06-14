@@ -2,15 +2,16 @@ import { Status } from '~/constants'
 
 export interface ProductCategoryItem {
 	id: string
+	code: number
 	name: string
 	image: string
-	code: number
 	status: Status
 	amountOfProduct: number
 	totalSold: number
 	soldOfWeek: number
 	order: number
 	featured: boolean
+	updatedAt: number
 }
 
 export interface ProductCategoryListPagination {

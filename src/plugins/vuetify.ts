@@ -24,6 +24,8 @@ import {
 	faMarsAndVenus,
 	faMoneyCheck,
 	faUser,
+	faCheckCircle,
+	faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import {
 	faEye,
@@ -52,7 +54,9 @@ library.add(
 	faVenus,
 	faMarsAndVenus,
 	faMoneyCheck,
-	faUser
+	faUser,
+	faCheckCircle,
+	faCircleXmark
 )
 
 // #F6F1E9

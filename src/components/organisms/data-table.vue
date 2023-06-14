@@ -250,7 +250,7 @@ onBeforeUnmount(() => {
 			}
 		}
 		td {
-			font-size: 0.875rem;
+			font-size: 1rem;
 			font-weight: 500;
 			*,
 			:deep(p, span) {

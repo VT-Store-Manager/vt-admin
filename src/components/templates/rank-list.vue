@@ -92,24 +92,15 @@
 			</div>
 		</template>
 		<template #updatedAt="{ item }">
-			<p class="text-center">
-				{{ moment(new Date(item.updatedAt)).fromNow() }}
-				<v-tooltip
-					activator="parent"
-					location="bottom"
-				>
-					<atom-date-cell
-						:date="item.updatedAt"
-						time-format="hh:mm:ss"
-					/>
-				</v-tooltip>
-			</p>
+			<molecule-date-from-now
+				:date="item.updatedAt"
+				class="text-center text-16px"
+			/>
 		</template>
 	</organism-data-table>
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment'
 import { storeToRefs } from 'pinia'
 import { darken } from 'polished'
 import { mdiCardBulleted } from '@mdi/js'
