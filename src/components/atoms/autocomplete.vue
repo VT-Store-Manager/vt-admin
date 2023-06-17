@@ -1,14 +1,14 @@
 <template>
 	<v-hover>
 		<template #default="{ isHovering, props }">
-			<v-text-field
+			<v-autocomplete
 				v-bind="{ ...props, ...$attrs }"
 				v-model="modelValue"
 				variant="outlined"
 				color="primary"
 				:bg-color="modelValue || isHovering ? 'white' : bgColor"
 				:base-color="isHovering ? 'primary' : 'black'"
-				class="text-field transition-background-color-all"
+				class="text-field"
 				rounded="12"
 				@update:focused="value => (bgColor = value ? 'white' : 'input')"
 			/>

@@ -6,6 +6,8 @@
 				v-model="modelValue"
 				variant="outlined"
 				color="primary"
+				type="number"
+				step="1000"
 				:bg-color="modelValue || isHovering ? 'white' : bgColor"
 				:base-color="isHovering ? 'primary' : 'black'"
 				class="text-field transition-background-color-all"

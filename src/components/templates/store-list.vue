@@ -47,7 +47,7 @@ const headers: TableHeader<StoreItemModel>[] = [
 
 const getStatusColor = (disabled: boolean, deleted: boolean) => {
 	if (deleted) return 'grey'
-	else if (disabled) return 'error'
+	else if (disabled) return 'danger'
 	else return 'success'
 }
 const getStatusText = (disabled: boolean, deleted: boolean) => {

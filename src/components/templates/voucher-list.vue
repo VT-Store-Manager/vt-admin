@@ -25,23 +25,91 @@
 							:class="{ 'hover-blur': hoveringName }"
 							server-img
 							:style="{ width: '40px' }"
+							placeholder="progress"
 						/>
-						<span
-							class="ellipsis-2"
-							:class="{ 'text-primary-darken': hoveringName }"
-						>
-							{{ item.name }}
-						</span>
+						<div class="d-flex flex-column justify-center py-1">
+							<span
+								class="ellipsis-2"
+								:class="{ 'text-primary-darken': hoveringName }"
+							>
+								{{ item.name }}
+							</span>
+							<span class="text-12px font-weight-bold">{{ item.code }}</span>
+						</div>
 					</atom-link>
 				</template>
 			</v-hover>
+		</template>
+		<template #partner="{ item }">
+			<atom-link
+				v-if="item.partner"
+				:to="`/partner/${item.partner.id}`"
+				class="d-flex align-center justify-center cursor-pointer"
+			>
+				<atom-img
+					:src="item.partner.image"
+					server-img
+					max-width="35"
+					aspect-ratio="1/1"
+					cover
+					placeholder="progress"
+					class="rounded shadow-cell-img mr-2"
+				/>
+				<v-tooltip
+					activator="parent"
+					location="top"
+					:open-delay="500"
+					:text="item.partner.name"
+				/>
+			</atom-link>
+			<div
+				v-else
+				class="d-flex align-center justify-center"
+			>
+				<atom-img
+					src="/img/logo/original.png"
+					max-width="35"
+					aspect-ratio="1/1"
+					cover
+					placeholder="progress"
+					class="rounded shadow-cell-img mr-2"
+				/>
+				<v-tooltip
+					activator="parent"
+					location="top"
+					:open-delay="500"
+					text="The Coffee House"
+				/>
+			</div>
+		</template>
+		<template #status="{ item }">
+			<div class="d-flex align-center justify-center">
+				<molecule-status-chip
+					:status="item.status"
+					class="text-14px font-weight-semibold"
+				/>
+			</div>
+		</template>
+		<template #publishStatus="{ item }">
+			<div class="d-flex align-center justify-center">
+				<molecule-publish-chip
+					v-bind="pick(item, ['startTime', 'finishTime'])"
+					class="text-14px font-weight-semibold"
+				/>
+			</div>
+		</template>
+		<template #updatedAt="{ item }">
+			<molecule-date-from-now
+				:date="item.updatedAt"
+				class="text-center text-16px"
+			/>
 		</template>
 	</organism-data-table>
 </template>
 
 <script lang="ts" setup>
+import pick from 'lodash/pick'
 import { storeToRefs } from 'pinia'
-import moment from 'moment'
 import { TableHeader } from '~/types/index'
 import { VoucherListItem } from '~/composables/apis/use-voucher-list'
 
@@ -53,23 +121,25 @@ const headers: TableHeader<VoucherListItem>[] = [
 	{
 		title: 'Name',
 		key: 'name',
-		width: 400,
 	},
 	{
 		title: 'Partner',
-		key: 'partner.code',
+		key: 'partner',
+		centerHead: true,
 	},
 	{
 		title: 'Status',
 		key: 'status',
 		sortable: true,
+		centerHead: true,
+		alignCol: 'center',
 	},
 	{
-		title: 'Last update',
-		key: 'updatedAt',
+		title: 'Publish',
+		key: 'publishStatus',
 		sortable: true,
-		calculate: (value: number) => moment(new Date(value)).fromNow(),
-		default: Date.now(),
+		centerHead: true,
+		alignCol: 'center',
 	},
 ]
 </script>

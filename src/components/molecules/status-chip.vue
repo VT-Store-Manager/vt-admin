@@ -3,15 +3,15 @@
 		size="small"
 		variant="elevated"
 		:color="
-			status === Status.ACTIVE
+			statusText === Status.ACTIVE
 				? 'green-lighten-1'
-				: status === Status.DISABLED
+				: statusText === Status.DISABLED
 				? 'purple-lighten-3'
 				: 'red-lighten-2'
 		"
 		v-bind="$attrs"
 	>
-		{{ status }}
+		{{ statusText }}
 	</v-chip>
 </template>
 
@@ -19,8 +19,23 @@
 import { Status } from '~/constants'
 
 interface Props {
-	status: Status
+	status?: Status
+	raw?: {
+		disabled: boolean
+		deleted?: boolean
+	}
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const statusText = computed<Status>(() => {
+	if (props.status) return props.status
+	if (props.raw?.deleted) {
+		return Status.REMOVED
+	} else if (props.raw?.disabled) {
+		return Status.DISABLED
+	} else {
+		return Status.ACTIVE
+	}
+})
 </script>

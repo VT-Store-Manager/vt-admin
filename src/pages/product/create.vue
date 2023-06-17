@@ -1,123 +1,127 @@
 <template>
-	<template-page-container page-name="Create product">
-		<template #title-right>
-			<base-progress-circular
-				v-show="createProduct.loading"
-				:class="{ done: !createProduct.loading }"
-			/>
-			<v-hover>
-				<template #default="{ isHovering, props }">
-					<button-secondary
-						v-bind="props"
-						class="mr-4"
-						:class="{ 'bg-red-darken-4': isHovering }"
-						text="Reset"
-						:icon="mdiRefresh"
-					/>
-				</template>
-			</v-hover>
-			<button-primary
-				text="Save"
-				:icon="mdiContentSave"
-				@click="onSave"
-			/>
-		</template>
-		<v-row class="h-100">
-			<v-col
-				cols="12"
-				sm="4"
-				class="pb-0"
-			>
-				<base-panel-new-image
-					ref="productImage"
-					class="rounded-12 h-100"
-					:max-images="6"
-				/>
+	<molecule-list-page-container
+		page-name="New product"
+		scroll
+	>
+		<v-row class="card-container">
+			<v-col cols="4">
+				<atom-card class="pb-4">
+					<template #title>
+						<div class="d-flex align-center justify-space-between">
+							<h4>Images</h4>
+							<atom-btn
+								class="font-weight-semibold"
+								variant="tonal"
+								color="danger"
+								@click="images = []"
+							>
+								Clear
+							</atom-btn>
+						</div>
+					</template>
+					<template #subtitle> Max {{ maxFiles }} files </template>
+					<template #item>
+						<organism-file-panel
+							v-model="images"
+							:max-files="maxFiles"
+						/>
+					</template>
+				</atom-card>
 			</v-col>
-			<v-col
-				cols="12"
-				sm="8"
-				class="pb-0"
-			>
-				<product-create-content
-					ref="productContent"
-					class="rounded-12 h-100"
-					:name-error="isError.name"
-					:category-error="isError.category"
-					:price-error="isError.price"
-				/>
+			<v-col cols="8">
+				<atom-card>
+					<template #title>
+						<div class="d-flex align-center justify-space-between">
+							<h4>Content</h4>
+							<atom-btn
+								class="font-weight-semibold"
+								variant="tonal"
+								color="danger"
+							>
+								Clear
+							</atom-btn>
+						</div>
+					</template>
+					<v-container class="content-form-container">
+						<v-row>
+							<v-col cols="8">
+								<molecule-input
+									v-model="name"
+									input-type="text-field"
+									label="Product name"
+								/>
+							</v-col>
+							<v-col cols="4">
+								<molecule-input
+									v-model="category"
+									input-type="autocomplete"
+									label="Category"
+									:items="[
+										'California',
+										'Colorado',
+										'Florida',
+										'Georgia',
+										'Texas',
+										'Wyoming',
+									]"
+								/>
+							</v-col>
+							<v-col cols="12">
+								<molecule-input
+									v-mode="description"
+									input-type="textarea"
+									label="Product description"
+								/>
+							</v-col>
+							<v-col cols="4">
+								<molecule-input
+									v-model="price"
+									input-type="number-field"
+									label="Product price"
+									suffix="VND"
+								/>
+							</v-col>
+							<v-col cols="8">
+								<molecule-input
+									v-model="selectedOptions"
+									input-type="select-multi"
+									label="Product options"
+									:items="options"
+									chips
+									clearable
+									select-all
+									:chip="{
+										props: {
+											color: 'red',
+										},
+									}"
+								/>
+							</v-col>
+						</v-row>
+					</v-container>
+				</atom-card>
 			</v-col>
 		</v-row>
-	</template-page-container>
+	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
-import _ from 'lodash'
-import { mdiContentSave, mdiRefresh } from '@mdi/js'
-import { serialize } from 'object-to-formdata'
-import { CreateProductModel } from '~/models/product/create-product'
-import { useCreateProduct } from '~/composables/apis-old/use-create-product'
+const options = ref(['Option 1', 'Option 2', 'Option 3'])
 
-type CreateWithoutImageModel = Omit<CreateProductModel, 'images'>
-
-const productImage = ref<
-	HTMLElement & { images: File[]; validate: () => boolean }
->()
-const productContent = ref<HTMLElement & { data: CreateWithoutImageModel }>()
-const isError = reactive({
-	image: false,
-	name: false,
-	category: false,
-	price: false,
-})
-const createProduct = useCreateProduct()
-
-const onSave = () => {
-	if (!productImage.value || !productContent.value) return
-	if (!productImage.value.validate()) return
-	const productDtoData: CreateProductModel = {
-		images:
-			productImage.value?.images && !_.isEmpty(productImage.value?.images)
-				? productImage.value.images
-				: [],
-		name: productContent.value?.data.name || '',
-		category: productContent.value?.data.category || '',
-		description: productContent.value?.data.description || '',
-		originalPrice: productContent.value?.data.originalPrice || 0,
-		options: productContent.value?.data.options || [],
-	}
-	if (
-		productDtoData.images.length === 0 ||
-		!productDtoData.name ||
-		!productDtoData.category ||
-		productDtoData.originalPrice < 0
-	) {
-		isError.image = productDtoData.images.length === 0
-		isError.name = !productDtoData.name
-		isError.category = !productDtoData.category
-		isError.price = productDtoData.originalPrice < 0
-		return
-	}
-	const body = serialize(productDtoData, { noFilesWithArrayNotation: true })
-	createProduct.fetch({ body })
-}
-
-watch(isError, () => {
-	isError.image &&
-		setTimeout(() => {
-			isError.image = false
-		}, 3000)
-	isError.name &&
-		setTimeout(() => {
-			isError.name = false
-		}, 3000)
-	isError.category &&
-		setTimeout(() => {
-			isError.category = false
-		}, 3000)
-	isError.price &&
-		setTimeout(() => {
-			isError.price = false
-		}, 3000)
-})
+const images = ref<File[]>([])
+const maxFiles = 6
+const name = ref('')
+const category = ref('')
+const description = ref('')
+const price = ref(0)
+const selectedOptions = ref<string[]>([])
 </script>
+
+<style lang="scss" scoped>
+.content-form-container {
+	.v-col {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+}
+</style>

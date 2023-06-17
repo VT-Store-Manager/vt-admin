@@ -1,5 +1,5 @@
 <template>
-	<atom-text-field
+	<v-text-field
 		ref="searchInputRef"
 		class="quick-search rounded-pill bg-grey-lighten-2"
 		placeholder="Quick search..."

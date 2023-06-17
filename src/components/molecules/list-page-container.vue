@@ -1,5 +1,10 @@
 <template>
-	<div class="page bg-background">
+	<div
+		class="page bg-background"
+		:class="{
+			'overflow-y-auto': scroll,
+		}"
+	>
 		<div class="page-title d-flex justify-space-between align-center">
 			<div class="page-title__left d-flex align-center">
 				<h2 class="page-title__name">
@@ -24,8 +29,13 @@
 				<slot name="title-right"></slot>
 			</div>
 		</div>
-		<div class="page-content">
-			<slot></slot>
+		<div
+			class="page-content ma-n2 pa-2"
+			:class="{ 'overflow-hidden': !scroll }"
+		>
+			<div class="page-content-wrapper position-relative h-100">
+				<slot></slot>
+			</div>
 		</div>
 	</div>
 </template>
@@ -36,6 +46,7 @@ import { storeToRefs } from 'pinia'
 interface Props {
 	pageName: string
 	pageTitle?: string
+	scroll?: boolean
 }
 
 const props = defineProps<Props>()
@@ -60,6 +71,7 @@ const { isLight } = storeToRefs(useThemeUtil())
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+	box-shadow: inset 4px 8px 10px rgba(0, 0, 0, 0.1);
 	&-title {
 		padding: 1.5rem 0 1rem;
 		&__left {
@@ -81,11 +93,6 @@ const { isLight } = storeToRefs(useThemeUtil())
 				color: $grey;
 			}
 		}
-	}
-	&-content {
-		flex: 1;
-		position: relative;
-		overflow: hidden;
 	}
 
 	:deep(.v-progress-circular) {

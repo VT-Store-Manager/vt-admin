@@ -2,7 +2,7 @@ $header-height: 70px;
 $footer-height: 50px;
 $sidebar-expand-width: 300px;
 $sidebar-collapse-width: 92px;
-$table-border-radius: 12px;
+$common-round: 12px;
 
 $primary-color: rgb(var(--v-theme-primary));
 $primary-darken-color: rgb(var(--v-theme-primary-darken));
@@ -15,8 +15,33 @@ $grey: #363636;
 .hover-blur {
 	opacity: 0.7;
 }
-.rounded-12 {
-	border-radius: 0.75rem !important;
+.rounded {
+	$sizes: (12, 16);
+	@each $px in $sizes {
+		&-#{$px} {
+			border-radius: #{$px}px !important;
+		}
+		&-t-#{$px} {
+			border-top-left-radius: #{$px}px !important;
+			border-top-right-radius: #{$px}px !important;
+		}
+		&-b-#{$px} {
+			border-bottom-left-radius: #{$px}px !important;
+			border-bottom-right-radius: #{$px}px !important;
+		}
+		&-t-l-#{$px} {
+			border-top-left-radius: #{$px}px !important;
+		}
+		&-t-r-#{$px} {
+			border-top-right-radius: #{$px}px !important;
+		}
+		&-b-l-#{$px} {
+			border-bottom-left-radius: #{$px}px !important;
+		}
+		&-b-r-#{$px} {
+			border-bottom-right-radius: #{$px}px !important;
+		}
+	}
 }
 .rounded-16 {
 	border-radius: 1rem !important;

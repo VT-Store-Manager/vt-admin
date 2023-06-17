@@ -1,14 +1,21 @@
+import { Status } from '~/constants'
+
 export interface VoucherListItem {
+	id: string
 	code: string
 	image: string
-	id: string
 	name: string
-	partner?: any
+	partner: {
+		id: string
+		name: string
+		code: string
+		image: string
+	} | null
 	startTime: number
-	finishTime?: any
+	finishTime?: number
 	publishStatus: number
 	updatedAt: number
-	status: string
+	status: Status
 }
 
 export interface VoucherListPaginationModel {

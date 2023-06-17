@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 		dirs: ['composables/**'],
 	},
 	build: {
-		transpile: ['vuetify'],
+		transpile: ['vuetify', '@peepi/vuetify-tiptap'],
 	},
 	experimental: {
 		payloadExtraction: false,
@@ -27,6 +27,12 @@ export default defineNuxtConfig({
 					@import "~/assets/scss/scrollbar";
 					`,
 				},
+			},
+		},
+		vue: {
+			script: {
+				defineModel: true,
+				propsDestructure: true,
 			},
 		},
 	},
@@ -51,7 +57,7 @@ export default defineNuxtConfig({
 	],
 	hooks: {
 		'vite:extendConfig': config => {
-			config.plugins?.push(vuetify())
+			config.plugins?.push(vuetify({}))
 		},
 	},
 	modules: [

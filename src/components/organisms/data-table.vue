@@ -163,7 +163,7 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .data-table {
 	height: 100%;
-	border-radius: $table-border-radius;
+	border-radius: $common-round;
 	.table-wrapper {
 		height: 100%;
 		padding: 20px 12px 12px 24px;

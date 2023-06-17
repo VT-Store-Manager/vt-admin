@@ -37,6 +37,7 @@ module.exports = {
 		// Vue eslint
 		'vue/multi-word-component-names': 'off',
 		'vue/valid-v-for': ['error'],
+		'vue/valid-v-slot': 'off',
 		'vue/no-unused-vars': [
 			'warn',
 			{

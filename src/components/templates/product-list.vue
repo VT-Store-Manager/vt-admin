@@ -97,7 +97,6 @@ const headers: TableHeader<ProductListItem>[] = [
 		sortable: true,
 		calculate: (value: number) =>
 			value.toLocaleString().replace(/,/, '.') + ' đ',
-		width: 110,
 	},
 	{
 		title: 'Status',

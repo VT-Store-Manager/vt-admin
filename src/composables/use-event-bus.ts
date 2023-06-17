@@ -3,7 +3,7 @@ import { Pagination } from '~/types'
 
 type ApplicationEvent = {
 	'update-page': Pagination
-}
+} & Record<string, any>
 
 const emitter = mitt<ApplicationEvent>()
 

@@ -1,7 +1,7 @@
 <template>
 	<v-hover>
 		<template #default="{ isHovering, props }">
-			<v-text-field
+			<v-textarea
 				v-bind="{ ...props, ...$attrs }"
 				v-model="modelValue"
 				variant="outlined"

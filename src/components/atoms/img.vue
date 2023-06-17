@@ -54,7 +54,10 @@
 </template>
 
 <script lang="ts" setup>
-type Props = {
+import type { VImg } from 'vuetify/components'
+
+interface VImgType extends /* @vue-ignore */ VImg {}
+interface Props {
 	src: string
 	altSrc?: string[]
 	placeholder?: 'progress' | 'logo' | string
@@ -63,7 +66,7 @@ type Props = {
 	imgAttribute?: Record<string, any>
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<VImgType['$props'] & Props>(), {
 	altSrc: () => [],
 	serverImg: false,
 	serverAltImg: () => [],

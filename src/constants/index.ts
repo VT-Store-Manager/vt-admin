@@ -6,6 +6,7 @@ export const AUTH_TOKEN_KEY = 'auth-token'
 /** CONFIG VALUE */
 export const PROGRESS_LINEAR_CYCLE_TIME = 2200
 export const Gender = ['male', 'female', 'other'] as const
+export const publishState = ['not yet', 'open', 'closed'] as const
 
 /** ENUMERATION */
 export enum AppTheme {
@@ -20,7 +21,7 @@ export enum Status {
 }
 
 export enum PublishStatus {
-	NOT_YET,
-	OPENING,
-	CLOSED,
+	NOT_YET = 'not yet',
+	OPENING = 'open',
+	CLOSED = 'closed',
 }

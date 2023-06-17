@@ -13,7 +13,7 @@
 			/>
 			<div class="pagination-adjust d-flex align-center">
 				<span>Amount:</span>
-				<atom-select
+				<v-combobox
 					v-model="maxPerPage"
 					density="compact"
 					:items="maxPerPageOptions"
@@ -76,7 +76,7 @@ const changePagination = () => {
 	transform: translateX(-50%);
 	width: 100%;
 	background-color: white;
-	border-radius: $table-border-radius;
+	border-radius: $common-round;
 	.pagination-wrapper {
 		position: relative;
 		padding: 5px 10px;
