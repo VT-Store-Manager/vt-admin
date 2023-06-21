@@ -1,27 +1,4 @@
-import { Status } from '~/constants'
-
-export interface ProductListItem {
-	code: number
-	name: string
-	images: string[]
-	originalPrice: number
-	category: {
-		id: string
-		name: string
-		code: number
-	}
-	updatedAt: string
-	id: string
-	status: Status
-	salesVolume: {
-		month: number
-	}
-}
-
-export interface ProductListPagination {
-	totalCount: number
-	items: ProductListItem[]
-}
+import { PaginationDataModel, ProductListItemModel } from '~/models'
 
 export const useProductList = definePiniaStore('product-list', () => {
 	const { pagination, updatePage, pushPaginationQuery } = usePagination()
@@ -31,14 +8,13 @@ export const useProductList = definePiniaStore('product-list', () => {
 		pushPaginationQuery()
 	}
 
-	const { data, pending, error, refresh } = useRequest<ProductListPagination>(
-		'/v1/admin/product/list',
-		{
-			query,
-			transform: input => input.data,
-			watch: [pagination],
-		}
-	)
+	const { data, pending, error, refresh } = useRequest<
+		PaginationDataModel<ProductListItemModel>
+	>('/v1/admin/product/list', {
+		query,
+		transform: input => input.data,
+		watch: [pagination],
+	})
 
 	const items = computed(() => data?.value?.items || [])
 	const totalProduct = computed(() => data?.value?.totalCount || 0)

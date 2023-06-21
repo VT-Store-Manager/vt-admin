@@ -10,14 +10,15 @@
 				}"
 				:max-image="maxFiles"
 			/>
-			<atom-btn
+			<!-- TODO: Update later -->
+			<!-- <atom-btn
 				class="font-weight-bold ml-2 bg-grey-lighten-1 text-white"
 				flat
 				size="small"
 				tooltip="Update soon"
 			>
 				Upload
-			</atom-btn>
+			</atom-btn> -->
 			<atom-btn
 				class="font-weight-bold ml-auto"
 				color="danger"

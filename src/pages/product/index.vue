@@ -9,11 +9,12 @@
 				title="Refresh data"
 				@click="refresh"
 			/>
-			<molecule-btn-create @click="$router.push('/product/create')">
+			<molecule-btn-create @click="showCreateDialog = true">
 				New
 			</molecule-btn-create>
 		</template>
 		<template-product-list />
+		<template-new-product-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 
@@ -23,6 +24,6 @@ import { storeToRefs } from 'pinia'
 const productList = useProductList()
 const { totalProduct } = storeToRefs(productList)
 const { refresh, pushQuery } = productList
-
+const showCreateDialog = ref(false)
 pushQuery()
 </script>

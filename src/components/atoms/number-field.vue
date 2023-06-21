@@ -3,15 +3,13 @@
 		<template #default="{ isHovering, props }">
 			<v-text-field
 				v-bind="{ ...props, ...$attrs }"
-				v-model="modelValue"
 				variant="outlined"
 				color="primary"
-				type="number"
-				step="1000"
-				:bg-color="modelValue || isHovering ? 'white' : bgColor"
+				:bg-color="$attrs.modelValue || isHovering ? 'white' : bgColor"
 				:base-color="isHovering ? 'primary' : 'black'"
-				class="text-field transition-background-color-all"
+				class="number-field transition-background-color-all"
 				rounded="12"
+				type="number"
 				@update:focused="value => (bgColor = value ? 'white' : 'input')"
 			/>
 		</template>
@@ -24,7 +22,6 @@ defineOptions({
 })
 
 const bgColor = ref('input')
-const modelValue = defineModel<string>('')
 </script>
 
 <style lang="scss" scoped>
@@ -41,6 +38,19 @@ const modelValue = defineModel<string>('')
 	}
 	.v-field__outline__end {
 		border-radius: 0 $common-round $common-round 0;
+	}
+}
+:deep(.v-field) {
+	input {
+		padding-right: 18px;
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		&[type='number'] {
+			-moz-appearance: textfield;
+		}
 	}
 }
 </style>

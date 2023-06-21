@@ -1,4 +1,4 @@
-import { StoreGridModel } from '~/models/store'
+import { StoreGridModel } from '~/models_old/store'
 import { BaseResponse, Pagination } from '~/types'
 
 export const useStoreGrid = definePiniaStore('grid-store', () => {

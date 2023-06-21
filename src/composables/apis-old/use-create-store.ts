@@ -1,4 +1,4 @@
-import { StoreModel, CreateStoreModel } from '~/models/store/index'
+import { StoreModel, CreateStoreModel } from '~/models_old/store/index'
 import { BaseResponse } from '~/types'
 
 export const useCreateStore = definePiniaStore('create-store', () => {

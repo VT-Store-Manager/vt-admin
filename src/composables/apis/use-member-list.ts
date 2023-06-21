@@ -1,35 +1,4 @@
-import { Gender } from '~/constants'
-
-export interface MemberRankItemDTO {
-	name: string
-	rank: number
-	appearance: {
-		icon: string
-		background: string
-		color: string
-	}
-}
-
-export interface MemberItemModel {
-	id: string
-	name: string
-	gender: keyof typeof Gender
-	phone: string
-	createdAt: number
-	code: string
-	rank: {
-		code: string
-		currentPoint: number
-		usedPoint: number
-		expiredPoint: number
-		info: MemberRankItemDTO
-	}
-}
-
-export interface MemberListPaginationDTO {
-	maxCount: number
-	items: MemberItemModel[]
-}
+import { MemberListItemModel, PaginationDataModel } from '~/models'
 
 export const useMemberList = definePiniaStore('member-list', () => {
 	const { pagination, updatePage, pushPaginationQuery } = usePagination()
@@ -39,16 +8,15 @@ export const useMemberList = definePiniaStore('member-list', () => {
 		pushPaginationQuery()
 	}
 
-	const { data, pending, error, refresh } = useRequest<MemberListPaginationDTO>(
-		'/v1/admin/member/list',
-		{
-			query,
-			transform: input => input.data,
-			watch: [query],
-		}
-	)
+	const { data, pending, error, refresh } = useRequest<
+		PaginationDataModel<MemberListItemModel>
+	>('/v1/admin/member/list', {
+		query,
+		transform: input => input.data,
+		watch: [query],
+	})
 
-	const totalCount = computed(() => data.value?.maxCount || 0)
+	const totalCount = computed(() => data.value?.totalCount || 0)
 	const items = computed(() => data.value?.items || [])
 
 	return {

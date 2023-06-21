@@ -1,8 +1,8 @@
 import {
 	CreateNewProductOptionModel,
 	CreateProductSubOptionModel,
-} from '~/models/product/create-product-option'
-import { ProductOptionModel } from '~/models/product/product-option'
+} from '~/models_old/product/create-product-option'
+import { ProductOptionModel } from '~/models_old/product/product-option'
 import { BaseResponse } from '~/types'
 
 export const useCreateProductOption = definePiniaStore(

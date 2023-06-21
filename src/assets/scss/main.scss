@@ -41,7 +41,8 @@ body {
 		'color',
 		'background-color',
 		'opacity',
-		'transform'
+		'transform',
+		'max-height'
 	);
 	@each $property in $transition-properties {
 		&-#{$property} {

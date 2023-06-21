@@ -1,4 +1,4 @@
-import { ProductCategoryModel } from '~/models/product/product-category'
+import { ProductCategoryModel } from '~/models_old/product/product-category'
 import { BaseResponse, VSelectModel } from '~/types'
 
 export const useProductCategory = definePiniaStore('product-category', () => {

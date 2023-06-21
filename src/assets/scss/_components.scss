@@ -11,14 +11,20 @@
 		}
 	}
 }
-.v-dialog {
-	.v-row {
-		animation: expand-vertical 400ms ease-out;
-	}
-	.v-card {
-		.v-card-item {
-			overflow-y: scroll;
-			max-height: calc(100vh - 200px);
-		}
+.v-messages__message,
+.error-message {
+	&::first-letter {
+		text-transform: capitalize;
 	}
 }
+// .v-dialog {
+// 	.v-row {
+// 		animation: expand-vertical 400ms ease-out;
+// 	}
+// 	.v-card {
+// 		.v-card-item {
+// 			overflow-y: scroll;
+// 			max-height: calc(100vh - 200px);
+// 		}
+// 	}
+// }

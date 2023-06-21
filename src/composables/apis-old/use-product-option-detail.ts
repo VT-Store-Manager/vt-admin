@@ -1,4 +1,4 @@
-import { ProductOptionDetailModel } from '~/models/product/product-option'
+import { ProductOptionDetailModel } from '~/models_old/product/product-option'
 import { BaseResponse } from '~/types'
 
 export const useProductOptionDetail = definePiniaStore(

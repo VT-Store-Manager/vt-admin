@@ -58,6 +58,7 @@
 		"pinia": "^2.0.29",
 		"polished": "^4.2.2",
 		"query-string": "^8.1.0",
-		"vee-validate": "^4.9.6"
+		"vee-validate": "^4.9.6",
+		"yup": "^1.2.0"
 	}
 }

@@ -1,4 +1,4 @@
-import { ProductModel } from '~/models/product'
+import { ProductModel } from '~/models_old/product'
 
 import { BaseResponse, VSelectModel } from '~/types'
 

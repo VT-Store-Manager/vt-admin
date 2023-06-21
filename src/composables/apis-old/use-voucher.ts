@@ -1,5 +1,5 @@
 import { BaseResponse, Pagination } from '~/types'
-import { VoucherListModel } from '~/models/voucher-model'
+import { VoucherListModel } from '~/models_old/voucher-model'
 
 export const useVoucher = definePiniaStore('voucher', () => {
 	const router = useRouter()

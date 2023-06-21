@@ -1,24 +1,4 @@
-export interface StoreItemModel {
-	name: string
-	images: string[]
-	address: {
-		street: string
-		ward: string
-		district: string
-		city: string
-		country: string
-	}
-	openedStatus: boolean
-	disabled: boolean
-	deleted: boolean
-	updatedAt: string
-	id: string
-}
-
-export interface StoreListModel {
-	maxCount: number
-	items: StoreItemModel[]
-}
+import { PaginationDataModel, StoreListItemModel } from '~/models'
 
 export const useStoreList = definePiniaStore('store-list', () => {
 	const { pagination, updatePage, pushPaginationQuery } = usePagination()
@@ -28,16 +8,15 @@ export const useStoreList = definePiniaStore('store-list', () => {
 		pushPaginationQuery()
 	}
 
-	const { data, pending, error, refresh } = useRequest<StoreListModel>(
-		'/v1/admin/store/list',
-		{
-			query,
-			transform: input => input.data,
-			watch: [query],
-		}
-	)
+	const { data, pending, error, refresh } = useRequest<
+		PaginationDataModel<StoreListItemModel>
+	>('/v1/admin/store/list', {
+		query,
+		transform: input => input.data,
+		watch: [query],
+	})
 
-	const totalCount = computed(() => data.value?.maxCount || 0)
+	const totalCount = computed(() => data.value?.totalCount || 0)
 	const items = computed(() => data.value?.items || [])
 
 	return {

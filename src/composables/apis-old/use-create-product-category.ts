@@ -1,5 +1,5 @@
 import { BaseResponse } from '~/types/request'
-import { ProductCategoryModel } from '~/models/product/product-category'
+import { ProductCategoryModel } from '~/models_old/product/product-category'
 
 type CreateProductCategoryDto = {
 	name: string

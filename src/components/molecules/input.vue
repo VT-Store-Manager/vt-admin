@@ -15,6 +15,7 @@
 			:is="componentName"
 			v-bind="$attrs"
 			:id="randomId"
+			:error="!!$attrs.errorMessages"
 			@update:focused="(value: boolean) => (isFocused = value)"
 		>
 			<slot v-if="$slots['default']"></slot>
@@ -29,11 +30,12 @@
 </template>
 
 <script lang="ts" setup>
+import capitalize from 'lodash/capitalize'
 import type { VInput } from 'vuetify/components'
 
 const inputComponents = {
 	'text-field': resolveComponent('atom-text-field'),
-	'number-field': resolveComponent('atom-text-field'),
+	'number-field': resolveComponent('atom-number-field'),
 	autocomplete: resolveComponent('atom-autocomplete'),
 	textarea: resolveComponent('atom-textarea'),
 	'select-multi': resolveComponent('atom-select-multi'),

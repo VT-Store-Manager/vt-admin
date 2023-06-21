@@ -1,21 +1,7 @@
-export interface RankItemModel {
-	id: string
-	name: string
-	rank: number
-	appearance: {
-		icon: string
-		color: string
-		background: string
-	}
-	minPoint: number
-	coefficientPoint: number
-	deliveryFee: number
-	updatedAt: number
-	memberNumber: number
-}
+import { RankListItemModel } from '~/models'
 
 export const useRankList = definePiniaStore('rank-list', () => {
-	const { data, pending, error, refresh } = useRequest<RankItemModel[]>(
+	const { data, pending, error, refresh } = useRequest<RankListItemModel[]>(
 		'/v1/admin/rank',
 		{ transform: input => input.data }
 	)

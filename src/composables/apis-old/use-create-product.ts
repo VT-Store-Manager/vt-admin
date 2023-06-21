@@ -1,4 +1,4 @@
-import { ProductModel } from '~/models/product'
+import { ProductModel } from '~/models_old/product'
 import { BaseResponse } from '~/types'
 
 export const useCreateProduct = definePiniaStore('create-product', () => {

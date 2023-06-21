@@ -3,10 +3,9 @@
 		<template #default="{ isHovering, props }">
 			<v-textarea
 				v-bind="{ ...props, ...$attrs }"
-				v-model="modelValue"
 				variant="outlined"
 				color="primary"
-				:bg-color="modelValue || isHovering ? 'white' : bgColor"
+				:bg-color="$attrs.modelValue || isHovering ? 'white' : bgColor"
 				:base-color="isHovering ? 'primary' : 'black'"
 				class="text-field transition-background-color-all"
 				rounded="12"
@@ -22,7 +21,6 @@ defineOptions({
 })
 
 const bgColor = ref('input')
-const modelValue = defineModel<string>('')
 </script>
 
 <style lang="scss" scoped>
