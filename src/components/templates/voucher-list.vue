@@ -110,14 +110,14 @@
 <script lang="ts" setup>
 import pick from 'lodash/pick'
 import { storeToRefs } from 'pinia'
-import { TableHeader } from '~/types/index'
-import { VoucherListItem } from '~/composables/apis/use-voucher-list'
+import { VoucherListItemModel } from '~/models'
+import { TableHeader } from '~/types'
 
 const voucherList = useVoucherList()
 const { items, totalCount, pending, pagination } = storeToRefs(voucherList)
 const { updatePage } = voucherList
 
-const headers: TableHeader<VoucherListItem>[] = [
+const headers: TableHeader<VoucherListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',

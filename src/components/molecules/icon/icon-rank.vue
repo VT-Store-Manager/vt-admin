@@ -21,10 +21,10 @@
 
 <script lang="ts" setup>
 import { darken } from 'polished'
-import { MemberRankItemDTO } from '~/composables/apis/use-member-list'
+import { RankListItemModel } from '~/models'
 
 interface Props {
-	data: MemberRankItemDTO
+	data: RankListItemModel
 	showName?: boolean
 	showIcon?: boolean
 }

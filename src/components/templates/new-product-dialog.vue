@@ -67,7 +67,7 @@
 					</template>
 					<v-container class="content-form-container">
 						<v-row>
-							<v-col cols="8">
+							<v-col cols="7">
 								<molecule-input
 									v-model="name"
 									:error-messages="errorMessage"
@@ -75,20 +75,15 @@
 									label="Product name"
 								/>
 							</v-col>
-							<v-col cols="4">
+							<v-col cols="5">
 								<molecule-input
 									v-model="category.value.value"
 									:error-messages="category.errorMessage.value"
 									input-type="autocomplete"
 									label="Category"
-									:items="[
-										'California',
-										'Colorado',
-										'Florida',
-										'Georgia',
-										'Texas',
-										'Wyoming',
-									]"
+									:items="productCategorySelect.data"
+									:loading="productCategorySelect.pending"
+									auto-select-first
 								/>
 							</v-col>
 							<v-col cols="12">
@@ -111,20 +106,9 @@
 								/>
 							</v-col>
 							<v-col cols="8">
-								<molecule-input
+								<organism-product-option-select
 									v-model="options.value.value"
 									:error-messages="options.errorMessage.value"
-									input-type="select-multi"
-									label="Product options"
-									:items="optionValues"
-									chips
-									clearable
-									select-all
-									:chip="{
-										props: {
-											color: 'red',
-										},
-									}"
 								/>
 							</v-col>
 						</v-row>
@@ -149,12 +133,33 @@
 				flat
 				elevation="1"
 				:prepend-icon="mdiContentSave"
+				:loading="createProduct.pending"
+				:disabled="createProduct.pending"
 				@click="submit"
 			>
 				Save
 			</atom-btn>
 		</template>
 	</molecule-dialog>
+	<teleport to="body">
+		<v-alert
+			v-model="alert"
+			border="start"
+			variant="tonal"
+			closable
+			close-label="Close Alert"
+			color="deep-purple-accent-4"
+			title="Closable Alert"
+		>
+			Aenean imperdiet. Quisque id odio. Cras dapibus. Pellentesque ut neque.
+			Cras dapibus. Vivamus consectetuer hendrerit lacus. Sed mollis, eros et
+			ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a
+			orci. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero,
+			non adipiscing dolor urna a orci. Curabitur blandit mollis lacus.
+			Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet,
+			leo.
+		</v-alert>
+	</teleport>
 </template>
 
 <script setup lang="ts">
@@ -163,8 +168,8 @@ import { useForm, useField } from 'vee-validate'
 import { CreateProductModel, createProductSchema } from '~/models'
 
 const show = defineModel<boolean>('show', { default: false, local: true })
+const alert = ref(false)
 const maxFiles = 6
-const optionValues = ref(['Option 1', 'Option 2', 'Option 3'])
 
 const { handleSubmit, handleReset } = useForm<CreateProductModel>({
 	validationSchema: createProductSchema,
@@ -174,11 +179,24 @@ const { value: name, errorMessage } = useField<string>('name')
 const images = useField<File[]>('images')
 const category = useField<string>('category')
 const description = useField<string>('description')
-const originalPrice = useField<number>('price')
+const originalPrice = useField<number>('originalPrice')
 const options = useField<string[]>('options')
 
-const submit = handleSubmit(values => {
-	console.log(values)
+const productCategorySelect = useProductCategorySelect()
+const productOptionSelect = useProductOptionSelect()
+const createProduct = useCreateProduct()
+
+watch(options.value, () => {
+	productOptionSelect.setSelectedValues(options.value.value)
+})
+
+const submit = handleSubmit(async values => {
+	await createProduct.executePayload(values)
+	if (createProduct.success) {
+		alert.value = true
+		show.value = false
+		useProductList().refresh()
+	}
 })
 </script>
 

@@ -21,7 +21,7 @@ export const createProductSchema = object({
 		.required()
 		.default(() => []),
 	category: string().required(),
-	price: number()
+	originalPrice: number()
 		.transform(v => +v)
 		.positive()
 		.required(),

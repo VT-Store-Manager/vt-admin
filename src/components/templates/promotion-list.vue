@@ -39,14 +39,14 @@
 <script lang="ts" setup>
 import pick from 'lodash/pick'
 import { storeToRefs } from 'pinia'
-import { PromotionItemModel } from '~/composables/apis/use-promotion-list'
+import { PromotionListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 
 const promotionList = usePromotionList()
 const { items, totalCount, pending, pagination } = storeToRefs(promotionList)
 const { updatePage } = promotionList
 
-const headers: TableHeader<PromotionItemModel>[] = [
+const headers: TableHeader<PromotionListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',

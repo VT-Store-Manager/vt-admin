@@ -14,7 +14,7 @@
 			</molecule-btn-create>
 			<molecule-btn-list-type-group
 				class="ml-3"
-				@update-type="type => (displayType = type)"
+				@update-type="(type: ListDisplay) => (displayType = type)"
 			/>
 		</template>
 		<template-store-list v-if="displayType === 'list'" />

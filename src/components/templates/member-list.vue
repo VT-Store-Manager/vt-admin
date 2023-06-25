@@ -99,14 +99,14 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { TableHeader } from '~/types'
-import { MemberItemModel } from '~/composables/apis/use-member-list'
 import { Gender } from '~/constants'
+import { MemberListItemModel } from '~/models'
 
 const memberList = useMemberList()
 const { items, totalCount, pending, pagination } = storeToRefs(memberList)
 const { updatePage } = memberList
 
-const headers: TableHeader<MemberItemModel>[] = [
+const headers: TableHeader<MemberListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',
@@ -130,7 +130,7 @@ const headers: TableHeader<MemberItemModel>[] = [
 	},
 ]
 
-const totalPoint = (rank: MemberItemModel['rank']) => {
+const totalPoint = (rank: MemberListItemModel['rank']) => {
 	return rank.currentPoint + rank.expiredPoint + rank.usedPoint
 }
 const getAvatarDefaultUrl = (gender: keyof typeof Gender) => {

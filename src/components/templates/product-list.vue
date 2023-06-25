@@ -72,14 +72,14 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import moment from 'moment'
-import { ProductListItem } from '~/composables/apis/use-product-list'
 import { TableHeader } from '~/types'
+import { ProductListItemModel } from '~/models'
 
 const productList = useProductList()
 const { items, totalProduct, pending, pagination } = storeToRefs(productList)
 const { updatePage } = productList
 
-const headers: TableHeader<ProductListItem>[] = [
+const headers: TableHeader<ProductListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',

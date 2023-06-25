@@ -77,7 +77,7 @@
 <script lang="ts" setup>
 import { mdiCoffee } from '@mdi/js'
 import { storeToRefs } from 'pinia'
-import { ProductCategoryItem } from '~/composables/apis/use-product-category-list'
+import { ProductCategoryListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 
 const productCategoryList = useProductCategoryList()
@@ -85,7 +85,7 @@ const { items, totalProduct, pending, pagination } =
 	storeToRefs(productCategoryList)
 const { updatePage } = productCategoryList
 
-const headers: TableHeader<ProductCategoryItem>[] = [
+const headers: TableHeader<ProductCategoryListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',

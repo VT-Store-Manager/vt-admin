@@ -15,23 +15,26 @@
 			:is="componentName"
 			v-bind="$attrs"
 			:id="randomId"
+			:items="items"
 			:error="!!$attrs.errorMessages"
 			@update:focused="(value: boolean) => (isFocused = value)"
 		>
-			<slot v-if="$slots['default']"></slot>
 			<template
-				v-if="$slots['prepend-item']"
-				#prepend-item
+				v-for="slot in slotNames"
+				:key="slot"
+				#[slot]="slotAttr"
 			>
-				<slot name="prepend-item"></slot>
+				<slot
+					:name="slot"
+					v-bind="slotAttr"
+				></slot>
 			</template>
 		</component>
 	</div>
 </template>
 
-<script lang="ts" setup>
-import capitalize from 'lodash/capitalize'
-import type { VInput } from 'vuetify/components'
+<script lang="ts" setup generic="ItemT = any">
+import type { VTextField, VSelect } from 'vuetify/components'
 
 const inputComponents = {
 	'text-field': resolveComponent('atom-text-field'),
@@ -41,22 +44,31 @@ const inputComponents = {
 	'select-multi': resolveComponent('atom-select-multi'),
 }
 
-interface VInputType extends /* @vue-ignore */ VInput {}
+interface VTextFieldType extends /* @vue-ignore */ VTextField {}
+interface VSelectType extends /* @vue-ignore */ VSelect {}
 interface Props {
 	inputType?: keyof typeof inputComponents
 	label: string
+	items?: ItemT[]
 }
+type Slots = VTextField['$slots'] & VSelect['$slots']
 
 defineOptions({
 	inheritAttrs: false,
 })
-const props = withDefaults(defineProps<Props & VInputType['$props']>(), {
-	inputType: 'text-field',
-})
+defineSlots<Slots>()
+const props = withDefaults(
+	defineProps<Props & VTextFieldType['$props'] & VSelectType['$props']>(),
+	{
+		inputType: 'text-field',
+	}
+)
 const isFocused = ref(false)
 
 const componentName = computed(() => inputComponents[props.inputType])
 const randomId = computed(() => temporaryUniqueKey())
+
+const slotNames = Object.keys(useSlots()) as (keyof Slots)[]
 </script>
 
 <style lang="scss" scoped></style>

@@ -104,13 +104,13 @@
 import { storeToRefs } from 'pinia'
 import { darken } from 'polished'
 import { mdiCardBulleted } from '@mdi/js'
-import { RankItemModel } from '~/composables/apis/use-rank-list'
 import { TableHeader } from '~/types'
+import { RankListItemModel } from '~/models'
 
 const rankList = useRankList()
 const { items, pending } = storeToRefs(rankList)
 
-const headers: TableHeader<RankItemModel>[] = [
+const headers: TableHeader<RankListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',

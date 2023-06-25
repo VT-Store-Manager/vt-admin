@@ -21,14 +21,14 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { StoreItemModel } from '~/composables/apis/use-store-list'
+import { StoreListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 
 const storeList = useStoreList()
 const { items, pending, totalCount } = storeToRefs(storeList)
 const { updatePage } = storeList
 
-const headers: TableHeader<StoreItemModel>[] = [
+const headers: TableHeader<StoreListItemModel>[] = [
 	{
 		title: 'Name',
 		key: 'name',

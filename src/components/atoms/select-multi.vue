@@ -6,6 +6,7 @@
 				v-model="modelValue"
 				variant="outlined"
 				color="primary"
+				item-disabled="disabled"
 				:items="items"
 				:bg-color="isEmpty(modelValue) || isHovering ? bgColor : 'white'"
 				:base-color="isHovering ? 'primary' : 'black'"
@@ -14,6 +15,16 @@
 				multiple
 				@update:focused="value => (bgColor = value ? 'white' : 'input')"
 			>
+				<template
+					v-for="slot in slotNames"
+					:key="slot"
+					#[slot]="slotAttr"
+				>
+					<slot
+						:name="slot"
+						v-bind="slotAttr"
+					></slot>
+				</template>
 				<template
 					v-if="$slots['prepend-item'] || selectAll"
 					#prepend-item
@@ -34,7 +45,6 @@
 								/>
 							</template>
 						</v-list-item>
-
 						<v-divider class="mt-2" />
 					</template>
 				</template>
@@ -43,12 +53,18 @@
 	</v-hover>
 </template>
 
-<script lang="ts" setup>
+<script
+	lang="ts"
+	setup
+	generic="T extends {title: string; value: string; disabled?: boolean}"
+>
+import type { VSelect } from 'vuetify/components'
 import isEmpty from 'lodash/isEmpty'
+import without from 'lodash/without'
 
 interface Props {
 	selectAll?: boolean
-	items?: (string | number)[]
+	items?: T[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -80,6 +96,10 @@ const toggleSelectAll = () => {
 		modelValue.value = props.items
 	}
 }
+const slotNames = without(
+	Object.keys(useSlots()) as (keyof VSelect['$slots'])[],
+	'prepend-item'
+)
 </script>
 
 <style lang="scss" scoped>

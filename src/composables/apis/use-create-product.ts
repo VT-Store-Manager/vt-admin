@@ -1,33 +1,22 @@
+import { serialize } from 'object-to-formdata'
 import { CreateProductModel } from '~/models'
 
 export const useCreateProduct = definePiniaStore('create-product', () => {
-	const body = reactive<CreateProductModel>({
-		name: '',
-		images: [],
-		category: '',
-		originalPrice: 0,
-		description: '',
-		options: [],
-	})
+	const body = ref<FormData>()
 	const {
 		data: success,
 		pending,
 		error,
 		execute,
-	} = useRequest<boolean>(
-		'/v1/admin/product/create',
-		{
-			method: 'POST',
-			body,
-			transform: input => input.success,
-		},
-		{
-			multipart: true,
-		}
-	)
-	const copyToBody = (payload: CreateProductModel) => {
-		Object.assign(body, payload)
+	} = useRequest<boolean>('/v1/admin/product/create', {
+		method: 'POST',
+		body,
+		transform: input => input.success,
+	})
+	const executePayload = async (payload: CreateProductModel) => {
+		body.value = serialize(payload, { noFilesWithArrayNotation: true })
+		await execute({ dedupe: true })
 	}
 
-	return { success, pending, error, execute, copyToBody }
+	return { success, pending, error, executePayload }
 })

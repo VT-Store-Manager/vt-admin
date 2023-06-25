@@ -7,8 +7,11 @@ export default defineNuxtConfig({
 	imports: {
 		dirs: ['composables/**'],
 	},
+	// typescript: {
+	// 	typeCheck: true,
+	// },
 	build: {
-		transpile: ['vuetify', '@peepi/vuetify-tiptap'],
+		transpile: ['vuetify'],
 	},
 	experimental: {
 		payloadExtraction: false,
