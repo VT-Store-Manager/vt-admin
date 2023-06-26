@@ -65,6 +65,14 @@ body {
 	}
 }
 
+.opacity {
+	@for $i from 0 through 10 {
+		&-#{$i} {
+			opacity: #{$i / 10};
+		}
+	}
+}
+
 .font-weight-semibold {
 	font-weight: 600 !important;
 }
@@ -73,4 +81,8 @@ body {
 	&-cell-img {
 		box-shadow: 0 0 5px #0004 !important;
 	}
+}
+
+.relative {
+	position: relative;
 }

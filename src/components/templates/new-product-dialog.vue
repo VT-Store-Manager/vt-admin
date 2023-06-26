@@ -141,25 +141,6 @@
 			</atom-btn>
 		</template>
 	</molecule-dialog>
-	<teleport to="body">
-		<v-alert
-			v-model="alert"
-			border="start"
-			variant="tonal"
-			closable
-			close-label="Close Alert"
-			color="deep-purple-accent-4"
-			title="Closable Alert"
-		>
-			Aenean imperdiet. Quisque id odio. Cras dapibus. Pellentesque ut neque.
-			Cras dapibus. Vivamus consectetuer hendrerit lacus. Sed mollis, eros et
-			ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a
-			orci. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero,
-			non adipiscing dolor urna a orci. Curabitur blandit mollis lacus.
-			Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet,
-			leo.
-		</v-alert>
-	</teleport>
 </template>
 
 <script setup lang="ts">
@@ -168,7 +149,6 @@ import { useForm, useField } from 'vee-validate'
 import { CreateProductModel, createProductSchema } from '~/models'
 
 const show = defineModel<boolean>('show', { default: false, local: true })
-const alert = ref(false)
 const maxFiles = 6
 
 const { handleSubmit, handleReset } = useForm<CreateProductModel>({
@@ -185,6 +165,7 @@ const options = useField<string[]>('options')
 const productCategorySelect = useProductCategorySelect()
 const productOptionSelect = useProductOptionSelect()
 const createProduct = useCreateProduct()
+const { push } = useAlert()
 
 watch(options.value, () => {
 	productOptionSelect.setSelectedValues(options.value.value)
@@ -193,9 +174,13 @@ watch(options.value, () => {
 const submit = handleSubmit(async values => {
 	await createProduct.executePayload(values)
 	if (createProduct.success) {
-		alert.value = true
 		show.value = false
-		useProductList().refresh()
+		await useProductList().refresh()
+		push({
+			type: 'success',
+			text: 'Create product successfully',
+			duration: 5000,
+		})
 	}
 })
 </script>

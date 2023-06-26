@@ -26,7 +26,7 @@
 							variant="tonal"
 							density="compact"
 							elevation="1"
-							@click="modelValue = false"
+							@click="onClose"
 						/>
 					</div>
 				</v-card-title>
@@ -69,7 +69,15 @@ defineSlots<{
 	headActions?: (props: any) => any
 	actions?: (props: any) => any
 }>()
+const emits = defineEmits<{
+	(e: 'close'): any
+}>()
 const modelValue = defineModel({ local: true, default: false })
+
+const onClose = () => {
+	modelValue.value = false
+	emits('close')
+}
 </script>
 
 <style lang="scss" scoped>
