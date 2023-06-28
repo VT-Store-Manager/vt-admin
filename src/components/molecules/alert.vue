@@ -15,6 +15,7 @@
 				background: 'white',
 				top: '16px',
 				right: '24px',
+				zIndex: 99999,
 			}"
 			@click:close="show = false"
 		>

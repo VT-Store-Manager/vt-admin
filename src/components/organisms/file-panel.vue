@@ -1,5 +1,8 @@
 <template>
-	<v-sheet class="file-panel mt-3">
+	<v-sheet
+		class="file-panel mt-3"
+		:class="{ error }"
+	>
 		<div class="file-control d-flex pa-4 rounded-t-12 bg-grey-lighten-4">
 			<molecule-file-browse
 				v-model="files"
@@ -44,6 +47,7 @@
 <script lang="ts" setup>
 interface Props {
 	maxFiles?: number
+	error?: boolean
 }
 
 defineProps<Props>()
@@ -58,7 +62,19 @@ const onDeleteFile = (index: number) => {
 .file-panel {
 	.file-control,
 	.file-list {
-		border: 1px solid #e0e0e0;
+		border: 1px solid #bdbdbd;
+	}
+	&.error {
+		.file-control {
+			border-top-color: rgb(var(--v-theme-error));
+			border-left-color: rgb(var(--v-theme-error));
+			border-right-color: rgb(var(--v-theme-error));
+		}
+		.file-list {
+			border-left-color: rgb(var(--v-theme-error));
+			border-right-color: rgb(var(--v-theme-error));
+			border-bottom-color: rgb(var(--v-theme-error));
+		}
 	}
 	.file-list {
 		min-height: 54px;

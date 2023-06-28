@@ -15,3 +15,9 @@ export type ResponseType<T> = T extends Record<any, any>
 	: T extends boolean
 	? BooleanResponse
 	: never
+
+export type ErrorType = {
+	statusCode: number
+	error?: string
+	message: string
+}

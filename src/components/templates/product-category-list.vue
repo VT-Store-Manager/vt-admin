@@ -99,6 +99,7 @@ const headers: TableHeader<ProductCategoryListItemModel>[] = [
 		alignCol: 'center',
 		centerHead: true,
 	},
+	// TODO: Enable statistic weekly
 	// {
 	// 	title: 'Sold (week)',
 	// 	key: 'soldOfWeek',

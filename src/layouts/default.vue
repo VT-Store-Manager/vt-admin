@@ -3,7 +3,9 @@
 		<organism-sidebar />
 		<main class="main custom-scrollbar">
 			<organism-header />
-			<div class="page-content flex-grow-1 d-flex flex-column relative">
+			<div
+				class="page-content flex-grow-1 d-flex flex-column relative overflow-hidden"
+			>
 				<slot></slot>
 				<molecule-alert />
 			</div>

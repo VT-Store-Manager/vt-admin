@@ -34,6 +34,20 @@
 					<span>{{ subtitle }}</span>
 				</v-card-subtitle>
 				<v-card-item class="dialog-content py-3 px-8">
+					<v-alert
+						:model-value="showErrorMessage"
+						:text="errorMessage"
+						closable
+						type="error"
+						variant="tonal"
+						border="start"
+						elevation="2"
+						close-icon="fa:fas fa-xmark"
+						density="comfortable"
+						rounded="12px"
+						class="mb-4"
+						@click:close="showErrorMessage = false"
+					/>
 					<slot v-if="$slots.default"></slot>
 					<p v-else>Dialog content</p>
 				</v-card-item>
@@ -46,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+import { AsyncDataRequestStatus } from 'nuxt/dist/app/composables/asyncData'
 import type { VDialog, VCard, VSheet } from 'vuetify/components'
 
 interface VDialogType extends /* @vue-ignore */ VDialog {}
@@ -57,9 +72,11 @@ interface Props {
 	title: string
 	subtitle?: string
 	hideClose?: boolean
+	errorMessage?: string
+	status: AsyncDataRequestStatus
 }
 
-withDefaults(defineProps<VDialogType['$props'] & Props>(), {
+const props = withDefaults(defineProps<VDialogType['$props'] & Props>(), {
 	cardAttrs: () => ({}),
 	sheetAttrs: () => ({}),
 	hideClose: false,
@@ -73,6 +90,16 @@ const emits = defineEmits<{
 	(e: 'close'): any
 }>()
 const modelValue = defineModel({ local: true, default: false })
+const showErrorMessage = ref(false)
+
+watch(
+	() => props.status,
+	value => {
+		if (value === 'error') {
+			showErrorMessage.value = true
+		}
+	}
+)
 
 const onClose = () => {
 	modelValue.value = false

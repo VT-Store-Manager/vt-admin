@@ -8,6 +8,8 @@
 		}"
 		title="New product"
 		persistent
+		:error-message="createProduct.error?.data?.message"
+		:status="createProduct.status"
 	>
 		<template #headActions>
 			<atom-btn
@@ -117,34 +119,16 @@
 			</v-col>
 		</v-row>
 		<template #actions>
-			<atom-btn
-				class="text-capitalize font-weight-semibold ml-4 px-3"
-				min-width="50"
-				variant="tonal"
-				elevation="1"
-			>
-				Keep & close
-			</atom-btn>
-			<atom-btn
-				class="text-capitalize font-weight-bold ml-4"
-				min-width="100"
-				color="primary"
-				variant="elevated"
-				flat
-				elevation="1"
-				:prepend-icon="mdiContentSave"
-				:loading="createProduct.pending"
-				:disabled="createProduct.pending"
+			<molecule-btn-keep-and-close />
+			<molecule-btn-save-dialog
+				:loading="createProduct.status === 'pending'"
 				@click="submit"
-			>
-				Save
-			</atom-btn>
+			/>
 		</template>
 	</molecule-dialog>
 </template>
 
 <script setup lang="ts">
-import { mdiContentSave } from '@mdi/js'
 import { useForm, useField } from 'vee-validate'
 import { CreateProductModel, createProductSchema } from '~/models'
 

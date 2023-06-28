@@ -20,7 +20,7 @@ import { mdiPlusThick } from '@mdi/js'
 .btn-create {
 	:deep(.v-btn__content) {
 		line-height: 1.25;
-		font-weight: 600;
+		font-weight: bold;
 		font-size: 0.8125rem;
 	}
 	.icon {

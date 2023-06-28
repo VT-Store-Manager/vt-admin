@@ -1,7 +1,8 @@
 import omitBy from 'lodash/omitBy'
 import { UseFetchOptions } from 'nuxt/app'
+import { FetchError } from 'ofetch'
 import { AUTH_TOKEN_KEY } from '~/constants'
-import { ResponseType } from '~/types'
+import { ErrorType, ResponseType } from '~/types'
 
 type ExtraRequestOptions = {
 	multipart?: boolean
@@ -32,7 +33,7 @@ export default function <
 		  }
 		: {}
 
-	return useFetch(url, {
+	return useFetch<ResT, FetchError<ErrorType>, any, any, ResT, DataT>(url, {
 		baseURL,
 		headers,
 		onRequest({ options }) {

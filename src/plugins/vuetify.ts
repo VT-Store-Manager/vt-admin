@@ -119,6 +119,11 @@ export default defineNuxtPlugin(nuxtApp => {
 				dark: darkTheme,
 			},
 		},
+		defaults: {
+			VBtn: {
+				style: 'text-transform: none;',
+			},
+		},
 	})
 	nuxtApp.vueApp.use(vuetify)
 	nuxtApp.vueApp.component('font-awesome-icon', FontAwesomeIcon)

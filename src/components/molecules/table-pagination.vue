@@ -13,7 +13,7 @@
 			/>
 			<div class="pagination-adjust d-flex align-center">
 				<span>Amount:</span>
-				<v-combobox
+				<v-select
 					v-model="maxPerPage"
 					density="compact"
 					:items="maxPerPageOptions"
