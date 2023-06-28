@@ -25,7 +25,7 @@
 		>
 			<v-img
 				class="default-image-placeholder"
-				src="/img/logo/gray.png"
+				src="/img/logo/grey.svg"
 				cover
 			/>
 		</template>

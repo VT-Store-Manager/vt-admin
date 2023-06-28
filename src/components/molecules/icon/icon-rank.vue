@@ -6,7 +6,7 @@
 			height="20"
 			max-width="20"
 			server-img
-			placeholder="/img/logo/transparent-grey.png"
+			placeholder="/img/logo/grey-transparent.svg"
 			class="mr-1"
 		/>
 		<p

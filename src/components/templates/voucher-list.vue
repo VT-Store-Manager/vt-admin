@@ -67,7 +67,7 @@
 				class="d-flex align-center justify-center"
 			>
 				<atom-img
-					src="/img/logo/original.png"
+					src="/img/logo/original.svg"
 					max-width="35"
 					aspect-ratio="1/1"
 					cover
