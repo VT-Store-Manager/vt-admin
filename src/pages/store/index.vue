@@ -9,7 +9,7 @@
 				title="Refresh data"
 				@click="refresh"
 			/>
-			<molecule-btn-create @click="$router.push('/store/create')">
+			<molecule-btn-create @click="showCreateDialog = true">
 				New
 			</molecule-btn-create>
 			<molecule-btn-list-type-group
@@ -18,6 +18,7 @@
 			/>
 		</template>
 		<template-store-list v-if="displayType === 'list'" />
+		<template-new-store-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 
@@ -29,6 +30,7 @@ const storeList = useStoreList()
 const { totalCount } = storeToRefs(storeList)
 const { refresh, pushQuery } = storeList
 const displayType = ref<ListDisplay>('list')
+const showCreateDialog = ref(false)
 
 pushQuery()
 </script>

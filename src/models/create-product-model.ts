@@ -2,7 +2,7 @@ import { array, mixed, number, object, string } from 'yup'
 
 export type CreateProductModel = {
 	name: string
-	images: (File | Blob)[]
+	images: File[]
 	category: string
 	originalPrice: number
 	description: string

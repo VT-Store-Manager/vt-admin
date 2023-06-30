@@ -10,6 +10,12 @@
 			"
 		>
 			{{ label }}
+			<span
+				v-if="!optional"
+				class="text-red"
+			>
+				*
+			</span>
 		</label>
 		<component
 			:is="componentName"
@@ -50,6 +56,7 @@ interface Props {
 	inputType?: keyof typeof inputComponents
 	label: string
 	items?: ItemT[]
+	optional?: boolean
 }
 type Slots = VTextField['$slots'] & VSelect['$slots']
 
@@ -61,6 +68,7 @@ const props = withDefaults(
 	defineProps<Props & VTextFieldType['$props'] & VSelectType['$props']>(),
 	{
 		inputType: 'text-field',
+		optional: false,
 	}
 )
 const isFocused = ref(false)

@@ -71,8 +71,8 @@
 						<v-row>
 							<v-col cols="7">
 								<molecule-input
-									v-model="name"
-									:error-messages="errorMessage"
+									v-model="name.value.value"
+									:error-messages="name.errorMessage.value"
 									input-type="text-field"
 									label="Product name"
 								/>
@@ -133,13 +133,13 @@ import { useForm, useField } from 'vee-validate'
 import { CreateProductModel, createProductSchema } from '~/models'
 
 const show = defineModel<boolean>('show', { default: false, local: true })
-const maxFiles = 6
+const maxFiles = 4
 
 const { handleSubmit, handleReset } = useForm<CreateProductModel>({
 	validationSchema: createProductSchema,
 })
 
-const { value: name, errorMessage } = useField<string>('name')
+const name = useField<string>('name')
 const images = useField<File[]>('images')
 const category = useField<string>('category')
 const description = useField<string>('description')

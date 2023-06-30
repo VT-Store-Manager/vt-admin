@@ -4,7 +4,7 @@
 		:class="{ error }"
 	>
 		<div class="file-control d-flex pa-4 rounded-t-12 bg-grey-lighten-4">
-			<molecule-file-browse
+			<molecule-input-file-browse
 				v-model="files"
 				:btn-attrs="{
 					color: 'primary',
