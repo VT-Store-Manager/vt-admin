@@ -18,6 +18,7 @@
 			/>
 		</template>
 		<template-store-list v-if="displayType === 'list'" />
+		<template-store-grid v-else-if="displayType === 'grid'" />
 		<template-new-store-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>

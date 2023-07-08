@@ -54,6 +54,47 @@
 				</template>
 			</v-hover>
 		</template>
+		<template #options="{ item }">
+			<div class="d-flex">
+				<p class="text-16px">
+					{{ item.options.length }} option{{
+						item.options.length > 1 ? 's' : ''
+					}}
+					<v-tooltip
+						activator="parent"
+						:open-delay="300"
+					>
+						<div class="d-flex">
+							<div class="option-name">
+								<p
+									v-for="option in item.options"
+									:key="option.id"
+								>
+									{{ option.name }}{{ option.range[0] > 0 ? ' *' : '' }}
+								</p>
+							</div>
+							<div class="separate mx-2">
+								<p
+									v-for="n in item.options.length"
+									:key="n"
+								>
+									-
+								</p>
+							</div>
+							<div class="option-item">
+								<p
+									v-for="option in item.options"
+									:key="option.id"
+									class="text-right"
+								>
+									{{ option.items }} item{{ option.items > 1 ? 's' : '' }}
+								</p>
+							</div>
+						</div>
+					</v-tooltip>
+				</p>
+			</div>
+		</template>
 		<template #status="{ item }">
 			<molecule-status-chip
 				:status="item.status"
@@ -78,38 +119,49 @@ import { ProductListItemModel } from '~/models'
 const productList = useProductList()
 const { items, totalProduct, pending, pagination } = storeToRefs(productList)
 const { updatePage } = productList
+const { collapse } = storeToRefs(useSidebar())
 
-const headers: TableHeader<ProductListItemModel>[] = [
-	{
-		title: 'Name',
-		key: 'name',
-		sortable: true,
-		width: 280,
-	},
-	{
-		title: 'Category',
-		key: 'category',
-		sortable: true,
-	},
-	{
-		title: 'Price',
-		key: 'originalPrice',
-		sortable: true,
-		calculate: (value: number) =>
-			value.toLocaleString().replace(/,/, '.') + ' đ',
-	},
-	{
-		title: 'Status',
-		key: 'status',
-		sortable: true,
-	},
-	{
-		title: 'Last updated',
-		key: 'updatedAt',
-		sortable: true,
-		centerHead: true,
-		calculate: (value: number) => moment(new Date(value)).fromNow(),
-		default: Date.now(),
-	},
-]
+const headers = computed<TableHeader<ProductListItemModel>[]>(() => {
+	return [
+		{
+			title: 'Name',
+			key: 'name',
+			sortable: true,
+			width: 280,
+		},
+		{
+			title: 'Category',
+			key: 'category',
+			sortable: true,
+		},
+		{
+			title: 'Price',
+			key: 'originalPrice',
+			sortable: true,
+			calculate: (value: number) =>
+				value.toLocaleString().replace(/,/, '.') + ' đ',
+		},
+		...(collapse.value === 1
+			? [
+					{
+						title: 'Options',
+						key: 'options',
+					},
+			  ]
+			: []),
+		{
+			title: 'Status',
+			key: 'status',
+			sortable: true,
+		},
+		{
+			title: 'Last updated',
+			key: 'updatedAt',
+			sortable: true,
+			centerHead: true,
+			calculate: (value: number) => moment(new Date(value)).fromNow(),
+			default: Date.now(),
+		},
+	]
+})
 </script>

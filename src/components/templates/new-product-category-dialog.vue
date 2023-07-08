@@ -79,10 +79,6 @@ const submit = handleSubmit(async values => {
 		})
 	}
 })
-
-watch(image.value, () => {
-	console.log(image.value.value)
-})
 </script>
 
 <style scoped lang="scss"></style>

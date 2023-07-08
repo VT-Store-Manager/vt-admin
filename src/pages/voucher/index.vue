@@ -9,11 +9,18 @@
 				title="Refresh data"
 				@click="refresh"
 			/>
+			<atom-btn
+				class="mr-3"
+				@click="showPublishDialog = true"
+			>
+				Publish
+			</atom-btn>
 			<molecule-btn-create @click="$router.push('/voucher/create')">
 				New
 			</molecule-btn-create>
 		</template>
 		<template-voucher-list />
+		<template-publish-voucher-dialog v-model:show="showPublishDialog" />
 	</molecule-list-page-container>
 </template>
 
@@ -23,6 +30,7 @@ import { storeToRefs } from 'pinia'
 const voucherList = useVoucherList()
 const { totalCount } = storeToRefs(voucherList)
 const { refresh, pushQuery } = voucherList
+const showPublishDialog = ref(false)
 
 pushQuery()
 </script>

@@ -51,7 +51,10 @@
 					<slot v-if="$slots.default"></slot>
 					<p v-else>Dialog content</p>
 				</v-card-item>
-				<v-card-actions class="d-flex justify-end pt-3 px-6 pb-5">
+				<v-card-actions
+					v-if="$slots['actions']"
+					class="d-flex justify-end pt-3 px-6 pb-5"
+				>
 					<slot name="actions"></slot>
 				</v-card-actions>
 			</atom-card>

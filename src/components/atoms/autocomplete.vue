@@ -10,17 +10,34 @@
 				class="text-field"
 				rounded="12"
 				@update:focused="value => (bgColor = value ? 'white' : 'input')"
-			/>
+			>
+				<template
+					v-for="slot in slotNames"
+					:key="slot"
+					#[slot]="slotAttr"
+				>
+					<slot
+						:name="slot"
+						v-bind="slotAttr"
+					></slot>
+				</template>
+			</v-autocomplete>
 		</template>
 	</v-hover>
 </template>
 
 <script lang="ts" setup>
+import type { VAutocomplete } from 'vuetify/components'
+
+type Slots = VAutocomplete['$slots']
+
 defineOptions({
 	inheritAttrs: false,
 })
 
 const bgColor = ref('input')
+
+const slotNames = Object.keys(useSlots()) as (keyof Slots)[]
 </script>
 
 <style lang="scss" scoped>

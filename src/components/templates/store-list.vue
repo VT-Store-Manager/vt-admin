@@ -7,19 +7,54 @@
 		editable
 		:update-page-fn="updatePage"
 	>
+		<template #name="{ item }">
+			<v-hover>
+				<template #default="{ isHovering: hoveringName, props: nameProps }">
+					<atom-link
+						:to="'/product/' + item.id"
+						class="d-flex align-center py-2"
+						v-bind="nameProps"
+					>
+						<atom-img
+							class="mr-4 rounded small-img-shadow"
+							:src="item.images[0]"
+							:alt-src="item.images.slice(1)"
+							height="50"
+							max-width="75"
+							aspect-ratio="1/1"
+							:class="{ 'hover-blur': hoveringName }"
+							server-img
+							cover
+							server-alt-img
+							placeholder="progress"
+						/>
+						<span
+							class="ellipsis-2 text-16px font-weight-medium transition-color"
+							:class="{ 'text-primary': hoveringName }"
+						>
+							{{ item.name }}
+						</span>
+					</atom-link>
+				</template>
+			</v-hover>
+		</template>
 		<template #status="{ item }">
-			<v-chip
-				size="small"
-				variant="elevated"
-				:color="getStatusColor(item.disabled, item.deleted)"
-			>
-				{{ getStatusText(item.disabled, item.deleted) }}
-			</v-chip>
+			<molecule-status-chip
+				:status="item.status"
+				class="text-14px font-weight-semibold"
+			/>
+		</template>
+		<template #updatedAt="{ item }">
+			<molecule-date-from-now
+				:date="item.updatedAt"
+				class="text-center text-16px"
+			/>
 		</template>
 	</organism-data-table>
 </template>
 
 <script lang="ts" setup>
+import moment from 'moment'
 import { storeToRefs } from 'pinia'
 import { StoreListItemModel } from '~/models'
 import { TableHeader } from '~/types'
@@ -39,9 +74,12 @@ const headers: TableHeader<StoreListItemModel>[] = [
 		key: 'status',
 	},
 	{
-		title: 'Last update',
+		title: 'Last updated',
 		key: 'updatedAt',
 		sortable: true,
+		centerHead: true,
+		calculate: (value: number) => moment(new Date(value)).fromNow(),
+		default: Date.now(),
 	},
 ]
 

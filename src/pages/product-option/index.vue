@@ -1,45 +1,36 @@
 <template>
-	<template-page-container page-name="Product option">
+	<molecule-list-page-container page-name="Product options">
 		<template #subtitle>
-			<p>{{ productOption.dataLen }} options</p>
+			<p>{{ totalCount || '--' }} option{{ totalCount > 1 ? 's' : '' }}</p>
 		</template>
 		<template #title-right>
-			<base-progress-circular
-				v-show="productOption.loading"
-				:class="{ done: !productOption.loading }"
-			/>
-			<button-refresh
+			<molecule-btn-refresh
 				class="mr-3"
 				title="Refresh data"
-				@click="refreshData"
+				@click="refresh"
 			/>
-			<button-create @click="showCreateModal = true">
-				New option
-			</button-create>
-			<product-option-create-modal
-				:show="showCreateModal"
-				@created="refreshData"
-				@close-modal="showCreateModal = false"
-			/>
+			<atom-btn
+				class="mr-3"
+				@click="showChildOptions = !showChildOptions"
+			>
+				{{ showChildOptions ? 'Hide' : 'Show' }} child
+			</atom-btn>
+			<molecule-btn-create @click="showCreateDialog = true">
+				New
+			</molecule-btn-create>
 		</template>
-		<product-option-page-container v-show="!firstLoad" />
-	</template-page-container>
+		<template-product-option-list :hide-child="showChildOptions" />
+		<template-new-product-dialog v-model:show="showCreateDialog" />
+	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
-const productOption = useProductOption()
+import { storeToRefs } from 'pinia'
 
-const showCreateModal = ref(false)
-const firstLoad = ref(true)
-
-const refreshData = () => productOption.fetch()
-
-refreshData()
-
-watch(
-	() => productOption.loading,
-	() => {
-		if (!productOption.loading && firstLoad.value) firstLoad.value = false
-	}
-)
+const productOptionList = useProductOptionList()
+const { totalCount } = storeToRefs(productOptionList)
+const { refresh, pushQuery } = productOptionList
+const showCreateDialog = ref(false)
+const showChildOptions = ref(false)
+pushQuery()
 </script>

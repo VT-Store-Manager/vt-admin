@@ -17,10 +17,11 @@
 						v-bind="nameProps"
 					>
 						<atom-img
-							class="mr-4 rounded small-img-shadow"
+							class="mr-4 my-2 rounded small-img-shadow"
 							:src="item.image"
-							height="40"
-							:max-width="40"
+							height="60"
+							:max-width="60"
+							:aspect-ratio="1"
 							cover
 							:class="{ 'hover-blur': hoveringName }"
 							server-img

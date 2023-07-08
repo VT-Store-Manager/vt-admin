@@ -6,6 +6,7 @@
 		:icon="mdiRefresh"
 		:disabled="isDisabled || loading"
 		:loading="loading"
+		variant="tonal"
 		v-bind="$attrs"
 		@click="onClick()"
 	/>

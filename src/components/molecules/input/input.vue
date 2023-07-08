@@ -17,6 +17,7 @@
 				*
 			</span>
 		</label>
+
 		<component
 			:is="componentName"
 			v-bind="$attrs"
@@ -40,7 +41,7 @@
 </template>
 
 <script lang="ts" setup generic="ItemT = any">
-import type { VTextField, VSelect } from 'vuetify/components'
+import type { VTextField, VSelect, VAutocomplete } from 'vuetify/components'
 
 const inputComponents = {
 	'text-field': resolveComponent('atom-text-field'),
@@ -58,7 +59,7 @@ interface Props {
 	items?: ItemT[]
 	optional?: boolean
 }
-type Slots = VTextField['$slots'] & VSelect['$slots']
+type Slots = VTextField['$slots'] & VSelect['$slots'] & VAutocomplete['$slots']
 
 defineOptions({
 	inheritAttrs: false,

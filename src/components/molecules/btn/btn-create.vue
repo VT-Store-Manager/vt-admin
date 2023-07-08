@@ -1,6 +1,6 @@
 <template>
 	<atom-btn
-		v-bind="{ color: 'primary', ...$attrs }"
+		v-bind="{ ...$attrs }"
 		class="btn-create font-weight-medium"
 		color="primary"
 	>

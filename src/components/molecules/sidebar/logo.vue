@@ -13,7 +13,7 @@
 			v-if="!sidebar.collapse || sidebarHovering"
 			class="text-primary text-uppercase font-weight-black"
 		>
-			<strong>Vuetify</strong>
+			<strong>Chillin' Admin</strong>
 		</span>
 	</atom-link>
 </template>

@@ -102,7 +102,7 @@
 									:error-messages="originalPrice.errorMessage.value"
 									input-type="number-field"
 									label="Product price"
-									suffix="VND"
+									suffix="đ"
 									type="number"
 									step="1000"
 								/>

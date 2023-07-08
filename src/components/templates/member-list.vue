@@ -99,7 +99,6 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { TableHeader } from '~/types'
-import { Gender } from '~/constants'
 import { MemberListItemModel } from '~/models'
 
 const memberList = useMemberList()
@@ -132,16 +131,5 @@ const headers: TableHeader<MemberListItemModel>[] = [
 
 const totalPoint = (rank: MemberListItemModel['rank']) => {
 	return rank.currentPoint + rank.expiredPoint + rank.usedPoint
-}
-const getAvatarDefaultUrl = (gender: keyof typeof Gender) => {
-	switch (gender) {
-		case 1:
-			return '/img/default/avatar-female.svg'
-		case 2:
-			return '/img/default/avatar-male.svg'
-		case 0:
-		default:
-			return '/img/default/avatar-male.svg'
-	}
 }
 </script>

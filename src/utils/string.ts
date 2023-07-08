@@ -1,5 +1,6 @@
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
+import { Gender } from '~/constants'
 
 export const variableCaseToText = (key: string) => {
 	const result = key.replace(/([A-Z])/g, ' $1')
@@ -37,4 +38,16 @@ export const readableFileSize = (bytes: number, decimalDigit = 2) => {
 		Math.pow(10, decimalDigit)
 
 	return `${formattedSize} ${units[exponent]}`
+}
+
+export const getAvatarDefaultUrl = (gender: keyof typeof Gender) => {
+	switch (gender) {
+		case 1:
+			return '/img/default/avatar-female.svg'
+		case 2:
+			return '/img/default/avatar-male.svg'
+		case 0:
+		default:
+			return '/img/default/avatar-male.svg'
+	}
 }

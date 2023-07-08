@@ -10,6 +10,14 @@ export interface ProductListItemModel {
 		name: string
 		code: number
 	}
+	options: {
+		id: string
+		name: string
+		range: [number, number]
+		items: number
+		disabled: boolean
+		deleted: boolean
+	}
 	updatedAt: string
 	id: string
 	status: Status

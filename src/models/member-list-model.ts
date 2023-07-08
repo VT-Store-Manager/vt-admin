@@ -1,6 +1,7 @@
 import { Gender } from '~/constants'
 
 export interface MemberRankItemModel {
+	id: string
 	name: string
 	rank: number
 	appearance: {
