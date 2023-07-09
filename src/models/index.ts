@@ -1,5 +1,6 @@
 export * from './create-product-model'
 export * from './member-list-model'
+export * from './order-history-model'
 export * from './pagination-data-model'
 export * from './product-category-list-model'
 export * from './product-category-select-model'

@@ -47,6 +47,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
 	dateFormat: 'YYYY-MM-DD',
+	timeFormat: 'kk:mm:ss',
 	fontSize: 14,
 })
 </script>

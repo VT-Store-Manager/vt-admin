@@ -8,6 +8,38 @@
 		:update-page-fn="updatePage"
 		editable
 	>
+		<template #name="{ item }">
+			<v-hover>
+				<template #default="{ isHovering: hoveringName, props: nameProps }">
+					<atom-link
+						:to="'/product-category/' + item.id"
+						class="d-flex align-center"
+						v-bind="nameProps"
+					>
+						<atom-img
+							class="mr-4 my-2 rounded small-img-shadow"
+							:src="item.image"
+							height="60"
+							:max-width="60"
+							:aspect-ratio="1"
+							cover
+							:class="{ 'hover-blur': hoveringName }"
+							server-img
+							:style="{ width: '40px' }"
+							placeholder="progress"
+						/>
+						<div class="d-flex flex-column justify-center py-1">
+							<span
+								class="ellipsis-2"
+								:class="{ 'text-primary-darken': hoveringName }"
+							>
+								{{ item.voucher.title }}
+							</span>
+						</div>
+					</atom-link>
+				</template>
+			</v-hover>
+		</template>
 		<template #cost="{ item }">
 			<p>
 				{{ item.cost }}

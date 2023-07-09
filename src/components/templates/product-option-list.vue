@@ -17,9 +17,12 @@
 					class="ml-2"
 					size="small"
 				>
-					child
+					sub-option
 				</v-chip>
 			</div>
+		</template>
+		<template #subOption="{ item }">
+			{{ subOptionMap.get(item.id)?.length || 0 }} subs
 		</template>
 		<template #items="{ item: option }">
 			<div class="d-flex">
@@ -49,64 +52,12 @@
 				</p>
 			</div>
 		</template>
-		<!-- <template #name="{ item }">
-			<v-hover>
-				<template #default="{ isHovering: hoveringName, props: nameProps }">
-					<atom-link
-						:to="'/product/' + item.id"
-						class="d-flex align-center py-2"
-						v-bind="nameProps"
-					>
-						<atom-img
-							class="mr-4 rounded small-img-shadow"
-							:src="item.images[0]"
-							:alt-src="item.images.slice(1)"
-							height="40"
-							max-width="40"
-							aspect-ratio="1/1"
-							:class="{ 'hover-blur': hoveringName }"
-							server-img
-							server-alt-img
-							lazy-src="/img/default/product.png"
-						/>
-						<span
-							class="ellipsis-2 text-16px font-weight-medium transition-color"
-							:class="{ 'text-primary': hoveringName }"
-						>
-							{{ item.name }}
-						</span>
-					</atom-link>
-				</template>
-			</v-hover>
-		</template> -->
-		<!-- <template #category="{ item }">
-			<v-hover>
-				<template
-					#default="{ isHovering: hoveringCategory, props: categoryProps }"
-				>
-					<atom-link
-						:to="'/product-category/' + item.category.id"
-						v-bind="categoryProps"
-						class="ellipsis-2 text-16px font-weight-medium transition-color d-block py-2"
-						:class="{ 'text-primary': hoveringCategory }"
-					>
-						{{ item.category.name }}
-					</atom-link>
-				</template>
-			</v-hover>
-		</template> -->
 		<template #status="{ item }">
 			<molecule-status-chip
 				:status="item.status"
 				class="text-14px font-weight-semibold"
 			/>
 		</template>
-		<!-- <template #updatedAt="{ item }">
-			<molecule-date-from-now
-				:date="item.updatedAt"
-				class="text-center text-16px"
-			/>
-		</template> -->
 	</organism-data-table>
 </template>
 
@@ -120,18 +71,26 @@ interface Props {
 	hideChild: boolean
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const productOptionList = useProductOptionList()
-const { items, totalCount, pending, pagination, parentOptions } =
+const { items, totalCount, pending, pagination, parentOptions, subOptionMap } =
 	storeToRefs(productOptionList)
 const { updatePage } = productOptionList
 
-const headers: TableHeader<ProductOptionListItemModel>[] = [
+const headers = computed<TableHeader<ProductOptionListItemModel>[]>(() => [
 	{
 		title: 'Name',
 		key: 'name',
 		sortable: true,
 	},
+	...(props.hideChild
+		? [
+				{
+					title: 'Sub-options',
+					key: 'subOption',
+				},
+		  ]
+		: []),
 	{
 		title: 'Items',
 		key: 'items',
@@ -146,5 +105,5 @@ const headers: TableHeader<ProductOptionListItemModel>[] = [
 		key: 'status',
 		sortable: true,
 	},
-]
+])
 </script>

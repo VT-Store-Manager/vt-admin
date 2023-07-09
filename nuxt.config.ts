@@ -77,6 +77,9 @@ export default defineNuxtConfig({
 			},
 		},
 		display: 'fallback',
+		preconnect: true,
+		preload: true,
+		download: false,
 	},
 	pinia: {
 		autoImports: ['defineStore', ['defineStore', 'definePiniaStore']],

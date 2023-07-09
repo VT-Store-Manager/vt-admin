@@ -30,6 +30,15 @@ export const useProductOptionList = definePiniaStore(
 			return items.value.filter(item => !item.parent)
 		})
 
+		const subOptionMap = computed(() => {
+			return new Map(
+				parentOptions.value.map(option => [
+					option.id,
+					items.value.filter(sub => sub.parent === option.id),
+				])
+			)
+		})
+
 		return {
 			pagination,
 			items,
@@ -38,6 +47,7 @@ export const useProductOptionList = definePiniaStore(
 			error,
 			optionMap,
 			parentOptions,
+			subOptionMap,
 			refresh,
 			updatePage,
 			resetQuery,

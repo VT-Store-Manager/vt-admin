@@ -26,11 +26,14 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
+import { SHOW_SUB_OPTION_LIST } from '~/constants'
 
 const productOptionList = useProductOptionList()
 const { totalCount } = storeToRefs(productOptionList)
 const { refresh, pushQuery } = productOptionList
 const showCreateDialog = ref(false)
-const showChildOptions = ref(false)
+const showChildOptions = useCookie<boolean>(SHOW_SUB_OPTION_LIST, {
+	watch: 'shallow',
+})
 pushQuery()
 </script>

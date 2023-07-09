@@ -17,21 +17,24 @@
 				@update-type="(type: ListDisplay) => (displayType = type)"
 			/>
 		</template>
-		<template-store-list v-if="displayType === 'list'" />
-		<template-store-grid v-else-if="displayType === 'grid'" />
+		<template-store-grid v-if="displayType === 'grid'" />
+		<template-store-list v-else />
 		<template-new-store-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
+import { STORE_DISPLAY_KEY } from '~/constants'
 import { ListDisplay } from '~/types'
 
 const storeList = useStoreList()
 const { totalCount } = storeToRefs(storeList)
 const { refresh, pushQuery } = storeList
-const displayType = ref<ListDisplay>('list')
 const showCreateDialog = ref(false)
+const displayType = useCookie<ListDisplay>(STORE_DISPLAY_KEY, {
+	watch: 'shallow',
+})
 
 pushQuery()
 </script>

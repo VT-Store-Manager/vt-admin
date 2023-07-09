@@ -89,7 +89,6 @@
 		<template #createdAt="{ item }">
 			<atom-date-cell
 				:date="item.createdAt"
-				time-format="hh:mm:ss"
 				font-size="16"
 			/>
 		</template>
