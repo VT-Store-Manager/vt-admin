@@ -10,7 +10,7 @@ export const useProductList = definePiniaStore('product-list', () => {
 
 	const { data, pending, error, refresh } = useRequest<
 		PaginationDataModel<ProductListItemModel>
-	>('/v1/admin/product/list', {
+	>('/product/list', {
 		query,
 		transform: input => input.data,
 		watch: [pagination],

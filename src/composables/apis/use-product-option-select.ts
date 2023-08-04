@@ -5,7 +5,7 @@ export const useProductOptionSelect = definePiniaStore(
 	() => {
 		const { data, pending, error, refresh } = useRequest<
 			ProductOptionSelectModel[]
-		>('/v1/admin/product-option/select-list', {
+		>('/product-option/select-list', {
 			transform: input => input.data,
 		})
 

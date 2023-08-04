@@ -1,39 +1,40 @@
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
+
 import { createVuetify, ThemeDefinition } from 'vuetify'
 import * as components from 'vuetify/components'
-import * as labComponents from 'vuetify/labs/components'
 import * as directives from 'vuetify/directives'
-import { aliases as mdiAliases, mdi } from 'vuetify/iconsets/mdi-svg'
 import { fa } from 'vuetify/iconsets/fa-svg'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { aliases as mdiAliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import * as labComponents from 'vuetify/labs/components'
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {
-	faPlus,
-	faCaretLeft,
-	faCaretRight,
-	faCirclePlus,
-	faCircleMinus,
-	faRotateRight,
-	faArrowLeft,
-	faXmark,
-	faTruckFast,
-	faMars,
-	faVenus,
-	faMarsAndVenus,
-	faMoneyCheck,
-	faUser,
-	faCheckCircle,
-	faCircleXmark,
-} from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import {
 	faEye,
-	faPenToSquare,
-	faTrashCan,
 	faMoon,
+	faPenToSquare,
 	faSun,
+	faTrashCan,
 } from '@fortawesome/free-regular-svg-icons'
+import {
+	faArrowLeft,
+	faCaretLeft,
+	faCaretRight,
+	faCheckCircle,
+	faCircleMinus,
+	faCirclePlus,
+	faCircleXmark,
+	faMars,
+	faMarsAndVenus,
+	faMoneyCheck,
+	faPlus,
+	faRotateRight,
+	faTruckFast,
+	faUser,
+	faVenus,
+	faXmark,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
 	faPlus,
@@ -90,7 +91,7 @@ const darkTheme: ThemeDefinition = {
 		background: '#272121',
 		surface: '#363333',
 		danger: '#f44336',
-		warning: '#ffa726',
+		warning: '#d98100',
 		info: '#29b6f6',
 		success: '#66bb6a',
 	},

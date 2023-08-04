@@ -48,7 +48,7 @@ const inputComponents = {
 	'number-field': resolveComponent('atom-number-field'),
 	autocomplete: resolveComponent('atom-autocomplete'),
 	textarea: resolveComponent('atom-textarea'),
-	'select-multi': resolveComponent('atom-select-multi'),
+	select: resolveComponent('atom-select'),
 }
 
 interface VTextFieldType extends /* @vue-ignore */ VTextField {}

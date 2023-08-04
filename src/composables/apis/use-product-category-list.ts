@@ -12,7 +12,7 @@ export const useProductCategoryList = definePiniaStore(
 
 		const { data, pending, error, refresh } = useRequest<
 			PaginationDataModel<ProductCategoryListItemModel>
-		>('/v1/admin/product-category/list', {
+		>('/product-category/list', {
 			query,
 			transform: input => input.data,
 			watch: [query],

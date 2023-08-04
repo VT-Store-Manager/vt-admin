@@ -10,7 +10,7 @@ export const usePromotionList = definePiniaStore('promotion-list', () => {
 
 	const { data, pending, error, refresh } = useRequest<
 		PaginationDataModel<PromotionListItemModel>
-	>('/v1/admin/promotion/list', {
+	>('/promotion/list', {
 		method: 'GET',
 		query,
 		transform: input => input.data,

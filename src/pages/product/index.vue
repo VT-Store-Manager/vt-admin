@@ -1,16 +1,16 @@
 <template>
-	<molecule-list-page-container page-name="Products">
+	<molecule-list-page-container page-name="Danh sách sản phẩm">
 		<template #subtitle>
-			<p>{{ totalProduct || '--' }} products</p>
+			<p>{{ totalProduct || '--' }} sản phẩm</p>
 		</template>
 		<template #title-right>
 			<molecule-btn-refresh
 				class="mr-3"
-				title="Refresh data"
+				title="Làm mới"
 				@click="refresh"
 			/>
 			<molecule-btn-create @click="showCreateDialog = true">
-				New
+				Tạo mới
 			</molecule-btn-create>
 		</template>
 		<template-product-list />

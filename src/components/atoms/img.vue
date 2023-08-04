@@ -74,7 +74,8 @@ const props = withDefaults(defineProps<VImgType['$props'] & Props>(), {
 defineSlots<{
 	placeholder?: (props: {}) => any
 }>()
-const serverImgUrl = useRuntimeConfig().public.imgResourceUrl
+const serverImgUrl =
+	useRuntimeConfig().public.apiBase + config.api.filePrefix + '/'
 
 const formattedSrc = computed(() => {
 	return props.serverImg ? serverImgUrl + props.src : props.src

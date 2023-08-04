@@ -17,7 +17,7 @@ export default function <
 	options?: UseFetchOptions<ResT, DataT>,
 	extraOptions?: ExtraRequestOptions
 ) {
-	const baseURL = useRuntimeConfig().public.apiBase
+	const baseURL = useRuntimeConfig().public.apiBase + config.api.prefix
 	const headers = extraOptions
 		? {
 				...(extraOptions.bearerToken

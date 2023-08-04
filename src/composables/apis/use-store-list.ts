@@ -10,7 +10,7 @@ export const useStoreList = definePiniaStore('store-list', () => {
 
 	const { data, pending, error, refresh } = useRequest<
 		PaginationDataModel<StoreListItemModel>
-	>('/v1/admin/store/list', {
+	>('/store/list', {
 		query,
 		transform: input => input.data,
 		watch: [query],

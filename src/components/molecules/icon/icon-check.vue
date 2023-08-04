@@ -8,7 +8,7 @@
 	<v-icon
 		v-else
 		icon="fa:fas fa-circle-xmark"
-		color="red-darken-2"
+		color="grey-lighten-1"
 		:class="{ 'd-none': hideFalse }"
 		v-bind="$attrs"
 	/>

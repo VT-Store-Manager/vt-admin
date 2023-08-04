@@ -2,13 +2,14 @@
 	<molecule-input
 		v-model="modelValue"
 		:error-messages="errorMessages"
-		input-type="select-multi"
+		input-type="select"
 		label="Product options"
 		:items="selectDataList"
 		:loading="pending"
 		chips
 		closable-chips
 		clearable
+		multiple
 	>
 		<template #item="{ item }">
 			<v-checkbox-btn

@@ -63,7 +63,7 @@
 								class="font-weight-bold prevent-event justify-end"
 								color="dark-grey"
 							>
-								<span>Actions</span>
+								<span>&nbsp;</span>
 							</atom-btn>
 						</th>
 					</tr>
@@ -102,6 +102,11 @@
 							<molecule-btn-action-group
 								edit
 								delete
+								@click:edit="
+									$router.push(
+										`${$route.path}/${item[idFieldName || 'id']}/edit`
+									)
+								"
 							/>
 						</td>
 					</tr>
@@ -126,6 +131,7 @@ import { Pagination, TableHeader } from '~/types'
 interface Props {
 	headers: TableHeader<T>[]
 	editable?: boolean
+	idFieldName?: string
 	items: T[]
 	pagination?: Pagination
 	totalItemAmount?: number

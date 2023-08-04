@@ -19,7 +19,7 @@ export const useOrderHistory = definePiniaStore('order-history-list', () => {
 
 	const { data, pending, error, refresh } = useRequest<
 		PaginationDataModel<OrderHistoryItem>
-	>('/v1/admin/order/history', {
+	>('/order/history', {
 		query,
 		transform: input => input.data,
 		watch: [pagination],

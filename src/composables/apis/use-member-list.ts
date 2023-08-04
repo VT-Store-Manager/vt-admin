@@ -10,7 +10,7 @@ export const useMemberList = definePiniaStore('member-list', () => {
 
 	const { data, pending, error, refresh } = useRequest<
 		PaginationDataModel<MemberListItemModel>
-	>('/v1/admin/member/list', {
+	>('/member/list', {
 		query,
 		transform: input => input.data,
 		watch: [query],

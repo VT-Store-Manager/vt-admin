@@ -1,7 +1,7 @@
 <template>
 	<molecule-list-page-container
-		page-name="Admins"
-		page-title="Admin accounts"
+		page-name="Sales"
+		page-title="Sale accounts"
 	>
 		<template #title-right>
 			<molecule-btn-refresh

@@ -2,7 +2,6 @@
 	<v-hover>
 		<template #default="{ isHovering, props: hoverProps }">
 			<v-select
-				v-bind="{ ...hoverProps, ...$attrs }"
 				v-model="modelValue"
 				variant="outlined"
 				color="primary"
@@ -12,7 +11,8 @@
 				:base-color="isHovering ? 'primary' : 'black'"
 				class="select transition-background-color-all"
 				rounded="12"
-				multiple
+				:multiple="!selectOne"
+				v-bind="{ ...hoverProps, ...$attrs }"
 				@update:focused="value => (bgColor = value ? 'white' : 'input')"
 			>
 				<template
@@ -65,6 +65,7 @@ import without from 'lodash/without'
 interface Props {
 	selectAll?: boolean
 	items?: T[]
+	selectOne?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {

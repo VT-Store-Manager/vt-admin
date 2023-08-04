@@ -11,7 +11,7 @@ export const useCreateProductCategory = definePiniaStore(
 			error,
 			execute,
 			status,
-		} = useRequest<boolean>('/v1/admin/product-category/create', {
+		} = useRequest<boolean>('/product-category/create', {
 			method: 'POST',
 			body,
 			transform: input => input.success,

@@ -1,5 +1,6 @@
 <template>
 	<organism-data-table
+		v-model="testItems"
 		:headers="headers"
 		:items="items"
 		:pagination="pagination"
@@ -12,7 +13,7 @@
 			<v-hover>
 				<template #default="{ isHovering: hoveringName, props: nameProps }">
 					<atom-link
-						:to="'/product-category/' + item.id"
+						:to="'/product/category/' + item.id"
 						class="d-flex align-center"
 						v-bind="nameProps"
 					>
@@ -28,7 +29,7 @@
 						/>
 						<span
 							class="ellipsis-2"
-							:class="{ 'text-primary-darken': hoveringName }"
+							:class="{ 'text-primary': hoveringName }"
 						>
 							{{ item.name }}
 						</span>
@@ -37,10 +38,7 @@
 			</v-hover>
 		</template>
 		<template #amountOfProduct="{ item }">
-			<div
-				class="d-flex align-center justify-center"
-				:style="{ width: '70px' }"
-			>
+			<div class="d-flex align-center justify-center">
 				<p class="text-16px font-weight-semibold text-primary-darken">
 					{{ item.amountOfProduct }}
 				</p>
@@ -83,17 +81,21 @@ import { TableHeader } from '~/types'
 const productCategoryList = useProductCategoryList()
 const { items, totalProduct, pending, pagination } =
 	storeToRefs(productCategoryList)
+const testItems = ref(items.value)
+watch(items, value => {
+	testItems.value = value
+})
 const { updatePage } = productCategoryList
 
 const headers: TableHeader<ProductCategoryListItemModel>[] = [
 	{
-		title: 'Name',
+		title: 'Tên loại',
 		key: 'name',
 		sortable: true,
 		width: 250,
 	},
 	{
-		title: 'Amount',
+		title: 'Số lượng',
 		key: 'amountOfProduct',
 		sortable: true,
 		alignCol: 'center',
@@ -109,20 +111,20 @@ const headers: TableHeader<ProductCategoryListItemModel>[] = [
 	// 	calculate: () => Math.floor(Math.random() * 10000),
 	// },
 	{
-		title: 'Featured',
+		title: 'Nổi bật',
 		key: 'featured',
 		sortable: true,
 		alignCol: 'center',
 		centerHead: true,
 	},
 	{
-		title: 'Status',
+		title: 'Trạng thái',
 		key: 'status',
 		sortable: true,
 		centerHead: true,
 	},
 	{
-		title: 'Last update',
+		title: 'Cập nhật cuối',
 		key: 'updatedAt',
 		sortable: true,
 		default: Date.now(),

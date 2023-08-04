@@ -1,7 +1,11 @@
 <template>
 	<p>
 		<span>
-			{{ moment(new Date(Date.now() - diffTime)).fromNow() }}
+			{{
+				moment(new Date(Date.now() - diffTime))
+					.locale('vi')
+					.fromNow()
+			}}
 			<v-tooltip
 				activator="parent"
 				location="left"
@@ -25,6 +29,8 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+moment.locale('vi')
 
 const now = useNow()
 const diffTime = computed(() => {

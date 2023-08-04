@@ -9,7 +9,7 @@ export const useCreateStore = definePiniaStore('create-store', () => {
 		error,
 		execute,
 		status,
-	} = useRequest<boolean>('/v1/admin/store/create', {
+	} = useRequest<boolean>('/store/create', {
 		method: 'POST',
 		body,
 		transform: input => input.success,

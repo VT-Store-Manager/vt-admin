@@ -22,15 +22,12 @@ export const useCreateMemberVoucher = definePiniaStore(
 	() => {
 		const body = ref<BodyType>()
 		const { data, pending, error, execute, status } =
-			useRequest<CreateMemberVoucherResultModel>(
-				'/v1/admin/member-voucher/create',
-				{
-					method: 'POST',
-					body,
-					transform: input => input.data,
-					immediate: false,
-				}
-			)
+			useRequest<CreateMemberVoucherResultModel>('/member-voucher/create', {
+				method: 'POST',
+				body,
+				transform: input => input.data,
+				immediate: false,
+			})
 
 		const executeWithPayload = async (data: BodyType) => {
 			body.value = data

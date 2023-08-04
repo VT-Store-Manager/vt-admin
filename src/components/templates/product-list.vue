@@ -57,9 +57,7 @@
 		<template #options="{ item }">
 			<div class="d-flex">
 				<p class="text-16px">
-					{{ item.options.length }} option{{
-						item.options.length > 1 ? 's' : ''
-					}}
+					{{ item.options.length }} loại
 					<v-tooltip
 						activator="parent"
 						:open-delay="300"
@@ -124,18 +122,18 @@ const { collapse } = storeToRefs(useSidebar())
 const headers = computed<TableHeader<ProductListItemModel>[]>(() => {
 	return [
 		{
-			title: 'Name',
+			title: 'Tên sản phẩm',
 			key: 'name',
 			sortable: true,
 			width: 280,
 		},
 		{
-			title: 'Category',
+			title: 'Loại',
 			key: 'category',
 			sortable: true,
 		},
 		{
-			title: 'Price',
+			title: 'Giá',
 			key: 'originalPrice',
 			sortable: true,
 			calculate: (value: number) =>
@@ -144,22 +142,24 @@ const headers = computed<TableHeader<ProductListItemModel>[]>(() => {
 		...(collapse.value === 1
 			? [
 					{
-						title: 'Options',
+						title: 'Lựa chọn',
 						key: 'options',
 					},
 			  ]
 			: []),
 		{
-			title: 'Status',
+			title: 'Trạng thái',
 			key: 'status',
 			sortable: true,
+			width: 100,
 		},
 		{
-			title: 'Last updated',
+			title: 'Cập nhật cuối',
 			key: 'updatedAt',
 			sortable: true,
 			centerHead: true,
-			calculate: (value: number) => moment(new Date(value)).fromNow(),
+			calculate: (value: number) =>
+				moment(new Date(value)).locale('vi').fromNow(),
 			default: Date.now(),
 		},
 	]

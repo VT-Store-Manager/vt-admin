@@ -12,7 +12,7 @@ export const useVoucherList = definePiniaStore('voucher-list', () => {
 
 	const { data, pending, error, refresh } = useRequest<
 		PaginationDataModel<VoucherListItemModel>
-	>('/v1/admin/voucher/list', {
+	>('/voucher/list', {
 		query,
 		transform: input => input.data,
 		watch: [query],

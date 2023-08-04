@@ -2,7 +2,7 @@ import { RankListItemModel } from '~/models'
 
 export const useRankList = definePiniaStore('rank-list', () => {
 	const { data, pending, error, refresh } = useRequest<RankListItemModel[]>(
-		'/v1/admin/rank',
+		'/rank',
 		{ transform: input => input.data }
 	)
 

@@ -1,7 +1,7 @@
 <template>
 	<molecule-list-page-container
-		page-name="Sales"
-		page-title="Sale accounts"
+		page-name="Super admins"
+		page-title="Super Admin Accounts - Chillin' Coffee Admin"
 	>
 		<template #title-right>
 			<molecule-btn-refresh

@@ -2,7 +2,7 @@
 	<v-text-field
 		ref="searchInputRef"
 		class="quick-search rounded-pill bg-grey-lighten-2"
-		placeholder="Quick search..."
+		placeholder="Tìm kiếm..."
 		bg-color="screen"
 		:append-inner-icon="mdiMagnify"
 		variant="solo"

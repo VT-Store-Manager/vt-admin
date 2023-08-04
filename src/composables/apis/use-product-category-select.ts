@@ -5,7 +5,7 @@ export const useProductCategorySelect = definePiniaStore(
 	() => {
 		const { data, pending, error, refresh } = useRequest<
 			ProductCategorySelectModel[]
-		>('/v1/admin/product-category/select-list', {
+		>('/product-category/select-list', {
 			transform: input => input.data,
 		})
 

@@ -2,7 +2,6 @@
 	<v-hover>
 		<template #default="{ isHovering, props }">
 			<v-text-field
-				v-bind="{ ...props, ...$attrs }"
 				variant="outlined"
 				color="primary"
 				:bg-color="$attrs.modelValue || isHovering ? 'white' : bgColor"
@@ -10,6 +9,7 @@
 				class="number-field transition-background-color-all"
 				rounded="12"
 				type="number"
+				v-bind="{ ...props, ...$attrs }"
 				@update:focused="value => (bgColor = value ? 'white' : 'input')"
 			/>
 		</template>

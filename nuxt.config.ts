@@ -5,11 +5,14 @@ export default defineNuxtConfig({
 	srcDir: './src',
 	css: ['~/assets/css/normalize.css', '~/assets/scss/main.scss'],
 	imports: {
-		dirs: ['composables/**'],
+		dirs: [
+			'composables/**',
+			'config/**',
+			'components/**',
+			'utils/**',
+			'constants/**',
+		],
 	},
-	// typescript: {
-	// 	typeCheck: true,
-	// },
 	build: {
 		transpile: ['vuetify'],
 	},
@@ -95,7 +98,6 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			apiBase: process.env.API_BASE,
-			imgResourceUrl: `${process.env.API_BASE}/v1/file/`,
 		},
 	},
 })

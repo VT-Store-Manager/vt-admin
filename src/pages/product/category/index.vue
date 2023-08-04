@@ -1,16 +1,16 @@
 <template>
-	<molecule-list-page-container page-name="Product categories">
+	<molecule-list-page-container page-name="Danh sách phân loại">
 		<template #subtitle>
-			<p>{{ totalProduct || '--' }} categories</p>
+			<p>{{ totalProduct || '--' }} loại</p>
 		</template>
 		<template #title-right>
 			<molecule-btn-refresh
 				class="mr-3"
-				title="Refresh data"
+				title="Làm mới"
 				@click="refresh"
 			/>
 			<molecule-btn-create @click="showCreateDialog = true">
-				New
+				Tạo mới
 			</molecule-btn-create>
 		</template>
 		<template-product-category-list />
