@@ -1,11 +1,12 @@
-export type StatisticProductAmount = {
-	totalCount: number
-	increasing: number
-	decreasing: number
-}
-
-export type StatisticOrderAmount = {
+export type StatisticAmountItemModel = {
 	totalCount: number
 	thisTime: number
 	previousTime: number
+}
+
+export type StatisticAmountModel<T = StatisticAmountItemModel> = {
+	member: T
+	order: T
+	revenue: T
+	sale: T
 }

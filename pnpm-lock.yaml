@@ -28,6 +28,9 @@ dependencies:
   moment:
     specifier: ^2.29.4
     version: 2.29.4
+  moment-timezone:
+    specifier: ^0.5.43
+    version: 0.5.43
   object-to-formdata:
     specifier: 4.2.0
     version: 4.2.0
@@ -7264,6 +7267,12 @@ packages:
       pathe: 1.1.1
       pkg-types: 1.0.3
       ufo: 1.1.2
+
+  /moment-timezone@0.5.43:
+    resolution: {integrity: sha512-72j3aNyuIsDxdF1i7CEgV2FfxM1r6aaqJyLB2vwb33mXYyoyLly+F1zbWqhA3/bVIoJ4szlUoMbUnVdid32NUQ==}
+    dependencies:
+      moment: 2.29.4
+    dev: false
 
   /moment@2.29.4:
     resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}

@@ -58,9 +58,17 @@ body {
 }
 
 .text {
-	@for $i from 8 through 32 {
+	@for $i from 8 through 36 {
 		&-#{$i}px {
 			font-size: calc($i / 16) * 1rem !important;
+		}
+	}
+}
+
+.line-height {
+	@for $i from 8 through 40 {
+		&-#{$i}px {
+			line-height: calc($i) * 1px !important;
 		}
 	}
 }

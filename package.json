@@ -58,6 +58,7 @@
 		"@vuepic/vue-datepicker": "^5.4.0",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.4",
+		"moment-timezone": "^0.5.43",
 		"object-to-formdata": "4.2.0",
 		"pinia": "^2.0.29",
 		"polished": "^4.2.2",

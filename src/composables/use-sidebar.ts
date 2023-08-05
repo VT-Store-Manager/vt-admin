@@ -4,7 +4,7 @@ type CollapseCookieType = 0 | 1 | undefined
 
 export const useSidebar = definePiniaStore('sidebar', () => {
 	const collapse = useCookie<CollapseCookieType>(SIDEBAR_COLLAPSE_KEY, {
-		watch: 'shallow',
+		watch: true,
 	})
 
 	const setCollapse = (value: CollapseCookieType) => {
