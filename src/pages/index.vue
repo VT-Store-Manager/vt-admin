@@ -1,6 +1,10 @@
 <template>
-	<molecule-list-page-container page-name="Dashboard">
+	<molecule-list-page-container
+		page-name="Dashboard"
+		scroll
+	>
 		<template-statistic-overall-amount />
+		<template-order-amount-chart />
 	</molecule-list-page-container>
 </template>
 

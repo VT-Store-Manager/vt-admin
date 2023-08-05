@@ -3,7 +3,7 @@
 		<v-row>
 			<v-col cols="3">
 				<molecule-statistic-amount-card
-					:icon="mdiAccount"
+					:icon="mdiAccountMultipleOutline"
 					title="Thành viên tháng"
 					:main-amount="totalAmount.data.member.thisTime"
 					:change-amount="totalAmount.data.member.changeAmount"
@@ -62,7 +62,12 @@
 </template>
 
 <script setup lang="ts">
-import { mdiAccount, mdiCartVariant, mdiCash, mdiCup } from '@mdi/js'
+import {
+	mdiAccountMultipleOutline,
+	mdiCartVariant,
+	mdiCash,
+	mdiCup,
+} from '@mdi/js'
 
 const totalAmount = useStatisticTotalAmount()
 </script>

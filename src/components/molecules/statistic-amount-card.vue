@@ -13,7 +13,7 @@
 					</p>
 					<v-icon
 						:icon="icon"
-						:size="sidebar.collapse ? 40 : 36"
+						:size="40"
 						variant="tonal"
 						density="comfortable"
 						:color="`${color.split('-')[0]}-lighten-3`"
