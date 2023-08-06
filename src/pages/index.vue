@@ -4,7 +4,7 @@
 		scroll
 	>
 		<template-statistic-overall-amount />
-		<template-order-amount-chart />
+		<template-statistic-charts />
 	</molecule-list-page-container>
 </template>
 

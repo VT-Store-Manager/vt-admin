@@ -8,7 +8,10 @@
 				<div
 					class="amount-card__head--title d-flex align-center justify-space-between"
 				>
-					<p class="text-14px font-weight-semibold mb-1">
+					<p
+						class="text-14px font-weight-semibold mb-1"
+						:class="[`text-${color}-darken-2`]"
+					>
 						{{ title }}
 					</p>
 					<v-icon
@@ -29,11 +32,12 @@
 			<div class="amount-card__body">
 				<div class="amount-card__body--amount">
 					<p
-						class="font-weight-bold mt-1 transition-all"
+						class="font-weight-bold mt-1 transition-all nowrap"
 						:class="[
 							sidebar.collapse
 								? ['text-32px', 'line-height-40px']
 								: ['text-24px', 'line-height-28px'],
+							`text-${color}-darken-4`,
 						]"
 					>
 						{{ mainAmount }}
