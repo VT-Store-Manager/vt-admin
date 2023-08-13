@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import { useOrderHistory } from '../../composables/apis/use-order-history'
 
 const orderHistory = useOrderHistory()

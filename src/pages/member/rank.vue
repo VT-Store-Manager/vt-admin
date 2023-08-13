@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 
 const rankList = useRankList()
 const { totalCount } = storeToRefs(rankList)

@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="amount-card rounded-12 elevation-2 pa-4 relative"
+		class="amount-card rounded-12 elevation-2 px-4 py-3 relative h-100"
 		:class="[`bg-${color}-lighten-5`]"
 	>
 		<div class="amount-card-wrapper">
@@ -32,17 +32,18 @@
 			<div class="amount-card__body">
 				<div class="amount-card__body--amount">
 					<p
-						class="font-weight-bold mt-1 transition-all nowrap"
+						class="font-weight-bold mt-1 transition-all nowrap line-height-40px"
 						:class="[
 							sidebar.collapse
 								? ['text-32px', 'line-height-40px']
 								: ['text-24px', 'line-height-28px'],
 							`text-${color}-darken-4`,
 						]"
+						:style="{ maxHeight: '40px' }"
 					>
 						{{ mainAmount }}
 						<span
-							v-if="changePercent !== 0"
+							v-if="+changePercent !== 0"
 							class="font-weight-bold text-14px"
 							:class="[
 								+changePercent < 0
@@ -66,10 +67,7 @@
 						}}</span>
 					</p>
 				</div>
-				<div
-					v-if="+changePercent !== 0"
-					class="amount-card__body--change d-flex align-center"
-				>
+				<div class="amount-card__body--change d-flex align-center">
 					<p class="text-12px font-weight-medium text-grey">
 						{{ startDay }} ~ {{ finishDay }}:
 					</p>
@@ -78,7 +76,9 @@
 							:class="[
 								+changePercent < 0
 									? 'text-red-darken-1'
-									: 'text-green-darken-1',
+									: +changePercent > 0
+									? 'text-green-darken-1'
+									: 'text-orange-darken-3',
 							]"
 						>
 							{{
@@ -88,6 +88,7 @@
 							}}
 						</p>
 						<v-icon
+							v-if="+changePercent !== 0"
 							:icon="+changePercent < 0 ? mdiArrowDownThin : mdiArrowUpThin"
 							:color="+changePercent < 0 ? 'red-darken-1' : 'green-darken-1'"
 							class="ml-n1 mr-n2"

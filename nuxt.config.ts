@@ -85,7 +85,11 @@ export default defineNuxtConfig({
 		download: false,
 	},
 	pinia: {
-		autoImports: ['defineStore', ['defineStore', 'definePiniaStore']],
+		autoImports: [
+			'defineStore',
+			'storeToRefs',
+			['defineStore', 'definePiniaStore'],
+		],
 	},
 	postcss: {
 		plugins: {

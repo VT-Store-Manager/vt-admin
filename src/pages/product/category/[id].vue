@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+
 
 const categoryDetail = useProductCategoryDetail()
 const { categoryData } = storeToRefs(categoryDetail)

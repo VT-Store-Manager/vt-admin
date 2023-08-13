@@ -3,7 +3,6 @@
 		page-name="Dashboard"
 		scroll
 	>
-		<template-statistic-overall-amount />
 		<template-statistic-charts />
 	</molecule-list-page-container>
 </template>

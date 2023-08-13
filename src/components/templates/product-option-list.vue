@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import { TableHeader } from '~/types'
 import { ProductOptionListItemModel } from '~/models'
 import { useProductOptionList } from '~/composables/apis/use-product-option-list'

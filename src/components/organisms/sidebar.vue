@@ -58,7 +58,7 @@
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import { mdiDotsHorizontal } from '@mdi/js'
-import { storeToRefs } from 'pinia'
+
 import { routes } from '~/routes'
 
 const sidebar = useSidebar()

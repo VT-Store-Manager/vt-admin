@@ -164,7 +164,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import { TableHeader } from '~/types'
 import { ProductListItemModel } from '~/models'
 

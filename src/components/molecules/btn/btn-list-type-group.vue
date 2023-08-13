@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import { mdiListBoxOutline, mdiViewGridOutline } from '@mdi/js'
-import { storeToRefs } from 'pinia'
+
 import { ListDisplay } from '~/types'
 
 const displayType = ref<ListDisplay>('list')

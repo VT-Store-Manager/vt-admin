@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { MoleculeInput } from '#components'
 
 interface Props {

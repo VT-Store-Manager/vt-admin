@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+
 
 const maxFiles = 4
 const { productData } = storeToRefs(useProductDetail())

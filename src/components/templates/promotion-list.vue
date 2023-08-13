@@ -70,7 +70,7 @@
 
 <script lang="ts" setup>
 import pick from 'lodash/pick'
-import { storeToRefs } from 'pinia'
+
 import { PromotionListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 

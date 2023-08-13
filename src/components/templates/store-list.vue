@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
 import moment from 'moment'
-import { storeToRefs } from 'pinia'
+
 import { StoreListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 

@@ -4,6 +4,9 @@ export type OrderCountItem = {
 	inStoreCount: number
 	pickupCount: number
 	deliveryCount: number
+	memberOrderCount: number
+	totalProfit: number
+	totalDeliveryOrderProfit: number
 }
 
 export type StatisticOrderAmountModel = {

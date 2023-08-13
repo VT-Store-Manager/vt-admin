@@ -7,6 +7,7 @@ export const useStatisticOrderAmount = definePiniaStore(
 			useRequest<StatisticOrderAmountModel>('/statistic/order-data', {
 				transform: input => input.data,
 			})
+
 		return { data, pending, error, refresh }
 	}
 )

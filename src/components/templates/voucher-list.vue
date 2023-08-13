@@ -110,7 +110,7 @@
 
 <script lang="ts" setup>
 import pick from 'lodash/pick'
-import { storeToRefs } from 'pinia'
+
 import { VoucherListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 

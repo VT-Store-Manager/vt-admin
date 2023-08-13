@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 
 interface Props {
 	pageName: string

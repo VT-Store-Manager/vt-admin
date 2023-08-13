@@ -158,7 +158,7 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+
 
 const productDetail = useProductDetail()
 const { productData } = storeToRefs(productDetail)

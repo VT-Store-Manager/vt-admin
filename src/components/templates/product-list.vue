@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import moment from 'moment'
 import { TableHeader } from '~/types'
 import { ProductListItemModel } from '~/models'

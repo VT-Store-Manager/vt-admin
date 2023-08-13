@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import { STORE_DISPLAY_KEY } from '~/constants'
 import { ListDisplay } from '~/types'
 

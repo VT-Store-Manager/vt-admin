@@ -64,7 +64,7 @@
 
 <script lang="ts" setup>
 import { mdiChevronUp } from '@mdi/js'
-import { storeToRefs } from 'pinia'
+
 import { NavItem } from '~/routes'
 
 interface NavProps {

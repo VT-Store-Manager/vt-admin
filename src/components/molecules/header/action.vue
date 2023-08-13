@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import { mdiBellOutline, mdiWeatherNight, mdiWeatherSunny } from '@mdi/js'
-import { storeToRefs } from 'pinia'
+
 import { GLOBAL_THEME_KEY, AppTheme } from '~/constants'
 
 const theme = useThemeUtil()

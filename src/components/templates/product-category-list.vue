@@ -74,7 +74,7 @@
 
 <script lang="ts" setup>
 import { mdiCoffee } from '@mdi/js'
-import { storeToRefs } from 'pinia'
+
 import { ProductCategoryListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 

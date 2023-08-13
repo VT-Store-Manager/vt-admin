@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import { darken } from 'polished'
 import { mdiCardBulleted } from '@mdi/js'
 import { TableHeader } from '~/types'

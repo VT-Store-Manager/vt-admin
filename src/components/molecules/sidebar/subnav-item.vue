@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 import { SubNavItem } from '~/routes'
 
 interface Props {

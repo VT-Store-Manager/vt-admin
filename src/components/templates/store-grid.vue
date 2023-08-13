@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
+
 import { StoreListItemModel } from '~/models'
 
 const storeList = useStoreList()

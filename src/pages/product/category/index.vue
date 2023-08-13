@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
+
 
 const productCategoryList = useProductCategoryList()
 const { totalProduct } = storeToRefs(productCategoryList)

@@ -1,36 +1,21 @@
 <template>
-	<molecule-dashboard-card title="Thống kê đơn hàng">
-		<template #title-right>
-			<div class="d-flex align-center">
-				<v-btn
-					:icon="mdiDownload"
-					density="comfortable"
-					size="small"
-					variant="text"
-					color="red"
-				/>
-				<v-btn
-					:icon="mdiCog"
-					density="comfortable"
-					size="small"
-					variant="text"
-					color="red"
-					class="ml-1"
-				/>
-			</div>
-		</template>
-		<v-row class="transition-all">
+	<molecule-dashboard-card
+		title="Thống kê đơn hàng"
+		option-button
+	>
+		<v-row>
 			<v-col
 				cols="12"
-				class="transition-all"
+				:style="{ minHeight: '300px' }"
 			>
 				<v-progress-circular v-if="pending" />
-				<Line
-					v-else
-					:data="chartData"
-					:options="chartOptions"
-					class="transition-all"
-				/>
+				<template v-else>
+					<Line
+						v-iv="renderChart"
+						:data="chartData"
+						:options="chartOptions"
+					/>
+				</template>
 			</v-col>
 		</v-row>
 	</molecule-dashboard-card>
@@ -51,8 +36,7 @@ import {
 	Filler,
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
-import { mdiDownload, mdiCog } from '@mdi/js'
-import { storeToRefs } from 'pinia'
+
 import maxBy from 'lodash/maxBy'
 
 ChartJS.register(
@@ -66,8 +50,10 @@ ChartJS.register(
 	Filler
 )
 
+const renderChart = ref(true)
 const { data, pending } = storeToRefs(useStatisticOrderAmount())
 const { $createGradientCanvas } = useNuxtApp()
+const { collapse } = storeToRefs(useSidebar())
 
 const colors = {
 	orange: '#F47C01',
@@ -132,19 +118,18 @@ const chartData = computed<ChartData<'line', number[], string>>(() => {
 
 const chartOptions = computed<ChartOptions<'line'>>(() => {
 	return {
-		maintainAspectRatio: true,
+		maintainAspectRatio: false,
 		responsive: true,
 		interaction: {
 			intersect: false,
 		},
-		tension: 0.3,
+		tension: 0.4,
 		elements: {
 			point: {
-				radius: 5,
-				borderWidth: 2,
-				hoverRadius: 8,
-				hoverBorderWidth: 2.5,
+				radius: 0,
 				hoverBackgroundColor: 'white',
+				hoverRadius: 6,
+				hoverBorderWidth: 2,
 			},
 		},
 		scales: {
@@ -207,8 +192,7 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 						target.style.cursor = 'default'
 					}
 				},
-
-				position: 'right',
+				position: collapse.value ? 'right' : 'bottom',
 				labels: {
 					font: {
 						size: 14,
@@ -233,6 +217,11 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 				},
 				boxPadding: 4,
 				padding: 10,
+				callbacks: {
+					title([tooltipItem]) {
+						return `Ngày ${tooltipItem.label}`
+					},
+				},
 			},
 		},
 	}
