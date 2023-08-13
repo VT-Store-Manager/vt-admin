@@ -47,6 +47,7 @@ ChartJS.register(
 	Filler
 )
 const { data, pending } = storeToRefs(useStatisticOrderAmount())
+const { $createGradientCanvas } = useNuxtApp()
 
 const chartData = computed<ChartData<'line', number[], string>>(() => {
 	return {
@@ -58,8 +59,9 @@ const chartData = computed<ChartData<'line', number[], string>>(() => {
 					order => order.totalProfit - order.totalDeliveryOrderProfit
 				),
 				borderColor: '#797DF2',
-				backgroundColor: '#797DF233',
-				// fill: true,
+				borderWidth: 1.5,
+				fill: true,
+				backgroundColor: $createGradientCanvas('#797DF2'),
 			},
 			{
 				label: 'Đến cửa hàng',
@@ -67,8 +69,9 @@ const chartData = computed<ChartData<'line', number[], string>>(() => {
 					order => order.totalDeliveryOrderProfit
 				),
 				borderColor: '#FE7AAA',
-				backgroundColor: '#FE7AAA33',
-				// fill: true,
+				borderWidth: 1.5,
+				fill: true,
+				backgroundColor: $createGradientCanvas('#FE7AAA'),
 			},
 		],
 	}
@@ -81,7 +84,7 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 		interaction: {
 			intersect: false,
 		},
-		tension: 0.4,
+		tension: 0.3,
 		elements: {
 			point: {
 				radius: 0,

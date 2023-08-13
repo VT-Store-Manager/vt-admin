@@ -109,7 +109,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import moment from 'moment'
 import { TableHeader } from '~/types'
 import { ProductListItemModel } from '~/models'

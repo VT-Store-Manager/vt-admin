@@ -8,7 +8,7 @@
 				<organism-profit-line-chart />
 			</v-col>
 			<v-col cols="4">
-				<organism-best-selling-product-chart />
+				<organism-best-selling-product />
 			</v-col>
 			<v-col cols="6">
 				<organism-order-line-chart />

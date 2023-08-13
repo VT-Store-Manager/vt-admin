@@ -3,7 +3,8 @@ export const serverUrlImage = (
 	altImage?: string,
 	fromServer = false
 ) => {
-	const serverImagePrefix = useRuntimeConfig().public.imgResourceUrl
+	const serverImagePrefix =
+		useRuntimeConfig().public.apiBase + config.api.filePrefix
 
 	if (!image) {
 		if (!altImage) return ''

@@ -98,3 +98,9 @@ body {
 .nowrap {
 	white-space: nowrap;
 }
+
+.one-line-overflow-ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
