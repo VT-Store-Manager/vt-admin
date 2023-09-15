@@ -19,7 +19,6 @@
 				:rules="[required]"
 				label="Username"
 				optional
-				autofocus
 				:prepend-inner-icon="mdiAccount"
 			/>
 
@@ -101,12 +100,18 @@ const onSubmit = async () => {
 		data,
 		error: _error,
 		execute,
-	} = useRequest<AuthModel>('/auth/login', {
-		method: 'POST',
-		body: loginData,
-		immediate: false,
-		transform: input => input.data,
-	})
+	} = useRequest<AuthModel>(
+		'/auth/login',
+		{
+			method: 'POST',
+			body: loginData,
+			immediate: false,
+			transform: input => input.data,
+		},
+		{
+			auth: false,
+		}
+	)
 
 	loading.value = true
 	await execute()

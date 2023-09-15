@@ -15,9 +15,14 @@ export const useProductList = definePiniaStore('product-list', () => {
 		transform: input => input.data,
 		watch: [pagination],
 	})
+	const storedData = ref<PaginationDataModel<ProductListItemModel>>()
 
-	const items = computed(() => data?.value?.items || [])
-	const totalProduct = computed(() => data?.value?.totalCount || 0)
+	watch(data, () => {
+		if (data.value) storedData.value = data.value
+	})
+
+	const items = computed(() => storedData.value?.items || [])
+	const totalProduct = computed(() => storedData.value?.totalCount || 0)
 
 	return {
 		pagination,

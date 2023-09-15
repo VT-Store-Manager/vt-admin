@@ -39,6 +39,7 @@ export const useAuthStore = defineStore('authentication', () => {
 	}
 
 	const refresh = () => {
+		if (!auth.value?.refreshToken) return
 		useRequest<AuthAdminType>(
 			'/auth/refresh',
 			{

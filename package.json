@@ -39,6 +39,7 @@
 		"eslint-plugin-nuxt": "^4.0.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"husky": "^8.0.3",
+		"lint-staged": ">=10",
 		"mitt": "^3.0.0",
 		"node-sass": "^8.0.0",
 		"nuxt": "^3.6.0",
@@ -71,5 +72,8 @@
 		"vue-chartjs": "^5.2.0",
 		"vuedraggable": "^4.1.0",
 		"yup": "^1.2.0"
+	},
+	"lint-staged": {
+		"*.{ts,vue}": "eslint --cache --fix --max-warnings=0"
 	}
 }

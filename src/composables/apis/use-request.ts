@@ -1,4 +1,3 @@
-import omitBy from 'lodash/omitBy'
 import { UseFetchOptions } from 'nuxt/app'
 import { FetchError } from 'ofetch'
 import { ErrorType, ResponseType } from '~/types'
@@ -16,23 +15,28 @@ export default function <
 	options?: UseFetchOptions<ResT, DataT>,
 	_extraOptions?: ExtraRequestOptions
 ) {
-	const { $router } = useNuxtApp()
 	const extraOptions = {
 		auth: true,
 		..._extraOptions,
 	}
+	const { $router } = useNuxtApp()
 
 	const authStore = useAuthStore()
 	const baseURL = useRuntimeConfig().public.apiBase + config.api.prefix
-	const headers = extraOptions
-		? {
-				...(extraOptions.multipart
-					? {
-							'Content-Type': 'multipart/form-data',
-					  }
-					: {}),
-		  }
-		: {}
+
+	const headers = computed(() => {
+		const _headers: Record<string, string> = {}
+		if (extraOptions.auth) {
+			_headers.Authorization = `Bearer ${authStore.auth.accessToken || ''}`
+		}
+		if (extraOptions.multipart) {
+			_headers['Content-Type'] = 'multipart/form-data'
+		}
+		return {
+			..._headers,
+			...((options?.headers || {}) as Record<string, string>),
+		}
+	})
 
 	const nuxtFetch = useFetch<
 		ResT,
@@ -44,15 +48,6 @@ export default function <
 	>(url, {
 		baseURL,
 		headers,
-		onRequest({ options }) {
-			if (extraOptions?.auth) {
-				options.headers = options.headers || {}
-				Object.assign(options.headers, {
-					Authorization: `Bearer ${authStore.auth.accessToken || ''}`,
-				})
-			}
-			options.query = omitBy(options.query, v => v == null)
-		},
 		onResponseError({ response }) {
 			if (response.status === 401) {
 				if (extraOptions?.auth) {
@@ -66,16 +61,11 @@ export default function <
 				$router.push('/login')
 			}
 		},
+		...(options?.method?.toString().toUpperCase() !== 'GET'
+			? { watch: false }
+			: {}),
 		...options,
 	})
-
-	// const authExecute = async (opt?: AsyncDataExecuteOptions) => {
-	// 	await nuxtFetch.execute(opt)
-	// 	if (nuxtFetch.error.value?.status === 401) {
-	// 		await nuxtFetch.execute()
-	// 		nuxtFetch.execute(opt)
-	// 	}
-	// }
 
 	return nuxtFetch
 }
