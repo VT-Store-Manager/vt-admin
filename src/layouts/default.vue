@@ -19,6 +19,7 @@
 .wrapper {
 	display: flex;
 	height: 100vh;
+	min-width: 1250px;
 
 	.main {
 		display: flex;

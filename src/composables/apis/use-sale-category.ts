@@ -2,14 +2,14 @@ import orderBy from 'lodash/orderBy'
 import { SaleItemModel } from '~/models'
 import { RangeTimeType } from '~/constants'
 
-export const useSaleRanking = definePiniaStore('sale-ranking', () => {
+export const useSaleCategory = definePiniaStore('sale-category', () => {
 	const timePeriod = ref<RangeTimeType>(RangeTimeType.QUARTER)
 	const query = computed(() => ({
 		timePeriod: timePeriod.value,
 	}))
 
 	const { data, pending, error, refresh } = useRequest<SaleItemModel[]>(
-		'/statistic/sale-ranking',
+		'/statistic/category-sale',
 		{
 			query,
 			transform: input => input.data,
@@ -17,15 +17,10 @@ export const useSaleRanking = definePiniaStore('sale-ranking', () => {
 		}
 	)
 
-	const saleVolumeRankingList = computed(() => {
+	const sortBySaleData = computed(() => {
 		if (!data.value) return []
-		return data.value.slice(0, 5)
+		return orderBy(data.value, ['saleVolume'], ['desc'])
 	})
 
-	const profitRankingList = computed(() => {
-		if (!data.value) return []
-		return orderBy(data.value, ['profit'], ['desc']).slice(0, 5)
-	})
-
-	return { pending, error, refresh, saleVolumeRankingList, profitRankingList }
+	return { pending, error, refresh, data, sortBySaleData }
 })

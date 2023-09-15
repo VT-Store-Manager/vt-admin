@@ -5,44 +5,44 @@
 			'overflow-y-auto': scroll,
 		}"
 	>
-		<div class="page-title d-flex justify-space-between align-center">
-			<div class="page-title__left d-flex align-center">
-				<h2 class="page-title__name">
-					{{ pageName }}
-				</h2>
-				<template v-if="$slots.subtitle">
-					<atom-divider
-						class="mx-4"
-						vertical
-						thickness="2"
-						:color="isLight ? 'grey-darken-3' : 'grey-lighten-5'"
-					/>
-					<div
-						class="page-subtitle"
-						:class="[isLight ? 'text-grey-darken-2' : 'text-grey-lighten-1']"
-					>
-						<slot name="subtitle"></slot>
-					</div>
-				</template>
+		<div class="page-wrapper">
+			<div class="page-title d-flex justify-space-between align-center">
+				<div class="page-title__left d-flex align-center">
+					<h2 class="page-title__name">
+						{{ pageName }}
+					</h2>
+					<template v-if="$slots.subtitle">
+						<atom-divider
+							class="mx-4"
+							vertical
+							thickness="2"
+							:color="isLight ? 'grey-darken-3' : 'grey-lighten-5'"
+						/>
+						<div
+							class="page-subtitle"
+							:class="[isLight ? 'text-grey-darken-2' : 'text-grey-lighten-1']"
+						>
+							<slot name="subtitle"></slot>
+						</div>
+					</template>
+				</div>
+				<div class="page-title__right">
+					<slot name="title-right"></slot>
+				</div>
 			</div>
-			<div class="page-title__right">
-				<slot name="title-right"></slot>
-			</div>
-		</div>
-		<div
-			class="page-content ma-n2 pa-2"
-			:class="{ 'overflow-hidden': !scroll }"
-		>
-			<div class="page-content-wrapper position-relative h-100">
-				<slot></slot>
+			<div
+				class="page-content ma-n2 pa-2"
+				:class="{ 'overflow-hidden': !scroll }"
+			>
+				<div class="page-content-wrapper position-relative h-100">
+					<slot></slot>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-
-
 interface Props {
 	pageName: string
 	pageTitle?: string

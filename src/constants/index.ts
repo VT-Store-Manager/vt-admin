@@ -4,6 +4,9 @@ export const GLOBAL_THEME_KEY = 'global-theme'
 export const AUTH_TOKEN_KEY = 'auth-token'
 export const STORE_DISPLAY_KEY = 'store-display'
 export const SHOW_SUB_OPTION_LIST = 'show-sub-option-list'
+export const CALLBACK_URL_KEY = 'callback-url-key'
+export const COOKIE_AUTH_KEY = 'authentication'
+export const COOKIE_CURRENT_ADMIN_KEY = 'current_admin'
 
 /** CONFIG VALUE */
 export const PROGRESS_LINEAR_CYCLE_TIME = 2200
@@ -11,6 +14,8 @@ export const Gender = ['male', 'female', 'other'] as const
 export const publishState = ['not yet', 'open', 'closed'] as const
 
 export const momentTimezone = 'Asia/Ho_Chi_Minh'
+
+export const codePattern = /^[A-Z0-9]+$/
 
 /** ENUMERATION */
 export enum AppTheme {
@@ -60,4 +65,18 @@ export enum RangeTimeType {
 	MONTH = 'month',
 	QUARTER = 'quarter',
 	YEAR = 'year',
+}
+
+export enum StoreCriterion {
+	SERVICE,
+	PRODUCT,
+	APPLICATION,
+	SPACE,
+}
+
+export const shippingMethodName: Record<ShippingMethod, string> = {
+	[ShippingMethod.NONE]: '',
+	[ShippingMethod.IN_STORE]: 'Tại cửa hàng',
+	[ShippingMethod.PICK_UP]: 'Đến lấy',
+	[ShippingMethod.DELIVERY]: 'Giao hàng',
 }

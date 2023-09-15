@@ -26,17 +26,6 @@
 			</v-col>
 			<v-col cols="3">
 				<molecule-statistic-amount-card
-					:icon="mdiCartVariant"
-					title="Đơn hàng tháng"
-					:main-amount="totalAmount.data.order.thisTime"
-					:change-amount="totalAmount.data.order.changeAmount"
-					:change-percent="totalAmount.data.order.changePercent.toFixed(0)"
-					:total-amount="totalAmount.data.order.totalCount"
-					color="teal"
-				/>
-			</v-col>
-			<v-col cols="3">
-				<molecule-statistic-amount-card
 					:icon="mdiCup"
 					title="Doanh số tháng"
 					:main-amount="totalAmount.data.sale.thisTime"
@@ -44,6 +33,17 @@
 					:change-percent="totalAmount.data.sale.changePercent.toFixed(0)"
 					:total-amount="totalAmount.data.sale.totalCount"
 					color="blue"
+				/>
+			</v-col>
+			<v-col cols="3">
+				<molecule-statistic-amount-card
+					:icon="mdiCartVariant"
+					title="Đơn hàng tháng"
+					:main-amount="totalAmount.data.order.thisTime"
+					:change-amount="totalAmount.data.order.changeAmount"
+					:change-percent="totalAmount.data.order.changePercent.toFixed(0)"
+					:total-amount="totalAmount.data.order.totalCount"
+					color="teal"
 				/>
 			</v-col>
 			<v-col cols="3">

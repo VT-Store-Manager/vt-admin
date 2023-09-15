@@ -39,6 +39,27 @@ export const useProductOptionList = definePiniaStore(
 			)
 		})
 
+		const getOptionItemInfo = (key: string) => {
+			const option = items.value.find(opt => {
+				return opt.items.some(item => item.key === key)
+			})
+			if (!option) {
+				return {
+					id: '',
+					name: '',
+					itemName: '',
+					cost: 0,
+				}
+			}
+			const item = option.items.find(item => item.key === key)!
+			return {
+				id: option.id,
+				name: option.name,
+				itemName: item.name,
+				cost: item.cost,
+			}
+		}
+
 		return {
 			pagination,
 			items,
@@ -52,6 +73,13 @@ export const useProductOptionList = definePiniaStore(
 			updatePage,
 			resetQuery,
 			pushQuery,
+			getOptionItemInfo,
 		}
 	}
 )
+
+if (import.meta.hot) {
+	import.meta.hot.accept(
+		acceptHMRUpdate(useProductOptionList as any, import.meta.hot)
+	)
+}

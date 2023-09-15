@@ -40,7 +40,7 @@ const chartData = computed<ChartData<'doughnut', number[], string>>(() => {
 		datasets: [
 			{
 				label: 'Tất cả',
-				backgroundColor: ['#06C282', '#FD5D6F', '#1966C0'],
+				// backgroundColor: ['#06C282', '#FD5D6F', '#1966C0'],
 				data: Object.values(data.value?.day || {}).reduce(
 					(res, order) => {
 						res[0] += order.inStoreCount
@@ -50,14 +50,14 @@ const chartData = computed<ChartData<'doughnut', number[], string>>(() => {
 					},
 					[0, 0, 0]
 				),
-				hoverOffset: 6,
+				hoverOffset: 10,
 			},
-			{
-				label: 'Tháng này',
-				backgroundColor: ['#06C282', '#FD5D6F', '#1966C0'],
-				data: [20, 10, 50],
-				hidden: true,
-			},
+			// {
+			// 	label: 'Tháng này',
+			// 	backgroundColor: ['#06C282', '#FD5D6F', '#1966C0'],
+			// 	data: [20, 10, 50],
+			// 	hidden: true,
+			// },
 		],
 	}
 })

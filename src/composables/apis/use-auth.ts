@@ -1,0 +1,87 @@
+import { AuthModel } from '~/models'
+
+export type AuthAdminType = {
+	accessToken: string
+	refreshToken: string
+}
+export type CurrentAdminType = {
+	id: string
+	username: string
+	role: string[]
+	updatePassword?: boolean
+}
+export const useAuthStore = defineStore('authentication', () => {
+	const { $router } = useNuxtApp()
+
+	const auth = useCookie<AuthAdminType>(COOKIE_AUTH_KEY, {
+		watch: true,
+		default: () => ({
+			accessToken: '',
+			refreshToken: '',
+		}),
+	})
+	const currentAdmin = useCookie<CurrentAdminType>(COOKIE_CURRENT_ADMIN_KEY, {
+		watch: true,
+		default: () => ({
+			id: '',
+			username: '',
+			role: [],
+		}),
+	})
+	const callbackUrl = useCookie<string>(CALLBACK_URL_KEY)
+
+	const setAuthData = (data: AuthModel) => {
+		auth.value = data.tokens
+		currentAdmin.value = data.user
+	}
+	const setTokenData = (token: AuthAdminType) => {
+		auth.value = token
+	}
+
+	const refresh = () => {
+		useRequest<AuthAdminType>(
+			'/auth/refresh',
+			{
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${auth.value.refreshToken || ''}`,
+				},
+				onResponse({ response }) {
+					if (response.status === 201) {
+						setTokenData(response._data.data)
+					}
+				},
+				onRequestError() {
+					clear()
+					$router.push('/login')
+				},
+			},
+			{ auth: false }
+		)
+	}
+
+	const clear = () => {
+		auth.value = {
+			accessToken: '',
+			refreshToken: '',
+		}
+		currentAdmin.value = {
+			id: '',
+			username: '',
+			role: [],
+		}
+	}
+
+	return {
+		auth,
+		callbackUrl,
+		currentAdmin,
+		setAuthData,
+		refresh,
+		clear,
+	}
+})
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(useAuthStore as any, import.meta.hot))
+}

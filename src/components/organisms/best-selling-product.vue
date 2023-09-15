@@ -38,7 +38,7 @@
 							</template>
 							<template #title>
 								<p
-									class="text-16px font-weight-medium one-line-overflow-ellipsis"
+									class="text-14px font-weight-medium one-line-overflow-ellipsis"
 								>
 									{{ item.name }}
 								</p>
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { SaleProductRankingItemModel } from '~/models'
+import { SaleItemModel } from '~/models'
 
 const saleRanking = useSaleRanking()
 const profitRanking = ref(true)
@@ -70,7 +70,7 @@ const rankingList = computed(() => {
 		: saleRanking.saleVolumeRankingList
 })
 
-const subtitle = (item: SaleProductRankingItemModel) => {
+const subtitle = (item: SaleItemModel) => {
 	return profitRanking.value
 		? `Đã bán ${item.profit.toLocaleString().replace(/,/g, '.')} đ`
 		: `${item.saleVolume > 9999 ? '9999+' : item.saleVolume} sản phẩm`

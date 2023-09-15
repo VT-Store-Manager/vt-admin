@@ -1,19 +1,19 @@
 <template>
 	<molecule-dashboard-card
-		title="Doanh thu bán hàng"
+		title="Doanh số theo loại"
 		option-button
 	>
 		<v-row>
 			<v-col
 				cols="12"
-				:style="{ minHeight: '300px' }"
+				:style="{ height: '350px' }"
 			>
 				<v-progress-circular v-if="pending" />
 				<template v-else>
-					<Line
+					<Bar
 						:data="chartData"
 						:options="chartOptions"
-					/>
+					/>s
 				</template>
 			</v-col>
 		</v-row>
@@ -22,6 +22,7 @@
 
 <script lang="ts" setup>
 import {
+	BarElement,
 	Chart as ChartJS,
 	CategoryScale,
 	LinearScale,
@@ -33,10 +34,12 @@ import {
 	ChartData,
 	ChartOptions,
 	Filler,
+	Colors,
 } from 'chart.js'
-import { Line } from 'vue-chartjs'
-import maxBy from 'lodash/maxBy'
+import { Bar } from 'vue-chartjs'
+
 ChartJS.register(
+	BarElement,
 	CategoryScale,
 	LinearScale,
 	PointElement,
@@ -44,41 +47,38 @@ ChartJS.register(
 	Title,
 	Tooltip,
 	Legend,
-	Filler
+	Filler,
+	Colors
 )
-const { data, pending } = storeToRefs(useStatisticOrderAmount())
-const { $createGradientCanvas } = useNuxtApp()
+const { sortBySaleData, pending } = storeToRefs(useSaleCategory())
 
-const chartData = computed<ChartData<'line', number[], string>>(() => {
+const chartData = computed<ChartData<'bar', number[], string>>(() => {
 	return {
-		labels: data.value ? Object.keys(data.value.day) : [],
+		labels: (sortBySaleData.value || []).map(category => category.name),
 		datasets: [
 			{
-				label: 'Giao hàng',
-				data: Object.values(data.value?.day || {}).map(
-					order => order.totalProfit - order.totalDeliveryOrderProfit
-				),
-				borderColor: '#797DF2',
-				borderWidth: 1.5,
+				label: 'Doanh số',
+				type: 'bar',
+				data: (sortBySaleData.value || []).map(category => category.saleVolume),
 				fill: true,
-				backgroundColor: $createGradientCanvas('#797DF2'),
+				xAxisID: 'x',
 			},
 			{
-				label: 'Đến cửa hàng',
-				data: Object.values(data.value?.day || {}).map(
-					order => order.totalDeliveryOrderProfit
+				label: 'Doanh thu',
+				type: 'bar',
+				data: (sortBySaleData.value || []).map(
+					category => category.profit / 1000
 				),
-				borderColor: '#FE7AAA',
-				borderWidth: 1.5,
 				fill: true,
-				backgroundColor: $createGradientCanvas('#FE7AAA'),
+				xAxisID: 'profit',
 			},
 		],
 	}
 })
 
-const chartOptions = computed<ChartOptions<'line'>>(() => {
+const chartOptions = computed<ChartOptions<'bar'>>(() => {
 	return {
+		indexAxis: 'y',
 		maintainAspectRatio: false,
 		responsive: true,
 		interaction: {
@@ -86,6 +86,9 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 		},
 		tension: 0.3,
 		elements: {
+			bar: {
+				borderWidth: 2,
+			},
 			point: {
 				radius: 0,
 				hoverBackgroundColor: 'white',
@@ -100,16 +103,21 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 					display: false,
 				},
 				ticks: {
-					display: false,
+					display: true,
+					font: {
+						family: 'Noto Sans',
+						weight: '600',
+						size: 13,
+					},
+					padding: 8,
 				},
 				grid: {
-					display: true,
-					color: 'rgba(0, 0, 0, 0.05)',
+					display: false,
 				},
 			},
 			y: {
 				beginAtZero: true,
-				max: getMaxValue(),
+				position: 'bottom',
 				display: true,
 				ticks: {
 					display: true,
@@ -123,6 +131,32 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 				grid: {
 					display: true,
 					color: 'rgba(0, 0, 0, 0.05)',
+				},
+			},
+			profit: {
+				beginAtZero: true,
+				display: true,
+				position: 'top',
+				title: {
+					display: true,
+					text: 'Doanh thu (nghìn đồng)',
+					font: {
+						family: 'Noto Sans',
+						size: 14,
+						weight: '600',
+					},
+				},
+				ticks: {
+					display: true,
+					font: {
+						family: 'Noto Sans',
+						weight: '600',
+						size: 13,
+					},
+					padding: 8,
+				},
+				grid: {
+					display: false,
 				},
 			},
 		},
@@ -158,12 +192,14 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 					family: 'Noto Sans',
 					size: 14,
 				},
+				position: 'average',
 				callbacks: {
 					label(tooltipItems) {
-						return `${tooltipItems.dataset.label}: ${tooltipItems.formattedValue} đ`
-					},
-					title([tooltipItem]) {
-						return `Ngày ${tooltipItem.label}`
+						const label = `${tooltipItems.dataset.label}: ${tooltipItems.formattedValue}`
+						if (tooltipItems.datasetIndex === 1) {
+							return label + ' đ'
+						}
+						return label + ' sản phẩm'
 					},
 				},
 				bodyFont: {
@@ -177,13 +213,6 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 		},
 	}
 })
-
-const getMaxValue = () => {
-	const maxValue =
-		maxBy(Object.values(data.value?.day || {}), 'totalProfit')?.totalProfit || 0
-	const unit = 200000
-	return unit * Math.ceil(maxValue / unit)
-}
 </script>
 
 <style lang="scss" scoped></style>

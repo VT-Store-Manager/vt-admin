@@ -33,6 +33,9 @@ import {
 	faUser,
 	faVenus,
 	faXmark,
+	faCircleNotch,
+	faStore,
+	faTruck,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -57,7 +60,10 @@ library.add(
 	faMoneyCheck,
 	faUser,
 	faCheckCircle,
-	faCircleXmark
+	faCircleXmark,
+	faCircleNotch,
+	faStore,
+	faTruck
 )
 
 // #F6F1E9

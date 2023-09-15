@@ -98,6 +98,9 @@ body {
 .nowrap {
 	white-space: nowrap;
 }
+.wrap {
+	white-space: normal;
+}
 
 .one-line-overflow-ellipsis {
 	overflow: hidden;

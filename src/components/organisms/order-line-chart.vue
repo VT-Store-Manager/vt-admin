@@ -170,6 +170,7 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 					font: {
 						family: 'Noto Sans',
 						weight: '600',
+						size: 13,
 					},
 					padding: 8,
 				},

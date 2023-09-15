@@ -1,5 +1,8 @@
 <template>
-	<molecule-list-page-container page-name="Order history">
+	<molecule-list-page-container
+		page-name="Order history"
+		scroll
+	>
 		<template #subtitle>
 			<p>{{ totalCount || '--' }} order{{ totalCount > 1 ? 's' : '' }}</p>
 		</template>
@@ -16,9 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-
-import { useOrderHistory } from '../../composables/apis/use-order-history'
-
 const orderHistory = useOrderHistory()
 const { totalCount } = storeToRefs(orderHistory)
 const { refresh, pushQuery } = orderHistory

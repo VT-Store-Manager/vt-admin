@@ -3,10 +3,25 @@
 		title="Tỷ lệ người mua"
 		option-button
 	>
+		<div class="px-3">
+			<div
+				class="font-weight-bold text-24px d-flex align-baseline justify-space-between"
+			>
+				<p class="flex-1-0 text-center">{{ orderAmount[0] }}</p>
+				<p class="text-14px font-weight-medium">đơn Thành viên</p>
+			</div>
+			<div
+				class="font-weight-bold text-24px d-flex align-baseline justify-space-between"
+			>
+				<p class="flex-1-0 text-center">{{ orderAmount[1] }}</p>
+				<p class="text-14px font-weight-medium">đơn Khách hàng</p>
+			</div>
+			<v-divider class="mt-3 mb-5" />
+		</div>
 		<v-row class="px-4">
 			<v-col
 				cols="12"
-				:style="{ height: '300px' }"
+				:style="{ height: '250px' }"
 			>
 				<v-progress-circular v-if="pending" />
 				<Doughnut
@@ -33,6 +48,16 @@ import { Doughnut } from 'vue-chartjs'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const { data, pending } = storeToRefs(useStatisticOrderAmount())
+const orderAmount = computed(() =>
+	Object.values(data.value?.year || {}).reduce(
+		(res, order) => {
+			res[0] += order.memberOrderCount
+			res[1] += order.totalCount - order.memberOrderCount
+			return res
+		},
+		[0, 0]
+	)
+)
 const chartData = computed<ChartData<'doughnut', number[], string>>(() => {
 	return {
 		labels: ['Thành viên', 'Khách'],
@@ -40,14 +65,7 @@ const chartData = computed<ChartData<'doughnut', number[], string>>(() => {
 			{
 				label: 'Tất cả',
 				backgroundColor: ['#F6A847', '#42A0BC'],
-				data: Object.values(data.value?.year || {}).reduce(
-					(res, order) => {
-						res[0] += order.memberOrderCount
-						res[1] += order.totalCount - order.memberOrderCount
-						return res
-					},
-					[0, 0]
-				),
+				data: orderAmount.value,
 				hoverOffset: 6,
 			},
 		],

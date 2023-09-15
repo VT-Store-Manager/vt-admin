@@ -18,9 +18,6 @@ setTheme(
 </script>
 
 <style lang="scss" scoped>
-.v-application {
-	min-width: 1250px;
-}
 .page-enter-active,
 .page-leave-active {
 	transition: all 0.4s;

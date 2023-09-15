@@ -96,7 +96,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import { TableHeader } from '~/types'
 import { MemberListItemModel } from '~/models'
 

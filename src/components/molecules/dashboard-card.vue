@@ -6,7 +6,10 @@
 				rounded="12"
 				class="elevation-2 h-100"
 			>
-				<v-card-title class="pr-3">
+				<v-card-title
+					v-if="title"
+					class="pr-3"
+				>
 					<div class="d-flex justify-space-between align-center">
 						<p class="text-15px font-weight-bold">
 							{{ title }}
@@ -55,7 +58,7 @@
 <script lang="ts" setup>
 import { mdiCog } from '@mdi/js'
 interface Props {
-	title: string
+	title?: string
 	optionButton?: boolean
 }
 
