@@ -82,15 +82,4 @@ const headers: TableHeader<StoreListItemModel>[] = [
 		default: Date.now(),
 	},
 ]
-
-const getStatusColor = (disabled: boolean, deleted: boolean) => {
-	if (deleted) return 'grey'
-	else if (disabled) return 'danger'
-	else return 'success'
-}
-const getStatusText = (disabled: boolean, deleted: boolean) => {
-	if (deleted) return 'removed'
-	else if (disabled) return 'disabled'
-	else return 'active'
-}
 </script>

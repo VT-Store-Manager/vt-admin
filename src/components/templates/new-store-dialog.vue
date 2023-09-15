@@ -163,8 +163,8 @@ const images = useField<File[]>('images')
 const name = useField<string>('name')
 const openTime = useField<CreateStoreModel['openTime']>('openTime')
 const address = useField<CreateStoreModel['address']>('address')
-const unavailableGoods =
-	useField<CreateStoreModel['unavailableGoods']>('unavailableGoods')
+// const unavailableGoods =
+// 	useField<CreateStoreModel['unavailableGoods']>('unavailableGoods')
 
 const createStore = useCreateStore()
 const { push } = useAlert()

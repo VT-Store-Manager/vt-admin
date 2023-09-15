@@ -25,8 +25,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 const voucherList = useVoucherList()
 const { totalCount } = storeToRefs(voucherList)
 const { refresh, pushQuery } = voucherList

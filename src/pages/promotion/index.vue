@@ -19,8 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 const promotionList = usePromotionList()
 const { totalCount, pending } = storeToRefs(promotionList)
 const { refresh, pushQuery } = promotionList

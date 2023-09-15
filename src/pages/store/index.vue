@@ -24,7 +24,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import { STORE_DISPLAY_KEY } from '~/constants'
 import { ListDisplay } from '~/types'
 

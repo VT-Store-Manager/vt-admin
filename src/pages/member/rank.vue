@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 const rankList = useRankList()
 const { totalCount } = storeToRefs(rankList)
 const { refresh } = rankList

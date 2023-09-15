@@ -19,8 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 const productList = useProductList()
 const { totalProduct } = storeToRefs(productList)
 const { refresh, pushQuery } = productList

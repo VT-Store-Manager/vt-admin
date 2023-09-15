@@ -158,11 +158,8 @@
 </template>
 
 <script setup lang="ts">
-
-
 const productDetail = useProductDetail()
 const { productData } = storeToRefs(productDetail)
-const categoryList = useProductCategoryList()
 const categorySelect = useProductCategorySelect()
 const optionList = useProductOptionList()
 
@@ -171,8 +168,6 @@ const productId = route.params.id as string
 if (productId) {
 	productDetail.fetch(productId)
 }
-
-const description = ref('')
 </script>
 
 <style lang="scss" scoped></style>

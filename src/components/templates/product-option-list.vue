@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import { TableHeader } from '~/types'
 import { ProductOptionListItemModel } from '~/models'
 import { useProductOptionList } from '~/composables/apis/use-product-option-list'

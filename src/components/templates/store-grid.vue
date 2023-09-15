@@ -63,12 +63,10 @@
 </template>
 
 <script setup lang="ts">
-
 import { StoreListItemModel } from '~/models'
 
 const storeList = useStoreList()
-const { items, pending, totalCount } = storeToRefs(storeList)
-const { updatePage } = storeList
+const { items } = storeToRefs(storeList)
 const serverImgUrl = useRuntimeConfig().public.imgResourceUrl
 
 const fullAddress = (address: StoreListItemModel['address']) => {

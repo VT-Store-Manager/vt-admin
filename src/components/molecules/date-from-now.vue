@@ -30,8 +30,6 @@ interface Props {
 
 const props = defineProps<Props>()
 
-moment.locale('vi')
-
 const now = useNow()
 const diffTime = computed(() => {
 	return now.value.getTime() - new Date(props.date).getTime()

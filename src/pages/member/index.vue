@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-
-
 const memberList = useMemberList()
 const { totalCount } = storeToRefs(memberList)
 const { refresh, pushQuery } = memberList

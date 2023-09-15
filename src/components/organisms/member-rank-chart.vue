@@ -30,7 +30,6 @@ import {
 	LineElement,
 	Title,
 	Tooltip,
-	Legend,
 	ChartData,
 	ChartOptions,
 	Filler,

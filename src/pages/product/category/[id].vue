@@ -70,8 +70,6 @@
 </template>
 
 <script setup lang="ts">
-
-
 const categoryDetail = useProductCategoryDetail()
 const { categoryData } = storeToRefs(categoryDetail)
 

@@ -88,6 +88,7 @@ module.exports = {
 		'no-useless-return': 'off',
 		'func-call-spacing': 'off',
 		'no-mixed-spaces-and-tabs': ['warn', 'smart-tabs'],
+		'import/no-named-as-default-member': 'off',
 
 		// Typescript eslint
 		'@typescript-eslint/no-unused-vars': [

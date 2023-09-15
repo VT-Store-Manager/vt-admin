@@ -82,8 +82,6 @@
 </template>
 
 <script setup lang="ts">
-
-
 const maxFiles = 4
 const { productData } = storeToRefs(useProductDetail())
 const productCategorySelect = useProductCategorySelect()

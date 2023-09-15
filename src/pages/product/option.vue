@@ -25,7 +25,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import { SHOW_SUB_OPTION_LIST } from '~/constants'
 
 const productOptionList = useProductOptionList()

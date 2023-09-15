@@ -101,7 +101,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import { darken } from 'polished'
 import { mdiCardBulleted } from '@mdi/js'
 import { TableHeader } from '~/types'

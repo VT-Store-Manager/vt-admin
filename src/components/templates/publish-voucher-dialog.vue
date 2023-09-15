@@ -234,7 +234,6 @@ import { useField, useForm } from 'vee-validate'
 import { array } from 'yup'
 
 const show = defineModel<boolean>('show', { default: false, local: true })
-const showResultDialog = ref(false)
 const { handleReset, handleSubmit } = useForm({
 	validationSchema: {
 		vouchers: array().required().min(1, 'At least 1 voucher').default([]),
@@ -284,13 +283,6 @@ const submit = handleSubmit(async values => {
 		})
 	}
 })
-
-const onCloseResultDialog = () => {
-	showResultDialog.value = false
-	if (!createMemberVoucher.error) {
-		show.value = false
-	}
-}
 </script>
 
 <style scoped lang="scss"></style>

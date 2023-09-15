@@ -2,7 +2,8 @@
 	<div
 		class="page bg-background"
 		:class="{
-			'overflow-y-auto': scroll,
+			// 'overflow-y-auto': scroll,
+			'overflow-y-auto': true,
 		}"
 	>
 		<div class="page-wrapper">

@@ -21,7 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import { SubNavItem } from '~/routes'
 
 interface Props {

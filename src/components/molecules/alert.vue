@@ -78,8 +78,6 @@
 </template>
 
 <script setup lang="ts">
-
-
 const { startTimeout } = useAlert()
 const { data, show } = storeToRefs(useAlert())
 const now = useNow()
