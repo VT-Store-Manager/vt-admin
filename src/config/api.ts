@@ -1,4 +1,4 @@
-const apiVersion = 1
+const apiVersion = 2
 
 export default {
 	version: apiVersion,

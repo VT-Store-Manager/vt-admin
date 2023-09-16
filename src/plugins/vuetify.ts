@@ -36,6 +36,7 @@ import {
 	faCircleNotch,
 	faStore,
 	faTruck,
+	faUserShield,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -63,7 +64,8 @@ library.add(
 	faCircleXmark,
 	faCircleNotch,
 	faStore,
-	faTruck
+	faTruck,
+	faUserShield
 )
 
 // #F6F1E9

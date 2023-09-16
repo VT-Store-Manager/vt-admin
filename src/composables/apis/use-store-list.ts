@@ -15,13 +15,29 @@ export const useStoreList = definePiniaStore('store-list', () => {
 		transform: input => input.data,
 		watch: [query],
 	})
+	const storedData = ref<StoreListItemModel[]>([])
+	watch(data, value => {
+		if (value) {
+			storedData.value = value.items
+		}
+	})
 
-	const totalCount = computed(() => data.value?.totalCount || 0)
-	const items = computed(() => data.value?.items || [])
+	const totalCount = computed(() => {
+		if (storedData.value.length) return storedData.value.length
+		return data.value?.items.length || 0
+	})
+	const items = computed(() => {
+		if (storedData.value.length) return storedData.value
+		return data.value?.items || []
+	})
+	const storeMap = computed(
+		() => new Map(items.value.map(store => [store.id, store]))
+	)
 
 	return {
 		pagination,
 		updatePage,
+		storeMap,
 		data,
 		pending,
 		error,

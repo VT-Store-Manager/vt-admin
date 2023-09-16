@@ -65,7 +65,7 @@
 <script lang="ts" setup>
 import { mdiChevronUp } from '@mdi/js'
 
-import { NavItem } from '~/routes'
+import { NavItem } from '~/types'
 
 interface NavProps {
 	data: NavItem

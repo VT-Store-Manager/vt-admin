@@ -4,6 +4,23 @@ export type Nav = {
 	url?: string
 }
 
+export type SubNavItem = {
+	name: string
+	icon?: string
+	url: string
+	sidebar?: boolean
+	disabled?: boolean
+}
+
+export type NavItem = {
+	name: string
+	icon?: string
+	url: string
+	sidebar?: boolean
+	disabled?: boolean
+	sub?: SubNavItem[]
+}
+
 export type ListDisplay = 'list' | 'grid'
 
 export type Alignment =
