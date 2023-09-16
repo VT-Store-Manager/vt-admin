@@ -17,7 +17,7 @@
 				:readonly="loading"
 				class="mb-2"
 				:rules="[required]"
-				label="Username"
+				label="Tài khoản"
 				optional
 				:prepend-inner-icon="mdiAccount"
 			/>
@@ -29,7 +29,7 @@
 				:rules="[required]"
 				class="mb-5"
 				:type="showPassword ? 'text' : 'password'"
-				label="Password"
+				label="Mật khẩu"
 				optional
 				:prepend-inner-icon="mdiLock"
 				@click:append-inner="showPassword = !showPassword"
@@ -46,7 +46,7 @@
 					class="font-weight-bold ma-auto"
 					min-width="150"
 				>
-					Login
+					Đăng nhập
 					<v-icon
 						:icon="mdiLogin"
 						class="ml-1"

@@ -7,6 +7,8 @@ export type AuthAdminType = {
 export type CurrentAdminType = {
 	id: string
 	username: string
+	name: string
+	avatar: string
 	role: string[]
 	updatePassword?: boolean
 }
@@ -25,6 +27,8 @@ export const useAuthStore = defineStore('authentication', () => {
 		default: () => ({
 			id: '',
 			username: '',
+			name: '',
+			avatar: '',
 			role: [],
 		}),
 	})
@@ -69,8 +73,15 @@ export const useAuthStore = defineStore('authentication', () => {
 		currentAdmin.value = {
 			id: '',
 			username: '',
+			name: '',
+			avatar: '',
 			role: [],
 		}
+	}
+
+	const logout = () => {
+		clear()
+		$router.push('/login')
 	}
 
 	return {
@@ -80,6 +91,7 @@ export const useAuthStore = defineStore('authentication', () => {
 		setAuthData,
 		refresh,
 		clear,
+		logout,
 	}
 })
 

@@ -9,11 +9,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
 		callbackUrl.value = isAppRoute && from.path !== '/login' ? from.path : '/'
 
 		return navigateTo('/login')
-	} else {
-		if (to.path === '/login') {
-			// eslint-disable-next-line no-console
-			console.log('Your session is expired out')
+	} else if (to.path === '/login') {
+		if (auth.value?.accessToken) {
+			return abortNavigation()
 		}
+		// eslint-disable-next-line no-console
+		console.log('Your session is expired out')
 		callbackUrl.value = ''
 	}
 })

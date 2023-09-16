@@ -6,6 +6,8 @@ export type AuthModel = {
 	user: {
 		id: string
 		username: string
+		name: string
+		avatar: string
 		role: string[]
 		updatePassword?: boolean
 	}

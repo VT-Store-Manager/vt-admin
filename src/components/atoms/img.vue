@@ -37,6 +37,7 @@
 				<v-progress-circular
 					color="grey-lighten-4"
 					indeterminate
+					v-bind="placeHolderProps"
 				/>
 			</div>
 		</template>
@@ -54,9 +55,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { VImg } from 'vuetify/components'
+import type { VImg, VProgressCircular } from 'vuetify/components'
 
 interface VImgType extends /* @vue-ignore */ VImg {}
+interface VProgressCircularType extends /* @vue-ignore */ VProgressCircular {}
 interface Props {
 	src: string
 	altSrc?: string[]
@@ -65,6 +67,7 @@ interface Props {
 	serverAltImg?: number[] | true
 	imgAttribute?: Record<string, any>
 	mainImage?: boolean
+	placeHolderProps?: VProgressCircularType['$props']
 }
 
 const props = withDefaults(defineProps<VImgType['$props'] & Props>(), {
