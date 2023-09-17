@@ -1,11 +1,7 @@
 <template>
 	<p>
 		<span>
-			{{
-				moment(new Date(Date.now() - diffTime))
-					.locale('vi')
-					.fromNow()
-			}}
+			{{ diffTime }}
 			<v-tooltip
 				activator="parent"
 				location="left"
@@ -22,16 +18,16 @@
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment'
-
 interface Props {
 	date: number | string
 }
 
 const props = defineProps<Props>()
-
+const { $moment } = useNuxtApp()
 const now = useNow()
+
 const diffTime = computed(() => {
-	return now.value.getTime() - new Date(props.date).getTime()
+	const diffAmount = now.value.getTime() - new Date(props.date).getTime()
+	return $moment(new Date(Date.now() - diffAmount)).fromNow()
 })
 </script>

@@ -6,7 +6,7 @@
 				@click="accountListStore.refresh"
 			/>
 		</template>
-		{{ fullAccountData }}
+		<template-account-admin-list />
 	</molecule-list-page-container>
 </template>
 
@@ -17,7 +17,11 @@ const { roleMap } = storeToRefs(useAccountAdminRoleList())
 const { storeMap } = storeToRefs(useStoreList())
 const accountListStore = useAccountAdminList()
 
-const fullAccountData = computed(() => {
+if (!accountListStore.data) {
+	accountListStore.refresh()
+}
+
+const _fullAccountData = computed(() => {
 	return accountListStore.accountList.map(account => {
 		return {
 			...account,

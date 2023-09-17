@@ -1,6 +1,7 @@
 export interface AccountAdminListItem {
 	id: string
 	username: string
+	avatar: string
 	name: string
 	roles: string[]
 	stores: string[]

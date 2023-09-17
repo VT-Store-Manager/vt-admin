@@ -103,7 +103,7 @@
 <script setup lang="ts">
 import { mdiArrowDownThin, mdiArrowUpThin } from '@mdi/js'
 import moment from 'moment-timezone'
-import { momentTimezone } from '~/constants'
+import { momentTimezoneName } from '~/constants'
 
 interface Props {
 	icon: string
@@ -121,13 +121,13 @@ const statisticTotalAmount = useStatisticTotalAmount()
 
 const startDay = computed(() => {
 	return moment
-		.tz(momentTimezone)
+		.tz(momentTimezoneName)
 		.subtract(statisticTotalAmount.duration + 1, 'd')
 		.format('DD/MM')
 })
 
 const finishDay = computed(() => {
-	return moment.tz(momentTimezone).format('DD/MM')
+	return moment.tz(momentTimezoneName).format('DD/MM')
 })
 </script>
 

@@ -23,11 +23,23 @@ export default function <
 
 	const authStore = useAuthStore()
 	const baseURL = useRuntimeConfig().public.apiBase + config.api.prefix
+	const accessToken = ref(authStore.auth.accessToken)
+
+	watch(
+		() => authStore.auth,
+		() => {
+			if (authStore.auth.accessToken) {
+				accessToken.value = authStore.auth.accessToken
+			}
+		}
+	)
 
 	const headers = computed(() => {
 		const _headers: Record<string, string> = {}
 		if (extraOptions.auth) {
-			_headers.Authorization = `Bearer ${authStore.auth.accessToken || ''}`
+			_headers.Authorization = `Bearer ${
+				accessToken.value || authStore.auth.accessToken || ''
+			}`
 		}
 		if (extraOptions.multipart) {
 			_headers['Content-Type'] = 'multipart/form-data'

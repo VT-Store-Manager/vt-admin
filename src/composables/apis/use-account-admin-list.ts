@@ -3,6 +3,7 @@ import { AccountAdminListItem } from '~/models'
 export const useAccountAdminList = definePiniaStore(
 	'account-admin-list',
 	() => {
+		const { $faker } = useNuxtApp()
 		const { data, pending, error, execute, refresh } = useRequest<
 			AccountAdminListItem[]
 		>('/account-admin/list', {
@@ -18,7 +19,10 @@ export const useAccountAdminList = definePiniaStore(
 
 		const accountList = computed(() => {
 			if (storedData.value.length === 0) {
-				return data.value || []
+				return (data.value || []).map(item => ({
+					...item,
+					avatar: item.avatar || $faker.image.avatar(),
+				}))
 			}
 			return storedData.value
 		})

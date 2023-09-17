@@ -19,11 +19,6 @@ module.exports = {
 		'plugin:nuxt/recommended',
 		'@nuxtjs/eslint-config-typescript',
 	],
-	overrides: [
-		{
-			files: ['resources/**/*.{js,ts,vue}'],
-		},
-	],
 	parser: 'vue-eslint-parser',
 	parserOptions: {
 		ecmaVersion: 'latest',
@@ -103,5 +98,13 @@ module.exports = {
 		'@typescript-eslint/no-this-alias': 'off',
 		'@typescript-eslint/no-var-requires': 'off',
 	},
+	overrides: [
+		{
+			files: ['**/*.d.ts'],
+			rules: {
+				'@typescript-eslint/no-unused-vars': 'off',
+			},
+		},
+	],
 	globals: {},
 }
