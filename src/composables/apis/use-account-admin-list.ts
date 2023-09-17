@@ -24,10 +24,17 @@ export const useAccountAdminList = definePiniaStore(
 					avatar: item.avatar || $faker.image.avatar(),
 				}))
 			}
-			return storedData.value
+			return storedData.value.map(item => ({
+				...item,
+				avatar: item.avatar || $faker.image.avatar(),
+			}))
 		})
 
-		return { data, accountList, pending, error, execute, refresh }
+		const accountMap = computed(() => {
+			return new Map(accountList.value.map(item => [item.id, item]))
+		})
+
+		return { data, accountList, accountMap, pending, error, execute, refresh }
 	}
 )
 

@@ -6,6 +6,7 @@
 				activator="parent"
 				location="left"
 				:open-delay="500"
+				v-bind="tooltipProps"
 			>
 				<atom-date-cell
 					:date="date"
@@ -18,8 +19,12 @@
 </template>
 
 <script lang="ts" setup>
+import { VTooltip } from 'vuetify/components'
+
+interface VTooltipType extends /* @vue-ignore */ VTooltip {}
 interface Props {
 	date: number | string
+	tooltipProps?: VTooltipType['$props']
 }
 
 const props = defineProps<Props>()

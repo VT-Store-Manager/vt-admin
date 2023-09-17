@@ -176,7 +176,7 @@ const routes: NavItem[] = [
 			},
 			{
 				name: 'Phân quyền',
-				url: '/account',
+				url: '/account/role',
 				icon: mdiShieldLockOutline,
 				sidebar: true,
 			},

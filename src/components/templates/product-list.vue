@@ -135,6 +135,7 @@ const headers = computed<TableHeader<ProductListItemModel>[]>(() => {
 			title: 'Giá',
 			key: 'originalPrice',
 			sortable: true,
+			width: 100,
 			calculate: (value: number) =>
 				value.toLocaleString().replace(/,/, '.') + ' đ',
 		},

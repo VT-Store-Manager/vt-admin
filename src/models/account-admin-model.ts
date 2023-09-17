@@ -18,7 +18,10 @@ export interface UpdatedByModel {
 export interface AccountAdminRoleItem {
 	id: string
 	name: string
-	permissions: any[]
+	permissions: {
+		featureName: string
+		scopes: string[]
+	}[]
 	updatedBy: UpdatedByModel
 	createdAt: string
 	updatedAt: string
