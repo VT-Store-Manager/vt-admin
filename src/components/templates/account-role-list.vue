@@ -7,13 +7,19 @@
 		editable
 	>
 		<template #permissions="{ item }">
-			<v-chip-group v-if="item.permissions.length">
+			<v-chip-group
+				v-if="item.permissions.length"
+				class="d-flex flex-column"
+			>
 				<v-chip
 					v-for="feature in item.permissions"
 					:key="feature.featureName"
+					:style="{ width: 'fit-content' }"
 				>
-					{{ feature.featureName.toUpperCase() }}:
-					{{ feature.scopes.map((s: string) => s.toLowerCase()).join(', ') }}
+					<span class="font-weight-semibold">
+						{{ feature.featureName.toUpperCase() }}
+					</span>
+					: {{ feature.scopes.map((s: string) => s.toLowerCase()).join(', ') }}
 				</v-chip>
 			</v-chip-group>
 			<template v-else> N/A </template>

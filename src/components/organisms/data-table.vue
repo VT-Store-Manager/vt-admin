@@ -104,7 +104,7 @@
 								delete
 								@click:edit="
 									$router.push(
-										`${$route.path}/${item[idFieldName || 'id']}/edit`
+										`${route.path}/${item[idFieldName || 'id']}/edit`
 									)
 								"
 							/>
@@ -146,6 +146,7 @@ const props = withDefaults(defineProps<Props>(), {
 	itemKey: 'id',
 })
 defineSlots<Record<string, (props: { item: T }) => any>>()
+const route = useRoute()
 
 const startId = computed(() => {
 	const check = isObject(props.pagination)

@@ -13,7 +13,7 @@
 				rounded="12"
 				:multiple="!selectOne"
 				v-bind="{ ...hoverProps, ...$attrs }"
-				@update:focused="value => (bgColor = value ? 'white' : 'input')"
+				@update:focused="(value: boolean) => (bgColor = value ? 'white' : 'input')"
 			>
 				<template
 					v-for="slot in slotNames"

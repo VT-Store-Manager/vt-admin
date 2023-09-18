@@ -26,3 +26,8 @@ export interface AccountAdminRoleItem {
 	createdAt: string
 	updatedAt: string
 }
+
+export interface AdminRolePermission {
+	nameKeys: string[]
+	permissionKeys: string[]
+}

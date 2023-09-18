@@ -1265,7 +1265,7 @@ packages:
       '@nuxt/devtools-wizard': /@nuxt/devtools-wizard-edge@0.5.5-28092324.8333e19
       '@nuxt/kit': 3.7.3
       birpc: 0.2.14
-      consola: 3.1.0
+      consola: 3.2.3
       execa: 7.2.0
       fast-folder-size: 1.7.1
       fast-glob: 3.3.1
@@ -1324,7 +1324,7 @@ packages:
     resolution: {integrity: sha512-0kEWVo/uxexRr6JdQARFT/rThQZm7iyyzLOWgCT/8+LfjUN6EHC1ZF+pjY37BgQRe7/xu75W7868Ku+Oj/daiA==}
     hasBin: true
     dependencies:
-      consola: 3.1.0
+      consola: 3.2.3
       diff: 5.1.0
       execa: 7.2.0
       global-dirs: 3.0.1

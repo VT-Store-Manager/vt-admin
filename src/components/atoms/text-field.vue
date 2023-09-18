@@ -4,12 +4,12 @@
 			<v-text-field
 				variant="outlined"
 				color="primary"
-				:bg-color="$attrs.modelValue || isHovering ? 'white' : bgColor"
+				bg-color="white"
 				:base-color="isHovering ? 'primary' : 'black'"
 				class="text-field transition-background-color-all"
 				rounded="12"
 				v-bind="{ ...props, ...$attrs }"
-				@update:focused="value => (bgColor = value ? 'white' : 'input')"
+				@update:focused="onUpdateFocused"
 			/>
 		</template>
 	</v-hover>
@@ -21,6 +21,10 @@ defineOptions({
 })
 
 const bgColor = ref('input')
+
+const onUpdateFocused = (value: boolean) => {
+	bgColor.value = value ? 'white' : 'input'
+}
 </script>
 
 <style lang="scss" scoped>

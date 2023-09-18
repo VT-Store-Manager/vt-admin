@@ -20,5 +20,5 @@ export const useProductDetail = definePiniaStore('product-detail', () => {
 
 	const productData = computed(() => data.value || null)
 
-	return { data, pending, error, refresh, fetch, productData }
+	return { data, productId, pending, error, refresh, fetch, productData }
 })

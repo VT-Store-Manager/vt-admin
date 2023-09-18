@@ -9,7 +9,7 @@
 						</div>
 					</template>
 					<template #subtitle>
-						{{ productData?.data!.images.length || 0 }}/{{ maxFiles }} files
+						{{ productData!.images.length || 0 }}/{{ maxFiles }} files
 					</template>
 					<template #item>
 						<organism-file-panel :max-files="maxFiles" />
@@ -37,12 +37,12 @@
 								<molecule-input
 									input-type="text-field"
 									label="Product name"
-									:model-value="productData?.data?.name"
+									:model-value="productData?.name"
 								/>
 							</v-col>
 							<v-col cols="4">
 								<molecule-input
-									:model-value="productData?.data?.category"
+									:model-value="productData?.category"
 									input-type="select"
 									label="Category"
 									:items="productCategorySelect.data"
@@ -53,14 +53,14 @@
 							</v-col>
 							<v-col cols="12">
 								<molecule-input
-									:model-value="productData?.data?.description"
+									:model-value="productData?.description"
 									input-type="textarea"
 									label="Product description"
 								/>
 							</v-col>
 							<v-col cols="4">
 								<molecule-input
-									:model-value="productData?.data?.originalPrice"
+									:model-value="productData?.originalPrice"
 									input-type="number-field"
 									label="Product price"
 									suffix="đ"
@@ -70,7 +70,7 @@
 							</v-col>
 							<v-col cols="8">
 								<organism-product-option-select
-									:model-value="productData?.data?.options"
+									:model-value="productData?.options"
 								/>
 							</v-col>
 						</v-row>

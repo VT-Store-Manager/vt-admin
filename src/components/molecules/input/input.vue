@@ -1,22 +1,11 @@
 <template>
 	<div class="input-with-outside-label">
-		<label
+		<atom-label
+			:label="label"
+			:optional="optional"
+			:is-focused="isFocused"
 			:for="randomId"
-			class="outside-label text-14px px-2 pb-1 d-inline-block cursor-pointer transition-color"
-			:class="
-				isFocused
-					? ['text-primary', 'font-weight-semibold']
-					: ['font-weight-medium']
-			"
-		>
-			{{ label }}
-			<span
-				v-if="!optional"
-				class="text-red"
-			>
-				*
-			</span>
-		</label>
+		/>
 
 		<component
 			:is="componentName"

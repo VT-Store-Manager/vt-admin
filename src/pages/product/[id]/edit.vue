@@ -4,7 +4,7 @@
 			<molecule-btn-refresh
 				class="mr-3"
 				title="Refresh data"
-				@click="productDetail.productData?.refresh"
+				@click="productDetail.refresh"
 			/>
 			<molecule-btn-delete
 				disabled
