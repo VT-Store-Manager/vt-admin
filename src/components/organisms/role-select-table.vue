@@ -79,6 +79,11 @@
 <script setup lang="ts">
 import capitalize from 'lodash/capitalize'
 
+interface Props {
+	initFn?: Function
+}
+
+const props = defineProps<Props>()
 const { permissionData } = storeToRefs(useAdminRolePermission())
 const permissionSelected = defineModel<Record<string, string[]>>(
 	'permissionSelected',
@@ -98,10 +103,18 @@ const assignSelected = () => {
 	}
 }
 watch(permissionData, () => {
-	assignSelected()
+	if (props.initFn) {
+		props.initFn()
+	} else {
+		assignSelected()
+	}
 })
 onMounted(() => {
-	assignSelected()
+	if (props.initFn) {
+		props.initFn()
+	} else {
+		assignSelected()
+	}
 })
 const colorList = [
 	'red-darken-2',
@@ -123,8 +136,10 @@ const isIndeterminate = (nameKey: string) => {
 	const permissionLength = permissionData.value.permissionKeys.length
 	const selectedLength = permissionSelected.value[nameKey]?.length
 
-	return (
-		selectedLength && selectedLength > 0 && selectedLength < permissionLength
+	return !!(
+		selectedLength &&
+		selectedLength > 0 &&
+		selectedLength < permissionLength
 	)
 }
 

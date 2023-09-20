@@ -33,15 +33,26 @@
 		</template>
 		<template #permissions="{ item }">
 			<v-chip-group v-if="item.permissions.length">
-				<v-chip
+				<template
 					v-for="feature in item.permissions"
 					:key="feature.featureName"
-					:style="{ width: 'fit-content' }"
-					class="font-weight-semibold"
-					density="comfortable"
 				>
-					{{ capitalize(feature.featureName) }} ({{ feature.scopes.length }})
-				</v-chip>
+					<v-chip
+						v-if="feature.scopes.length"
+						:style="{ width: 'fit-content' }"
+						class="font-weight-semibold"
+						density="comfortable"
+					>
+						{{ capitalize(feature.featureName) }} ({{ feature.scopes.length }})
+						<v-tooltip
+							activator="parent"
+							location="bottom center"
+							open-delay="300"
+						>
+							{{ feature.scopes.join(', ') }}
+						</v-tooltip>
+					</v-chip>
+				</template>
 			</v-chip-group>
 			<template v-else> N/A </template>
 		</template>
