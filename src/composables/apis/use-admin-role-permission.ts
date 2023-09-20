@@ -17,7 +17,7 @@ export const useAdminRolePermission = defineStore(
 
 		const permissionData = computed(() => data.value!)
 
-		return { pending, error, permissionData, refresh }
+		return { pending, error, data, permissionData, refresh }
 	}
 )
 

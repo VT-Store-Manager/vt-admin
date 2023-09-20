@@ -6,20 +6,41 @@
 		:total-item-amount="roleListStore.roleList.length"
 		editable
 	>
+		<template #name="{ item }">
+			<p class="text-16px">{{ item.name }}</p>
+			<div class="text-grey text-14px mt-1">
+				<atom-link
+					v-for="account in getAccountByRole(item.id)"
+					:key="account.id"
+					:to="`/account/${account.username}/detail`"
+				>
+					<v-avatar
+						:image="account.avatar"
+						:size="24"
+						class="cursor-pointer"
+					/>
+					<v-tooltip
+						activator="parent"
+						location="bottom center"
+					>
+						<p>
+							{{ account.name }}
+						</p>
+						<p>ID: {{ account.username }}</p>
+					</v-tooltip>
+				</atom-link>
+			</div>
+		</template>
 		<template #permissions="{ item }">
-			<v-chip-group
-				v-if="item.permissions.length"
-				class="d-flex flex-column"
-			>
+			<v-chip-group v-if="item.permissions.length">
 				<v-chip
 					v-for="feature in item.permissions"
 					:key="feature.featureName"
 					:style="{ width: 'fit-content' }"
+					class="font-weight-semibold"
+					density="comfortable"
 				>
-					<span class="font-weight-semibold">
-						{{ feature.featureName.toUpperCase() }}
-					</span>
-					: {{ feature.scopes.map((s: string) => s.toLowerCase()).join(', ') }}
+					{{ capitalize(feature.featureName) }} ({{ feature.scopes.length }})
 				</v-chip>
 			</v-chip-group>
 			<template v-else> N/A </template>
@@ -57,6 +78,7 @@
 </template>
 
 <script setup lang="ts">
+import capitalize from 'lodash/capitalize'
 import { AccountAdminRoleItem } from '~/models'
 import { TableHeader } from '~/types'
 
@@ -64,6 +86,7 @@ const headers: TableHeader<AccountAdminRoleItem>[] = [
 	{
 		title: 'Name',
 		key: 'name',
+		width: 150,
 	},
 	{
 		title: 'Permissions',
@@ -72,14 +95,19 @@ const headers: TableHeader<AccountAdminRoleItem>[] = [
 	{
 		title: 'Updated by',
 		key: 'updatedBy',
+		width: 170,
 	},
 ]
 
 const roleListStore = useAccountAdminRoleList()
-const { accountMap } = storeToRefs(useAccountAdminList())
+const { accountMap, accountList } = storeToRefs(useAccountAdminList())
 
 const getAccountById = (accountId: string) => {
 	return accountMap.value.get(accountId)
+}
+
+const getAccountByRole = (roleId: string) => {
+	return accountList.value.filter(account => account.roles.includes(roleId))
 }
 </script>
 

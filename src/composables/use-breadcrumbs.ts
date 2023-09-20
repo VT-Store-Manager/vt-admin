@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import capitalize from 'lodash/capitalize'
 
 type BreadcrumbsItem = {
 	title: string
@@ -49,7 +49,7 @@ export const useBreadcrumbs = definePiniaStore('breadcrumbs', () => {
 			const findRoute = allRoutes.find(r => r.path === route)
 			if (!findRoute) continue
 			push({
-				title: _.capitalize(findRoute.name!.toString().replaceAll('-', ' ')),
+				title: capitalize(findRoute.name!.toString().replaceAll('-', ' ')),
 				href: findRoute.path,
 				disabled: false,
 			})
@@ -69,7 +69,7 @@ export const useBreadcrumbs = definePiniaStore('breadcrumbs', () => {
 		} else {
 			assign([
 				{
-					title: _.capitalize(to.name!.toString().replaceAll('-', ' ')),
+					title: capitalize(to.name!.toString().replaceAll('-', ' ')),
 					href: to.path,
 					disabled: true,
 				},

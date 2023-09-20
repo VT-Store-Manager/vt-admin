@@ -5,7 +5,7 @@
 				<molecule-input
 					v-model="roleName"
 					input-type="text-field"
-					label="Product name"
+					label="Role name"
 				/>
 			</v-col>
 			<v-col cols="8">
@@ -91,8 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { capitalize } from 'lodash'
-import { useListener } from '../../composables/use-event-bus'
+import capitalize from 'lodash/capitalize'
 
 const route = useRoute()
 const roleListStore = useAccountAdminRoleList()
