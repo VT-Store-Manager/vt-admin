@@ -5,6 +5,7 @@
 		:loading="roleListStore.pending"
 		:total-item-amount="roleListStore.roleList.length"
 		editable
+		@delete-item="onDeleteItem"
 	>
 		<template #name="{ item }">
 			<p class="text-16px">{{ item.name }}</p>
@@ -111,6 +112,7 @@ const headers: TableHeader<AccountAdminRoleItem>[] = [
 ]
 
 const roleListStore = useAccountAdminRoleList()
+const { push } = useAlert()
 const { accountMap, accountList } = storeToRefs(useAccountAdminList())
 
 const getAccountById = (accountId: string) => {
@@ -119,6 +121,32 @@ const getAccountById = (accountId: string) => {
 
 const getAccountByRole = (roleId: string) => {
 	return accountList.value.filter(account => account.roles.includes(roleId))
+}
+
+const onDeleteItem = async (item: AccountAdminRoleItem) => {
+	const { data, error, execute } = useRequest<boolean>(
+		`/account-admin/role/${item.id}/disable`,
+		{
+			method: 'DELETE',
+			immediate: false,
+		}
+	)
+	await execute()
+	if (data.value) {
+		roleListStore.refresh()
+		push({
+			type: 'success',
+			text: 'Remove role successfully',
+			duration: 5000,
+		})
+	} else if (error.value) {
+		push({
+			type: 'error',
+			text: 'Remove role failed',
+			// description: error.value.message,
+			duration: 15000,
+		})
+	}
 }
 </script>
 

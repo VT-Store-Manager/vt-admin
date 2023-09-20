@@ -13,6 +13,7 @@ const { setTheme } = useThemeUtil()
 setTheme(
 	useCookie(GLOBAL_THEME_KEY, {
 		default: () => AppTheme.LIGHT,
+		maxAge: 60 * 60 * 24 * 365,
 	}).value
 )
 </script>

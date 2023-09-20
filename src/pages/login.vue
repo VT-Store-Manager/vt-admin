@@ -75,7 +75,10 @@ definePageMeta({
 const SAVED_ACCOUNT_KEY = 'saved_account'
 const form = ref(false)
 const savedAccount = useCookie<{ username: string; password: string }>(
-	SAVED_ACCOUNT_KEY
+	SAVED_ACCOUNT_KEY,
+	{
+		maxAge: 60 * 60 * 24 * 365,
+	}
 )
 const username = ref(savedAccount.value?.username)
 const password = ref(savedAccount.value?.password)

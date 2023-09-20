@@ -33,7 +33,10 @@ import { GLOBAL_THEME_KEY, AppTheme } from '~/constants'
 const theme = useThemeUtil()
 const { isDark } = storeToRefs(theme)
 const { setTheme } = theme
-const themeCookieValue = useCookie(GLOBAL_THEME_KEY)
+const themeCookieValue = useCookie(GLOBAL_THEME_KEY, {
+	default: () => AppTheme.LIGHT,
+	maxAge: 60 * 60 * 24 * 365,
+})
 
 const toggleTheme = () => {
 	const newTheme = isDark.value ? AppTheme.LIGHT : AppTheme.DARK

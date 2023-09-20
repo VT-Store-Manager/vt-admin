@@ -2,6 +2,7 @@ import type { VAlert } from 'vuetify/components'
 
 type AlertData = {
 	text: string
+	description?: string
 	type: VAlert['$props']['type']
 	duration?: number
 }

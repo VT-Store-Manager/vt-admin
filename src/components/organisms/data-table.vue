@@ -107,6 +107,7 @@
 										`${route.path}/${item[idFieldName || 'id']}/edit`
 									)
 								"
+								@click:delete="$emit('deleteItem', item)"
 							/>
 						</td>
 					</tr>
@@ -146,6 +147,7 @@ const props = withDefaults(defineProps<Props>(), {
 	itemKey: 'id',
 })
 defineSlots<Record<string, (props: { item: T }) => any>>()
+defineEmits<{ (e: 'deleteItem', item: T): void }>()
 const route = useRoute()
 
 const startId = computed(() => {

@@ -20,21 +20,41 @@
 					/>
 				</template>
 			</v-tooltip>
-			<v-tooltip
-				v-if="props.delete"
-				text="Delete"
-				location="top"
-			>
-				<template #activator="{ props: propsTooltip2 }">
+			<v-menu location="top">
+				<template #activator="{ props: propsDeleteMenu }">
 					<v-icon
-						v-bind="propsTooltip2"
+						v-bind="propsDeleteMenu"
 						:size="16"
 						color="red-darken-3"
 						icon="fa:far fa-trash-can"
-						@click="$emit('click:delete')"
 					/>
 				</template>
-			</v-tooltip>
+				<v-sheet class="pa-3 mb-3 rounded-lg">
+					<p class="text-15px font-weight-medium">Có chắc chắn xoá không ?</p>
+					<div class="d-flex mx-n1 mt-2">
+						<div class="w-50 px-1">
+							<atom-btn
+								variant="tonal"
+								density="comfortable"
+								block
+								color="danger"
+								@click="$emit('click:delete')"
+							>
+								Có
+							</atom-btn>
+						</div>
+						<div class="w-50 px-1">
+							<atom-btn
+								variant="tonal"
+								density="comfortable"
+								block
+							>
+								Không
+							</atom-btn>
+						</div>
+					</div>
+				</v-sheet>
+			</v-menu>
 		</template>
 		<template v-else>
 			<v-btn

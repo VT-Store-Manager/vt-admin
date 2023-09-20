@@ -21,6 +21,7 @@ export const useAuthStore = defineStore('authentication', () => {
 			accessToken: '',
 			refreshToken: '',
 		}),
+		maxAge: 60 * 60 * 24 * 365,
 	})
 	const currentAdmin = useCookie<CurrentAdminType>(COOKIE_CURRENT_ADMIN_KEY, {
 		watch: true,
@@ -31,6 +32,7 @@ export const useAuthStore = defineStore('authentication', () => {
 			avatar: '',
 			role: [],
 		}),
+		maxAge: 60 * 60 * 24 * 365,
 	})
 	const callbackUrl = useCookie<string>(CALLBACK_URL_KEY)
 

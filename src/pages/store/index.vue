@@ -33,6 +33,7 @@ const { refresh, pushQuery } = storeList
 const showCreateDialog = ref(false)
 const displayType = useCookie<ListDisplay>(STORE_DISPLAY_KEY, {
 	watch: 'shallow',
+	maxAge: 60 * 60 * 24 * 365,
 })
 
 pushQuery()

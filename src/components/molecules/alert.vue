@@ -11,6 +11,7 @@
 			class="elevation-3"
 			closable
 			close-icon="fa:fas fa-xmark"
+			max-width="400"
 			:style="{
 				background: 'white',
 				top: '16px',
@@ -19,7 +20,15 @@
 			}"
 			@click:close="show = false"
 		>
-			{{ data.text }}
+			<p>
+				{{ data.text }}
+			</p>
+			<p
+				v-if="data.description"
+				class="text-12px"
+			>
+				{{ data.description }}
+			</p>
 			<template
 				v-if="data.duration"
 				#prepend
@@ -44,35 +53,6 @@
 					/>
 				</div>
 			</template>
-			<!-- <template #close>
-				<v-hover>
-					<template #default="{ isHovering, props }">
-						<div
-							v-bind="props"
-							class="relative cursor-pointer"
-							@click="show = false"
-						>
-							<v-icon
-								icon="fa:fas fa-xmark"
-								:size="isHovering ? 'small' : 'x-small'"
-								class="transition-all"
-								:style="{
-									position: 'absolute',
-									top: '50%',
-									left: '50%',
-									transform: 'translate(-50%, -50%)',
-								}"
-							/>
-							<v-progress-circular
-								:model-value="countProgress"
-								color="grey-lighten-3"
-								class="bg-transparent"
-								:width="3"
-							/>
-						</div>
-					</template>
-				</v-hover>
-			</template> -->
 		</v-alert>
 	</v-scroll-x-reverse-transition>
 </template>

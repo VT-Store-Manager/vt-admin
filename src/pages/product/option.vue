@@ -33,6 +33,7 @@ const { refresh, pushQuery } = productOptionList
 const showCreateDialog = ref(false)
 const showChildOptions = useCookie<boolean>(SHOW_SUB_OPTION_LIST, {
 	watch: 'shallow',
+	maxAge: 60 * 60 * 24 * 365,
 })
 pushQuery()
 </script>
