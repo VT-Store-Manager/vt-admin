@@ -109,7 +109,6 @@
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment'
 import { TableHeader } from '~/types'
 import { ProductListItemModel } from '~/models'
 
@@ -158,9 +157,6 @@ const headers = computed<TableHeader<ProductListItemModel>[]>(() => {
 			key: 'updatedAt',
 			sortable: true,
 			centerHead: true,
-			calculate: (value: number) =>
-				moment(new Date(value)).locale('vi').fromNow(),
-			default: Date.now(),
 		},
 	]
 })

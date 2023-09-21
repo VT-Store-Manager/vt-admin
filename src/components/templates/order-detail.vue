@@ -12,7 +12,7 @@
 			<v-col cols="4">
 				<label>Ngày tạo</label>
 				<p>
-					{{ moment(new Date(order.createdAt)).format('YYYY-MM-DD HH:mm:ss') }}
+					{{ $dayjs(new Date(order.createdAt)).format('YYYY-MM-DD HH:mm:ss') }}
 				</p>
 			</v-col>
 			<v-col cols="8">
@@ -105,7 +105,7 @@
 						</p>
 						<p class="text-14px">
 							<span class="font-weight-semibold"> Thời gian:</span>
-							{{ moment(order.receiver.timer).format('YYYY-MM-DD HH:mm:ss') }}
+							{{ $dayjs(order.receiver.timer).format('YYYY-MM-DD HH:mm:ss') }}
 						</p>
 					</v-sheet>
 				</div>
@@ -131,7 +131,7 @@
 						<p class="text-14px">Đã xác nhận</p>
 						<template #opposite>
 							<p class="text-14px">
-								{{ moment(order.createdAt).format('HH:mm') }}
+								{{ $dayjs(order.createdAt).format('HH:mm') }}
 							</p>
 						</template>
 					</v-timeline-item>
@@ -528,7 +528,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from 'moment'
 import { mdiCheck, mdiThumbUp, mdiThumbDown, mdiPencilOutline } from '@mdi/js'
 import { shippingMethodName, ShippingMethod } from '~/constants'
 

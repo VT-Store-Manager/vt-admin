@@ -25,13 +25,13 @@
 				</div>
 				<div>
 					<p class="text-right">
-						{{ moment(startTime).format('YYYY-MM-DD hh:mm:ss') }}
+						{{ $dayjs(startTime).format('YYYY-MM-DD HH:mm:ss') }}
 					</p>
 					<p
 						v-if="finishTime"
 						class="text-right"
 					>
-						{{ moment(finishTime).format('YYYY-MM-DD hh:mm:ss') }}
+						{{ $dayjs(finishTime).format('YYYY-MM-DD HH:mm:ss') }}
 					</p>
 					<p class="text-right">
 						{{ getTimeDiffFormat(now, startDate) }}
@@ -58,6 +58,7 @@ interface Props {
 
 const props = defineProps<Props>()
 const now = useNow()
+const { $dayjs } = useNuxtApp()
 
 const startDate = computed(() => {
 	return new Date(props.startTime)

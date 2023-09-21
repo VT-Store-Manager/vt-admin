@@ -63,8 +63,6 @@
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment'
-
 import { AccountAdminListItem } from '~/models'
 
 import { TableHeader } from '~/types'
@@ -93,7 +91,6 @@ const headers: TableHeader<AccountAdminListItem>[] = [
 		key: 'updatedAt',
 		sortable: true,
 		centerHead: true,
-		calculate: (value: number) => moment(new Date(value)).fromNow(),
 		default: Date.now(),
 	},
 ]

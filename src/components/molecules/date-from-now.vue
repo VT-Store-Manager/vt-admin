@@ -10,7 +10,7 @@
 			>
 				<atom-date-cell
 					:date="date"
-					time-format="hh:mm:ss"
+					time-format="HH:mm:ss"
 					font-size="16"
 				/>
 			</v-tooltip>
@@ -20,6 +20,12 @@
 
 <script lang="ts" setup>
 import { VTooltip } from 'vuetify/components'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/vi'
+
+dayjs.extend(relativeTime)
+dayjs.locale('vi')
 
 interface VTooltipType extends /* @vue-ignore */ VTooltip {}
 interface Props {
@@ -28,11 +34,11 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { $moment } = useNuxtApp()
-const now = useNow()
+const { $dayjs } = useNuxtApp()
 
+const now = useNow()
 const diffTime = computed(() => {
 	const diffAmount = now.value.getTime() - new Date(props.date).getTime()
-	return $moment(new Date(Date.now() - diffAmount)).fromNow()
+	return $dayjs(Date.now() - diffAmount).fromNow()
 })
 </script>

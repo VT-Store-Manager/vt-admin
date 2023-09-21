@@ -44,9 +44,10 @@
 				<div class="d-flex justify-space-between py-4">
 					<p class="font-weight-bold">From:</p>
 					<p class="font-weight-medium">
-						<span>{{ moment(startTime).format('dddd') }}</span> &comma;
-						<span>{{ moment(startTime).format('YYYY-MM-DD') }}</span> &comma;
-						<span>{{ moment(startTime).format('kk:mm:ss Z') }}</span>
+						<span>{{ $capitalize($dayjs(startTime).format('dddd')) }}</span>
+						&comma;
+						<span>{{ $dayjs(startTime).format('YYYY-MM-DD') }}</span> &comma;
+						<span>{{ $dayjs(startTime).format('HH:mm:ss Z') }}</span>
 					</p>
 				</div>
 			</v-col>
@@ -229,7 +230,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from 'moment'
 import { useField, useForm } from 'vee-validate'
 import { array } from 'yup'
 

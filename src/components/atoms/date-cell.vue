@@ -2,7 +2,7 @@
 	<div class="d-flex flex-column justify-center">
 		<template v-if="dateTimeFormat">
 			<span :class="[`text-${fontSize}px}`]">
-				{{ moment(date).format(dateTimeFormat) }}
+				{{ $dayjs(date).format(dateTimeFormat) }}
 			</span>
 		</template>
 		<template v-else>
@@ -13,7 +13,7 @@
 					class="mr-2"
 				/>
 				<span :class="[`text-${fontSize}px`]">{{
-					moment(date).format(dateFormat)
+					$dayjs(date).format(dateFormat)
 				}}</span>
 			</p>
 			<p
@@ -26,7 +26,7 @@
 					class="mr-2"
 				/>
 				<span :class="[`text-${fontSize}px`]">{{
-					moment(date).format(timeFormat)
+					$dayjs(date).format(timeFormat)
 				}}</span>
 			</p>
 		</template>
@@ -34,7 +34,6 @@
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment'
 import { mdiCalendarMonth, mdiClockTimeThreeOutline } from '@mdi/js'
 
 interface Props {
@@ -47,7 +46,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
 	dateFormat: 'YYYY-MM-DD',
-	timeFormat: 'kk:mm:ss',
+	timeFormat: 'HH:mm:ss',
 	fontSize: 14,
 })
 </script>
