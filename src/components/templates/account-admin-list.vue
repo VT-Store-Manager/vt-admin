@@ -51,7 +51,11 @@
 			</v-chip-group>
 		</template>
 		<template #stores="{ item }">
-			{{ getStoreNames(item.stores).join(', ') || 'Tất cả cửa hàng' }}
+			{{
+				getStoreNames(item.stores)
+					.map(item => item.name)
+					.join(', ') || 'Tất cả cửa hàng'
+			}}
 		</template>
 		<template #updatedAt="{ item }">
 			<molecule-date-from-now

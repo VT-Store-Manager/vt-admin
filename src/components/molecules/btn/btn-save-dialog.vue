@@ -10,7 +10,7 @@
 		:loading="loading"
 		:disabled="loading"
 	>
-		Save
+		Lưu
 	</atom-btn>
 </template>
 

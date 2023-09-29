@@ -2,8 +2,8 @@
 	<div class="account d-flex">
 		<atom-avatar class="rounded-circle small-img-shadow">
 			<atom-img
-				:src="currentAdmin.avatar || ''"
-				:alt-src="[defaultAvatar]"
+				:src="avatar"
+				:alt-src="[avatar, defaultAvatar]"
 				placeholder="progress"
 				server-img
 				:place-holder-props="{
@@ -62,6 +62,15 @@ import { mdiLogoutVariant, mdiAccount } from '@mdi/js'
 const defaultAvatar = faker.image.avatar()
 const authStore = useAuthStore()
 const { currentAdmin } = storeToRefs(authStore)
+const { accountMap } = storeToRefs(useAccountAdminList())
+
+const avatar = computed(() => {
+	return (
+		accountMap.value.get(currentAdmin.value.id)?.avatar ||
+		currentAdmin.value.avatar ||
+		''
+	)
+})
 </script>
 
 <style lang="scss" scoped>

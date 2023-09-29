@@ -23,6 +23,7 @@ export const useAuthStore = defineStore('authentication', () => {
 		}),
 		maxAge: 60 * 60 * 24 * 365,
 	})
+
 	const currentAdmin = useCookie<CurrentAdminType>(COOKIE_CURRENT_ADMIN_KEY, {
 		watch: true,
 		default: () => ({

@@ -50,27 +50,17 @@ export default function <
 		}
 	})
 
-	const nuxtFetch = useFetch<
-		ResT,
-		FetchError<ErrorType>,
-		any,
-		any,
-		ResT,
-		DataT
-	>(url, {
+	return useFetch<ResT, FetchError<ErrorType>, any, any, ResT, DataT>(url, {
 		baseURL,
 		headers,
 		onResponseError({ response }) {
 			if (response.status === 401) {
-				if (extraOptions?.auth) {
+				if (extraOptions?.auth && response._data?.message !== 'DANGER') {
 					authStore.refresh()
 				} else {
 					authStore.clear()
 					$router.push('/login')
 				}
-			} else if (response.status === 403) {
-				authStore.clear()
-				$router.push('/login')
 			}
 		},
 		...(options?.method?.toString().toUpperCase() !== 'GET'
@@ -78,6 +68,4 @@ export default function <
 			: {}),
 		...options,
 	})
-
-	return nuxtFetch
 }

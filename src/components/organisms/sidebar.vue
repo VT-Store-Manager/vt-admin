@@ -170,7 +170,7 @@ const routes: NavItem[] = [
 		sub: [
 			{
 				name: 'Tài khoản',
-				url: '/account/list',
+				url: '/account',
 				icon: mdiAccountGroup,
 				sidebar: true,
 			},
