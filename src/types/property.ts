@@ -1,3 +1,4 @@
+import { AdminFeature, AdminFeatureType } from '~/constants'
 export type Nav = {
 	name: string
 	icon?: string
@@ -10,6 +11,7 @@ export type SubNavItem = {
 	url: string
 	sidebar?: boolean
 	disabled?: boolean
+	subject?: AdminFeature | AdminFeatureType
 }
 
 export type NavItem = {
@@ -19,6 +21,7 @@ export type NavItem = {
 	sidebar?: boolean
 	disabled?: boolean
 	sub?: SubNavItem[]
+	subject?: AdminFeature | AdminFeatureType
 }
 
 export type ListDisplay = 'list' | 'grid'

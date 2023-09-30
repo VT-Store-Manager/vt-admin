@@ -80,3 +80,22 @@ export const shippingMethodName: Record<ShippingMethod, string> = {
 	[ShippingMethod.PICK_UP]: 'Đến lấy',
 	[ShippingMethod.DELIVERY]: 'Giao hàng',
 }
+
+export enum AdminFeature {
+	PRODUCT = 'PRODUCT',
+	STORE = 'STORE',
+	MEMBER = 'MEMBER',
+	VOUCHER = 'VOUCHER',
+	ORDER = 'ORDER',
+	ACCOUNT = 'ACCOUNT',
+	SETTING = 'SETTING',
+	COMMON = 'COMMON',
+}
+export type AdminFeatureType = `${AdminFeature}`
+
+export enum Action {
+	READ = 'read',
+	MODIFY = 'modify',
+	ANALYSE = 'analyse',
+}
+export type ActionType = `${Action}`

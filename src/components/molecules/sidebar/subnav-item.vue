@@ -2,7 +2,7 @@
 	<atom-link
 		:to="data.url"
 		class="subnav-link subnav-wrapper"
-		:class="{ disabled: data.disabled }"
+		:class="{ disabled: isDisabled }"
 	>
 		<atom-btn
 			:prepend-icon="data.icon"
@@ -29,8 +29,16 @@ interface Props {
 	checkCorrectRouteFn: (path: string) => boolean
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const { isDark } = storeToRefs(useThemeUtil())
+const { $can } = useNuxtApp()
+
+const isDisabled = computed(() => {
+	return !!(
+		props.data.disabled ||
+		(props.data.subject && !$can('read', props.data.subject))
+	)
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="nav mb-1"
-		:class="{ disabled: data.disabled }"
+		:class="{ disabled: isDisabled }"
 	>
 		<v-hover>
 			<template #default="{ isHovering, props: hoverProps }">
@@ -75,6 +75,7 @@ interface NavProps {
 const route = useRoute()
 const props = defineProps<NavProps>()
 const { isDark } = storeToRefs(useThemeUtil())
+const { $can } = useNuxtApp()
 
 const showSubNav = ref(!!props.data.sub?.some(nav => nav.url === route.path))
 
@@ -87,6 +88,24 @@ const isCorrectRoute = (path?: string) => {
 	if (!path) return false
 	return new RegExp(`(^${path}\$)|(^${path}[/?]\$)`).test(route.path)
 }
+
+const isDisabled = computed(() => {
+	if (props.data.disabled) return true
+	if (props.data.subject) {
+		return !$can('read', props.data.subject)
+	}
+	if (
+		props.data.sub &&
+		Array.isArray(props.data.sub) &&
+		props.data.sub.length
+	) {
+		const subSubjects = props.data.sub
+			.map(item => item.subject)
+			.filter(item => !!item)
+		return subSubjects.every(item => !$can('read', item))
+	}
+	return false
+})
 </script>
 
 <style lang="scss" scoped>

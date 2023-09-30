@@ -42,11 +42,17 @@
 						:key="route.url"
 					>
 						<molecule-sidebar-nav-item
-							v-if="route.sidebar"
+							v-if="route.sidebar && temp"
 							class="sidebar-nav__item"
 							:data="route"
 							:is-expand="isHovering || !sidebar.collapse"
 						/>
+						<v-fade-transition v-else>
+							<v-skeleton-loader
+								type="heading"
+								class="pl-4"
+							/>
+						</v-fade-transition>
 					</template>
 				</nav>
 			</div>
@@ -85,7 +91,7 @@ const sidebar = useSidebar()
 const { isDark } = storeToRefs(useThemeUtil())
 const navRef = ref<null | HTMLElement>(null)
 
-const routes: NavItem[] = [
+const routes = computed<NavItem[]>(() => [
 	{
 		name: 'Trang chủ',
 		url: '/',
@@ -97,6 +103,7 @@ const routes: NavItem[] = [
 		icon: mdiCoffee,
 		url: '',
 		sidebar: true,
+		subject: AdminFeature.PRODUCT,
 		sub: [
 			{
 				name: 'Danh sách',
@@ -123,6 +130,7 @@ const routes: NavItem[] = [
 		url: '/store',
 		icon: mdiStore,
 		sidebar: true,
+		subject: AdminFeature.STORE,
 	},
 	{
 		name: 'Thành viên',
@@ -135,24 +143,28 @@ const routes: NavItem[] = [
 				url: '/member',
 				icon: mdiAccountOutline,
 				sidebar: true,
+				subject: AdminFeature.MEMBER,
 			},
 			{
 				name: 'Cấp bậc',
 				url: '/member/rank',
 				icon: mdiStarOutline,
 				sidebar: true,
+				subject: AdminFeature.MEMBER,
 			},
 			{
 				name: 'Ưu đãi',
 				url: '/member/voucher',
 				icon: mdiTicketPercentOutline,
 				sidebar: true,
+				subject: AdminFeature.VOUCHER,
 			},
 			{
 				name: 'Đổi ưu đãi',
 				url: '/member/promotion',
 				icon: mdiSaleOutline,
 				sidebar: true,
+				subject: AdminFeature.VOUCHER,
 			},
 		],
 	},
@@ -161,12 +173,14 @@ const routes: NavItem[] = [
 		url: '/order',
 		icon: mdiCartArrowRight,
 		sidebar: true,
+		subject: AdminFeature.ORDER,
 	},
 	{
 		name: 'Quản trị',
 		icon: mdiShieldAccount,
 		url: '',
 		sidebar: true,
+		subject: AdminFeature.ACCOUNT,
 		sub: [
 			{
 				name: 'Tài khoản',
@@ -187,6 +201,7 @@ const routes: NavItem[] = [
 		icon: mdiApplicationCog,
 		url: '',
 		sidebar: true,
+		subject: AdminFeature.SETTING,
 		sub: [
 			{
 				name: 'Chung',
@@ -214,7 +229,7 @@ const routes: NavItem[] = [
 			},
 		],
 	},
-]
+])
 const deleteThrottleScrollbar = debounce(() => {
 	navRef.value?.classList.remove('show-scrollbar')
 }, 500)
@@ -224,6 +239,9 @@ const throttleShowScrollbar = throttle(() => {
 		navRef.value?.classList.add('show-scrollbar')
 	deleteThrottleScrollbar()
 }, 50)
+
+const temp = ref(false)
+nextTick(() => (temp.value = true))
 </script>
 
 <style lang="scss" scoped>
@@ -289,7 +307,7 @@ const throttleShowScrollbar = throttle(() => {
 			transparent
 		);
 		padding: 1.15rem $sidebar-mask-px 2.35rem;
-		z-index: 1;
+		z-index: 99999;
 		top: 0;
 		left: 0;
 		right: 0;

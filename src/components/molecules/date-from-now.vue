@@ -1,7 +1,7 @@
 <template>
 	<p>
 		<span>
-			{{ diffTime }}
+			{{ prefix }} {{ diffTime }} {{ suffix }}
 			<v-tooltip
 				activator="parent"
 				location="left"
@@ -31,6 +31,8 @@ interface VTooltipType extends /* @vue-ignore */ VTooltip {}
 interface Props {
 	date: number | string
 	tooltipProps?: VTooltipType['$props']
+	prefix?: string
+	suffix?: string
 }
 
 const props = defineProps<Props>()

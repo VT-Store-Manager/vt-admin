@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { AppTheme, GLOBAL_THEME_KEY } from './constants'
-const { auth } = storeToRefs(useAuthStore())
+
 const { setTheme } = useThemeUtil()
 setTheme(
 	useCookie(GLOBAL_THEME_KEY, {
@@ -16,10 +16,6 @@ setTheme(
 		maxAge: 60 * 60 * 24 * 365,
 	}).value
 )
-
-if (auth.value?.accessToken) {
-	useRequest('/auth/check')
-}
 </script>
 
 <style lang="scss">

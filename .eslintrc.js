@@ -59,6 +59,13 @@ module.exports = {
 		'vue/no-dupe-keys': 'warn',
 		'vue/html-indent': 'off',
 		'vue/singleline-html-element-content-newline': 'off',
+		'vue/attribute-hyphenation': [
+			'warn',
+			'always',
+			{
+				ignore: ['I'],
+			},
+		],
 
 		// Common
 		'import/named': 'off',

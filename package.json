@@ -19,6 +19,8 @@
 		"package.json": "npx sort-package-json"
 	},
 	"dependencies": {
+		"@casl/ability": "^6.5.0",
+		"@casl/vue": "^2.2.1",
 		"@pinia/nuxt": "^0.4.6",
 		"@tiptap/pm": "^2.0.4",
 		"@tiptap/starter-kit": "^2.0.4",

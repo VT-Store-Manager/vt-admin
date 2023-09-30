@@ -22,7 +22,7 @@
 						<v-carousel-item
 							v-for="(img, index) in item.images"
 							:key="index"
-							:src="serverImgUrl + img"
+							:src="serverUrlImage(img)"
 							cover
 						>
 							<template #placeholder>
@@ -52,7 +52,8 @@
 						<p class="small-info text-grey">
 							<molecule-date-from-now
 								:date="item.updatedAt"
-								class="text-center text-16px"
+								class="text-center text-14px"
+								prefix="Cập nhật từ"
 							/>
 						</p>
 					</v-card-actions>
@@ -67,7 +68,6 @@ import { StoreListItemModel } from '~/models'
 
 const storeList = useStoreList()
 const { items } = storeToRefs(storeList)
-const serverImgUrl = useRuntimeConfig().public.imgResourceUrl
 
 const fullAddress = (address: StoreListItemModel['address']) => {
 	const { street, ward, district, country } = address

@@ -2,6 +2,7 @@ import moment from 'moment-timezone'
 import { Faker } from '@faker-js/faker'
 import dayjs from 'dayjs'
 import _ from 'lodash'
+import { AppAbility } from '~/models/casl-model'
 
 declare module '#app' {
 	interface NuxtApp {
@@ -12,6 +13,9 @@ declare module '#app' {
 		$dayjs: typeof dayjs
 		$faker: Faker
 		$capitalize: typeof _.capitalize
+		$ability: AppAbility
+		$can(this: this, ...args: Parameters<AppAbility['can']>): boolean;
+		$can(action: Action | ActionType, subject: Subjects, field?: string | undefined): boolean
 	}
 }
 
@@ -24,6 +28,9 @@ declare module 'vue' {
 		$dayjs: typeof dayjs
 		$faker: Faker
 		$capitalize: typeof _.capitalize
+		$ability: AppAbility
+    $can(this: this, ...args: Parameters<AppAbility['can']>): boolean;
+		$can(action: Action | ActionType, subject: Subjects, field?: string | undefined): boolean
 	}
 }
 
