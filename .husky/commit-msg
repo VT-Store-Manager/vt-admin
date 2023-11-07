@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Colors for output texts
+SUCCESS_BOLD='\033[1;32m'  # green
+INFO_BOLD='\033[1;34m'     # blue
+ERROR_BOLD='\033[1;31m'    # red
+RESET='\033[0m'
+
+
+echo "\n⭐ Message linting..."
+
+# Can't use `commitlint --edit $1` because commitlint execute incorrectly
+npx --no -- commitlint --edit ${1} --verbose || (echo "${ERROR_BOLD}🚫 COMMIT FAILED! 🚫${RESET}\n" && exit 1)
+
+echo "\n${SUCCESS_BOLD}✅ COMMIT PASSED! ✅${RESET}\n"

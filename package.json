@@ -1,8 +1,8 @@
 {
 	"private": true,
 	"scripts": {
-		"add-hook": "husky add .husky/pre-commit \"pnpm lint-fix\"",
 		"build": "nuxt build",
+		"cz": "git-cz",
 		"dev": "nuxt dev",
 		"dev:be": "cd ../vt-api && pnpm start:dev admin-api",
 		"dev:cert": "nuxt dev --https --ssl-cert ./cert/localhost.pem --ssl-key ./cert/localhost-key.pem --port=443",
@@ -17,6 +17,11 @@
 	"lint-staged": {
 		"*.{ts,vue}": "eslint --cache --fix --max-warnings=0",
 		"package.json": "npx sort-package-json"
+	},
+	"config": {
+		"commitizen": {
+			"path": "@commitlint/cz-commitlint"
+		}
 	},
 	"dependencies": {
 		"@casl/ability": "^6.5.0",
@@ -43,6 +48,10 @@
 		"yup": "^1.2.0"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^18.2.0",
+		"@commitlint/config-conventional": "^18.1.0",
+		"@commitlint/cz-commitlint": "^18.2.0",
+		"@commitlint/prompt": "^18.2.0",
 		"@faker-js/faker": "^8.0.2",
 		"@fortawesome/fontawesome-svg-core": "^6.4.0",
 		"@fortawesome/free-regular-svg-icons": "^6.4.0",
@@ -60,6 +69,7 @@
 		"@vueuse/core": "^9.13.0",
 		"@vueuse/nuxt": "^9.13.0",
 		"autoprefixer": "^10.4.13",
+		"commitizen": "^4.3.0",
 		"concurrently": "^8.2.1",
 		"consola": "^3.1.0",
 		"eslint": "^8.34.0",
