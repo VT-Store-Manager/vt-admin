@@ -1,7 +1,7 @@
 <template>
 	<p>
 		<span>
-			{{ prefix }} {{ diffTime }} {{ suffix }}
+			{{ displayText }}
 			<v-tooltip
 				activator="parent"
 				location="left"
@@ -23,6 +23,7 @@ import { VTooltip } from 'vuetify/components'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/vi'
+import capitalize from 'lodash/capitalize'
 
 dayjs.extend(relativeTime)
 dayjs.locale('vi')
@@ -42,5 +43,17 @@ const now = useNow()
 const diffTime = computed(() => {
 	const diffAmount = now.value.getTime() - new Date(props.date).getTime()
 	return $dayjs(Date.now() - diffAmount).fromNow()
+})
+
+const displayText = computed(() => {
+	let text = diffTime.value
+	if (props.prefix) {
+		text = props.prefix + ' ' + text
+	}
+	if (props.suffix) {
+		text = text + ' ' + props.suffix
+	}
+
+	return capitalize(text.trim().replace(/\s+/g, ' '))
 })
 </script>

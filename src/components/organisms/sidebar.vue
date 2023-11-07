@@ -42,7 +42,7 @@
 						:key="route.url"
 					>
 						<molecule-sidebar-nav-item
-							v-if="route.sidebar && temp"
+							v-if="route.sidebar && loaded"
 							class="sidebar-nav__item"
 							:data="route"
 							:is-expand="isHovering || !sidebar.collapse"
@@ -240,8 +240,8 @@ const throttleShowScrollbar = throttle(() => {
 	deleteThrottleScrollbar()
 }, 50)
 
-const temp = ref(false)
-nextTick(() => (temp.value = true))
+const loaded = ref(false)
+nextTick(() => (loaded.value = true))
 </script>
 
 <style lang="scss" scoped>

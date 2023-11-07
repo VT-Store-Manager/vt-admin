@@ -56,10 +56,10 @@ export default function <
 		onResponseError({ response }) {
 			if (response.status === 401) {
 				if (extraOptions?.auth && response._data?.message !== 'DANGER') {
-					authStore.refresh()
-				} else {
 					authStore.clear()
 					$router.push('/login')
+				} else {
+					authStore.refresh()
 				}
 			}
 		},

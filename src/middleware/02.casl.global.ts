@@ -7,13 +7,17 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		getPageSubject(to) || (to.meta.subject as any)
 	if (!subject) return
 
+	let accessible = false
 	const abilityStore = useAdminAbility()
 	if (isEmpty(abilityStore.abilityList.permissions)) {
 		await abilityStore.execute()
+		const ability = abilityStore.caslAbility
+		accessible = ability.can('read', subject)
+	} else {
+		const { $can } = useNuxtApp()
+		accessible = $can('read', subject)
 	}
-
-	const { $can } = useNuxtApp()
-	if (!$can('read', subject)) {
+	if (!accessible) {
 		return to.name === from.name ? navigateTo('/') : abortNavigation()
 	}
 })

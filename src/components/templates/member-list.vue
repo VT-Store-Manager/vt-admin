@@ -26,7 +26,7 @@
 							aspect-ratio="1/1"
 						/>
 						<div>
-							<p class="font-weight-semibold d-flex align-center text-16px">
+							<p class="font-weight-medium d-flex align-center text-16px">
 								<molecule-icon-gender
 									:gender="item.gender"
 									class="mr-1"
@@ -40,9 +40,9 @@
 									{{ item.name }}
 								</span>
 							</p>
-							<h5 class="text-14px">
+							<p class="text-14px">
 								{{ item.rank.code }}
-							</h5>
+							</p>
 						</div>
 					</nuxt-link>
 				</template>
