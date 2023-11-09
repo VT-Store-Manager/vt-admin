@@ -14,8 +14,7 @@ declare module '#app' {
 		$faker: Faker
 		$capitalize: typeof _.capitalize
 		$ability: AppAbility
-		$can(this: this, ...args: Parameters<AppAbility['can']>): boolean;
-		$can(action: Action | ActionType, subject: Subjects, field?: string | undefined): boolean
+		$getAbility(): MongoAbility<[Action | "analyse" | "read" | "modify", Subjects], MongoQuery>
 	}
 }
 
@@ -29,8 +28,7 @@ declare module 'vue' {
 		$faker: Faker
 		$capitalize: typeof _.capitalize
 		$ability: AppAbility
-    $can(this: this, ...args: Parameters<AppAbility['can']>): boolean;
-		$can(action: Action | ActionType, subject: Subjects, field?: string | undefined): boolean
+		$getAbility(): MongoAbility<[Action | "analyse" | "read" | "modify", Subjects], MongoQuery>
 	}
 }
 

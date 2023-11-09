@@ -71,6 +71,9 @@ import { AuthModel } from '~/models'
 definePageMeta({
 	layout: 'outside',
 })
+useSeoMeta({
+	title: 'Login - VT Admin',
+})
 
 const SAVED_ACCOUNT_KEY = 'saved_account'
 const form = ref(false)

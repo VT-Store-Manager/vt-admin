@@ -31,12 +31,13 @@ interface Props {
 
 const props = defineProps<Props>()
 const { isDark } = storeToRefs(useThemeUtil())
-const { $can } = useNuxtApp()
+const { $getAbility } = useNuxtApp()
+const { can } = $getAbility()
 
 const isDisabled = computed(() => {
 	return !!(
 		props.data.disabled ||
-		(props.data.subject && !$can('read', props.data.subject))
+		(props.data.subject && !can('read', props.data.subject))
 	)
 })
 </script>

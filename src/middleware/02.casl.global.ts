@@ -5,17 +5,23 @@ import { AdminFeature } from '~/constants'
 export default defineNuxtRouteMiddleware(async (to, from) => {
 	const subject: AdminFeature | undefined =
 		getPageSubject(to) || (to.meta.subject as any)
-	if (!subject) return
+
+	if (!subject && to.name !== 'index') return
 
 	let accessible = false
 	const abilityStore = useAdminAbility()
 	if (isEmpty(abilityStore.abilityList.permissions)) {
 		await abilityStore.execute()
-		const ability = abilityStore.caslAbility
+		if (abilityStore.error) return abortNavigation()
+	}
+	const ability = abilityStore.caslAbility
+
+	if (to.name === 'index') {
+		accessible = Object.values(AdminFeature).some(subject => {
+			return ability.can('analyse', subject)
+		})
+	} else if (subject) {
 		accessible = ability.can('read', subject)
-	} else {
-		const { $can } = useNuxtApp()
-		accessible = $can('read', subject)
 	}
 	if (!accessible) {
 		return to.name === from.name ? navigateTo('/') : abortNavigation()

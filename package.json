@@ -4,7 +4,7 @@
 		"build": "nuxt build",
 		"cz": "git-cz",
 		"dev": "nuxt dev",
-		"dev:be": "cd ../vt-api && pnpm start:dev admin-api",
+		"dev:be": "cd ../vt-api && pnpm start:dev admin",
 		"dev:cert": "nuxt dev --https --ssl-cert ./cert/localhost.pem --ssl-key ./cert/localhost-key.pem --port=443",
 		"generate": "nuxt generate",
 		"postinstall": "nuxt prepare",

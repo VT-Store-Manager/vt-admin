@@ -75,7 +75,8 @@ interface NavProps {
 const route = useRoute()
 const props = defineProps<NavProps>()
 const { isDark } = storeToRefs(useThemeUtil())
-const { $can } = useNuxtApp()
+const { $getAbility } = useNuxtApp()
+const { can } = $getAbility()
 
 const showSubNav = ref(!!props.data.sub?.some(nav => nav.url === route.path))
 
@@ -92,7 +93,7 @@ const isCorrectRoute = (path?: string) => {
 const isDisabled = computed(() => {
 	if (props.data.disabled) return true
 	if (props.data.subject) {
-		return !$can('read', props.data.subject)
+		return !can('read', props.data.subject)
 	}
 	if (
 		props.data.sub &&
@@ -102,7 +103,7 @@ const isDisabled = computed(() => {
 		const subSubjects = props.data.sub
 			.map(item => item.subject)
 			.filter(item => !!item)
-		return subSubjects.every(item => !$can('read', item))
+		return subSubjects.every(item => !can('read', item))
 	}
 	return false
 })
