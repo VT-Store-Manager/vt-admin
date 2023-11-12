@@ -10,7 +10,7 @@
 			<v-hover>
 				<template #default="{ isHovering: hoveringName, props: nameProps }">
 					<atom-link
-						:to="'/account/' + item.username"
+						:to="'/account/admin/' + item.username + '/edit'"
 						class="d-flex align-center py-2"
 						v-bind="nameProps"
 					>
@@ -44,7 +44,7 @@
 					:key="role.id"
 					class="font-weight-semibold"
 				>
-					<atom-link :to="`/account/role/${role.id}`">
+					<atom-link :to="`/account/admin/role/${role.id}/edit`">
 						{{ role.name }}
 					</atom-link>
 				</v-chip>
