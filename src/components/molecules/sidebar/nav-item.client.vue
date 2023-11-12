@@ -166,7 +166,7 @@ const isDisabled = computed(() => {
 	overflow: hidden;
 	background-color: rgba(var(--v-theme-background), 0.5);
 	&.subnav-show {
-		max-height: 200px;
+		max-height: 300px;
 		.subnav-link {
 			display: block;
 			animation: float-to-left 200ms ease-out forwards;

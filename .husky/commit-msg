@@ -8,9 +8,69 @@ ERROR_BOLD='\033[1;31m'    # red
 RESET='\033[0m'
 
 
-echo "\n⭐ Message linting..."
+# Get COMMIT_MSG file from param
+EDIT_MSG_FILE="$1"
+
+# --------------
+# Insert Jira issue ID from branch name to commit message before linting
+# --------------
+
+echo "\n⭐ Adding Jira issue ID..."
+
+# Get commit message as a string
+MESSAGE=$(cat $1)
+
+# Get the current Git branch name
+BRANCH_NAME=$(git branch --show-current)
+
+# Pattern of VFA branch name (e.g.,: vfa/feature/123_bla_bla)
+TICKET_BRANCH_NAME='^[a-z]+/[A-Z]+-[0-9]+'
+
+# Pattern of ticket ID (number pattern)
+TICKET_ID_PATTERN='[A-Z]+-[0-9]+'
+
+# Check if the branch name matches the TICKET_BRANCH_NAME and TICKET_ID_PATTERN
+if [[ $BRANCH_NAME =~ $TICKET_BRANCH_NAME ]] && [[ $BRANCH_NAME =~ $TICKET_ID_PATTERN ]]; then
+  # Extract the matched ticket ID
+  TICKET_ID="${BASH_REMATCH[0]}"
+else
+  # No ticket ID found in the branch name
+  TICKET_ID=""
+fi
+
+
+if [[ $TICKET_ID == "" ]]; then
+  # If not having ticket ID in branch name
+  echo "${INFO_BOLD}→${RESET} No Jira issue ID\n";
+
+elif [[ "$MESSAGE" == *"$TICKET_ID"* ]]; then
+  # If ticket ID already have been added in commit message
+  echo "${INFO_BOLD}→${RESET} Jira issue ID existed\n";
+
+else
+  # Insert Ticket ID to commit message step
+  # Insert #TICKET_ID after `:` in commit message
+  NEW_MESSAGE=$(echo "$MESSAGE" | sed "s/:/& $TICKET_ID/")
+  if [[ $MESSAGE == $NEW_MESSAGE ]]; then
+    # If not have any `:` in message, add it at start of message
+    NEW_MESSAGE="#$TICKET_ID $MESSAGE";
+  elif [[ $NEW_MESSAGE == *"$TICKET_ID" ]]; then
+    # Check message subject (before after add ticket ID as a subject, commitlint cannot recognize missing subject)
+    echo "${ERROR_BOLD}✖${RESET} Empty message subject\n"
+    exit 1
+  fi
+  # Store new message to commit message file
+  echo "$NEW_MESSAGE" > $EDIT_MSG_FILE;
+  echo "${SUCCESS_BOLD}✔${RESET} Jira issue ID is added.\n${INFO_BOLD}→${RESET} Message: \"$NEW_MESSAGE\"\n";
+fi
+
+
+# --------------
+# Lint commit message with commitlint
+# --------------
+echo "⭐ Message linting..."
 
 # Can't use `commitlint --edit $1` because commitlint execute incorrectly
-npx --no -- commitlint --edit ${1} --verbose || (echo "${ERROR_BOLD}🚫 COMMIT FAILED! 🚫${RESET}\n" && exit 1)
+echo $(cat $EDIT_MSG_FILE) | npx -- commitlint --cwd --verbose --config .commitlintrc.js || (echo "${ERROR_BOLD}🚫 COMMIT FAILED! 🚫${RESET}\n" && exit 1)
 
 echo "\n${SUCCESS_BOLD}✅ COMMIT PASSED! ✅${RESET}\n"
