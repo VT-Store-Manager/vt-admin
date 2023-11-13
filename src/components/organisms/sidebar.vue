@@ -233,25 +233,25 @@ const routes = computed<NavItem[]>(() => [
 		sub: [
 			{
 				name: 'Tài khoản admin',
-				url: '/account',
+				url: '/account/admin',
 				icon: mdiShieldAccountOutline,
 				sidebar: true,
 			},
 			{
 				name: 'Phân quyền admin',
-				url: '/account/role',
+				url: '/account/admin/role',
 				icon: mdiShieldLockOutline,
 				sidebar: true,
 			},
 			{
 				name: 'Tài khoản bán hàng',
-				url: '/account',
+				url: '/account/sale',
 				icon: mdiAccountCashOutline,
 				sidebar: true,
 			},
 			{
 				name: 'Tài khoản giao hàng',
-				url: '/account',
+				url: '/account/shipper',
 				icon: mdiBikeFast,
 				sidebar: true,
 			},

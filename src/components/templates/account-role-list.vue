@@ -77,7 +77,6 @@
 					</atom-link>
 				</div>
 				<div>
-					For
 					<molecule-date-from-now
 						:date="item.updatedBy.time"
 						:tooltip-props="{ location: 'bottom' }"

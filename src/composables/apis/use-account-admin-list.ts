@@ -31,7 +31,11 @@ export const useAccountAdminList = definePiniaStore(
 		})
 
 		const accountMap = computed(() => {
-			return new Map(accountList.value.map(item => [item.id, item]))
+			const mapKeyList = [
+				...accountList.value,
+				...accountList.value.map(item => ({ ...item, id: item.username })),
+			]
+			return new Map(mapKeyList.map(item => [item.id, item]))
 		})
 
 		return { data, accountList, accountMap, pending, error, execute, refresh }
