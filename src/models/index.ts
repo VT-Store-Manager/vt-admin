@@ -1,4 +1,5 @@
 export * from './account-admin-model'
+export * from './account-sale-model'
 export * from './auth-model'
 export * from './create-product-model'
 export * from './member-list-model'
