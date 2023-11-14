@@ -60,7 +60,6 @@
 		<template #updatedBy="{ item }">
 			<div class="updated-by py-2">
 				<div class="d-flex align-center">
-					By
 					<atom-link
 						:to="`/account/${item.updatedBy.accountId}/detail`"
 						class="font-weight-bold"
