@@ -16,7 +16,9 @@ export const useAccountSaleList = definePiniaStore('account-sale-list', () => {
 		watch: [pagination],
 	})
 
-	const storedData = ref<PaginationDataModel<AccountSaleListItem>>()
+	const storedData = ref<PaginationDataModel<AccountSaleListItem>>(
+		data.value || { totalCount: 0, items: [] }
+	)
 
 	watch(data, () => {
 		if (data.value) storedData.value = data.value

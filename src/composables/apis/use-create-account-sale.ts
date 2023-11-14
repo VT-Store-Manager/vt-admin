@@ -1,4 +1,4 @@
-import { CreateAccountSaleBody } from '~/models'
+import { CreateAccountSaleBody, NewAccountSale } from '~/models'
 
 export const useCreateAccountSale = defineStore('create-account-sale', () => {
 	const username = ref('')
@@ -11,17 +11,16 @@ export const useCreateAccountSale = defineStore('create-account-sale', () => {
 		}
 	})
 
-	const {
-		data: success,
-		pending,
-		error,
-		execute,
-		status,
-	} = useRequest<boolean>('/account-sale/create', {
-		method: 'POST',
-		body,
-		immediate: false,
-	})
+	const { data, pending, error, execute, status } = useRequest<NewAccountSale>(
+		'/account-sale/create',
+		{
+			method: 'POST',
+			body,
+			immediate: false,
+		}
+	)
+
+	const isSuccess = computed(() => !!data.value)
 
 	const executeWithPayload = async (payload: CreateAccountSaleBody) => {
 		username.value = payload.username
@@ -29,7 +28,7 @@ export const useCreateAccountSale = defineStore('create-account-sale', () => {
 		await execute()
 	}
 
-	return { success, pending, error, status, executeWithPayload }
+	return { data, isSuccess, pending, error, status, executeWithPayload }
 })
 
 if (import.meta.hot) {

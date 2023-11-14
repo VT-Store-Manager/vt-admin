@@ -6,6 +6,7 @@
 			:is-focused="isFocused"
 			:for="randomId"
 		/>
+
 		<component
 			:is="componentName"
 			v-bind="$attrs"

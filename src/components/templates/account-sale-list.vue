@@ -7,6 +7,7 @@
 		:loading="pending"
 		editable
 		:update-page-fn="updatePage"
+		@delete-item="onDeleteAccount"
 	>
 		<template #store="{ item }">
 			<v-hover>
@@ -35,13 +36,18 @@
 				</template>
 			</v-hover>
 		</template>
+		<template #createdAt="{ item }">
+			<molecule-date-from-now
+				:date="item.createdAt"
+				class="text-center text-16px"
+			/>
+		</template>
 		<template #updatedBy="{ item }">
 			<div
 				v-if="item.updatedBy"
 				class="updated-by py-2"
 			>
 				<div class="d-flex align-center">
-					By
 					<atom-link
 						:to="`/account/${item.updatedBy.accountId}/detail`"
 						class="font-weight-bold"
@@ -67,12 +73,6 @@
 			</div>
 			<p v-else></p>
 		</template>
-		<template #updatedAt="{ item }">
-			<molecule-date-from-now
-				:date="item.updatedAt"
-				class="text-center text-16px"
-			/>
-		</template>
 	</organism-data-table>
 </template>
 
@@ -85,6 +85,7 @@ const { items, totalAccount, pending, pagination } =
 	storeToRefs(accountSaleList)
 const { accountMap: accountAdminMap } = storeToRefs(useAccountAdminList())
 const { updatePage } = accountSaleList
+const { push } = useAlert()
 
 const headers = computed<TableHeader<AccountSaleListItem>[]>(() => {
 	return [
@@ -104,15 +105,36 @@ const headers = computed<TableHeader<AccountSaleListItem>[]>(() => {
 			sortable: true,
 		},
 		{
-			title: 'Cập nhật lúc',
-			key: 'updatedAt',
+			title: 'Tạo lúc',
+			key: 'createdAt',
 			sortable: true,
+			centerHead: true,
 		},
 	]
 })
 
 const getAccountAdminById = (accountId: string) => {
 	return accountAdminMap.value.get(accountId)
+}
+
+const onDeleteAccount = async (item: AccountSaleListItem) => {
+	const { data: success } = await useRequest(`/account-sale/${item.id}`, {
+		method: 'DELETE',
+	})
+	if (success.value) {
+		await useAccountSaleList().refresh()
+		push({
+			type: 'success',
+			text: 'Delete account sale successfully',
+			duration: 5000,
+		})
+	} else {
+		push({
+			type: 'error',
+			text: 'Delete account sale failed',
+			duration: 5000,
+		})
+	}
 }
 </script>
 

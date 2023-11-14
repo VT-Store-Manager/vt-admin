@@ -95,12 +95,18 @@ const storeId = useField<string>('storeId')
 
 const submit = handleSubmit(async values => {
 	await createAccountSale.executeWithPayload(values)
-	if (createAccountSale.success) {
+	if (createAccountSale.isSuccess) {
 		show.value = false
 		await useAccountSaleList().refresh()
 		push({
 			type: 'success',
 			text: 'Create account sale successfully',
+			duration: 5000,
+		})
+	} else {
+		push({
+			type: 'error',
+			text: 'Create account sale failed',
 			duration: 5000,
 		})
 	}
