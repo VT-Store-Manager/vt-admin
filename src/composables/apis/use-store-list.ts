@@ -33,6 +33,15 @@ export const useStoreList = definePiniaStore('store-list', () => {
 	const storeMap = computed(
 		() => new Map(items.value.map(store => [store.id, store]))
 	)
+	const storeSelectData = computed(() => {
+		return items.value.map(store => {
+			return {
+				title: store.name,
+				value: store.id,
+				image: store.images[0],
+			}
+		})
+	})
 
 	return {
 		pagination,
@@ -46,5 +55,6 @@ export const useStoreList = definePiniaStore('store-list', () => {
 		items,
 		resetQuery,
 		pushQuery,
+		storeSelectData,
 	}
 })
