@@ -6,7 +6,7 @@
 			width: '95%',
 			maxWidth: '700px',
 		}"
-		title="Tạo tạo tài khoản bán hàng"
+		title="Tạo tài khoản bán hàng"
 		persistent
 		:error-message="error?.data?.message"
 		:status="status"

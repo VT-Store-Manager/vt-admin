@@ -1,7 +1,7 @@
 <template>
 	<v-sheet
-		class="file-panel mt-3"
-		:class="{ error }"
+		class="file-panel"
+		:class="[cssClass, { error, 'mt-3': !cssClass.includes('mt-') }]"
 	>
 		<div class="file-control d-flex pa-4 rounded-t-12 bg-grey-lighten-4">
 			<molecule-input-file-browse
@@ -48,9 +48,12 @@
 interface Props {
 	maxFiles?: number
 	error?: boolean
+	cssClass?: string
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+	cssClass: '',
+})
 const files = defineModel<File[]>({ default: () => [], local: true })
 
 const onDeleteFile = (index: number) => {
