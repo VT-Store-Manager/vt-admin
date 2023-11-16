@@ -16,7 +16,9 @@ export const publishState = ['not yet', 'open', 'closed'] as const
 export const momentTimezoneName = 'Asia/Ho_Chi_Minh'
 
 export const codePattern = /^[A-Z0-9]+$/
-
+export const usernamePattern = /^[a-zA-Z0-9_.-]{3,}$/
+export const objectIdPattern = /^[a-f\d]{24}$/i
+export const viPhoneNumberPattern = /^(((\+?84)|0)[235789])([0-9]{8})$/
 /** ENUMERATION */
 export enum AppTheme {
 	DARK = 'dark',

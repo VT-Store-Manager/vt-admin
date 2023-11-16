@@ -1,5 +1,6 @@
 import { object, string } from 'yup'
 import { UpdatedByModel } from './account-admin-model'
+import { objectIdPattern, usernamePattern } from '~/constants'
 
 export type CreateAccountSaleBody = {
 	username: string
@@ -17,6 +18,6 @@ export type NewAccountSale = {
 }
 
 export const createAccountSaleSchema = object({
-	username: string().matches(/^[a-zA-Z0-9_.-]{3,}$/),
-	storeId: string().matches(/^[a-f\d]{24}$/i),
+	username: string().matches(usernamePattern),
+	storeId: string().matches(objectIdPattern),
 })

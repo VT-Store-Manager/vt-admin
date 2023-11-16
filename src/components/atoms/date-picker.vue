@@ -4,7 +4,9 @@
 		class="date-picker"
 		:class="{ 'full-width': fullWidth }"
 		required
-		:min-date="now"
+		v-bind="{
+			...(fromNow ? { minDate: now } : {}),
+		}"
 	>
 		<template #action-extra="{ selectCurrentDate }">
 			<v-hover v-slot="{ isHovering, props }">
@@ -26,10 +28,12 @@
 <script setup lang="ts">
 interface Props {
 	fullWidth?: boolean
+	fromNow?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
 	fullWidth: false,
+	fromNow: true,
 })
 const modelValue = defineModel<Date>({ default: new Date(), local: true })
 const now = useNow()

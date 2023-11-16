@@ -38,6 +38,7 @@ const inputComponents = {
 	autocomplete: resolveComponent('atom-autocomplete'),
 	textarea: resolveComponent('atom-textarea'),
 	select: resolveComponent('atom-select'),
+	radio: resolveComponent('atom-radio'),
 }
 
 interface VTextFieldType extends /* @vue-ignore */ VTextField {}
