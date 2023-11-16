@@ -7,6 +7,7 @@
 		:loading="pending"
 		editable
 		:update-page-fn="updatePage"
+		@delete-item="onDeleteShipper"
 	>
 		<template #name="{ item }">
 			<v-hover>
@@ -103,6 +104,7 @@ const shipperList = useShipperList()
 const { items, totalShipper, pending, pagination } = storeToRefs(shipperList)
 const { accountMap: accountAdminMap } = storeToRefs(useAccountAdminList())
 const { updatePage } = shipperList
+const { push } = useAlert()
 
 const headers = computed<TableHeader<ShipperListItemModel>[]>(() => {
 	return [
@@ -132,6 +134,26 @@ const headers = computed<TableHeader<ShipperListItemModel>[]>(() => {
 
 const getAccountAdminById = (accountId: string) => {
 	return accountAdminMap.value.get(accountId)
+}
+
+const onDeleteShipper = async (item: ShipperListItemModel) => {
+	const { data: success } = await useRequest(`/shipper/${item.id}`, {
+		method: 'DELETE',
+	})
+	if (success.value) {
+		await shipperList.refresh()
+		push({
+			type: 'success',
+			text: 'Delete shipper successfully',
+			duration: 5000,
+		})
+	} else {
+		push({
+			type: 'error',
+			text: 'Delete shipper failed',
+			duration: 5000,
+		})
+	}
 }
 </script>
 
