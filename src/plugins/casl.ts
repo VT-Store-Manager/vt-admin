@@ -1,6 +1,6 @@
+import isEmpty from 'lodash/isEmpty'
 import { MongoAbility, MongoQuery } from '@casl/ability'
 import { abilitiesPlugin, Can, useAbility } from '@casl/vue'
-import { isEmpty } from 'lodash'
 import { Action, ActionType } from '~/constants'
 import { AppAbility as _AppAbilityType, Subjects } from '~/models/casl-model'
 
