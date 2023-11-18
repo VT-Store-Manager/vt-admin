@@ -6,15 +6,42 @@
 			width: '95%',
 			maxWidth: '900px',
 		}"
-		title="Tạo tài khoản tài xế mới"
+		title="Thêm nhân viên"
 		persistent
-		:error-message="createShipper.error?.data?.message"
-		:status="createShipper.status"
+		:error-message="createEmployee.error?.data?.message"
+		:status="createEmployee.status"
 	>
 		<template #headActions>
 			<molecule-btn-reset @click="handleReset" />
 		</template>
 		<template #default>
+			<molecule-input
+				v-model="storeId.value.value"
+				:error-messages="storeId.errorMessage.value"
+				input-type="autocomplete"
+				label="Cửa hàng"
+				:items="storeSelectData"
+				:loading="pendingStoreData"
+				:auto-select-first="true"
+				chips
+				closable-chips
+				placeholder="Store"
+			>
+				<template #chip="{ props, item }">
+					<v-chip
+						v-bind="props"
+						:prepend-avatar="serverImgUrl + item.raw.image"
+						:text="item.raw.name"
+					/>
+				</template>
+				<template #item="{ props, item }">
+					<v-list-item
+						v-bind="props"
+						:prepend-avatar="serverImgUrl + item?.raw?.image"
+						:title="item?.raw?.title"
+					/>
+				</template>
+			</molecule-input>
 			<v-row>
 				<v-col cols="6">
 					<atom-label label="Ảnh đại diện" />
@@ -78,18 +105,18 @@
 			</v-row>
 			<v-expand-transition>
 				<v-sheet
-					v-show="createShipper.error"
+					v-show="createEmployee.error"
 					height="18px"
 					class="error-message text-12px text-error font-weight-regular mt-1 ml-4"
 				>
-					{{ createShipper.error }}
+					{{ createEmployee.error }}
 				</v-sheet>
 			</v-expand-transition>
 		</template>
 		<template #actions>
 			<molecule-btn-keep-and-close @click="show = false" />
 			<molecule-btn-save-dialog
-				:loading="createShipper.status === 'pending'"
+				:loading="createEmployee.status === 'pending'"
 				@click="submit"
 			/>
 		</template>
@@ -98,15 +125,20 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
-import { CreateShipperModel, createShipperSchema } from '~/models'
+import { CreateEmployeeModel, createEmployeeSchema } from '~/models'
 
 const show = defineModel<boolean>('show', { default: false, local: true })
-const createShipper = useCreateShipper()
+const createEmployee = useCreateEmployee()
+const { storeSelectData, pending: pendingStoreData } = storeToRefs(
+	useStoreList()
+)
 
-const { handleSubmit, handleReset } = useForm<CreateShipperModel>({
-	validationSchema: createShipperSchema,
+const { handleSubmit, handleReset } = useForm<CreateEmployeeModel>({
+	validationSchema: createEmployeeSchema,
 })
+const serverImgUrl = useRuntimeConfig().public.apiBase + config.api.filePrefix
 
+const storeId = useField<string>('store')
 const phone = useField<string>('phone')
 const name = useField<string>('name')
 const avatar = useField<File[]>('avatar')
@@ -116,14 +148,14 @@ const { push } = useAlert()
 
 const submit = handleSubmit(async values => {
 	values.avatar = (values.avatar as File[])[0]
-	await createShipper.executeWithPayload(values)
-	if (createShipper.isSuccess) {
+	await createEmployee.executeWithPayload(values)
+	if (createEmployee.isSuccess) {
 		show.value = false
 		handleReset()
-		await useShipperList().refresh()
+		await useEmployeeList().refresh()
 		push({
 			type: 'success',
-			text: 'Create shipper successfully',
+			text: 'Create employee successfully',
 			duration: 5000,
 		})
 	}

@@ -1,12 +1,12 @@
 import { serialize } from 'object-to-formdata'
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { CreateShipperModel, CreateShipperResult } from '~/models'
+import { CreateEmployeeModel, CreateEmployeeResult } from '~/models'
 
-export const useCreateShipper = defineStore('create-shipper', () => {
+export const useCreateEmployee = defineStore('create-employee', () => {
 	const body = ref<FormData>()
 
 	const { data, pending, error, execute, status } =
-		useRequest<CreateShipperResult>('/shipper/create', {
+		useRequest<CreateEmployeeResult>('/employee/create', {
 			method: 'POST',
 			body,
 			immediate: false,
@@ -14,7 +14,7 @@ export const useCreateShipper = defineStore('create-shipper', () => {
 
 	const isSuccess = computed(() => !!data.value)
 
-	const executeWithPayload = async (payload: CreateShipperModel) => {
+	const executeWithPayload = async (payload: CreateEmployeeModel) => {
 		body.value = serialize(payload, { noFilesWithArrayNotation: true })
 		await execute({ dedupe: true })
 	}
@@ -24,6 +24,6 @@ export const useCreateShipper = defineStore('create-shipper', () => {
 
 if (import.meta.hot) {
 	import.meta.hot.accept(
-		acceptHMRUpdate(useCreateShipper as any, import.meta.hot)
+		acceptHMRUpdate(useCreateEmployee as any, import.meta.hot)
 	)
 }
