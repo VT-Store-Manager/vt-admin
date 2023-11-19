@@ -53,7 +53,7 @@ import {
 	mdiClockTimeElevenOutline,
 	mdiClockTimeTwelveOutline,
 } from '@mdi/js'
-import { CreateStoreModel } from '~/models/create-store-model'
+import { CreateStoreModel } from '~/models'
 
 interface Props {
 	errorMessage?: string

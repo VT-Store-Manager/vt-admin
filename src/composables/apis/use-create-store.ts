@@ -1,5 +1,5 @@
 import { serialize } from 'object-to-formdata'
-import { CreateStoreModel } from '~/models/create-store-model'
+import { CreateStoreModel } from '~/models'
 
 export const useCreateStore = definePiniaStore('create-store', () => {
 	const body = ref<FormData>()

@@ -148,10 +148,7 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
-import {
-	CreateStoreModel,
-	createStoreSchema,
-} from '~/models/create-store-model'
+import { CreateStoreModel, createStoreSchema } from '~/models'
 const show = defineModel<boolean>('show', { default: false, local: true })
 const maxFiles = 6
 

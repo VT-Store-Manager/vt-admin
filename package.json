@@ -11,8 +11,7 @@
 		"lint": "eslint .",
 		"lint-fix": "eslint \"{src,apps,libs,test}/**/*.{vue,ts}\" --fix --cache --max-warnings=0",
 		"prepare": "husky install",
-		"preview": "nuxt preview",
-		"prod": "node .output/server/index.mjs"
+		"preview": "nuxt preview"
 	},
 	"lint-staged": {
 		"*.{ts,vue}": "eslint --cache --fix --max-warnings=0",

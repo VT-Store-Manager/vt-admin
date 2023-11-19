@@ -1,5 +1,5 @@
 import { serialize } from 'object-to-formdata'
-import { CreateProductCategoryModel } from '~/models/create-product-category-model'
+import { CreateProductCategoryModel } from '~/models'
 
 export const useCreateProductCategory = definePiniaStore(
 	'create-product-category',

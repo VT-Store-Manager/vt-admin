@@ -51,7 +51,7 @@ import { useField, useForm } from 'vee-validate'
 import {
 	CreateProductCategoryModel,
 	createProductCategorySchema,
-} from '~/models/create-product-category-model'
+} from '~/models'
 
 const show = defineModel<boolean>('show', { default: false, local: true })
 const createProductCategory = useCreateProductCategory()

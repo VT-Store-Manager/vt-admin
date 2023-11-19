@@ -7,6 +7,7 @@
 		:loading="pending"
 		editable
 		:update-page-fn="updatePage"
+		@delete-item="onDeleteEmployee"
 	>
 		<template #name="{ item }">
 			<v-hover>
@@ -92,6 +93,7 @@ const employeeList = useEmployeeList()
 const { items, totalCount, pending, pagination } = storeToRefs(employeeList)
 const { storeMap } = storeToRefs(useStoreList())
 const { updatePage } = employeeList
+const { push } = useAlert()
 
 const headers = computed<TableHeader<EmployeeListItemModel>[]>(() => {
 	return [
@@ -116,6 +118,26 @@ const headers = computed<TableHeader<EmployeeListItemModel>[]>(() => {
 
 const getStoreData = (id: string) => {
 	return storeMap.value.get(id)
+}
+
+const onDeleteEmployee = async (item: EmployeeListItemModel) => {
+	const { data: success } = await useRequest(`/employee/${item.id}`, {
+		method: 'DELETE',
+	})
+	if (success.value) {
+		await employeeList.refresh()
+		push({
+			type: 'success',
+			text: 'Delete employee successfully',
+			duration: 5000,
+		})
+	} else {
+		push({
+			type: 'error',
+			text: 'Delete employee failed',
+			duration: 5000,
+		})
+	}
 }
 </script>
 
