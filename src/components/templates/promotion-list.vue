@@ -19,12 +19,14 @@
 						<atom-img
 							class="mr-4 my-2 rounded small-img-shadow"
 							:src="item.image"
+							:alt-src="item.voucher.images"
 							height="60"
 							:max-width="60"
 							:aspect-ratio="1"
 							cover
 							:class="{ 'hover-blur': hoveringName }"
 							server-img
+							server-alt-img
 							:style="{ width: '40px' }"
 							placeholder="progress"
 						/>
@@ -41,7 +43,7 @@
 			</v-hover>
 		</template>
 		<template #cost="{ item }">
-			<p>
+			<p class="font-weight-bold">
 				{{ item.cost }}
 				<span>BEAN</span>
 			</p>

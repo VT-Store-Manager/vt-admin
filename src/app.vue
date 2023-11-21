@@ -28,7 +28,6 @@ setTheme(
 	&-leave-to {
 		opacity: 0;
 		filter: grayscale(1);
-		transform: translate(20px, 0);
 		opacity: 0;
 	}
 }

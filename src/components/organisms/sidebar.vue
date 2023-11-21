@@ -89,6 +89,7 @@ import {
 	mdiSwapHorizontal,
 	mdiAccountCashOutline,
 	mdiAccountTieOutline,
+	mdiBellRingOutline,
 } from '@mdi/js'
 import { NavItem } from '~/types'
 
@@ -210,7 +211,7 @@ const routes = computed<NavItem[]>(() => [
 			},
 			{
 				name: 'Đổi ưu đãi',
-				url: '/account/role',
+				url: '/member/promotion',
 				icon: mdiSwapHorizontal,
 				sidebar: true,
 				subject: AdminFeature.MEMBER,
@@ -264,6 +265,13 @@ const routes = computed<NavItem[]>(() => [
 		sidebar: true,
 		subject: AdminFeature.ACCOUNT,
 		sub: [
+			{
+				name: 'Thông báo',
+				url: '/notification',
+				icon: mdiBellRingOutline,
+				sidebar: true,
+				subject: AdminFeature.MEMBER,
+			},
 			{
 				name: 'Slider',
 				url: '/account/role',

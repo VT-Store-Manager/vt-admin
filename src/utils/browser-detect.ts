@@ -51,6 +51,6 @@ export const isSafari = () => {
 	return getBrowserName() === 'Safari'
 }
 
-export const isOther = () => {
+export const isOtherAgent = () => {
 	return getBrowserName() === 'other'
 }

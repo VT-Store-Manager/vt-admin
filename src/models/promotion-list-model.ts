@@ -3,6 +3,7 @@ export interface PromotionVoucherModel {
 	disabled: boolean
 	deleted: boolean
 	id: string
+	code: string
 	images: string[]
 	activeStartTime: number
 	activeFinishTime?: any

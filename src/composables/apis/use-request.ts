@@ -23,13 +23,13 @@ export default function <
 
 	const authStore = useAuthStore()
 	const baseURL = useRuntimeConfig().public.apiBase + config.api.prefix
-	const accessToken = ref(authStore.auth.accessToken)
+	const accessToken = ref(authStore.auth?.accessToken || '')
 
 	watch(
 		() => authStore.auth,
 		() => {
 			if (authStore.auth.accessToken) {
-				accessToken.value = authStore.auth.accessToken
+				accessToken.value = authStore.auth?.accessToken || ''
 			}
 		}
 	)
@@ -38,7 +38,7 @@ export default function <
 		const _headers: Record<string, string> = {}
 		if (extraOptions.auth) {
 			_headers.Authorization = `Bearer ${
-				accessToken.value || authStore.auth.accessToken || ''
+				accessToken.value || authStore.auth?.accessToken || ''
 			}`
 		}
 		if (extraOptions.multipart) {
