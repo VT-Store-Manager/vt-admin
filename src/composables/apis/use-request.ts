@@ -53,13 +53,13 @@ export default function <
 	return useFetch<ResT, FetchError<ErrorType>, any, any, ResT, DataT>(url, {
 		baseURL,
 		headers,
-		onResponseError({ response }) {
+		async onResponseError({ response }) {
 			if (response.status === 401) {
 				if (extraOptions?.auth && response._data?.message !== 'DANGER') {
+					await authStore.refresh()
+				} else {
 					authStore.clear()
 					$router.push('/login')
-				} else {
-					authStore.refresh()
 				}
 			}
 		},
