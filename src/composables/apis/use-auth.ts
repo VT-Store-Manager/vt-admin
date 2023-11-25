@@ -45,27 +45,33 @@ export const useAuthStore = defineStore('authentication', () => {
 		auth.value = token
 	}
 
-	const refresh = () => {
-		if (!auth.value?.refreshToken) return
-		useRequest<AuthAdminType>(
-			'/auth/refresh',
-			{
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${auth.value.refreshToken || ''}`,
-				},
-				onResponse({ response }) {
-					if (response.status === 201) {
-						setTokenData(response._data.data)
-					}
-				},
-				onRequestError() {
-					clear()
-					$router.push('/login')
-				},
+	const refreshHeader = computed(() => ({
+		Authorization: `Bearer ${auth.value.refreshToken || ''}`,
+	}))
+	const { execute: refreshToken } = useRequest<AuthAdminType>(
+		'/auth/refresh',
+		{
+			method: 'POST',
+			headers: refreshHeader,
+			onResponse({ response }) {
+				if (response.status === 201) {
+					setTokenData(response._data.data)
+				}
 			},
-			{ auth: false }
-		)
+			onRequestError({ response }) {
+				clear()
+				$router.push('/login')
+			},
+
+			// immediate: false,
+			// watch: false,
+		},
+		{ auth: false }
+	)
+
+	const refresh = async () => {
+		if (!auth.value?.refreshToken) return
+		await refreshToken({ dedupe: true })
 	}
 
 	const clear = () => {
@@ -87,6 +93,10 @@ export const useAuthStore = defineStore('authentication', () => {
 		$router.push('/login')
 	}
 
+	const { execute: checkExpiredFetch } = useRequest('/auth/check', {
+		immediate: false,
+	})
+
 	return {
 		auth,
 		callbackUrl,
@@ -95,6 +105,7 @@ export const useAuthStore = defineStore('authentication', () => {
 		refresh,
 		clear,
 		logout,
+		checkExpiredFetch,
 	}
 })
 

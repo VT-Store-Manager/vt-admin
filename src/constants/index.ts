@@ -83,6 +83,11 @@ export const shippingMethodName: Record<ShippingMethod, string> = {
 	[ShippingMethod.DELIVERY]: 'Giao hàng',
 }
 
+export const paymentMethodName: Record<PaymentType, string> = {
+	[PaymentType.CAST]: 'Tiền mặt',
+	[PaymentType.MOMO]: 'Momo',
+}
+
 export enum AdminFeature {
 	PRODUCT = 'PRODUCT',
 	STORE = 'STORE',

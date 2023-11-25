@@ -1,7 +1,7 @@
 <template>
 	<span
 		v-if="optionItemKeys.length"
-		class="text-13px d-inline-block rounded-pill bg-grey-lighten-2 px-2 ml-3"
+		class="text-13px d-inline-block rounded-pill bg-grey-lighten-2 px-2"
 	>
 		+{{ optionItemKeys.length }} tuỳ chọn
 		<v-tooltip

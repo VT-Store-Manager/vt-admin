@@ -14,14 +14,18 @@
 					</h2>
 					<template v-if="$slots.subtitle">
 						<atom-divider
+							v-if="!noDivider"
 							class="mx-4"
 							vertical
 							thickness="2"
 							:color="isLight ? 'grey-darken-3' : 'grey-lighten-5'"
 						/>
 						<div
-							class="page-subtitle"
-							:class="[isLight ? 'text-grey-darken-2' : 'text-grey-lighten-1']"
+							class="page-subtitle d-flex align-center"
+							:class="[
+								isLight ? 'text-grey-darken-2' : 'text-grey-lighten-1',
+								{ 'ml-4': noDivider },
+							]"
 						>
 							<slot name="subtitle"></slot>
 						</div>
@@ -48,6 +52,7 @@ interface Props {
 	pageName: string
 	pageTitle?: string
 	scroll?: boolean
+	noDivider?: boolean
 }
 
 const props = defineProps<Props>()

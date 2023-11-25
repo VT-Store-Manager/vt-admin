@@ -218,7 +218,7 @@ const routes = computed<NavItem[]>(() => [
 			},
 			{
 				name: 'Đối tác',
-				url: '/account/role',
+				url: '/partner',
 				icon: mdiAccountTieOutline,
 				sidebar: true,
 				subject: AdminFeature.MEMBER,
