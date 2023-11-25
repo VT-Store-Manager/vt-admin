@@ -5,7 +5,7 @@
 		rounded="lg"
 		:icon="mdiRefresh"
 		:disabled="isDisabled || loading"
-		:loading="loading"
+		:loading="isDisabled || loading"
 		v-bind="$attrs"
 		@click="onClick()"
 	/>

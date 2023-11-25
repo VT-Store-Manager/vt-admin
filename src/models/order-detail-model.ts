@@ -1,11 +1,11 @@
-import { StoreCriterion } from '~/constants'
+import { OrderState, StoreCriterion } from '~/constants'
 
 export interface OrderReview {
 	rate: number
 	content: string
 	satisfied: StoreCriterion[]
 	likeItems: string[]
-	unlikeItems: string[]
+	dislikeItems: string[]
 }
 
 export interface OrderItem {
@@ -47,6 +47,30 @@ export interface ShortInfoMember {
 	rankColor: string
 }
 
+export interface OrderTimeLog {
+	time: Date
+	title: string
+	description?: string
+	state?: OrderState
+}
+
+export interface OrderShipper {
+	id: string
+	phone: string
+	name: string
+	review?: {
+		rate: number
+		content?: string
+	}
+}
+
+export interface OrderEmployee {
+	id: string
+	phone: string
+	name: string
+	avatar: string
+}
+
 export interface OrderDetailModel {
 	member: ShortInfoMember
 	voucher: ShortInfoVoucher
@@ -64,4 +88,7 @@ export interface OrderDetailModel {
 	code: string
 	createdAt: string
 	review: OrderReview
+	timeLog?: OrderTimeLog[]
+	shipper?: OrderShipper
+	employee?: OrderEmployee
 }

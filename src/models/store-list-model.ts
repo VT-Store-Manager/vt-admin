@@ -11,6 +11,7 @@ export interface StoreListItemModel {
 		country: string
 	}
 	openedStatus: boolean
+	phone: string
 	disabled: boolean
 	deleted: boolean
 	updatedAt: string

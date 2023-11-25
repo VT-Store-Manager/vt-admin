@@ -15,6 +15,7 @@ import {
 	faPenToSquare,
 	faSun,
 	faTrashCan,
+	faCopy,
 } from '@fortawesome/free-regular-svg-icons'
 import {
 	faArrowLeft,
@@ -65,7 +66,8 @@ library.add(
 	faCircleNotch,
 	faStore,
 	faTruck,
-	faUserShield
+	faUserShield,
+	faCopy
 )
 
 // #F6F1E9

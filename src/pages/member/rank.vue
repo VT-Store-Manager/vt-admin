@@ -1,16 +1,16 @@
 <template>
-	<molecule-list-page-container page-name="Ranks">
+	<molecule-list-page-container page-name="Cấp bậc thành viên">
 		<template #subtitle>
-			<p>{{ totalCount }} rank{{ totalCount > 1 ? 's' : '' }}</p>
+			<p>{{ totalCount }} cấp bậc</p>
 		</template>
 		<template #title-right>
 			<molecule-btn-refresh
 				class="mr-3"
-				title="Refresh"
+				title="Làm mới"
 				@click="refresh"
 			/>
 			<molecule-btn-create @click="$router.push('/rank/create')">
-				New
+				Tạo mới
 			</molecule-btn-create>
 		</template>
 		<template-rank-list />
