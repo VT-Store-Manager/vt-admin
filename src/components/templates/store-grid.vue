@@ -39,9 +39,14 @@
 						{{ item.name }}
 					</v-card-title>
 					<v-card-subtitle
-						class="px-4"
+						class="px-4 d-flex"
 						@click="onCardClick"
 					>
+						<v-icon
+							icon="fa:fas fa-map-location-dot"
+							:size="18"
+							class="mr-2"
+						/>
 						{{ fullAddress(item.address) }}
 					</v-card-subtitle>
 					<v-card-actions

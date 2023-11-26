@@ -1,6 +1,9 @@
 <template>
 	<molecule-list-page-container
 		page-name="Chi tiết sản phẩm"
+		:page-title="
+			productData?.name ? `Sản phẩm ${productData.name}` : 'Chi tiết sản phẩm'
+		"
 		scroll
 	>
 		<template #title-right>
