@@ -10,6 +10,7 @@
 			<molecule-btn-refresh
 				class="mr-3"
 				title="Làm mới"
+				@click="productDetail.refresh"
 			/>
 			<molecule-btn-delete
 				disabled

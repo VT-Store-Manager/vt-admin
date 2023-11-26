@@ -29,11 +29,10 @@ import { SHOW_SUB_OPTION_LIST } from '~/constants'
 
 const productOptionList = useProductOptionList()
 const { totalCount } = storeToRefs(productOptionList)
-const { refresh, pushQuery } = productOptionList
+const { refresh } = productOptionList
 const showCreateDialog = ref(false)
 const showChildOptions = useCookie<boolean>(SHOW_SUB_OPTION_LIST, {
 	watch: 'shallow',
 	maxAge: 60 * 60 * 24 * 365,
 })
-pushQuery()
 </script>

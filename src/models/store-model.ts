@@ -83,3 +83,47 @@ export const createStoreSchema = object<CreateStoreModel>({
 			.default([]),
 	}),
 })
+
+// STORE DETAIL MODEL
+
+export interface UnavailableProduct {
+	name: string
+	category: string
+	disabled: boolean
+	deleted: boolean
+	id: string
+	image: string
+}
+
+export interface UnavailableGoods {
+	product: UnavailableProduct[]
+	category: string[]
+	option: string[]
+}
+
+export interface StoreDetailModel {
+	code: number
+	name: string
+	images: string[]
+	openTime: {
+		start: string
+		end: string
+	}
+	address: {
+		street: string
+		ward: string
+		district: string
+		city: string
+		country: string
+	}
+	openedStatus: boolean
+	disabled: boolean
+	deleted: boolean
+	createdAt: string
+	updatedAt: string
+	unavailableGoods: UnavailableGoods
+	lat: number
+	lng: number
+	phone: string
+	id: string
+}

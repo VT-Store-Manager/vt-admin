@@ -2,11 +2,9 @@
 	<organism-data-table
 		:headers="headers"
 		:items="hideChild ? parentOptions : items"
-		:pagination="pagination"
 		:total-item-amount="totalCount"
 		:loading="pending"
 		editable
-		:update-page-fn="updatePage"
 	>
 		<template #name="{ item }">
 			<div class="d-flex align-center">
@@ -72,9 +70,8 @@ interface Props {
 
 const props = defineProps<Props>()
 const productOptionList = useProductOptionList()
-const { items, totalCount, pending, pagination, parentOptions, subOptionMap } =
+const { items, totalCount, pending, parentOptions, subOptionMap } =
 	storeToRefs(productOptionList)
-const { updatePage } = productOptionList
 
 const headers = computed<TableHeader<ProductOptionListItemModel>[]>(() => [
 	{

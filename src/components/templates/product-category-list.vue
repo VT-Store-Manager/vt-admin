@@ -3,11 +3,9 @@
 		v-model="testItems"
 		:headers="headers"
 		:items="items"
-		:pagination="pagination"
-		:total-item-amount="totalProduct"
+		:total-item-amount="totalCount"
 		:loading="pending"
 		editable
-		:update-page-fn="updatePage"
 	>
 		<template #name="{ item }">
 			<v-hover>
@@ -79,13 +77,11 @@ import { ProductCategoryListItemModel } from '~/models'
 import { TableHeader } from '~/types'
 
 const productCategoryList = useProductCategoryList()
-const { items, totalProduct, pending, pagination } =
-	storeToRefs(productCategoryList)
+const { items, totalCount, pending } = storeToRefs(productCategoryList)
 const testItems = ref(items.value)
 watch(items, value => {
 	testItems.value = value
 })
-const { updatePage } = productCategoryList
 
 const headers: TableHeader<ProductCategoryListItemModel>[] = [
 	{

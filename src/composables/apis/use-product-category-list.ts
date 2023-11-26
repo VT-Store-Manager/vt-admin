@@ -3,34 +3,26 @@ import { ProductCategoryListItemModel, PaginationDataModel } from '~/models'
 export const useProductCategoryList = definePiniaStore(
 	'product-category-list',
 	() => {
-		const { pagination, updatePage, pushPaginationQuery } = usePagination()
-		const query = computed(() => ({ ...pagination }))
-		const resetQuery = () => updatePage()
-		const pushQuery = () => {
-			pushPaginationQuery()
-		}
-
 		const { data, pending, error, refresh } = useRequest<
 			PaginationDataModel<ProductCategoryListItemModel>
 		>('/product-category/list', {
-			query,
 			transform: input => input.data,
-			watch: [query],
 		})
 
 		const items = computed(() => data?.value?.items || [])
-		const totalProduct = computed(() => data?.value?.totalCount || 0)
+		const totalCount = computed(() => data?.value?.totalCount || 0)
+
+		const categoryMap = computed(() => {
+			return new Map(items.value.map(item => [item.id, item]))
+		})
 
 		return {
-			pagination,
 			items,
-			totalProduct,
+			totalCount,
+			categoryMap,
 			pending,
 			error,
 			refresh,
-			updatePage,
-			resetQuery,
-			pushQuery,
 		}
 	}
 )
