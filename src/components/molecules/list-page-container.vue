@@ -63,7 +63,7 @@ defineSlots<{
 }>()
 
 useSeoMeta({
-	title: `${props.pageTitle || props.pageName} - VT Admin`,
+	title: `${props.pageTitle || props.pageName} - Chillin' Coffee Admin`,
 })
 
 const { isLight } = storeToRefs(useThemeUtil())

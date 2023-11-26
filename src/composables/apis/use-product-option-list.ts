@@ -4,19 +4,10 @@ import { PaginationDataModel } from '~/models'
 export const useProductOptionList = definePiniaStore(
 	'product-option-list',
 	() => {
-		const { pagination, updatePage, pushPaginationQuery } = usePagination()
-		const query = computed(() => ({ ...pagination }))
-		const resetQuery = () => updatePage()
-		const pushQuery = () => {
-			pushPaginationQuery()
-		}
-
 		const { data, pending, error, refresh } = useRequest<
 			PaginationDataModel<ProductOptionListItemModel>
 		>('/product-option/list', {
-			query,
 			transform: input => input.data,
-			watch: [query],
 		})
 
 		const items = computed(() => data?.value?.items || [])
@@ -61,7 +52,6 @@ export const useProductOptionList = definePiniaStore(
 		}
 
 		return {
-			pagination,
 			items,
 			totalCount,
 			pending,
@@ -70,9 +60,6 @@ export const useProductOptionList = definePiniaStore(
 			parentOptions,
 			subOptionMap,
 			refresh,
-			updatePage,
-			resetQuery,
-			pushQuery,
 			getOptionItemInfo,
 		}
 	}

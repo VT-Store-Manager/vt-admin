@@ -5,6 +5,7 @@
 			cols="5"
 		>
 			<molecule-input
+				v-bind="inputProps"
 				:model-value="modelValue.start"
 				input-type="autocomplete"
 				:items="times"
@@ -23,6 +24,7 @@
 		</v-col>
 		<v-col cols="5">
 			<molecule-input
+				v-bind="inputProps"
 				:model-value="modelValue.end"
 				input-type="autocomplete"
 				:items="times"
@@ -30,6 +32,7 @@
 				label="Close time"
 				:error-messages="errorMessage ? ' ' : ''"
 				placeholder="To"
+				hide-details
 				@update:model-value="(v: string) => modelValue.end = v"
 			/>
 		</v-col>
@@ -57,6 +60,8 @@ import { CreateStoreModel } from '~/models'
 
 interface Props {
 	errorMessage?: string
+	readonly?: boolean
+	inputProps?: Record<string, any>
 }
 
 defineProps<Props>()

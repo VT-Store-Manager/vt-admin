@@ -1,7 +1,7 @@
 <template>
 	<molecule-list-page-container page-name="Danh sách phân loại">
 		<template #subtitle>
-			<p>{{ totalProduct || '--' }} loại</p>
+			<p>{{ totalCount || '--' }} loại</p>
 		</template>
 		<template #title-right>
 			<molecule-btn-refresh
@@ -20,9 +20,7 @@
 
 <script lang="ts" setup>
 const productCategoryList = useProductCategoryList()
-const { totalProduct } = storeToRefs(productCategoryList)
-const { refresh, pushQuery } = productCategoryList
+const { totalCount } = storeToRefs(productCategoryList)
+const { refresh } = productCategoryList
 const showCreateDialog = ref(false)
-
-pushQuery()
 </script>

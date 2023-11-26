@@ -1,12 +1,16 @@
 <template>
 	<molecule-list-page-container
 		page-name="Chi tiết sản phẩm"
+		:page-title="
+			productData?.name ? `Sản phẩm ${productData.name}` : 'Chi tiết sản phẩm'
+		"
 		scroll
 	>
 		<template #title-right>
 			<molecule-btn-refresh
 				class="mr-3"
 				title="Làm mới"
+				@click="productDetail.refresh"
 			/>
 			<molecule-btn-delete
 				disabled

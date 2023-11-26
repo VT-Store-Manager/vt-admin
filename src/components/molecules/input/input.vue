@@ -2,7 +2,7 @@
 	<div class="input-with-outside-label">
 		<atom-label
 			:label="label"
-			:optional="optional"
+			:optional="isOptional"
 			:is-focused="isFocused"
 			:for="randomId"
 		/>
@@ -62,12 +62,18 @@ const props = withDefaults(
 		optional: false,
 	}
 )
+const attrs = useAttrs()
 const isFocused = ref(false)
 
 const componentName = computed(() => inputComponents[props.inputType])
 const randomId = computed(() => temporaryUniqueKey())
 
 const slotNames = Object.keys(useSlots()) as (keyof Slots)[]
+
+const isOptional = computed(() => {
+	const optionalProps = [props.optional, attrs?.readonly, attrs?.disabled]
+	return optionalProps.includes('') || optionalProps.includes(true)
+})
 </script>
 
 <style lang="scss" scoped></style>
