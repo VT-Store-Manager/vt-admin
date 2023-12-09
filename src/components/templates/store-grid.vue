@@ -24,6 +24,7 @@
 							:key="index"
 							:src="serverUrlImage(img)"
 							cover
+							@click="onCardClick(item.id)"
 						>
 							<template #placeholder>
 								<div class="d-flex align-center justify-center fill-height">
@@ -40,7 +41,7 @@
 					</v-card-title>
 					<v-card-subtitle
 						class="px-4 d-flex"
-						@click="onCardClick"
+						@click="onCardClick(item.id)"
 					>
 						<v-icon
 							icon="fa:fas fa-map-location-dot"
@@ -51,7 +52,7 @@
 					</v-card-subtitle>
 					<v-card-actions
 						class="px-4 pt-4"
-						@click="onCardClick"
+						@click="onCardClick(item.id)"
 					>
 						<v-spacer />
 						<p class="small-info text-grey">
@@ -99,6 +100,11 @@ const onCardClick = (storeId: string) => {
 	.v-carousel {
 		opacity: 0.9;
 		filter: grayscale(20%);
+		:deep(.v-window-item) {
+			.v-img {
+				cursor: pointer;
+			}
+		}
 		:deep(.v-window__controls) {
 			padding-left: 0.75rem;
 			padding-right: 0.75rem;

@@ -11,7 +11,7 @@
 			<v-hover>
 				<template #default="{ isHovering: hoveringName, props: nameProps }">
 					<atom-link
-						:to="'/product/' + item.id"
+						:to="'/store/' + item.id"
 						class="d-flex align-center py-2"
 						v-bind="nameProps"
 					>

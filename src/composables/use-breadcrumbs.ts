@@ -79,3 +79,9 @@ export const useBreadcrumbs = definePiniaStore('breadcrumbs', () => {
 
 	return { items, push, pop, deleteFromIndex, assign }
 })
+
+if (import.meta.hot) {
+	import.meta.hot.accept(
+		acceptHMRUpdate(useBreadcrumbs as any, import.meta.hot)
+	)
+}

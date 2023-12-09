@@ -75,8 +75,8 @@ interface NavProps {
 const route = useRoute()
 const props = defineProps<NavProps>()
 const { isDark } = storeToRefs(useThemeUtil())
-const { $getAbility } = useNuxtApp()
-const { can } = $getAbility()
+const { $getAbility: getAbility } = useNuxtApp()
+const { can } = getAbility()
 
 const showSubNav = ref(!!props.data.sub?.some(nav => nav.url === route.path))
 

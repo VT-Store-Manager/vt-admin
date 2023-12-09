@@ -11,7 +11,7 @@
 				<v-progress-circular v-if="pending" />
 				<template v-else>
 					<Line
-						v-iv="renderChart"
+						v-if="renderChart"
 						:data="chartData"
 						:options="chartOptions"
 					/>

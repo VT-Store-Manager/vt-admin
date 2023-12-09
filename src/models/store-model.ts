@@ -56,13 +56,14 @@ export const createStoreSchema = object<CreateStoreModel>({
 		.required()
 		.default(() => []),
 	name: string().min(2).required(),
-	openTime: object<CreateStoreModel['openTime']>({
-		start: string()
-			.matches(openTimePattern, 'Invalid open time format (HH:MM)')
-			.required('Open time is required'),
-		end: string()
-			.matches(openTimePattern, 'Invalid close time format (HH:MM)')
-			.required('Close time is required'),
+	openTime: object<CreateStoreModel['openTime']>().shape({
+		start: string().matches(
+			openTimePattern,
+			'Invalid open time format (HH:MM)'
+		),
+		// .required('Open time is required'),
+		end: string().matches(openTimePattern, 'Invalid close time format (HH:MM)'),
+		// .required('Close time is required'),
 	}),
 	address: object({
 		street: string().min(3).required(),

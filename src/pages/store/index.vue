@@ -13,6 +13,7 @@
 				New
 			</molecule-btn-create>
 			<molecule-btn-list-type-group
+				v-model:displayType="displayType"
 				class="ml-3"
 				@update-type="(type: ListDisplay) => (displayType = type)"
 			/>
@@ -32,6 +33,7 @@ const { totalCount } = storeToRefs(storeList)
 const { refresh, pushQuery } = storeList
 const showCreateDialog = ref(false)
 const displayType = useCookie<ListDisplay>(STORE_DISPLAY_KEY, {
+	default: () => 'list',
 	watch: 'shallow',
 	maxAge: 60 * 60 * 24 * 365,
 })

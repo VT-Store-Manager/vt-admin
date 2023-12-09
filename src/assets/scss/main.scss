@@ -47,7 +47,7 @@ body {
 	@each $property in $transition-properties {
 		&-#{$property} {
 			transition: #{$property} 0.3s ease;
-			&-all {
+			&-deep {
 				transition: #{$property} 0.3s ease;
 				* {
 					transition: #{$property} 0.3s ease;

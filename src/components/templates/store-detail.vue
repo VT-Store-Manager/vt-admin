@@ -11,7 +11,7 @@
 				<v-row dense>
 					<v-col cols="12">
 						<atom-img
-							class="rounded small-img-shadow"
+							class="rounded small-img-shadow cursor-pointer"
 							:src="storeData.images[0]"
 							:aspect-ratio="2"
 							server-img
@@ -25,7 +25,7 @@
 						cols="6"
 					>
 						<atom-img
-							class="rounded small-img-shadow"
+							class="rounded small-img-shadow cursor-pointer"
 							:src="image"
 							:aspect-ratio="2"
 							server-img
