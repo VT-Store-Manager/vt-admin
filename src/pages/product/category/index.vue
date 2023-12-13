@@ -14,7 +14,7 @@
 			</molecule-btn-create>
 		</template>
 		<template-product-category-list />
-		<template-new-product-category-dialog v-model:show="showCreateDialog" />
+		<template-product-category-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

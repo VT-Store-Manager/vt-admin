@@ -20,7 +20,7 @@
 			</molecule-btn-create>
 		</template>
 		<template-product-option-list :hide-child="showChildOptions" />
-		<template-new-product-dialog v-model:show="showCreateDialog" />
+		<template-product-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

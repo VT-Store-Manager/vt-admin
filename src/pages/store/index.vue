@@ -20,7 +20,7 @@
 		</template>
 		<template-store-grid v-if="displayType === 'grid'" />
 		<template-store-list v-else />
-		<template-new-store-dialog v-model:show="showCreateDialog" />
+		<template-store-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

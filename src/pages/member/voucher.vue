@@ -20,7 +20,7 @@
 			</molecule-btn-create>
 		</template>
 		<template-voucher-list />
-		<template-publish-voucher-dialog v-model:show="showPublishDialog" />
+		<template-voucher-publish-dialog v-model:show="showPublishDialog" />
 	</molecule-list-page-container>
 </template>
 
