@@ -56,14 +56,15 @@
 
 <script lang="ts" setup>
 import type { VImg, VProgressCircular } from 'vuetify/components'
+import { ImageType } from '~/constants'
+import { detectImageType } from '~/utils/string'
 
 interface VImgType extends /* @vue-ignore */ VImg {}
 interface VProgressCircularType extends /* @vue-ignore */ VProgressCircular {}
 interface Props {
-	src: string
+	src: string | File
 	altSrc?: string[]
 	placeholder?: 'progress' | 'logo' | string
-	serverImg?: boolean
 	serverAltImg?: number[] | true
 	imgAttribute?: Record<string, any>
 	mainImage?: boolean
@@ -74,6 +75,7 @@ const props = withDefaults(defineProps<VImgType['$props'] & Props>(), {
 	altSrc: () => [],
 	serverImg: false,
 	serverAltImg: () => [],
+	autoDetect: false,
 })
 defineSlots<{
 	placeholder?: (props: {}) => any
@@ -83,7 +85,14 @@ const serverImgUrl =
 	(props.mainImage ? config.api.mainImagePrefix : config.api.filePrefix)
 
 const formattedSrc = computed(() => {
-	return props.serverImg ? serverImgUrl + props.src : props.src
+	switch (detectImageType(props.src)) {
+		case ImageType.FILE:
+			return URL.createObjectURL(props.src as File)
+		case ImageType.INTERNAL:
+			return serverImgUrl + props.src
+		default:
+			return props.src
+	}
 })
 const rightAltSrc = computed(() => {
 	let altSrc = props.altSrc

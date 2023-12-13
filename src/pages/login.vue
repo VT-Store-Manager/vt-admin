@@ -60,6 +60,7 @@
 			closable
 			:text="error.message"
 			type="error"
+			class="mt-4"
 		/>
 	</v-card>
 </template>
@@ -72,7 +73,7 @@ definePageMeta({
 	layout: 'outside',
 })
 useSeoMeta({
-	title: 'Login - VT Admin',
+	title: "Login - Chillin' Admin",
 })
 
 const SAVED_ACCOUNT_KEY = 'saved_account'

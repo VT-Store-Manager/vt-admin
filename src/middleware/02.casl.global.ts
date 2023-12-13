@@ -4,7 +4,7 @@ import { AdminFeature } from '~/constants'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
 	const subject: AdminFeature | undefined =
-		getPageSubject(to) || (to.meta.subject as any)
+		getPageSubject(to) ?? (to.meta.subject as any)
 
 	if (!subject && to.name !== 'index') return
 
@@ -32,6 +32,7 @@ const getPageSubject = (
 	route: RouteLocationNormalized
 ): AdminFeature | undefined => {
 	const routeName = route.name as string
+	if (!routeName) return undefined
 	if (routeName.startsWith('product')) return AdminFeature.PRODUCT
 	if (routeName.startsWith('store')) return AdminFeature.STORE
 	if (routeName.startsWith('member')) return AdminFeature.MEMBER

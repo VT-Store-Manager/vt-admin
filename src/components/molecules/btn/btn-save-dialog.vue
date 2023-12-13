@@ -10,7 +10,7 @@
 		:loading="loading"
 		:disabled="loading"
 	>
-		Lưu
+		<slot>Lưu</slot>
 	</atom-btn>
 </template>
 

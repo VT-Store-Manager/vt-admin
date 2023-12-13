@@ -12,8 +12,12 @@
 		/>
 		<atom-btn
 			:disabled="isDisabled"
-			color="warning"
+			color="primary-darken"
 			class="font-weight-bold"
+			:prepend-icon="mdiPaperclip"
+			size="small"
+			:flat="true"
+			variant="tonal"
 			v-bind="btnAttrs"
 			@click="onChooseFile"
 		>
@@ -24,6 +28,7 @@
 
 <script setup lang="ts">
 import type { VFileInput } from 'vuetify/components'
+import { mdiPaperclip } from '@mdi/js'
 import { AtomFileInput, AtomBtn } from '#components'
 
 interface Props {
@@ -45,8 +50,7 @@ const fileInputRef = ref<InstanceType<typeof AtomFileInput>>()
 const rule = [
 	(value: any[]) => {
 		return (
-			!value ||
-			!value.length ||
+			!value?.length ||
 			value[0].size < props.maxSize * 1024 * 1024 ||
 			'Image size should be less than 2 MB!'
 		)

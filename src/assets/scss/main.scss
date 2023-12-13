@@ -25,6 +25,15 @@ body {
 	&-pointer {
 		cursor: pointer;
 	}
+	&-move {
+		cursor: move;
+	}
+}
+
+.w {
+	&-fit {
+		width: fit-content;
+	}
 }
 
 .opacity {
@@ -93,6 +102,10 @@ body {
 
 .relative {
 	position: relative;
+}
+
+.absolute {
+	position: absolute !important;
 }
 
 .nowrap {

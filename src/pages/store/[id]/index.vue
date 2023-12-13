@@ -18,7 +18,9 @@
 			>
 				Ẩn
 			</molecule-btn-delete>
-			<molecule-btn-edit> Chỉnh sửa </molecule-btn-edit>
+			<molecule-btn-edit @click="$router.push(`/store/${storeId}/edit`)">
+				Chỉnh sửa
+			</molecule-btn-edit>
 		</template>
 		<template-store-detail />
 	</molecule-list-page-container>

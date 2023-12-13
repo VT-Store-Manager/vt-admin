@@ -1,6 +1,6 @@
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
-import { Gender } from '~/constants'
+import { Gender, ImageType } from '~/constants'
 
 export const variableCaseToText = (key: string) => {
 	const result = key.replace(/([A-Z])/g, ' $1')
@@ -50,4 +50,10 @@ export const getAvatarDefaultUrl = (gender: keyof typeof Gender) => {
 		default:
 			return '/img/default/avatar-male.svg'
 	}
+}
+
+export const detectImageType = (image: string | File): ImageType => {
+	if (image instanceof File) return ImageType.FILE
+	if (s3KeyPattern.test(image)) return ImageType.INTERNAL
+	return ImageType.EXTERNAL
 }

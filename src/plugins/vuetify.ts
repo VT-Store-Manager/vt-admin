@@ -39,6 +39,7 @@ import {
 	faTruck,
 	faUserShield,
 	faMapLocationDot,
+	faArrowRotateLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -69,7 +70,8 @@ library.add(
 	faTruck,
 	faUserShield,
 	faCopy,
-	faMapLocationDot
+	faMapLocationDot,
+	faArrowRotateLeft
 )
 
 // #F6F1E9

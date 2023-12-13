@@ -1,40 +1,12 @@
 <template>
 	<v-row v-if="storeData">
 		<v-col cols="4">
-			<atom-labeled-sheet
-				label="Images"
-				class="pt-8 pb-6"
-			>
-				<p class="text-14px text-grey font-weight-medium text-right mb-2">
-					{{ storeData.images.length }}/6 images
-				</p>
-				<v-row dense>
-					<v-col cols="12">
-						<atom-img
-							class="rounded small-img-shadow cursor-pointer"
-							:src="storeData.images[0]"
-							:aspect-ratio="2"
-							server-img
-							server-alt-img
-							lazy-src="/img/default/product.png"
-						/>
-					</v-col>
-					<v-col
-						v-for="image in storeData.images.slice(1)"
-						:key="image"
-						cols="6"
-					>
-						<atom-img
-							class="rounded small-img-shadow cursor-pointer"
-							:src="image"
-							:aspect-ratio="2"
-							server-img
-							server-alt-img
-							lazy-src="/img/default/product.png"
-						/>
-					</v-col>
-				</v-row>
-			</atom-labeled-sheet>
+			<template-edit-images
+				:init-images="storeData.images"
+				:max-files="maxFiles"
+				:pending="status === 'pending'"
+				@save="onUpdateStoreImage"
+			/>
 		</v-col>
 		<v-col cols="8">
 			<v-row>
@@ -48,36 +20,82 @@
 								cols="7"
 								md="6"
 								lg="6"
+								class="pb-0"
 							>
 								<molecule-input
-									v-model="storeData.name"
+									v-model="name.value.value"
 									input-type="text-field"
 									label="Store name"
-									readonly
-									hide-details
 								/>
 							</v-col>
 							<v-col
 								cols="5"
 								md="6"
 								lg="6"
+								class="pb-0"
 							>
 								<molecule-input-time-period
-									v-model="storeData.openTime"
+									v-model="openTime.value.value"
 									:input-props="{
-										readonly: true,
 										hideDetails: true,
 									}"
 								/>
 							</v-col>
 							<v-col cols="12">
-								<molecule-input
-									:model-value="fullAddress"
-									input-type="text-field"
-									label="Address"
-									readonly
-									hide-details
-								/>
+								<v-row>
+									<v-col
+										cols="8"
+										class="pb-0"
+									>
+										<molecule-input
+											:model-value="address.value.value?.street"
+											:error-messages="name.errorMessage.value"
+											input-type="text-field"
+											label="Street"
+											@update:model-value="(v: string) => onInput(v, 'street')"
+										/>
+									</v-col>
+									<v-col
+										cols="4"
+										class="pb-0"
+									>
+										<molecule-input
+											:model-value="address.value.value?.ward"
+											:error-messages="name.errorMessage.value"
+											input-type="text-field"
+											label="Ward"
+											optional
+											@update:model-value="(v: string) => onInput(v, 'ward')"
+										/>
+									</v-col>
+									<v-col cols="4">
+										<molecule-input
+											:model-value="address.value.value?.district"
+											:error-messages="name.errorMessage.value"
+											input-type="text-field"
+											label="District"
+											@update:model-value="(v: string) => onInput(v, 'district')"
+										/>
+									</v-col>
+									<v-col cols="4">
+										<molecule-input
+											:model-value="address.value.value?.city"
+											:error-messages="name.errorMessage.value"
+											input-type="text-field"
+											label="City"
+											@update:model-value="(v: string) => onInput(v, 'city')"
+										/>
+									</v-col>
+									<v-col cols="4">
+										<molecule-input
+											:model-value="address.value.value?.country"
+											:error-messages="name.errorMessage.value"
+											input-type="text-field"
+											label="Country"
+											@update:model-value="(v: string) => onInput(v, 'country')"
+										/>
+									</v-col>
+								</v-row>
 							</v-col>
 						</v-row>
 					</atom-labeled-sheet>
@@ -250,14 +268,78 @@
 </template>
 
 <script setup lang="ts">
-const { storeData } = storeToRefs(useStoreDetail())
+import { useForm, useField } from 'vee-validate'
+import { CreateStoreModel, createStoreSchema } from '~/models'
 
-const fullAddress = computed(() => {
-	if (!storeData.value?.address) return ''
+const storeDetail = useStoreDetail()
+const { storeData } = storeToRefs(storeDetail)
+const { refresh } = storeDetail
+const { executePayload, status } = useUpdateStoreImage()
+const { push } = useAlert()
+const maxFiles = 6
+const storeId = useRoute().params.id as string
 
-	const { street, ward, district, country } = storeData.value.address
-	return [street, ward, district, country].filter(s => !!s).join(', ')
+const { handleSubmit: _handleSubmit, handleReset: _handleReset } =
+	useForm<CreateStoreModel>({
+		validationSchema: createStoreSchema,
+	})
+
+const images = ref<(File | string)[]>([...(storeData.value?.images || [])])
+const name = useField<string>('name', undefined, {
+	initialValue: storeData.value?.name,
 })
+const openTime = useField<CreateStoreModel['openTime']>('openTime', undefined, {
+	initialValue: storeData.value?.openTime,
+})
+const address = useField<CreateStoreModel['address']>('address', undefined, {
+	initialValue: storeData.value?.address,
+})
+
+const onInput = (v: string, fieldName: keyof CreateStoreModel['address']) => {
+	address.value.value = {
+		...address.value.value,
+		[fieldName]: v,
+	}
+}
+
+watch(storeData, storeDataValue => {
+	if (storeDataValue) {
+		images.value = storeDataValue.images
+		name.value.value = storeDataValue.name
+		openTime.value.value = storeDataValue.openTime
+		address.value.value = storeDataValue.address
+	}
+})
+
+const onUpdateStoreImage = async (images: Array<string | File>) => {
+	const files: File[] = images.filter(image => image instanceof File) as any
+	const imageMap = images.reduce((res, image, index) => {
+		if (typeof image === 'string') {
+			res.push(`[${index}]:${image}`)
+		}
+		return res
+	}, [] as string[])
+
+	await executePayload(storeId, {
+		files,
+		imageMap,
+	})
+
+	if (!storeDetail.error) {
+		push({
+			type: 'success',
+			text: "Update store's images successfully",
+			duration: 5000,
+		})
+	} else {
+		push({
+			type: 'error',
+			text: "Update store's images failed",
+			duration: 15000,
+		})
+	}
+	await refresh()
+}
 </script>
 
 <style scoped></style>

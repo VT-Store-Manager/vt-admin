@@ -128,3 +128,8 @@ export interface StoreDetailModel {
 	phone: string
 	id: string
 }
+
+export interface UpdateStoreImagesModel {
+	files: File[]
+	imageMap: string[]
+}

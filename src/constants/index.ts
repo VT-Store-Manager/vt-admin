@@ -19,6 +19,8 @@ export const codePattern = /^[A-Z0-9]+$/
 export const usernamePattern = /^[a-zA-Z0-9_.-]{3,}$/
 export const objectIdPattern = /^[a-f\d]{24}$/i
 export const viPhoneNumberPattern = /^(((\+?84)|0)[235789])([0-9]{8})$/
+export const s3KeyPattern =
+	/^([a-zA-Z0-9_-]+\/){0,}[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}(.[a-z]+)?$/
 /** ENUMERATION */
 export enum AppTheme {
 	DARK = 'dark',
@@ -106,3 +108,9 @@ export enum Action {
 	ANALYSE = 'analyse',
 }
 export type ActionType = `${Action}`
+
+export enum ImageType {
+	FILE = 'file',
+	INTERNAL = 'internal',
+	EXTERNAL = 'external',
+}
