@@ -1,5 +1,5 @@
 <template>
-	<v-row>
+	<v-row :class="{ 'is-readonly': inputProps?.readonly }">
 		<v-col
 			offset="1"
 			cols="5"
@@ -60,7 +60,6 @@ import { CreateStoreModel } from '~/models'
 
 interface Props {
 	errorMessage?: string
-	readonly?: boolean
 	inputProps?: Record<string, any>
 }
 
@@ -123,5 +122,10 @@ const getClockIcon = (time: string) => {
 }
 :deep(.v-field--appended) {
 	padding-right: 8px;
+}
+.is-readonly {
+	:deep(.v-icon) {
+		pointer-events: none;
+	}
 }
 </style>

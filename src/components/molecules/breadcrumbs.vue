@@ -5,21 +5,38 @@
 			class="breadcrumbs"
 		>
 			<template #prepend>
-				<atom-icon
-					class="breadcrumb-home"
-					:icon="mdiHome"
-					color="grey"
-					size="small"
-				/>
-				<atom-icon
-					:icon="mdiChevronRight"
-					size="x-small"
-					color="grey"
-					class="mx-1"
-				/>
+				<atom-link to="/">
+					<atom-icon
+						class="breadcrumb-home"
+						:icon="mdiHome"
+						color="grey-darken-2"
+						size="small"
+					/>
+				</atom-link>
 			</template>
-			<template #divider>
-				<atom-icon :icon="mdiChevronRight" />
+			<template
+				v-for="(item, index) in breadcrumbs.items"
+				:key="item.href"
+			>
+				<v-breadcrumbs-divider>
+					<atom-icon
+						:icon="mdiChevronRight"
+						size="x-small"
+						color="grey"
+					/>
+				</v-breadcrumbs-divider>
+				<v-breadcrumbs-item>
+					<atom-link
+						:to="item.href"
+						:class="[
+							index === breadcrumbs.items.length - 1
+								? ['prevent-event', 'text-grey']
+								: [],
+						]"
+					>
+						{{ item.title }}
+					</atom-link>
+				</v-breadcrumbs-item>
 			</template>
 		</v-breadcrumbs>
 	</div>
@@ -36,13 +53,11 @@ defineOptions({
 	inheritAttrs: false,
 })
 defineProps<Props>()
+const breadcrumbs = useBreadcrumbs()
 </script>
 
 <style lang="scss" scoped>
 .breadcrumbs {
-	.breadcrumb-home {
-		transform: translateY(-1px);
-	}
 	:deep(.v-breadcrumbs-item) {
 		font-size: 0.875rem;
 		font-weight: 500;

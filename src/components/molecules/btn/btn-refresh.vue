@@ -3,7 +3,7 @@
 		class="btn-refresh"
 		:class="{ 'is-disabled': isDisabled }"
 		rounded="lg"
-		:icon="mdiRefresh"
+		:icon="mdiSync"
 		:disabled="isDisabled || loading"
 		:loading="isDisabled || loading"
 		v-bind="$attrs"
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { mdiRefresh } from '@mdi/js'
+import { mdiSync } from '@mdi/js'
 import { PROGRESS_LINEAR_CYCLE_TIME } from '~/constants'
 
 interface Props {

@@ -25,6 +25,15 @@ body {
 	&-pointer {
 		cursor: pointer;
 	}
+	&-move {
+		cursor: move;
+	}
+}
+
+.w {
+	&-fit {
+		width: fit-content;
+	}
 }
 
 .opacity {
@@ -47,7 +56,7 @@ body {
 	@each $property in $transition-properties {
 		&-#{$property} {
 			transition: #{$property} 0.3s ease;
-			&-all {
+			&-deep {
 				transition: #{$property} 0.3s ease;
 				* {
 					transition: #{$property} 0.3s ease;
@@ -93,6 +102,10 @@ body {
 
 .relative {
 	position: relative;
+}
+
+.absolute {
+	position: absolute !important;
 }
 
 .nowrap {

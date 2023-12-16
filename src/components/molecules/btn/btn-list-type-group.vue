@@ -28,15 +28,19 @@ import { mdiListBoxOutline, mdiViewGridOutline } from '@mdi/js'
 
 import { ListDisplay } from '~/types'
 
-const displayType = ref<ListDisplay>('list')
-const emits = defineEmits<{
-	(e: 'updateType', type: ListDisplay): void
-}>()
-
-watch(displayType, value => {
-	emits('updateType', value)
+const displayType = defineModel<ListDisplay>('displayType', {
+	default: 'list',
+	local: true,
 })
 const { isDark } = storeToRefs(useThemeUtil())
+
+onBeforeMount(() => {
+	const type = displayType.value
+	displayType.value = undefined
+	setTimeout(() => {
+		displayType.value = type
+	}, 0)
+})
 </script>
 
 <style lang="scss" scoped>

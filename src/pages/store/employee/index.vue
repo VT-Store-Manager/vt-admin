@@ -14,7 +14,7 @@
 			</molecule-btn-create>
 		</template>
 		<template-employee-list />
-		<template-new-employee-dialog v-model:show="showCreateDialog" />
+		<template-employee-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

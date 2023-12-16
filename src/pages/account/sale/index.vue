@@ -14,7 +14,7 @@
 			</molecule-btn-create>
 		</template>
 		<template-account-sale-list />
-		<template-new-account-sale-dialog v-model:show="showCreateDialog" />
+		<template-account-sale-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

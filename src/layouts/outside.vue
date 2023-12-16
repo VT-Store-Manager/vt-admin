@@ -21,7 +21,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-image: url('https://images.guucdn.net/full/2017/04/19/fa14130db65d54a0b30989027d28c0262a22d8ad.jpg');
+		background-image: url('https://www.barniescoffee.com/cdn/shop/articles/bar-1869656_1920.jpg?v=1660683986');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -32,7 +32,7 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background-color: #a342158d;
+			background-color: #3a3a3aa4;
 		}
 	}
 	.inner {

@@ -1,26 +1,26 @@
 <template>
 	<molecule-list-page-container
-		page-name="Chi tiết cửa hàng"
+		page-name="Cập nhật cửa hàng"
 		:page-title="
-			storeData?.name ? `Cửa hàng ${storeData.name}` : 'Chi tiết cửa hàng'
+			storeData?.name
+				? `Cập nhật cửa hàng ${storeData.name}`
+				: 'Cập nhật cửa hàng'
 		"
 		scroll
 	>
 		<template #title-right>
 			<molecule-btn-refresh
-				class="mr-3"
 				title="Làm mới"
 				@click="storeDetail.refresh"
 			/>
-			<molecule-btn-delete
-				disabled
-				class="mr-3"
+			<molecule-btn-edit
+				class="ml-3"
+				@click="$router.push(`/store/${storeId}`)"
 			>
-				Ẩn
-			</molecule-btn-delete>
-			<molecule-btn-edit> Chỉnh sửa </molecule-btn-edit>
+				Chi tiết
+			</molecule-btn-edit>
 		</template>
-		<template-store-detail />
+		<template-store-edit class="mb-4" />
 	</molecule-list-page-container>
 </template>
 
@@ -30,8 +30,6 @@ const { storeData } = storeToRefs(storeDetail)
 
 const storeId = useRoute().params.id as string
 if (storeId) {
-	storeDetail.fetch(storeId)
+	await storeDetail.fetch(storeId)
 }
 </script>
-
-<style scoped></style>

@@ -12,7 +12,7 @@
 		</template>
 		<template-account-role-list />
 
-		<template-new-role-dialog v-model:show="showCreateDialog" />
+		<template-account-role-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

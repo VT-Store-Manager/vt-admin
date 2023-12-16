@@ -15,6 +15,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
 		}
 		// eslint-disable-next-line no-console
 		console.log('Your session is expired out')
-		callbackUrl.value = ''
 	}
 })

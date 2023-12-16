@@ -14,7 +14,7 @@
 			</molecule-btn-create>
 		</template>
 		<template-shipper-list />
-		<template-new-shipper-dialog v-model:show="showCreateDialog" />
+		<template-shipper-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 

@@ -11,7 +11,7 @@
 				<v-row dense>
 					<v-col cols="12">
 						<atom-img
-							class="rounded small-img-shadow"
+							class="rounded small-img-shadow cursor-pointer"
 							:src="storeData.images[0]"
 							:aspect-ratio="2"
 							server-img
@@ -25,7 +25,7 @@
 						cols="6"
 					>
 						<atom-img
-							class="rounded small-img-shadow"
+							class="rounded small-img-shadow cursor-pointer"
 							:src="image"
 							:aspect-ratio="2"
 							server-img
@@ -44,7 +44,11 @@
 						class="pt-10 pb-6"
 					>
 						<v-row>
-							<v-col cols="7">
+							<v-col
+								cols="7"
+								md="6"
+								lg="6"
+							>
 								<molecule-input
 									v-model="storeData.name"
 									input-type="text-field"
@@ -53,7 +57,11 @@
 									hide-details
 								/>
 							</v-col>
-							<v-col cols="5">
+							<v-col
+								cols="5"
+								md="6"
+								lg="6"
+							>
 								<molecule-input-time-period
 									v-model="storeData.openTime"
 									:input-props="{

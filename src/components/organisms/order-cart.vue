@@ -296,11 +296,9 @@ const rateComputed = computed(() => {
 		rate: Math.min(Math.max(rate, 1), 5),
 		color: rateColor[rate - 1],
 		labels: rateLabel.map((label, index) => {
-			if (rate! - 1 !== index) return ''
+			if (rate - 1 !== index) return ''
 			return label
 		}),
 	}
 })
 </script>
-
-<style scoped></style>
