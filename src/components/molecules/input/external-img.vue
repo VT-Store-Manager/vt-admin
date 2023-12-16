@@ -9,7 +9,7 @@
 				v-bind="props"
 				color="primary-darken"
 				size="small"
-				:flat="true"
+				elevation="1"
 				variant="tonal"
 				:disabled="disabled"
 				:prepend-icon="mdiLink"
@@ -20,7 +20,7 @@
 		</template>
 		<v-sheet
 			rounded="12"
-			class="px-4 pt-3 pb-4"
+			class="px-4 pt-3 pb-4 mt-2"
 			min-width="400"
 		>
 			<molecule-input

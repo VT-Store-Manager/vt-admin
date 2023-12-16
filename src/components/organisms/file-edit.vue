@@ -15,15 +15,7 @@
 					@add="addExternalImage"
 				/>
 			</div>
-			<atom-btn
-				size="small"
-				:flat="true"
-				variant="tonal"
-				class="font-weight-bold"
-				@click="restore"
-			>
-				<v-icon icon="fa:fas fa-arrow-rotate-left" />
-			</atom-btn>
+			<molecule-btn-icon-restore @click="restore" />
 		</div>
 	</div>
 </template>

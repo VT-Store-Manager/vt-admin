@@ -13,8 +13,14 @@
 				title="Làm mới"
 				@click="storeDetail.refresh"
 			/>
+			<molecule-btn-edit
+				class="ml-3"
+				@click="$router.push(`/store/${storeId}`)"
+			>
+				Chi tiết
+			</molecule-btn-edit>
 		</template>
-		<template-store-edit />
+		<template-store-edit class="mb-4" />
 	</molecule-list-page-container>
 </template>
 

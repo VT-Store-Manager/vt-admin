@@ -16,8 +16,8 @@
 			class="font-weight-bold"
 			:prepend-icon="mdiPaperclip"
 			size="small"
-			:flat="true"
 			variant="tonal"
+			elevation="1"
 			v-bind="btnAttrs"
 			@click="onChooseFile"
 		>

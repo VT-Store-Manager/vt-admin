@@ -50,6 +50,7 @@ $router.afterEach(() => {
 <style lang="scss" scoped>
 .header {
 	height: $header-height;
+	min-height: $header-height;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
