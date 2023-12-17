@@ -6,13 +6,13 @@
 	>
 		<template #activator="{ props }">
 			<atom-btn
-				v-bind="props"
 				color="primary-darken"
 				size="small"
 				elevation="1"
 				variant="tonal"
 				:disabled="disabled"
 				:prepend-icon="mdiLink"
+				v-bind="{ ...props, ...btnAttrs }"
 				class="font-weight-bold"
 			>
 				URL
@@ -94,9 +94,11 @@
 
 <script setup lang="ts">
 import { mdiLink } from '@mdi/js'
+import { AtomBtn } from '#components'
 
 interface Props {
 	disabled?: boolean
+	btnAttrs?: InstanceType<typeof AtomBtn>['$props']
 }
 
 defineProps<Props>()

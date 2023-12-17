@@ -48,6 +48,7 @@ interface Props {
 	label: string
 	items?: ItemT[]
 	optional?: boolean
+	forceRequired?: boolean
 }
 type Slots = VTextField['$slots'] & VSelect['$slots'] & VAutocomplete['$slots']
 
@@ -60,6 +61,7 @@ const props = withDefaults(
 	{
 		inputType: 'text-field',
 		optional: false,
+		forceRequired: false,
 	}
 )
 const attrs = useAttrs()
@@ -71,6 +73,8 @@ const randomId = computed(() => temporaryUniqueKey())
 const slotNames = Object.keys(useSlots()) as (keyof Slots)[]
 
 const isOptional = computed(() => {
+	if (props.forceRequired) return false
+
 	const optionalProps = [props.optional, attrs?.readonly, attrs?.disabled]
 	return optionalProps.includes('') || optionalProps.includes(true)
 })

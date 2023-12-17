@@ -78,7 +78,8 @@ const { isDark } = storeToRefs(useThemeUtil())
 const { $getAbility: getAbility } = useNuxtApp()
 const { can } = getAbility()
 
-const showSubNav = ref(!!props.data.sub?.some(nav => nav.url === route.path))
+// const showSubNav = ref(!!props.data.sub?.some(nav => nav.url === route.path))
+const showSubNav = ref(true)
 
 const isSubnavActive = computed(() => {
 	return !!props.data.sub?.some(nav => nav.url === route.path)

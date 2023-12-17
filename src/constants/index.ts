@@ -40,9 +40,9 @@ export enum PublishStatus {
 }
 
 export enum ShippingMethod {
-	IN_STORE,
-	PICK_UP,
-	DELIVERY,
+	IN_STORE = 0,
+	PICK_UP = 1,
+	DELIVERY = 2,
 	NONE = -1,
 }
 

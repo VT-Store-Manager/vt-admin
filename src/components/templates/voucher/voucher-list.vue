@@ -12,7 +12,7 @@
 			<v-hover>
 				<template #default="{ isHovering: hoveringName, props: nameProps }">
 					<atom-link
-						:to="'/product-category/' + item.id"
+						:to="'/voucher/' + item.id"
 						class="d-flex align-center"
 						v-bind="nameProps"
 					>
@@ -79,7 +79,7 @@
 					activator="parent"
 					location="top"
 					:open-delay="500"
-					text="The Coffee House"
+					text="The Chillin' Coffee"
 				/>
 			</div>
 		</template>

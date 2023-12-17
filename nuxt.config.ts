@@ -23,6 +23,12 @@ export default defineNuxtConfig({
 	experimental: {
 		payloadExtraction: false,
 	},
+	nitro: {
+		compressPublicAssets: true,
+		prerender: {
+			crawlLinks: true,
+		},
+	},
 	vite: {
 		ssr: {
 			noExternal: ['vuetify'],

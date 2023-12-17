@@ -91,7 +91,7 @@
 		</div>
 		<div class="d-flex justify-end mt-2">
 			<molecule-btn-save-dialog
-				:disabled="!submittable && (isNotChanged || !isEmpty(errors))"
+				:disabled="isNotChanged || !isEmpty(errors)"
 				v-bind="isNotChanged ? { color: 'grey' } : {}"
 				:loading="status === 'pending'"
 				@click="submit"
@@ -120,7 +120,6 @@ const updateStoreInfo = useUpdateStoreInfo()
 const { executeWithPayload } = updateStoreInfo
 const { error, status } = storeToRefs(updateStoreInfo)
 const { push } = useAlert()
-const submittable = ref(true)
 
 const initData = computed<UpdateStoreInfoModel>(() => {
 	if (!storeData.value)
@@ -196,7 +195,6 @@ const isNotChanged = computed(() => {
 })
 
 const submit = handleSubmit(async values => {
-	submittable.value = false
 	await executeWithPayload({
 		storeId: useRoute().params.id as string,
 		name: values.name,

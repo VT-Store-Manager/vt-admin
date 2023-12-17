@@ -11,7 +11,7 @@ export default function <
 	DataT = Record<string, any>,
 	ResT = ResponseType<DataT>
 >(
-	url: string,
+	url: string | (() => string),
 	options?: UseFetchOptions<ResT, DataT>,
 	_extraOptions?: ExtraRequestOptions
 ) {
