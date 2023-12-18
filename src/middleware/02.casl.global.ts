@@ -3,6 +3,7 @@ import { RouteLocationNormalized } from '#vue-router'
 import { AdminFeature } from '~/constants'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+	if (process.server) return
 	const subject: AdminFeature | undefined =
 		getPageSubject(to) ?? (to.meta.subject as any)
 

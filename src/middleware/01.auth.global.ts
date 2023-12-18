@@ -1,4 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
+	if (process.server) return
 	const { auth, callbackUrl } = storeToRefs(useAuthStore())
 	const { $router } = useNuxtApp()
 
