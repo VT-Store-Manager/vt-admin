@@ -1,29 +1,37 @@
 <template>
-	<v-sheet class="bg-transparent mb-4">
+	<molecule-dialog
+		v-model="show"
+		:card-attrs="{}"
+		:sheet-attrs="{
+			width: '95%',
+			maxWidth: '900px',
+		}"
+		title="Tạo admin mới"
+		persistent
+	>
+		<template #headActions>
+			<molecule-btn-reset @click="handleReset" />
+		</template>
 		<v-row>
 			<v-col cols="4">
 				<molecule-input
-					:model-value="accountDetail?.username"
+					v-model="username.value.value"
 					input-type="text-field"
 					label="Tên tài khoản"
-					disabled
-					optional
-					hide-details
+					:error-messages="username.errorMessage.value"
 				/>
 			</v-col>
 			<v-col cols="4">
 				<molecule-input
-					:model-value="accountDetail?.name"
+					v-model="name.value.value"
 					input-type="text-field"
 					label="Tên người dùng"
-					disabled
-					optional
-					hide-details
+					:error-messages="name.errorMessage.value"
 				/>
 			</v-col>
 			<v-col cols="4">
 				<molecule-input
-					:model-value="data?.newPassword || '●●●●●●●●●●●●'"
+					model-value="p@ssw0rd"
 					input-type="text-field"
 					label="Mật khẩu"
 					disabled
@@ -33,7 +41,7 @@
 			</v-col>
 			<v-col cols="6">
 				<molecule-input
-					v-model="roles"
+					v-model="roles.value.value"
 					input-type="select"
 					label="Phân quyền"
 					:items="roleSelectItems"
@@ -41,12 +49,13 @@
 					bg-color="white"
 					chips
 					closable-chips
+					:error-messages="roles.errorMessage.value"
 				/>
-				<div v-if="roles.length">
-					<p>Preview ({{ roles.length }})</p>
+				<div v-if="roles.value.value.length">
+					<p>Preview ({{ roles.value.value.length }})</p>
 					<v-divider class="mt-1 mb-4" />
 					<v-sheet
-						v-for="roleId in roles"
+						v-for="roleId in roles.value.value"
 						:key="roleId"
 						class="d-flex align-center rounded-12 pa-3 justify-space-between mb-3 elevation-1"
 					>
@@ -81,7 +90,7 @@
 								color="danger"
 								density="comfortable"
 								size="small"
-								@click="pull(roles, roleId)"
+								@click="roles.value.value = pull(roles.value.value, roleId)"
 							/>
 						</p>
 					</v-sheet>
@@ -89,7 +98,7 @@
 			</v-col>
 			<v-col cols="6">
 				<molecule-input
-					v-model="stores"
+					v-model="stores.value.value"
 					input-type="select"
 					label="Cửa hàng quản lý"
 					:items="storeSelectItems"
@@ -97,9 +106,10 @@
 					bg-color="white"
 					chips
 					closable-chips
+					:error-messages="stores.errorMessage.value"
 				/>
-				<div v-if="stores.length">
-					<p>Preview ({{ stores.length }})</p>
+				<div v-if="stores.value.value.length">
+					<p>Preview ({{ stores.value.value.length }})</p>
 					<v-divider class="mt-1 mb-4" />
 					<v-sheet
 						v-for="store in selectedStoreDetail"
@@ -135,39 +145,71 @@
 							density="comfortable"
 							size="small"
 							:style="{ position: 'absolute', top: '8px', right: '8px' }"
-							@click="pull(stores, store.id)"
 						/>
 					</v-sheet>
 				</div>
 			</v-col>
 		</v-row>
-	</v-sheet>
+		<template #actions>
+			<molecule-btn-keep-and-close @click="show = false" />
+			<molecule-btn-save-dialog
+				:disabled="!isEmpty(errors) || isNotChanged"
+				@click="onSave"
+			/>
+		</template>
+	</molecule-dialog>
 </template>
 
 <script setup lang="ts">
+import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
 import { mdiClose } from '@mdi/js'
 import pull from 'lodash/pull'
-import { AccountAdminListItem } from '~/models'
+import { useField, useForm } from 'vee-validate'
+import { CreateAccountAdminModel, createAccountAdminSchema } from '~/models'
 
-const accountId = useRoute().params.accountId as string
-const roles = ref<string[]>([])
-const stores = ref<string[]>([])
+const { handleSubmit, handleReset, errors } = useForm<CreateAccountAdminModel>({
+	validationSchema: createAccountAdminSchema,
+})
 
-const accountAdminList = useAccountAdminList()
+const initData: CreateAccountAdminModel = {
+	username: '',
+	name: '',
+	roles: [],
+	stores: [],
+}
+
+const show = defineModel<boolean>('show', { default: false, local: true })
+const username = useField<string>('username', undefined, {
+	initialValue: initData.username,
+})
+const name = useField<string>('name', undefined, {
+	initialValue: initData.name,
+})
+const roles = useField<string[]>('roles', undefined, {
+	initialValue: initData.roles,
+})
+const stores = useField<string[]>('stores', undefined, {
+	initialValue: initData.stores,
+})
+
+const isNotChanged = computed(() => {
+	return isEqual(initData, {
+		username: username.value.value,
+		name: name.value.value,
+		roles: roles.value.value,
+		stores: stores.value.value,
+	})
+})
+
 const roleListStore = useAccountAdminRoleList()
 const storeListStore = useStoreList()
-const updateAccountStore = useUpdateAccountStore()
-const { data } = storeToRefs(useResetPasswordStore())
 
-const accountDetail = computed<AccountAdminListItem>(() => {
-	return accountAdminList.accountMap.get(accountId)!
+watch(roles.value, value => {
+	roles.value.value = value.toSorted()
 })
-
-watch(roles, value => {
-	roles.value = value.toSorted()
-})
-watch(stores, value => {
-	stores.value = value.toSorted()
+watch(stores.value, value => {
+	stores.value.value = value.toSorted()
 })
 
 const roleSelectItems = computed(() => {
@@ -176,7 +218,6 @@ const roleSelectItems = computed(() => {
 		value: role.id,
 	}))
 })
-
 const storeSelectItems = computed(() => {
 	return storeListStore.items.map(store => ({
 		title: store.name,
@@ -185,26 +226,11 @@ const storeSelectItems = computed(() => {
 	}))
 })
 
-onBeforeMount(() => {
-	if (!accountDetail.value) {
-		roleListStore.refresh()
-	} else {
-		roles.value = accountDetail.value.roles
-		stores.value = accountDetail.value.stores
-	}
+const selectedStoreDetail = computed(() => {
+	return stores.value.value.map(
+		storeId => storeListStore.items.find(item => item.id === storeId)!
+	)
 })
-watch(
-	() => accountDetail.value,
-	value => {
-		if (!value) {
-			throw createError({ statusCode: 404, statusMessage: 'Account not found' })
-		} else {
-			roles.value = value.roles
-			stores.value = value.stores
-		}
-	}
-)
-
 const getRolePermissionShortDescription = (roleId: string) => {
 	const role = roleListStore.roleMap.get(roleId)
 	if (!role) return null
@@ -226,15 +252,37 @@ const getRolePermissionShortDescription = (roleId: string) => {
 	)
 }
 
-const selectedStoreDetail = computed(() => {
-	return stores.value.map(
-		storeId => storeListStore.items.find(item => item.id === storeId)!
-	)
-})
+const body = ref<CreateAccountAdminModel>(initData)
+const createAccountAdmin = useRequest<{ username: string; password: string }>(
+	'/account-admin/create',
+	{
+		method: 'POST',
+		body,
+		immediate: false,
+		transform: input => input.data,
+	}
+)
+const { push } = useAlert()
 
-useListener('save-account-edit', async () => {
-	await updateAccountStore.executeWithPayload(roles.value, stores.value)
-	accountAdminList.refresh()
-	useRouter().push('/account')
+const onSave = handleSubmit(async values => {
+	body.value = values
+	await createAccountAdmin.execute()
+	if (createAccountAdmin.data.value) {
+		push({
+			text: 'Tạo admin mới thành công',
+			description: `Username: ${createAccountAdmin.data.value.username}\nPassword: ${createAccountAdmin.data.value.password}`,
+			type: 'success',
+			duration: 5000,
+		})
+		show.value = false
+		useAccountAdminList().refresh()
+	} else {
+		push({
+			text: 'Tạo admin mới thất bại',
+			description: createAccountAdmin.error.value?.message ?? undefined,
+			type: 'error',
+			duration: 15000,
+		})
+	}
 })
 </script>

@@ -9,7 +9,7 @@ export type CurrentAdminType = {
 	username: string
 	name: string
 	avatar: string
-	role: string[]
+	roles: string[]
 	updatePassword?: boolean
 }
 export const useAuthStore = defineStore('authentication', () => {
@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('authentication', () => {
 			username: '',
 			name: '',
 			avatar: '',
-			role: [],
+			roles: [],
 		}),
 		maxAge: 60 * 60 * 24 * 365,
 	})
@@ -84,7 +84,7 @@ export const useAuthStore = defineStore('authentication', () => {
 			username: '',
 			name: '',
 			avatar: '',
-			role: [],
+			roles: [],
 		}
 	}
 

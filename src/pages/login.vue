@@ -129,13 +129,16 @@ const onSubmit = async () => {
 		error.value = null
 		authStore.setAuthData(data.value)
 		savedAccount.value = loginData
-		$router.push(authStore.callbackUrl || '/')
+		if (data.value.user.updatePassword) {
+			$router.push({ path: '/update-password' })
+			localStorage.setItem('oldPassword', password.value)
+		} else {
+			$router.push(authStore.callbackUrl || '/')
+		}
 	} else {
 		error.value = _error.value?.message
 	}
 }
 
-const required = (v: string) => !!v || 'Field is required'
+const required = (v: string) => !!v || 'Bắt buộc'
 </script>
-
-<style scoped></style>

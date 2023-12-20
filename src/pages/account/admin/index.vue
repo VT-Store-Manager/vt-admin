@@ -3,10 +3,15 @@
 		<template #title-right>
 			<molecule-btn-refresh
 				title="Làm mới"
+				class="mr-3"
 				@click="accountListStore.refresh"
 			/>
+			<molecule-btn-create @click="showCreateDialog = true">
+				Tạo mới
+			</molecule-btn-create>
 		</template>
 		<template-account-admin-list />
+		<template-account-admin-create-dialog v-model:show="showCreateDialog" />
 	</molecule-list-page-container>
 </template>
 
@@ -16,6 +21,7 @@ import { AccountAdminRoleItem, StoreListItemModel } from '~/models'
 const { roleMap } = storeToRefs(useAccountAdminRoleList())
 const { storeMap } = storeToRefs(useStoreList())
 const accountListStore = useAccountAdminList()
+const showCreateDialog = ref(false)
 
 if (!accountListStore.data) {
 	accountListStore.refresh()

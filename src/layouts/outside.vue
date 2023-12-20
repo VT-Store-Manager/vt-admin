@@ -21,7 +21,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-image: url('https://www.barniescoffee.com/cdn/shop/articles/bar-1869656_1920.jpg?v=1660683986');
+		background-image: url('/img/default/bg_outside.webp');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;

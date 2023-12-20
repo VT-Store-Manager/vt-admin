@@ -16,7 +16,7 @@
 			<p class="account-info__name">
 				<b>{{ currentAdmin.name }}</b>
 			</p>
-			<p class="account-info__role">{{ currentAdmin.role.join(', ') }}</p>
+			<p class="account-info__role">{{ currentAdmin.roles.join(', ') }}</p>
 		</div>
 		<v-menu
 			location="bottom right"
@@ -66,8 +66,8 @@ const { accountMap } = storeToRefs(useAccountAdminList())
 
 const avatar = computed(() => {
 	return (
-		accountMap.value.get(currentAdmin.value.id)?.avatar ||
-		currentAdmin.value.avatar ||
+		accountMap.value.get(currentAdmin.value.id)?.avatar ??
+		currentAdmin.value.avatar ??
 		''
 	)
 })

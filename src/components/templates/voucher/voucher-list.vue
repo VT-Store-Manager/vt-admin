@@ -13,7 +13,7 @@
 				<template #default="{ isHovering: hoveringName, props: nameProps }">
 					<atom-link
 						:to="'/voucher/' + item.id"
-						class="d-flex align-center"
+						class="d-flex align-center prevent-event"
 						v-bind="nameProps"
 					>
 						<atom-img

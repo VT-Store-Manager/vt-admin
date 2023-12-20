@@ -21,6 +21,10 @@ export const objectIdPattern = /^[a-f\d]{24}$/i
 export const viPhoneNumberPattern = /^(((\+?84)|0)[235789])([0-9]{8})$/
 export const s3KeyPattern =
 	/^([a-zA-Z0-9_-]+\/){0,}[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}(.[a-z]+)?$/
+
+export const adminPasswordPattern =
+	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#\$%^&\*\_,\.\?])[A-Za-z\d~!@#\$%^&\*\_,\.\?]{8,}$/
+
 /** ENUMERATION */
 export enum AppTheme {
 	DARK = 'dark',

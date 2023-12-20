@@ -41,7 +41,7 @@
 				</atom-link>
 				<div
 					v-if="hasSubnav"
-					:class="{ 'subnav-show': showSubNav }"
+					:class="{ 'subnav-show': showSubNav && !isDisabled }"
 					class="subnav my-1 rounded-lg"
 					v-bind="hoverProps"
 				>
