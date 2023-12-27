@@ -111,11 +111,11 @@
 								<p>Total price:</p>
 							</div>
 							<div
-								v-if="item.voucher.discount || item.fee !== item.originalFee"
+								v-if="item.voucher?.discount || item.fee !== item.originalFee"
 								class="price-original-price mr-1"
 							>
 								<p
-									v-if="item.voucher.discount"
+									v-if="item.voucher?.discount"
 									class="text-decoration-line-through text-right"
 								>
 									{{
@@ -165,13 +165,13 @@
 
 <script lang="ts" setup>
 import { TableHeader } from '~/types'
-import { ProductListItemModel } from '~/models'
+import { OrderHistoryItem } from '~/models'
 
 const orderHistory = useOrderHistory()
 const { items, totalCount, pending, pagination } = storeToRefs(orderHistory)
 const { updatePage } = orderHistory
 
-const headers = computed<TableHeader<ProductListItemModel>[]>(() => {
+const headers = computed<TableHeader<OrderHistoryItem>[]>(() => {
 	return [
 		{
 			title: 'Code',

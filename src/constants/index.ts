@@ -118,3 +118,10 @@ export enum ImageType {
 	INTERNAL = 'internal',
 	EXTERNAL = 'external',
 }
+
+export enum NotificationType {
+	OTHER = -1,
+	ORDER = 0,
+	VOUCHER = 1,
+	PROMOTION = 2,
+}

@@ -7,7 +7,7 @@
 		}"
 	>
 		<label
-			class="sheet-label font-weight-bold text-center px-3"
+			class="sheet-label font-weight-bold text-center px-3 d-flex align-center"
 			:class="[
 				`text-${labelFontSize}px`,
 				`text-${labelColor}`,
@@ -21,7 +21,15 @@
 				top: `${-labelKnob}px`,
 			}"
 		>
-			{{ label }}
+			<slot name="icon">
+				<v-icon
+					v-if="icon"
+					:icon="icon"
+					size="20px"
+					class="mr-2"
+				/>
+			</slot>
+			<span> {{ label }}</span>
 		</label>
 		<slot></slot>
 	</v-sheet>
@@ -36,6 +44,7 @@ interface Props {
 	labelFontSize?: number
 	labelHeight?: number
 	sheetRound?: number
+	icon?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {

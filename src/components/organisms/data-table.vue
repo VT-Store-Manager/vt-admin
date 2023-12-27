@@ -4,6 +4,7 @@
 		<div
 			class="table-wrapper elevation-3"
 			:class="{ 'pb-15': pagination }"
+			v-bind="wrapperProps"
 		>
 			<atom-table
 				class="table-inner"
@@ -138,6 +139,7 @@ interface Props {
 	totalItemAmount?: number
 	loading?: boolean
 	itemKey?: string
+	wrapperProps?: Record<string, any>
 	updatePageFn?: (_pagination: Pagination) => void
 }
 
@@ -145,6 +147,7 @@ const props = withDefaults(defineProps<Props>(), {
 	headers: () => [],
 	loading: false,
 	itemKey: 'id',
+	wrapperProps: () => ({}),
 })
 defineSlots<Record<string, (props: { item: T }) => any>>()
 defineEmits<{ (e: 'deleteItem', item: T): void }>()
