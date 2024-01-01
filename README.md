@@ -2,41 +2,27 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+## Requirements
 
-Make sure to install the dependencies:
+- NodeJS from v16: `node>=16.x` [install now](https://nodejs.org/en/download)
+- PNPM package manager: `pnpm>=8.x` [install now](https://pnpm.io/installation)
+
+## How to run ?
+
+#### Installation
 
 ```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
 pnpm install
 ```
 
-## Development Server
-
-Start the development server on http://localhost:3000
+#### Build
 
 ```bash
-npm run dev
+NODE_ENV=production pnpm build
 ```
 
-## Production
-
-Build the application for production:
+#### Run (with production mode)
 
 ```bash
-npm run build
+NODE_ENV=production pnpm preview
 ```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
