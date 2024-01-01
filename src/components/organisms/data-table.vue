@@ -1,6 +1,9 @@
 <template>
 	<div class="data-table bg-white overflow-hidden">
-		<molecule-interval-progress-linear :loading="loading" />
+		<molecule-interval-progress-linear
+			:loading="loading"
+			:class="[loading ? 'opacity-10' : 'opacity-0']"
+		/>
 		<div
 			class="table-wrapper elevation-3"
 			:class="{ 'pb-15': pagination }"
@@ -128,7 +131,7 @@
 import _get from 'lodash/get'
 import isObject from 'lodash/isObject'
 import { mdiMenuDown } from '@mdi/js'
-import { Pagination, TableHeader } from '~/types'
+import type { Pagination, TableHeader } from '~/types'
 
 interface Props {
 	headers: TableHeader<T>[]

@@ -35,16 +35,18 @@ const hasBack = ref(false)
 const { $router } = useNuxtApp()
 const route = $router.currentRoute
 
-const checkBackExist = () => {
-	return window?.history.state?.back && route.value.path !== '/'
-}
+if (process.client) {
+	const checkBackExist = () => {
+		return window?.history.state?.back && route.value.path !== '/'
+	}
 
-onMounted(() => {
-	hasBack.value = checkBackExist()
-})
-$router.afterEach(() => {
-	hasBack.value = checkBackExist()
-})
+	onMounted(() => {
+		hasBack.value = checkBackExist()
+	})
+	$router.afterEach(() => {
+		hasBack.value = checkBackExist()
+	})
+}
 </script>
 
 <style lang="scss" scoped>

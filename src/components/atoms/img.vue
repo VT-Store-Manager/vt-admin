@@ -1,18 +1,8 @@
 <template>
 	<v-img
-		v-bind="{ ...imgAttribute, src: formattedSrc }"
+		v-bind="{ ...imgAttribute, src: formattedSrc, srcset: rightAltSrc[0] }"
 		class="img overflow-hidden"
 	>
-		<template
-			v-if="rightAltSrc.length"
-			#sources
-		>
-			<source
-				v-for="(_src, index) in rightAltSrc"
-				:key="index"
-				:srcset="_src"
-			/>
-		</template>
 		<template
 			v-if="$slots.placeholder"
 			#placeholder

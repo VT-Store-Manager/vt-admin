@@ -18,12 +18,15 @@ export const momentTimezoneName = 'Asia/Ho_Chi_Minh'
 export const codePattern = /^[A-Z0-9]+$/
 export const usernamePattern = /^[a-zA-Z0-9_.-]{3,}$/
 export const objectIdPattern = /^[a-f\d]{24}$/i
-export const viPhoneNumberPattern = /^(((\+?84)|0)[235789])([0-9]{8})$/
+export const viPhoneNumberPattern = /^(((\+?84)|0)[235789])(\d{8})$/
 export const s3KeyPattern =
-	/^([a-zA-Z0-9_-]+\/){0,}[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}(.[a-z]+)?$/
+	/^([a-zA-Z0-9_-]+\/)*[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}(.[a-z]+)?$/
 
 export const adminPasswordPattern =
 	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#\$%^&\*\_,\.\?])[A-Za-z\d~!@#\$%^&\*\_,\.\?]{8,}$/
+
+export const urlPattern =
+	/(^https?:\/\/)|(^data:([-\w]+\/[-+\w.]+)?(;?\w+=[-\w]+)*(;base64)?,.*)/
 
 /** ENUMERATION */
 export enum AppTheme {

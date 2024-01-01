@@ -45,6 +45,10 @@ export default defineNuxtConfig({
 				},
 			},
 		},
+		// build: {
+		// 	chunkSizeWarningLimit: 1024,
+		// 	sourcemap: 'hidden',
+		// },
 		vue: {
 			script: {
 				defineModel: true,
@@ -81,7 +85,6 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'@vueuse/nuxt',
 		'@nuxt/devtools',
-		// '@nuxtjs/critters',
 	],
 	googleFonts: {
 		families: {
@@ -90,7 +93,6 @@ export default defineNuxtConfig({
 			},
 		},
 		display: 'fallback',
-		preconnect: true,
 		preload: true,
 		download: false,
 	},

@@ -18,16 +18,15 @@
 					>
 						<atom-img
 							class="mr-4 my-2 rounded small-img-shadow"
-							:src="item.image"
+							:src="item.image || item.voucher.images[0]"
 							:alt-src="item.voucher.images"
 							height="60"
+							width="60"
 							:max-width="60"
-							:aspect-ratio="1"
 							cover
 							:class="{ 'hover-blur': hoveringName }"
 							server-img
 							server-alt-img
-							:style="{ width: '40px' }"
 							placeholder="progress"
 						/>
 						<div class="d-flex flex-column justify-center py-1">
