@@ -16,9 +16,7 @@ export default defineNuxtPlugin(({ vueApp }) => {
 			.component(Can.name, Can)
 	}
 
-	watch(abilityStore.abilityList, () => {
-		loadAbility()
-	})
+	watch(abilityStore.abilityList, loadAbility)
 
 	loadAbility()
 

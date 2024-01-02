@@ -122,7 +122,8 @@ const onSubmit = async () => {
 			duration: 3000,
 		})
 		localStorage.removeItem('oldPassword')
-		router.push(
+
+		useRouter().push(
 			['/login', '/update-password'].includes(callbackUrl.value) ||
 				!callbackUrl.value
 				? '/'

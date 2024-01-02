@@ -101,7 +101,7 @@
 									class="unavailable-list"
 								>
 									<v-hover
-										v-for="item in storeData.unavailableGoods.product"
+										v-for="item in displayUnavailableData.product"
 										:key="item.id"
 									>
 										<template
@@ -113,7 +113,7 @@
 											>
 												<atom-img
 													class="mr-4 my-2 rounded small-img-shadow"
-													:src="item.image"
+													:src="item.images[0]"
 													height="40"
 													:max-width="40"
 													:aspect-ratio="1"
@@ -132,7 +132,7 @@
 														{{ item.name }}
 													</span>
 													<atom-link
-														:to="`/product/category/${item.category}`"
+														:to="`/product/category/${item.categoryId}`"
 														class="text-12px"
 														highlight-hover
 													>
@@ -157,7 +157,7 @@
 									class="unavailable-list"
 								>
 									<v-hover
-										v-for="item in storeData.unavailableGoods.category"
+										v-for="item in displayUnavailableData.category"
 										:key="item.id"
 									>
 										<template
@@ -188,7 +188,7 @@
 														{{ item.name }}
 													</span>
 													<span class="text-12px">
-														{{ item.amountOfProduct }} sản phẩm
+														{{ item.countProduct }} sản phẩm
 													</span>
 												</div>
 											</atom-link>
@@ -209,7 +209,7 @@
 									class="unavailable-list"
 								>
 									<v-hover
-										v-for="item in storeData.unavailableGoods.option"
+										v-for="item in displayUnavailableData.option"
 										:key="item.id"
 									>
 										<template
@@ -257,6 +257,22 @@ const fullAddress = computed(() => {
 
 	const { street, ward, district, country } = storeData.value.address
 	return [street, ward, district, country].filter(s => !!s).join(', ')
+})
+
+const allProductData = useAllShortProduct()
+
+const displayUnavailableData = computed(() => {
+	return {
+		product: allProductData.data.product.filter(item =>
+			storeData.value?.unavailableGoods.product.includes(item.id)
+		),
+		category: allProductData.data.category.filter(item =>
+			storeData.value?.unavailableGoods.category.includes(item.id)
+		),
+		option: allProductData.data.option.filter(item =>
+			storeData.value?.unavailableGoods.option.includes(item.id)
+		),
+	}
 })
 </script>
 

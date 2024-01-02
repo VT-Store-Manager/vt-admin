@@ -384,14 +384,14 @@ const onOpenEdit = (type: EditType) => {
 const isNotChanged = computed(() => {
 	return isEqual(
 		{
-			product: initData.value.product.sort(),
-			category: initData.value.category.sort(),
-			option: initData.value.option.sort(),
+			product: initData.value.product.toSorted(),
+			category: initData.value.category.toSorted(),
+			option: initData.value.option.toSorted(),
 		},
 		{
-			product: afterUpdatedGoods.product.sort(),
-			category: afterUpdatedGoods.category.sort(),
-			option: afterUpdatedGoods.option.sort(),
+			product: afterUpdatedGoods.product.toSorted(),
+			category: afterUpdatedGoods.category.toSorted(),
+			option: afterUpdatedGoods.option.toSorted(),
 		}
 	)
 })

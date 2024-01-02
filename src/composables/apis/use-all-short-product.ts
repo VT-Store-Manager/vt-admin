@@ -18,7 +18,7 @@ export const useAllShortProduct = defineStore('all-short-product', () => {
 				products: [],
 				categories: [],
 				options: [],
-			}
+			} as any
 		return _data.value
 	})
 

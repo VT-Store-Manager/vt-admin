@@ -36,6 +36,7 @@ import {
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
 import maxBy from 'lodash/maxBy'
+import { StatisticOrderAmountTime } from '~/models'
 ChartJS.register(
 	CategoryScale,
 	LinearScale,
@@ -49,29 +50,69 @@ ChartJS.register(
 const { data, pending } = storeToRefs(useStatisticOrderAmount())
 const { $createGradientCanvas } = useNuxtApp()
 
+const type = ref<StatisticOrderAmountTime>('day')
+
 const chartData = computed<ChartData<'line', number[], string>>(() => {
 	return {
-		labels: data.value ? Object.keys(data.value.day) : [],
+		labels: data.value ? ['', ...Object.keys(data.value[type.value])] : [],
 		datasets: [
 			{
+				label: 'Tổng cộng',
+				data: [
+					0,
+					...Object.values(data.value?.[type.value] || {}).map(
+						order => order.totalProfit
+					),
+				],
+				borderColor: '#ef6c00',
+				borderWidth: 1.5,
+				fill: true,
+				backgroundColor: $createGradientCanvas('#ef6c00'),
+			},
+			{
 				label: 'Giao hàng',
-				data: Object.values(data.value?.day || {}).map(
-					order => order.totalProfit - order.totalDeliveryOrderProfit
-				),
+				data: [
+					0,
+					...Object.values(data.value?.[type.value] || {}).map(
+						order => order.totalDeliveryOrderProfit
+					),
+				],
 				borderColor: '#797DF2',
 				borderWidth: 1.5,
 				fill: true,
 				backgroundColor: $createGradientCanvas('#797DF2'),
+				hidden: true,
+			},
+			{
+				label: 'Đến lấy',
+				data: [
+					0,
+					...Object.values(data.value?.[type.value] || {}).map(
+						order => order.totalPickupOrderProfit
+					),
+				],
+				borderColor: '#49a096',
+				borderWidth: 1.5,
+				fill: true,
+				backgroundColor: $createGradientCanvas('#49a096'),
+				hidden: true,
 			},
 			{
 				label: 'Đến cửa hàng',
-				data: Object.values(data.value?.day || {}).map(
-					order => order.totalDeliveryOrderProfit
-				),
+				data: [
+					0,
+					...Object.values(data.value?.[type.value] || {}).map(
+						order =>
+							order.totalProfit -
+							order.totalPickupOrderProfit -
+							order.totalDeliveryOrderProfit
+					),
+				],
 				borderColor: '#FE7AAA',
 				borderWidth: 1.5,
 				fill: true,
 				backgroundColor: $createGradientCanvas('#FE7AAA'),
+				hidden: true,
 			},
 		],
 	}
@@ -84,7 +125,7 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 		interaction: {
 			intersect: false,
 		},
-		tension: 0.3,
+		tension: 0.4,
 		elements: {
 			point: {
 				radius: 0,
@@ -162,9 +203,9 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 					label(tooltipItems) {
 						return `${tooltipItems.dataset.label}: ${tooltipItems.formattedValue} đ`
 					},
-					title([tooltipItem]) {
-						return `Ngày ${tooltipItem.label}`
-					},
+					// title([tooltipItem]) {
+					// 	return tooltipItem.label ? `Ngày ${tooltipItem.label}` : ''
+					// },
 				},
 				bodyFont: {
 					family: 'Noto Sans',
@@ -180,7 +221,8 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 
 const getMaxValue = () => {
 	const maxValue =
-		maxBy(Object.values(data.value?.day || {}), 'totalProfit')?.totalProfit || 0
+		maxBy(Object.values(data.value?.[type.value] || {}), 'totalProfit')
+			?.totalProfit || 0
 	const unit = 200000
 	return unit * Math.ceil(maxValue / unit)
 }

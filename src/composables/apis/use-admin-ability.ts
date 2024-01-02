@@ -18,7 +18,7 @@ export const useAdminAbility = definePiniaStore('admin-ability', () => {
 
 	const abilityList = computed<ResponseData>(() => {
 		return (
-			data.value ||
+			data.value ??
 			({
 				id: '',
 				stores: [],

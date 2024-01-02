@@ -6,6 +6,7 @@ export type OrderCountItem = {
 	deliveryCount: number
 	memberOrderCount: number
 	totalProfit: number
+	totalPickupOrderProfit: number
 	totalDeliveryOrderProfit: number
 }
 
@@ -14,3 +15,5 @@ export type StatisticOrderAmountModel = {
 	month: Record<string, OrderCountItem>
 	day: Record<string, OrderCountItem>
 }
+
+export type StatisticOrderAmountTime = keyof StatisticOrderAmountModel
